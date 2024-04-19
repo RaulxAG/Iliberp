@@ -1,0 +1,14 @@
+.mainInicio {
+    background-color: $colorBlack;
+    height: 100vh;
+    color: white;
+    font-weight: bold;
+}
+
+.mainInicio__barraLateral {
+    text-align: center;
+    background-color: $colorGray;
+    width: 10vh;
+    height: 99vh;
+    border-radius: 10px;
+}
