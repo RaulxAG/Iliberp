@@ -11,22 +11,22 @@ export default function Menu({ selected }) {
         </section>
         <section className="menuLateral__enlaces">
             <ul>
-                <li className={selected === "inicio" ? "selected" : ""}>
+                <li className={selected === "inicio" ? "selected" : ""} >
                     <a href="#">
                         <i className="fa-solid fa-house"></i>
                     </a>
                 </li>
-                <li className={selected === "incidencias" ? "selected" : ""}>
-                    <a href="#">
+                <li>
+                    <a href="#" className={selected === "incidencias" ? "selected" : ""} >
                         <i className="fa-solid fa-triangle-exclamation"></i>
                     </a>
                 </li>
-                <li className={selected === "mensajeria" ? "selected" : ""}>
-                    <a href="#">
+                <li>
+                    <a href="#" className={selected === "mensajeria" ? "selected" : ""} >
                         <i className="fa-solid fa-comments"></i>
                     </a>
                 </li>
-                <li className={selected === "tienda" ? "selected" : ""}>
+                <li className={selected === "tienda" ? "selected" : ""} >
                     <a href="#">
                         <i className="fa-solid fa-shop"></i>
                     </a>
