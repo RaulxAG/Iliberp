@@ -10,6 +10,13 @@ body {
   background-color: #1E2225;
 }
 
+.contenedor {
+  width: 100%;
+  height: 96vh;
+  display: flex;
+  margin: 0 0.5rem;
+}
+
 .mainInicio {
   background-color: #1E2225;
   height: 100vh;
@@ -54,6 +61,7 @@ body {
   background-color: #1E2225;
 }
 .menuLateral .menuLateral__enlaces ul a {
+  font-size: larger;
   border-radius: 100%;
   padding: 1rem;
   text-decoration: none;
@@ -72,11 +80,81 @@ body {
 
 .mainIncidencias {
   color: #F8F8F8;
-  display: flex;
-  height: 97vh;
 }
 .mainIncidencias .mainIncidencias__contenedor {
-  width: 93vw;
+  width: 94vw;
+}
+.mainIncidencias .mainIncidencias__formulario {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(85, 89, 91, 0.4);
+  border-radius: 15px;
+  width: 80%;
+}
+.mainIncidencias .mainIncidencias__formulario h4 {
+  border-radius: 15px 0 0 15px;
+  text-transform: uppercase;
+  align-self: flex-end;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  font-weight: bold;
+  width: 50%;
+}
+.mainIncidencias .mainIncidencias__formulario > div {
+  font-weight: bold;
+  width: 90%;
+  margin: 0 auto;
+}
+.mainIncidencias .mainIncidencias__formulario .formulario__input {
+  padding-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.mainIncidencias .mainIncidencias__formulario .formulario__input input, .mainIncidencias .mainIncidencias__formulario .formulario__input textarea, .mainIncidencias .mainIncidencias__formulario .formulario__input select {
+  border-radius: 15px;
+  border: 0px;
+  padding: 0.5rem;
+  color: #F8F8F8;
+  background-color: #1E2225;
+}
+.mainIncidencias .mainIncidencias__formulario .formulario__inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mainIncidencias .formulario__acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 20%;
+}
+.mainIncidencias .formulario__acciones img {
+  width: 40%;
+}
+.mainIncidencias .formulario__acciones > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.mainIncidencias .formulario__acciones > div input {
+  margin-top: 1.2rem;
+  padding: 0.5rem;
+  font-size: x-large;
+  font-weight: bold;
+  color: #F8F8F8;
+  border: 0px;
+  border-radius: 15px;
+  width: 80%;
+}
+.mainIncidencias .formulario__acciones > div #submit {
+  background-color: #30a846 !important;
+}
+.mainIncidencias .formulario__acciones > div #reset {
+  background-color: #c93333 !important;
 }
 
 /*# sourceMappingURL=main.css.map */
