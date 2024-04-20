@@ -1,0 +1,53 @@
+.menuLateral {
+    padding: 1rem 0;
+    width: 6vw;
+    height: 100%;
+    background-color: $colorGray;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    border-radius: 15px;
+
+    .menuLateral__enlaces ul {
+        list-style: none;
+        padding: 0;
+    
+        li {
+            width: 100%;
+            text-align: center;
+            padding: 40%;
+            margin: 1rem 0;
+            font-size: x-large;
+        }
+
+        li:hover {
+            background-color: $colorBlack
+        }
+
+        .selected {
+            background-color: $colorBlack;
+        }
+    
+        a {
+            border-radius: 100%;
+            text-decoration: none;
+            color: $colorOrange;
+            display: flex;
+        }
+    }
+
+    .menuLateral__profile img {
+        object-fit: contain;
+        width: 50%;
+        margin-bottom: .5rem;
+    }
+
+    .menuLateral__logo img {
+        object-fit: contain;
+        width: 40%;
+        margin-top: .5rem;
+    }
+}
