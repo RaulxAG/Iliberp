@@ -1,0 +1,70 @@
+.contenedorTienda{
+    width: 100%;
+    height: 96vh;
+    margin-left: 2vh;
+    display: flex;
+    flex-direction: column;
+
+    .categorias{
+        display: flex;
+        justify-content: center;
+        gap: 3vh;
+        
+        section{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            color: $colorWhite;
+
+            h3{
+                font-size: 21px;
+                background-color: $colorGray;
+                padding: 30px 50px;
+                border-radius: 10px;
+                position: relative;
+                margin-top: 10vh;
+            }
+
+            .iconoCateg{
+                width: 7vh;
+                height: 7vh;
+                
+                border-radius: 1vh;
+                background-image: $gradient;
+                padding: 1vh;
+                text-align: center;
+
+                position: absolute;
+                top: 16vh;
+                z-index: 1;
+
+                
+                i{
+                    font-size: 3vh;
+                    line-height: 5vh;
+                }
+            }
+        }
+    }
+    
+    .productos{
+        margin: 5vh 15vh;
+        margin-bottom: 3vh;
+        background-color: $colorGray;
+        display: flex;
+        justify-content: center;
+        gap: 3%;
+        flex-wrap: wrap;
+        max-height: 100%;
+        overflow-y:auto ;
+
+        .producto{
+            width: 30vh;
+            margin: 3%;
+            img{
+                width: 100%;
+            }
+        }
+    }
+    
+}

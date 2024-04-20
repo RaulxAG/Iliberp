@@ -7,3 +7,33 @@
 body {
     font-family: $fontRaleway;
 }
+
+.contenedor{
+    padding: 2vh;
+    background-color: $colorBlack;
+    display: flex;
+}
+
+.box{
+    background-color: $colorGray;
+    border-radius: 10px;
+    padding: 1vh;
+}
+
+.tittle{
+    color: $colorWhite;
+    text-align: center;
+    position: relative;
+    padding-top: 3vh;
+
+    &::after{
+        content: ""; 
+        position: absolute; 
+        bottom: -1vh; 
+        left: 0; 
+        width: 50%; 
+        height: 2px; 
+        background-image: $gradient;
+        transform: translateX(50%);
+    }
+}
