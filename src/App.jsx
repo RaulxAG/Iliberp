@@ -6,7 +6,7 @@ import Inidencias from './Pages/Incidencias'
 function App() {
   return (
     <>
-      {/* <Inicio></Inicio> */}
+      <Inicio></Inicio>
       <Inidencias></Inidencias>
     </>
   )

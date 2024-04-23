@@ -1,29 +1,39 @@
 * {
-  margin: 0 !important;
+  margin: 0;
   padding: 0;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Raleway";
-  background-color: #1E2225;
 }
 
-.contenedor {
-  width: 100%;
+.containerPrincipal {
   height: 100vh;
-  padding: 0.2rem;
+  background-color: #1E2225;
+  color: white;
   display: flex;
+  gap: 1%;
+  padding: 1%;
+}
+.containerPrincipal .menuLateral {
+  width: 7%;
+  min-width: 70px;
+}
+.containerPrincipal .contenedor {
+  width: 93%;
+  display: flex;
+  flex-direction: column;
 }
 
 .box {
   background-color: rgba(85, 89, 91, 0.4);
   border-radius: 10px;
   padding: 1vh;
-  color: #F8F8F8;
 }
 
 .tittle {
+  font-size: 50px;
   color: #F8F8F8;
   text-align: center;
   position: relative;
@@ -40,19 +50,31 @@ body {
   transform: translateX(50%);
 }
 
-.mainInicio {
-  background-color: #1E2225;
-  height: 100vh;
-  color: white;
-  font-weight: bold;
-}
-
-.mainInicio__barraLateral {
+.mainInicio__modulos {
   text-align: center;
-  background-color: rgba(85, 89, 91, 0.4);
-  width: 10vh;
-  height: 99vh;
-  border-radius: 10px;
+  display: grid;
+}
+.mainInicio__modulos .modulos__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 1%;
+  grid-row-gap: 2%;
+}
+.mainInicio__modulos .modulos__grid .grid_mod1 {
+  grid-area: 1/1/4/5;
+}
+.mainInicio__modulos .modulos__grid .grid_mod2 {
+  grid-area: 1/5/5/7;
+}
+.mainInicio__modulos .modulos__grid .grid_mod3 {
+  grid-area: 4/1/7/3;
+}
+.mainInicio__modulos .modulos__grid .grid_mod4 {
+  grid-area: 4/3/7/5;
+}
+.mainInicio__modulos .modulos__grid .grid_mod5 {
+  grid-area: 5/5/7/7;
 }
 
 .menuLateral .menuLateral__profile {
@@ -63,11 +85,10 @@ body {
 }
 .menuLateral .menuLateral__profile > img.profile__photo {
   object-fit: contain;
-  width: 100%;
-  padding-bottom: 0.5rem;
+  width: 80%;
+  padding: 0.3rem 0;
 }
 .menuLateral .menuLateral__profile p {
-  font-size: large;
   font-weight: 500;
 }
 .menuLateral .menuLateral__logo img {
@@ -82,7 +103,6 @@ body {
 .menuLateral .menuLateral__enlaces ul li {
   text-align: center;
   padding: 30% 0;
-  font-size: x-large;
 }
 .menuLateral .menuLateral__enlaces ul a {
   font-size: larger;
@@ -103,34 +123,6 @@ body {
   color: #F8F8F8;
 }
 
-.mainIncidencias {
-  color: #F8F8F8;
-}
-.mainIncidencias .mainIncidencias__contenedor {
-  width: 94vw;
-}
-.mainIncidencias .mainIncidencias__formulario {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(85, 89, 91, 0.4);
-  border-radius: 15px;
-  width: 80%;
-}
-.mainIncidencias .mainIncidencias__formulario h4 {
-  border-radius: 15px 0 0 15px;
-  text-transform: uppercase;
-  align-self: flex-end;
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
-  font-weight: bold;
-  width: 50%;
-}
-.mainIncidencias .mainIncidencias__formulario > div {
-  font-weight: bold;
-  width: 90%;
-  margin: 0 auto;
-}
 .mainIncidencias .mainIncidencias__formulario .formulario__input {
   padding-bottom: 1.2rem;
   display: flex;
@@ -153,10 +145,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 20%;
 }
-.mainIncidencias .formulario__acciones img {
-  width: 40%;
+.mainIncidencias .formulario__acciones figure img {
+  width: 15%;
+}
+.mainIncidencias .formulario__acciones figure p {
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  font-size: 130%;
 }
 .mainIncidencias .formulario__acciones > div {
   display: flex;

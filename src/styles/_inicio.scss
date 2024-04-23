@@ -1,14 +1,29 @@
-.mainInicio {
-    background-color: $colorBlack;
-    height: 100vh;
-    color: white;
-    font-weight: bold;
-}
-
-.mainInicio__barraLateral {
+.mainInicio__modulos {
     text-align: center;
-    background-color: $colorGray;
-    width: 10vh;
-    height: 99vh;
-    border-radius: 10px;
+    display: grid;
+
+    .modulos__grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-column-gap: 1%;
+        grid-row-gap: 2%;
+
+        .grid_mod1 {
+            grid-area: 1 / 1 / 4 / 5;
+        }
+        .grid_mod2 {
+            grid-area: 1 / 5 / 5 / 7;
+        }
+        .grid_mod3 {
+            grid-area: 4 / 1 / 7 / 3;
+        }
+        .grid_mod4 {
+            grid-area: 4 / 3 / 7 / 5;
+        }
+        .grid_mod5 {
+            grid-area: 5 / 5 / 7 / 7;
+        }
+        
+    }
 }
