@@ -17,3 +17,10 @@ $fontRaleway: "Raleway";
 $dropShadow: -15px -15px 20px rgba(255,255,255,.8), 15px 15px 20px rgba(57,65,124,.08);
 $innerShadow: -2px -2px 5px rgba(255,255,255,.9), 2px 2px 4px rgba(57,65,124,.2);
 $btnShadow: -5px -5px 15px rgba(255,255,255,.9), 5px 5px 15px rgba(60,14,189,.3);
+
+//MIXINS
+@mixin flex-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

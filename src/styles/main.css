@@ -1,20 +1,43 @@
 * {
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 body {
-  padding: 0.5rem;
   font-family: "Raleway";
   background-color: #1E2225;
 }
 
 .contenedor {
   width: 100%;
-  height: 96vh;
+  height: 100vh;
+  padding: 0.2rem;
   display: flex;
-  margin: 0 0.5rem;
+}
+
+.box {
+  background-color: rgba(85, 89, 91, 0.4);
+  border-radius: 10px;
+  padding: 1vh;
+  color: #F8F8F8;
+}
+
+.tittle {
+  color: #F8F8F8;
+  text-align: center;
+  position: relative;
+  padding-top: 3vh;
+}
+.tittle::after {
+  content: "";
+  position: absolute;
+  bottom: -1vh;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  transform: translateX(50%);
 }
 
 .mainInicio {
@@ -32,18 +55,25 @@ body {
   border-radius: 10px;
 }
 
-.menuLateral {
-  padding: 1rem 0;
-  width: 6vw;
-  height: 100%;
-  background-color: rgba(85, 89, 91, 0.4);
-  text-align: center;
+.menuLateral .menuLateral__profile {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  border-radius: 15px;
+  justify-content: center;
+  flex-direction: column;
+}
+.menuLateral .menuLateral__profile > img.profile__photo {
+  object-fit: contain;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+.menuLateral .menuLateral__profile p {
+  font-size: large;
+  font-weight: 500;
+}
+.menuLateral .menuLateral__logo img {
+  object-fit: contain;
+  width: 40%;
+  margin-top: 0.5rem;
 }
 .menuLateral .menuLateral__enlaces ul {
   list-style: none;
@@ -52,13 +82,7 @@ body {
 .menuLateral .menuLateral__enlaces ul li {
   text-align: center;
   padding: 30% 0;
-  font-size: larger;
-}
-.menuLateral .menuLateral__enlaces ul a:hover {
-  background-color: #1E2225;
-}
-.menuLateral .menuLateral__enlaces ul .selected {
-  background-color: #1E2225;
+  font-size: x-large;
 }
 .menuLateral .menuLateral__enlaces ul a {
   font-size: larger;
@@ -66,16 +90,17 @@ body {
   padding: 1rem;
   text-decoration: none;
   color: #e65522;
+  transition: background 0.2s linear;
 }
-.menuLateral .menuLateral__profile img {
-  object-fit: contain;
-  width: 50%;
-  margin-bottom: 0.5rem;
+.menuLateral .menuLateral__enlaces ul a:hover {
+  background-color: #1E2225;
 }
-.menuLateral .menuLateral__logo img {
-  object-fit: contain;
-  width: 40%;
-  margin-top: 0.5rem;
+.menuLateral .menuLateral__enlaces ul .selected {
+  transition: color 0.2s linear;
+  background-color: #1E2225;
+}
+.menuLateral .menuLateral__enlaces ul .selected:hover {
+  color: #F8F8F8;
 }
 
 .mainIncidencias {

@@ -1,15 +1,25 @@
 .menuLateral {
-    padding: 1rem 0;
-    width: 6vw;
-    height: 100%;
-    background-color: $colorGray;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    border-radius: 15px;
+    .menuLateral__profile {
+        @include flex-centered;
+        flex-direction: column;
+
+        >img.profile__photo {
+            object-fit: contain;
+            width: 100%;
+            padding-bottom: .5rem;
+        }
+
+        p {
+            font-size: large;
+            font-weight: 500;
+        }
+    }
+
+    .menuLateral__logo img {
+        object-fit: contain;
+        width: 40%;
+        margin-top: .5rem;
+    }
 
     .menuLateral__enlaces ul {
         list-style: none;
@@ -18,7 +28,16 @@
         li {
             text-align: center;
             padding: 30% 0;
+            font-size: x-large;
+        }
+
+        a {
             font-size: larger;
+            border-radius: 100%;
+            padding: 1rem;
+            text-decoration: none;
+            color: $colorOrange;
+            transition: background .2s linear;
         }
 
         a:hover {
@@ -26,27 +45,12 @@
         }
 
         .selected {
+            transition: color .2s linear;
             background-color: $colorBlack;
         }
-    
-        a {
-            font-size: larger;
-            border-radius: 100%;
-            padding: 1rem;
-            text-decoration: none;
-            color: $colorOrange;
+
+        .selected:hover {
+            color: $colorWhite;
         }
-    }
-
-    .menuLateral__profile img {
-        object-fit: contain;
-        width: 50%;
-        margin-bottom: .5rem;
-    }
-
-    .menuLateral__logo img {
-        object-fit: contain;
-        width: 40%;
-        margin-top: .5rem;
     }
 }
