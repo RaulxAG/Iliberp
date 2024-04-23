@@ -8,10 +8,21 @@ body {
   font-family: "Raleway";
 }
 
-.contenedor {
-  padding: 2vh;
+.containerPrincipal {
+  height: 100vh;
   background-color: #1E2225;
+  color: white;
   display: flex;
+  gap: 1%;
+  padding: 1%;
+}
+.containerPrincipal .menuLateral {
+  width: 18%;
+  min-width: 70px;
+}
+.containerPrincipal .contenedor {
+  display: flex;
+  flex-direction: column;
 }
 
 .box {
@@ -21,6 +32,7 @@ body {
 }
 
 .tittle {
+  font-size: 50px;
   color: #F8F8F8;
   text-align: center;
   position: relative;
@@ -41,7 +53,6 @@ body {
   background-color: #1E2225;
   color: white;
   font-weight: bold;
-  height: 96vh;
 }
 
 .mainInicio__barraLateral {
@@ -52,64 +63,87 @@ body {
   border-radius: 10px;
 }
 
-.contenedorTienda {
-  width: 100%;
-  height: 96vh;
-  margin-left: 2vh;
-  display: flex;
-  flex-direction: column;
-}
-.contenedorTienda .categorias {
+.contenedor .categorias {
   display: flex;
   justify-content: center;
-  gap: 3vh;
+  flex-wrap: wrap;
+  gap: 13vh;
 }
-.contenedorTienda .categorias section {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.contenedor .categorias .categoria {
   color: #F8F8F8;
-}
-.contenedorTienda .categorias section h3 {
-  font-size: 21px;
-  background-color: rgba(85, 89, 91, 0.4);
-  padding: 30px 50px;
-  border-radius: 10px;
   position: relative;
+}
+.contenedor .categorias .categoria__texto {
+  background-color: rgba(85, 89, 91, 0.4);
+  padding: 12px 30px;
+  border-radius: 10px;
   margin-top: 10vh;
 }
-.contenedorTienda .categorias section .iconoCateg {
-  width: 7vh;
+.contenedor .categorias .categoria__texto h3 {
+  font-size: 21px;
+  padding-top: 1vh;
+}
+.contenedor .categorias .categoria__icono {
+  width: 9vh;
   height: 7vh;
   border-radius: 1vh;
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
-  padding: 1vh;
   text-align: center;
+  font-size: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 16vh;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
 }
-.contenedorTienda .categorias section .iconoCateg i {
-  font-size: 3vh;
-  line-height: 5vh;
+.contenedor .categorias .categoria__icono i {
+  font-size: 4vh;
+  line-height: 7vh;
 }
-.contenedorTienda .productos {
-  margin: 5vh 15vh;
+.contenedor .productos {
+  margin: 2vh 5vh;
   margin-bottom: 3vh;
   background-color: rgba(85, 89, 91, 0.4);
   display: flex;
   justify-content: center;
-  gap: 3%;
+  gap: 1%;
   flex-wrap: wrap;
   max-height: 100%;
   overflow-y: auto;
 }
-.contenedorTienda .productos .producto {
-  width: 30vh;
-  margin: 3%;
+.contenedor .productos__producto {
+  width: 40vh;
+  margin: 2% 0px;
+  padding: 2vh;
+  display: flex;
+  flex-direction: column;
 }
-.contenedorTienda .productos .producto img {
-  width: 100%;
+.contenedor .productos__producto img {
+  margin: auto;
+  width: 80%;
+}
+.contenedor .productos__producto h4 {
+  font-size: 16px;
+  text-align: center;
+}
+.contenedor .productos__producto p {
+  font-size: 10px;
+}
+.contenedor .productos__producto .precio {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+.contenedor .productos__producto .precio i {
+  width: 9vh;
+  height: 5vh;
+  border-radius: 1vh;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  padding: 1vh;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,68 +1,95 @@
-.contenedorTienda{
-    width: 100%;
-    height: 96vh;
-    margin-left: 2vh;
-    display: flex;
-    flex-direction: column;
-
+.contenedor{
     .categorias{
         display: flex;
         justify-content: center;
-        gap: 3vh;
+        flex-wrap: wrap;
+        gap: 13vh;
         
-        section{
-            display: flex;
-            align-items: center;
-            flex-direction: column;
+        .categoria{
             color: $colorWhite;
+            position: relative;
 
-            h3{
-                font-size: 21px;
+            &__texto{
                 background-color: $colorGray;
-                padding: 30px 50px;
+                padding: 12px 30px;
                 border-radius: 10px;
-                position: relative;
                 margin-top: 10vh;
+
+                h3{
+                    font-size: 21px;
+                    padding-top: 1vh;
+                }
             }
 
-            .iconoCateg{
-                width: 7vh;
+            &__icono{
+                width: 9vh;
                 height: 7vh;
                 
                 border-radius: 1vh;
                 background-image: $gradient;
-                padding: 1vh;
                 text-align: center;
-
+                font-size: 4vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
                 position: absolute;
-                top: 16vh;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 z-index: 1;
 
-                
                 i{
-                    font-size: 3vh;
-                    line-height: 5vh;
+                    font-size: 4vh;
+                    line-height: 7vh;
                 }
             }
         }
     }
     
     .productos{
-        margin: 5vh 15vh;
+        margin: 2vh 5vh;
         margin-bottom: 3vh;
         background-color: $colorGray;
         display: flex;
         justify-content: center;
-        gap: 3%;
+        gap: 1%;
         flex-wrap: wrap;
         max-height: 100%;
         overflow-y:auto ;
 
-        .producto{
-            width: 30vh;
-            margin: 3%;
+        &__producto{
+            width: 40vh;
+            margin: 2% 0px;
+            padding: 2vh;
+            display: flex;
+            flex-direction: column;
+
             img{
-                width: 100%;
+                margin: auto;
+                width: 80%;
+            }
+            h4{
+                font-size: 16px;
+                text-align: center;
+            }
+            p{
+                font-size: 10px;
+            }
+            .precio{
+                font-weight: bold;
+                display: flex;
+                justify-content: space-between;
+                
+                i{
+                    width: 9vh;
+                    height: 5vh;
+                    
+                    border-radius: 1vh;
+                    background-image: $gradient;
+                    padding: 1vh;
+                    text-align: center;
+                }
             }
         }
     }

@@ -5,9 +5,9 @@ import Tienda  from './Pages/Tienda'
 
 function App() {
   return (
-    <>
+    <div>
       <Tienda></Tienda>
-    </>
+    </div>
   )
 }
 

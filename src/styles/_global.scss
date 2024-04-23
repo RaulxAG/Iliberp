@@ -8,11 +8,26 @@ body {
     font-family: $fontRaleway;
 }
 
-.contenedor{
-    padding: 2vh;
+.containerPrincipal{
+    height: 100vh;
     background-color: $colorBlack;
+    color: white;
     display: flex;
+    gap: 1%;
+    padding: 1%;
+
+    .menuLateral{
+        width: 18%;
+        min-width: 70px;
+    }
+
+    .contenedor{
+        display: flex;
+        flex-direction: column;
+    }
+    
 }
+
 
 .box{
     background-color: $colorGray;
@@ -21,6 +36,7 @@ body {
 }
 
 .tittle{
+    font-size: 50px;
     color: $colorWhite;
     text-align: center;
     position: relative;
