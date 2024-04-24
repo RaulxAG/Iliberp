@@ -1,0 +1,180 @@
+{
+    "productos":[
+        {
+            "id": 1,
+            "nombre": "Asus ROG Strix B460-F Gaming",
+            "descripcion": "Placa base para gaming de la serie ROG Strix.",
+            "precio": 159.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Placa base"
+        },
+        {
+            "id": 2,
+            "nombre": "G34WQC GAMING MONITOR",
+            "descripcion": "Monitor ultrawide de alta definición para gaming.",
+            "precio": 549.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Monitor"
+        },
+        {
+            "id": 3,
+            "nombre": "Galaxy Tab S6 Lite",
+            "descripcion": "Tableta Android con S Pen y pantalla de 10.4 pulgadas.",
+            "precio": 349.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Tableta"
+        },
+        {
+            "id": 4,
+            "nombre": "Gigabyte B650M DS3H",
+            "descripcion": "Placa base Micro ATX de la serie DS3H de Gigabyte.",
+            "precio": 89.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Placa base"
+        },
+        {
+            "id": 5,
+            "nombre": "Lenovo Tab M10 Plus",
+            "descripcion": "Tableta Android con pantalla Full HD de 10.3 pulgadas.",
+            "precio": 229.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Tableta"
+        },
+        {
+            "id": 6,
+            "nombre": "Monitor - SAMSUNG",
+            "descripcion": "Monitor de alta definición de la marca Samsung.",
+            "precio": 199.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Monitor"
+        },
+        {
+            "id": 7,
+            "nombre": "Monitor gaming ROG Strix XG32UQ",
+            "descripcion": "Monitor gaming de alta gama de la serie ROG Strix.",
+            "precio": 799.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Monitor"
+        },
+        {
+            "id": 8,
+            "nombre": "Monitor gaming ROG",
+            "descripcion": "Monitor gaming de la marca ASUS ROG.",
+            "precio": 549.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Monitor"
+        },
+        {
+            "id": 9,
+            "nombre": "Newskill Eos Ivory Ratón Gaming",
+            "descripcion": "Ratón gaming ergonómico con luces RGB.",
+            "precio": 39.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Ratón"
+        },
+        {
+            "id": 10,
+            "nombre": "Newskill Lycan Ratón Gaming",
+            "descripcion": "Ratón gaming con sensor óptico de alta precisión.",
+            "precio": 49.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Ratón"
+        },
+        {
+            "id": 11,
+            "nombre": "Placa Base DS3H B450M",
+            "descripcion": "Placa base Micro ATX de la serie DS3H de Gigabyte.",
+            "precio": 79.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Placa base"
+        },
+        {
+            "id": 12,
+            "nombre": "Portátil gaming Victus",
+            "descripcion": "Portátil gaming con procesador Intel Core y tarjeta gráfica NVIDIA.",
+            "precio": 999.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Portátil"
+        },
+        {
+            "id": 13,
+            "nombre": "Portátil Primux LoxBook 1302F",
+            "descripcion": "Portátil ligero y compacto para uso diario.",
+            "precio": 349.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Portátil"
+        },
+        {
+            "id": 14,
+            "nombre": "Ratón Gaming R.A.T. 4",
+            "descripcion": "Ratón gaming con diseño ergonómico y sensor óptico avanzado.",
+            "precio": 69.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Ratón"
+        },
+        {
+            "id": 15,
+            "nombre": "Ratón inalámbrico MX Master 3s",
+            "descripcion": "Ratón inalámbrico avanzado con conectividad Bluetooth.",
+            "precio": 99.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Ratón"
+        },
+        {
+            "id": 16,
+            "nombre": "Ratón inalámbrico RGB G502 X Plus",
+            "descripcion": "Ratón inalámbrico con iluminación RGB personalizable.",
+            "precio": 79.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Ratón"
+        },
+        {
+            "id": 17,
+            "nombre": "Teclado Ergonómico K201",
+            "descripcion": "Teclado ergonómico con diseño resistente a derrames de líquidos.",
+            "precio": 29.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Teclado"
+        },
+        {
+            "id": 18,
+            "nombre": "Teclado gaming - Krom Kernel",
+            "descripcion": "Teclado gaming con retroiluminación RGB y teclas programables.",
+            "precio": 49.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Teclado"
+        },
+        {
+            "id": 19,
+            "nombre": "Teclado gaming MKXTKL - Mars Gaming",
+            "descripcion": "Teclado gaming mecánico compacto con interruptores Cherry MX.",
+            "precio": 69.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Teclado"
+        },
+        {
+            "id": 20,
+            "nombre": "Teclado USB estándar para ordenador Logitech K120",
+            "descripcion": "Teclado USB estándar con diseño resistente y duradero.",
+            "precio": 19.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Teclado"
+        },
+        {
+            "id": 21,
+            "nombre": "ViewSonic VP2768a",
+            "descripcion": "Monitor IPS de 27 pulgadas con resolución 4K.",
+            "precio": 399.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Monitor"
+        },
+        {
+            "id": 22,
+            "nombre": "Xiaomi Mi Notebook Pro 15",
+            "descripcion": "Portátil ultradelgado con pantalla de 15.6 pulgadas y procesador Intel Core.",
+            "precio": 999.99,
+            "tipoProducto": "Hardware",
+            "tipoHardware": "Portátil"
+        }
+    ]
+}

@@ -1,9 +1,15 @@
 import Menu from '../Components/Menu'
+import Productos from './Productos';
+import { useState,useEffect } from 'react';
 
 import laptopImg from '/assets/img/laptop.png';
 
 export default function Inicio() {
 
+    const [productos, setProductos] = useState([]);
+    const [carrito, setCarrito] = useState([]);
+    
+    console.log(carrito)
     return (
         <div className='containerPrincipal'>
             <Menu selected="incidencias"></Menu>
@@ -45,100 +51,14 @@ export default function Inicio() {
                     </section>
                 </div>
                 <section className="productos box">
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
-                    <div className="productos__producto box">
-                        <img src={laptopImg} alt="laptop" />
-                        <h4>HP Laptop 15-fc0000la</h4>
-                        <p>Descripcion del laptop, que lleva, como funciona y todo esoo</p>
-                        <div className="precio">
-                            <p>495'99€</p>
-                            <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
-                        </div>
-                    </div>
+                      <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito}></Productos> 
                 </section>
+                <div className='carrito rounded-circle '>
+                    <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
+                    <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{carrito.length}</p>
+                </div>
             </div>
         </div>
-        
     );
 
 }

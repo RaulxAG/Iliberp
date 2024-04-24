@@ -84,6 +84,7 @@ body {
   padding-top: 1vh;
 }
 .contenedor .categorias .categoria__icono {
+  cursor: pointer;
   width: 9vh;
   height: 7vh;
   border-radius: 1vh;
@@ -105,45 +106,82 @@ body {
 }
 .contenedor .productos {
   margin: 2vh 5vh;
+  padding: 2vh;
   margin-bottom: 3vh;
   background-color: rgba(85, 89, 91, 0.4);
   display: flex;
   justify-content: center;
-  gap: 1%;
+  gap: 3%;
   flex-wrap: wrap;
   max-height: 100%;
   overflow-y: auto;
 }
 .contenedor .productos__producto {
-  width: 40vh;
-  margin: 2% 0px;
+  width: 42vh;
+  margin-top: 1vh;
   padding: 2vh;
   display: flex;
   flex-direction: column;
 }
 .contenedor .productos__producto img {
   margin: auto;
-  width: 80%;
+  width: 70%;
 }
 .contenedor .productos__producto h4 {
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
 }
-.contenedor .productos__producto p {
-  font-size: 10px;
+.contenedor .productos__producto .producto__descripcion {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.473);
+  font-weight: 500;
 }
-.contenedor .productos__producto .precio {
+.contenedor .productos__producto .producto__precio {
   font-weight: bold;
   display: flex;
+  align-items: center;
+  align-content: center;
   justify-content: space-between;
 }
-.contenedor .productos__producto .precio i {
+.contenedor .productos__producto .producto__precio p {
+  color: #e65522;
+  font-size: 21px;
+  margin: 0 !important;
+}
+.contenedor .productos__producto .producto__precio div {
   width: 9vh;
   height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1vh;
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
-  padding: 1vh;
   text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+}
+.contenedor .carrito {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+.contenedor .carrito__cant {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  color: #1E2225;
+  background-color: #F8F8F8;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -22,6 +22,7 @@
             }
 
             &__icono{
+                cursor: pointer;
                 width: 9vh;
                 height: 7vh;
                 
@@ -49,48 +50,89 @@
     
     .productos{
         margin: 2vh 5vh;
+        padding: 2vh;
         margin-bottom: 3vh;
         background-color: $colorGray;
         display: flex;
         justify-content: center;
-        gap: 1%;
+        gap: 3%;
         flex-wrap: wrap;
         max-height: 100%;
-        overflow-y:auto ;
+        overflow-y:auto;
 
         &__producto{
-            width: 40vh;
-            margin: 2% 0px;
+            width: 42vh;
+            margin-top: 1vh;
             padding: 2vh;
             display: flex;
             flex-direction: column;
 
             img{
                 margin: auto;
-                width: 80%;
+                width: 70%;
             }
             h4{
-                font-size: 16px;
+                font-size: 18px;
                 text-align: center;
             }
-            p{
-                font-size: 10px;
+            .producto__descripcion{
+                font-size: 16px;
+                color: rgba(0, 0, 0, 0.473);
+                font-weight: 500;
             }
-            .precio{
+            .producto__precio{
                 font-weight: bold;
                 display: flex;
+                align-items: center;
+                align-content: center;
                 justify-content: space-between;
                 
-                i{
+                p{
+                    color: $colorOrange;
+                    font-size: 21px;
+                    margin: 0!important;
+                }
+
+                div{
                     width: 9vh;
                     height: 5vh;
-                    
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     border-radius: 1vh;
                     background-image: $gradient;
-                    padding: 1vh;
                     text-align: center;
+                    font-size: 26px;
+                    cursor: pointer;
                 }
             }
+        }
+    }
+
+    .carrito{
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: $gradient;
+        text-align: center;
+        font-size: 26px;
+        cursor: pointer;
+        
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+
+        &__cant{
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+
+            color: $colorBlack;
+            background-color: $colorWhite;
         }
     }
     
