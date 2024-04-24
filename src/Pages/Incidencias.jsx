@@ -7,7 +7,7 @@ export default function Incidencias() {
     return (
         <main className="containerPrincipal mainIncidencias">
             <Menu selected="incidencias"></Menu>
-            <form action="/" method="post" className="mainIncidencias__formulario contenedor flex-row">
+            <form action="" method="post" className="mainIncidencias__formulario contenedor flex-row">
                 <section className="box col-9">
                     <h4 className="tittle fs-3 mb-5">Reportar una incidencia</h4>
 

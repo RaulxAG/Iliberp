@@ -24,7 +24,7 @@ export default function Menu({ selected }) {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className={selected === "mensajeria" ? "selected" : ""} >
+                            <a href="/mensajeria" className={selected === "mensajeria" ? "selected" : ""} >
                                 <i className="fa-solid fa-comments"></i>
                             </a>
                         </li>

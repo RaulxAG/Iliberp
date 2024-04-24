@@ -1,0 +1,94 @@
+.mainMensajeria__chat {
+    background-color: $colorGray;
+    border-radius: 10px;
+    width: 65%;
+}
+
+.contactos__head {
+    .contactos__head__acciones {
+        button {
+            color: $colorOrange;
+            font-size: x-large;
+        }
+    }
+
+    #busqueda {
+        color: $colorWhite;
+        position: relative;
+        border: .5px solid transparent;
+    }
+
+    #busqueda:focus {
+        outline: .5px solid $colorGray;
+    }
+}
+
+.contactos__chats {
+    height: 86vh;
+    border-radius: 10px;
+
+    .chats__card {
+        transition: background .2s linear;
+    }
+
+    .chats__card:hover {
+        background-color: $colorBlack;
+    }
+}
+
+.chat__cabecera {
+    border-bottom: 3px solid $colorWhite;
+    border-radius: 10px 10px 0 0;
+    background-color: $colorBlack;
+
+    .cabecera__logo {
+        width: 15%;
+        padding-right: 2rem;
+
+        img {
+            width: 50%;
+        }
+    
+        p {
+            height: fit-content;
+            margin: 0;
+            padding: 0;
+            line-height: 100%;
+            font-size: 130%;
+        }
+    }
+}
+
+.chat__cuerpo {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+
+    .enviado {
+        align-self: flex-end;
+        border-radius: 10px;
+        background-color: $colorBlack;
+    }
+
+    .recibido {
+        border-radius: 10px;
+        background-color: $colorOrange;
+    }
+}
+
+.chat__acciones {
+    button {
+        width: 7.5%;
+        color: $colorOrange;
+    }
+
+    #mensaje {
+        width: 85%;
+        color: $colorWhite;
+        border: 1px solid transparent;
+    }
+
+    #mensaje:focus {
+        outline: .2px solid $colorOrange;
+    }
+}
