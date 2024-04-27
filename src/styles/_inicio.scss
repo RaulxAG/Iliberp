@@ -24,5 +24,25 @@
         .grid_mod5 {
             grid-area: 5 / 5 / 7 / 7;
         }
+
+        .botones__boton {
+            width: 23.3%;
+            height: 33.3%;
+            background-color: $colorBlack;
+            font-weight: 600;
+            color: $colorWhite;
+
+            svg {
+                font-size: 40px;
+            }
+        }
+
+        .botones__boton:hover {
+            color: $colorOrange;
+        }
+
+        .modulos__chats {
+            overflow: hidden;
+        }
     }
 }

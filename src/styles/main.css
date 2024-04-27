@@ -76,6 +76,22 @@ body {
 .mainInicio__modulos .modulos__grid .grid_mod5 {
   grid-area: 5/5/7/7;
 }
+.mainInicio__modulos .modulos__grid .botones__boton {
+  width: 23.3%;
+  height: 33.3%;
+  background-color: #1E2225;
+  font-weight: 600;
+  color: #F8F8F8;
+}
+.mainInicio__modulos .modulos__grid .botones__boton svg {
+  font-size: 40px;
+}
+.mainInicio__modulos .modulos__grid .botones__boton:hover {
+  color: #e65522;
+}
+.mainInicio__modulos .modulos__grid .modulos__chats {
+  overflow: hidden;
+}
 
 .menuLateral .menuLateral__profile {
   display: flex;
@@ -202,12 +218,7 @@ body {
 .contactos__chats {
   height: 86vh;
   border-radius: 10px;
-}
-.contactos__chats .chats__card {
-  transition: background 0.2s linear;
-}
-.contactos__chats .chats__card:hover {
-  background-color: #1E2225;
+  scroll-behavior: smooth;
 }
 
 .chat__cabecera {
@@ -256,6 +267,14 @@ body {
 }
 .chat__acciones #mensaje:focus {
   outline: 0.2px solid #e65522;
+}
+
+.chats__card {
+  transition: background 0.2s linear;
+}
+
+.chats__card:hover {
+  background-color: #1E2225;
 }
 
 /*# sourceMappingURL=main.css.map */

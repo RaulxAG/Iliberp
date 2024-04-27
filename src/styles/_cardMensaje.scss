@@ -1,0 +1,7 @@
+.chats__card {
+    transition: background .2s linear;
+}
+
+.chats__card:hover {
+    background-color: $colorBlack;
+}
