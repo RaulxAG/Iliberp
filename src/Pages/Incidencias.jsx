@@ -1,9 +1,23 @@
 import Menu from "../components/Menu";
-
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router";
 
 // contenedor mainIncidencias 
 // contenedor
 export default function Incidencias() {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const [categoria, setCategoria] = useState(searchParams.get('categoria') || ''); // Inicializa la categoría con el valor de la URL o cadena vacía
+
+    useEffect(() => {
+        // Actualiza la categoría cuando cambia la ubicación
+        setCategoria(searchParams.get('categoria') || '');
+    }, [location]);
+
+    const handleChangeCategoria = (event) => {
+        setCategoria(event.target.value);
+    };
+
     return (
         <main className="containerPrincipal mainIncidencias">
             <Menu selected="incidencias"></Menu>
@@ -19,13 +33,14 @@ export default function Incidencias() {
                         <div className="formulario__inputGroup">
                             <div className="formulario__input">
                                 <label htmlFor="categoria">Categoría</label>
-                                <select name="categoria" id="categoria">
-                                    <option value="ciberseguridad">Ciberseguridad</option>
-                                    <option value="programacion">Programacion</option>
-                                    <option value="telefonia">Telefonía</option>
-                                    <option value="sistemas">Sistemas</option>
-                                    <option value="taller">Taller</option>
-                                    <option value="web">Web</option>
+                                <select name="categoria" id="categoria" value={categoria} onChange={handleChangeCategoria}>
+                                    <option value={categoria} disabled hidden>{categoria}</option>
+                                    <option value="Ciberseguridad">Ciberseguridad</option>
+                                    <option value="Programacion">Programación</option>
+                                    <option value="Telefonia">Telefonía</option>
+                                    <option value="Sistemas">Sistemas</option>
+                                    <option value="Taller">Taller</option>
+                                    <option value="Web">Web</option>
                                 </select>
                             </div>
                             <div className="formulario__input">
