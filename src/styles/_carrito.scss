@@ -1,0 +1,73 @@
+.contenedorCarrito{
+    background-color: $colorGray2;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 2%;
+    height: 77vh;
+    width: 75vh;
+    z-index: 3;
+    border-radius: 1vh;
+    overflow-y: scroll;
+    animation-name: modal;
+    animation-duration: 0.3s;
+
+    /* Animación de entrada */
+    @keyframes modal {
+        from {
+            transform: translateX(120%);
+        }
+        to {
+            transform: translateX(0%);
+        }
+    }
+
+    > button{
+        float: right;
+        width: 6vh;
+        height: 6vh;
+        border-radius: 1vh;
+        margin: 2%;
+        background-color: $colorOrange;
+        border: none;
+        color: $colorWhite;
+        font-weight: bold;
+    }
+
+    &__productos{
+        margin: 15% 2%;
+
+        &__producto{
+            background-color: $colorWhite;
+            .card-text{ 
+                > button{
+                    border: none;
+                    color: $colorWhite;
+                    font-weight: bold;
+                    font-size: 30px;
+                    padding: 1px;
+                    border-radius: 1vh;
+                    width: 25px;
+                    height: 25px;
+                    background-color: $colorOrange;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                > p:first-of-type{
+                    margin: 0px 15px;
+                    font-size: 40px;
+                }
+            }
+        }
+    }
+    .tramitarPedido{
+        background-image: $gradient;
+        width: 100%;
+        color: white;
+        border: none;
+        border-radius: 1vh;
+        padding: 8px;
+        font-size: 20px;
+    }
+}

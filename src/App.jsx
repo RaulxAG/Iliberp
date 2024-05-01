@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Inicio  from './Pages/Inicio'
+import TramitarPedido  from './Pages/TramitarPedido'
 import Tienda  from './Pages/Tienda'
 
 function App() {

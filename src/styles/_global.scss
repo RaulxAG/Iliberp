@@ -8,6 +8,24 @@ body {
     font-family: $fontRaleway;
 }
 
+//ESTILOS PARA LA BARRA SCROLLEABLE
+.barScroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.barScroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.barScroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.barScroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .containerPrincipal{
     height: 100vh;
     background-color: $colorBlack;
@@ -17,13 +35,14 @@ body {
     padding: 1%;
 
     .menuLateral{
-        width: 18%;
+        width: 5%;
         min-width: 70px;
     }
 
     .contenedor{
         display: flex;
         flex-direction: column;
+        width: 95%;
     }
     
 }

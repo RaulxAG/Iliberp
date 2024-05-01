@@ -1,7 +1,6 @@
 
 
 export default function Menu({ selected }) {
-  console.log(selected);
 
   // menuLateral
   return (

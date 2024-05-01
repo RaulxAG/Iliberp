@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +7,23 @@
 
 body {
   font-family: "Raleway";
+}
+
+.barScroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.barScroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.barScroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.barScroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .containerPrincipal {
@@ -17,12 +35,13 @@ body {
   padding: 1%;
 }
 .containerPrincipal .menuLateral {
-  width: 18%;
+  width: 5%;
   min-width: 70px;
 }
 .containerPrincipal .contenedor {
   display: flex;
   flex-direction: column;
+  width: 95%;
 }
 
 .box {
@@ -63,6 +82,93 @@ body {
   border-radius: 10px;
 }
 
+.contenedorCarrito {
+  background-color: #5b5b5b;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 2%;
+  height: 77vh;
+  width: 75vh;
+  z-index: 3;
+  border-radius: 1vh;
+  overflow-y: scroll;
+  animation-name: modal;
+  animation-duration: 0.3s;
+  /* Animación de entrada */
+}
+@keyframes modal {
+  from {
+    transform: translateX(120%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+.contenedorCarrito > button {
+  float: right;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 1vh;
+  margin: 2%;
+  background-color: #e65522;
+  border: none;
+  color: #F8F8F8;
+  font-weight: bold;
+}
+.contenedorCarrito__productos {
+  margin: 15% 2%;
+}
+.contenedorCarrito__productos__producto {
+  background-color: #F8F8F8;
+}
+.contenedorCarrito__productos__producto .card-text > button {
+  border: none;
+  color: #F8F8F8;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 1px;
+  border-radius: 1vh;
+  width: 25px;
+  height: 25px;
+  background-color: #e65522;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contenedorCarrito__productos__producto .card-text > p:first-of-type {
+  margin: 0px 15px;
+  font-size: 40px;
+}
+.contenedorCarrito .tramitarPedido {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  width: 100%;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  padding: 8px;
+  font-size: 20px;
+}
+
+.contenedor .search {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ee3040;
+  border-radius: 0;
+  color: #F8F8F8;
+}
+.contenedor .search::placeholder {
+  color: rgba(255, 255, 255, 0.76);
+}
+.contenedor .css-188mx6n-MuiSlider-root {
+  color: #e65522;
+}
+.contenedor .css-1as9v07-MuiSlider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px rgba(210, 124, 25, 0.16);
+}
+.contenedor .form-control:focus {
+  box-shadow: none;
+}
 .contenedor .categorias {
   display: flex;
   justify-content: center;
@@ -182,6 +288,52 @@ body {
   right: -15px;
   color: #1E2225;
   background-color: #F8F8F8;
+}
+
+.containerTramite {
+  background-color: rgba(85, 89, 91, 0.4);
+  padding: 30px 20px;
+}
+.containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+  color: #e65522;
+}
+.containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+  color: #5b5b5b;
+}
+.containerTramite .css-1hv8oq8-MuiStepLabel-label.Mui-active, .containerTramite .css-1hv8oq8-MuiStepLabel-label.Mui-completed, .containerTramite .css-1vyamtt-MuiStepLabel-labelContainer {
+  color: #F8F8F8;
+}
+.containerTramite .css-1vyamtt-MuiStepLabel-labelContainer span {
+  font-size: 20px;
+}
+.containerTramite .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  color: #F8F8F8;
+}
+.containerTramite .css-a1sg1c-MuiButtonBase-root-MuiButton-root {
+  background-color: #F8F8F8;
+  border: 1px solid #e65522;
+  color: #e65522;
+}
+.containerTramite .css-1d3z3hw-MuiOutlinedInput-notchedOutline, .containerTramite .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #F8F8F8;
+  background-color: rgba(255, 255, 255, 0.432);
+}
+.containerTramite .css-yjsfm1 span, .containerTramite .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #F8F8F8;
+}
+.containerTramite .MuiFormControl-root label {
+  color: #1E2225;
+}
+.containerTramite .tarjetaCredito {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../../public/assets/img/tarjetaCredito.PNG);
+  border-radius: 1vh;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /*# sourceMappingURL=main.css.map */

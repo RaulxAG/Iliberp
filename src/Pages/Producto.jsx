@@ -3,16 +3,17 @@ import { useState } from 'react';
 
 export default function Producto({producto, carrito, setCarrito}){
     const [comprado, setComprado] = useState(false);
-    console.log(comprado)
 
     const addCarrito = () =>{
-        //Coger el carrito actual y añadirle el nuevo producto
+        // Actualizar el estado de comprado antes de agregar el producto al carrito
+        setComprado(!comprado);
+    
+        // Coger el carrito actual y añadirle el nuevo producto
         const nuevoCarrito = [...carrito, producto];
 
-        //Actualizar el estado del carrito
-        setCarrito(nuevoCarrito)
-
-        setComprado(true)
+        // Actualizar el estado del carrito
+        setCarrito(nuevoCarrito);
+        console.log(comprado)
     }
 
     return(
@@ -22,16 +23,19 @@ export default function Producto({producto, carrito, setCarrito}){
             <p className='producto__descripcion'> {producto.descripcion} </p>
             <div className="producto__precio">
                 <p>{producto.precio}€</p>
-                <div onClick={()=>addCarrito()}>
-                    {comprado ? 
-                                <i className="fa-solid fa-cart-shopping" style={{color: "red"}}></i> 
-                                :
-                                <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
+                <div onClick={addCarrito}>
+                    { comprado 
+                        ? 
+                            <section>
+                                <i className="fa-solid fa-cart-shopping" style={{color:"#f8f8f8"}}></i>
+                            </section>
+                        : 
+                            <div>
+                                <i className="fa-solid fa-plus"></i>
+                            </div>
                     }
-                     
                 </div>
             </div>
         </div>
     )
-    
 }

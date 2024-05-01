@@ -2,7 +2,7 @@ import Producto from './Producto';
 import { useState,useEffect } from 'react';
 
 export default function Productos({productos, setProductos,carrito,setCarrito}){
-    // const [productos, setProductos] = useState([]);
+    
 
     useEffect(() => {
         fetch('http://localhost:3000/productos') // Reemplaza la URL con la correcta

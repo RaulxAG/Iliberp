@@ -1,4 +1,25 @@
 .contenedor{
+    .search{
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $colorRed;
+        border-radius: 0;
+        color: $colorWhite;
+        &::placeholder{
+            color: rgba(255, 255, 255, 0.76);
+        }
+
+        
+    }
+    .css-188mx6n-MuiSlider-root{
+        color: $colorOrange;
+    }
+    .css-1as9v07-MuiSlider-thumb:hover{
+        box-shadow: 0px 0px 0px 8px rgba(210, 124, 25, 0.16);
+    }
+    .form-control:focus {
+            box-shadow: none;
+        }
     .categorias{
         display: flex;
         justify-content: center;

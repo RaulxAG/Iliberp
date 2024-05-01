@@ -1,0 +1,54 @@
+.containerTramite {
+    background-color: $colorGray;
+    padding: 30px 20px;
+   
+    //ICONOS
+    .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root{
+        color: $colorOrange;
+    }
+    .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root{
+        color: $colorGray2;
+    }
+    .css-1hv8oq8-MuiStepLabel-label.Mui-active,.css-1hv8oq8-MuiStepLabel-label.Mui-completed,.css-1vyamtt-MuiStepLabel-labelContainer{
+        color: $colorWhite;
+    }
+    .css-1vyamtt-MuiStepLabel-labelContainer span{
+        font-size: 20px;
+    }
+    //BUTTON NEXT
+    .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+        background-image: $gradient;
+        color: $colorWhite;
+    }
+
+    //BUTTON BACK
+    .css-a1sg1c-MuiButtonBase-root-MuiButton-root{
+        background-color: $colorWhite;
+        border: 1px solid $colorOrange;
+        color: $colorOrange;
+    }
+
+    //ESTILOS INFORMACION DE ENVIO
+    .css-1d3z3hw-MuiOutlinedInput-notchedOutline,.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+        border-color: $colorWhite;
+        background-color: rgba(255, 255, 255, 0.432);
+    }
+    
+    .css-yjsfm1 span,.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+        color: $colorWhite;
+    }
+    .MuiFormControl-root label{
+        color: $colorBlack;
+    }
+
+    .tarjetaCredito{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        font-family: Arial, Helvetica, sans-serif;
+        background-image: url(../../public/assets/img/tarjetaCredito.PNG);
+        border-radius: 1vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
