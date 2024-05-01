@@ -10,7 +10,7 @@ export default function CardMensaje() {
                 <p className="mt-1">Lorem ipsum, dolor sit amet consectetur adipisicing . . .</p>
             </div>
 
-            <p className="align-self-start fw-bold">20:42</p>
+            <p className="align-self-center fw-bold">20:42</p>
         </section>
     );
 }

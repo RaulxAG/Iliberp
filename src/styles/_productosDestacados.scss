@@ -17,22 +17,27 @@
 
     .carrusel__seccion {
         height: 30vh;
-        padding: 0 16rem;
         gap: 1rem;
+        width: 70%;
+        margin: auto;
 
         .seccion__producto {
             border-radius: 10px;
-            height: 140px;
-            width: 30%;
+            height: 90%;
+            width: 40%;
             background-color: $colorBlack;
 
             .producto__imagen {
-                width: 150px;
+                width: 90%;
                 object-fit: contain;
                 filter: drop-shadow(
                     0 0 5px rgba(46, 46, 46, 0.8)
                 );
                 transition: all .3s ease-out;
+            }
+
+            .producto__acciones {
+                font-size: smaller;
             }
 
             .producto__acciones button {
@@ -50,9 +55,8 @@
                     0 0 5px rgba(150, 149, 149, 0.8)
                 );
         }
-
-        .carrusel__control span svg{
-
-        }
+    }
+    .carrusel__control:hover {
+        color: $colorOrange;
     }
 }

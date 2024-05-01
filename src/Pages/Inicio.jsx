@@ -2,7 +2,7 @@ import Menu from "../components/Menu";
 import CardMensaje from "../components/CardMensaje";
 import ProductosDestacados from "../components/ProductosDestacados";
 import ReportarIncidencia from "../components/ReportarIncidencia";
-import WeatherComponent from "../components/Tiempo";
+import Tiempo from "../components/Tiempo";
 
 export default function Inicio() {
     return (
@@ -21,7 +21,6 @@ export default function Inicio() {
                 <CardMensaje />
                 <CardMensaje />
                 <CardMensaje />
-                <CardMensaje />
               </div>
             </section>
             <section className="modulos__incidencias grid_mod3 box">
@@ -31,8 +30,8 @@ export default function Inicio() {
             <section className="grid_mod4 box">
               <h4 className="tittle fs-5 fw-bold p-1">Tickets en Curso</h4>
             </section>
-            <section className="grid_mod5 box">
-              <WeatherComponent />
+            <section className="modulos__tiempo grid_mod5 box d-flex align-items-center justify-content-center">
+              <Tiempo />
             </section>
           </div>
           

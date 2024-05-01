@@ -10,12 +10,12 @@ export default function Chat() {
                 </figure>
                 
                 <figure className="cabecera__logo m-0 d-flex align-items-md-center justify-content-center">
-                        <img src="/assets/img/logo.png" alt="Logo" />
-                        <article className="d-none d-lg-block">
-                            <p className="fs-3 m-0 fw-bold">ILIBERP</p>
-                            <p className="m-0">Solutions</p>
-                        </article>
-                    </figure>
+                    <img src="/assets/img/logo.png" alt="Logo" />
+                    <article className="d-none d-lg-block">
+                        <p className="fs-3 m-0 fw-bold">ILIBERP</p>
+                        <p className="m-0">Solutions</p>
+                    </article>
+                </figure>
             </header>
             <section className="chat__cuerpo w-100 h-100">
                 <article className="shadow-sm w-75 py-3 px-3 my-3 mx-2 recibido">
