@@ -1,0 +1,95 @@
+{
+    "empleados": [
+      {
+        "nombre": "Juan",
+        "apellidos": "Pérez García",
+        "correo": "juan.perez@example.com",
+        "telefono": "123456789",
+        "departamento": "Ventas",
+        "dni": "12345678A",
+        "fecha_nacimiento": "1980-05-15"
+      },
+      {
+        "nombre": "María",
+        "apellidos": "López Martínez",
+        "correo": "maria.lopez@example.com",
+        "telefono": "987654321",
+        "departamento": "Recursos Humanos",
+        "dni": "87654321B",
+        "fecha_nacimiento": "1990-08-20"
+      },
+      {
+        "nombre": "Pedro",
+        "apellidos": "González Ruiz",
+        "correo": "pedro.gonzalez@example.com",
+        "telefono": "567890123",
+        "departamento": "Tecnología",
+        "dni": "23456789C",
+        "fecha_nacimiento": "1985-03-10"
+      },
+      {
+        "nombre": "Ana",
+        "apellidos": "Fernández López",
+        "correo": "ana.fernandez@example.com",
+        "telefono": "345678901",
+        "departamento": "Marketing",
+        "dni": "65432198D",
+        "fecha_nacimiento": "1977-11-25"
+      },
+      {
+        "nombre": "Carlos",
+        "apellidos": "Sánchez Rodríguez",
+        "correo": "carlos.sanchez@example.com",
+        "telefono": "890123456",
+        "departamento": "Finanzas",
+        "dni": "34567890E",
+        "fecha_nacimiento": "1992-02-28"
+      },
+      {
+        "nombre": "Lucía",
+        "apellidos": "Martín Sánchez",
+        "correo": "lucia.martin@example.com",
+        "telefono": "678901234",
+        "departamento": "Logística",
+        "dni": "45678901F",
+        "fecha_nacimiento": "1988-07-18"
+      },
+      {
+        "nombre": "Javier",
+        "apellidos": "Rodríguez García",
+        "correo": "javier.rodriguez@example.com",
+        "telefono": "901234567",
+        "departamento": "Servicio al Cliente",
+        "dni": "56789012G",
+        "fecha_nacimiento": "1983-09-30"
+      },
+      {
+        "nombre": "Elena",
+        "apellidos": "Pérez Martínez",
+        "correo": "elena.perez@example.com",
+        "telefono": "123456789",
+        "departamento": "Producción",
+        "dni": "78901234H",
+        "fecha_nacimiento": "1995-04-05"
+      },
+      {
+        "nombre": "David",
+        "apellidos": "Gómez Fernández",
+        "correo": "david.gomez@example.com",
+        "telefono": "234567890",
+        "departamento": "Investigación y Desarrollo",
+        "dni": "67890123I",
+        "fecha_nacimiento": "1981-12-12"
+      },
+      {
+        "nombre": "Sara",
+        "apellidos": "Hernández Pérez",
+        "correo": "sara.hernandez@example.com",
+        "telefono": "345678901",
+        "departamento": "Recursos Humanos",
+        "dni": "89012345J",
+        "fecha_nacimiento": "1993-06-23"
+      }
+    ]
+  }
+  

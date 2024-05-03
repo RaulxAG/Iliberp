@@ -1,0 +1,137 @@
+/* COLORS */
+:root {
+    --colorOrange: #e65522;
+    --colorRed: #ee3040;
+    --colorBlack: #1E2225;
+    --colorWhite: #F8F8F8;
+    --colorGray: rgba(85, 89, 91, 0.4);
+    --colorGray2: #5b5b5b;
+    --gradient: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+    --fontRaleway:'Raleway';
+}
+  
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.box{
+    background-color: var(--colorGray);
+    border-radius: 10px;
+    padding: 1vh;
+}
+
+body {
+    font-family: var(--fontRaleway);
+}
+main{
+    height: 100vh;
+    background-color: var(--colorBlack);
+    color: white;
+    display: flex;
+    gap: 1%;
+    padding: 1%;
+}
+.menu{
+    width: 5%;
+    min-width: 70px;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+
+.tittle{
+    font-size: 50px;
+    color: var(--colorWhite);
+    text-align: center;
+    position: relative;
+    padding-top: 3vh;
+    padding-bottom: 20px; /* Ajusta el espacio para el after */
+}
+.tittle::after{
+    content: ""; 
+    position: absolute; 
+    bottom: -1px; 
+    left: 0; 
+    width: 50%; 
+    height: 2px; 
+    background-image: var(--gradient);
+    transform: translateX(50%);
+}
+
+.tittleDetalle{
+    font-size: 30px;
+    color: var(--colorWhite);
+    position: relative;
+    padding-top: 3vh;
+    padding-bottom: 5px; /* Ajusta el espacio para el after */
+}
+.tittleDetalle::after{
+    content: ""; 
+    position: absolute; 
+    bottom: -1px; 
+    left: 0; 
+    width: 50%; 
+    height: 2px; 
+    background-image: var(--gradient);
+}
+.button{
+    background-image: var(--gradient);
+    border-radius: 1vh;
+    color: var(--colorWhite);
+    border: none;
+    padding: 1vh 2vh;
+    margin: 1vh 0px;
+}
+.buttonReverse{
+    background-color: var(--colorWhite);
+    border-radius: 1vh;
+    color: var(--colorOrange);
+    border: 1px solid var(--colorOrange);
+    padding: 1vh 2vh;
+    margin: 1vh 0px;
+}
+tr{
+    cursor: pointer;
+}
+
+.fichaUsuario img{
+    width: 17vh;
+    height: 17vh;
+}
+
+.fichaUsuario input{
+    border:none;
+    color: var(--colorWhite);
+    padding: 3px;
+    
+}
+
+.fichaUsuario input:enabled{
+    border:none;
+    animation: animacionTexto 0.5s ease;
+    background-color: #1e22259c!important;
+    border-radius: 3px 3px 0px 0px;
+}
+
+@keyframes animacionTexto {
+    50% {
+        font-size: 18px; /* Tamaño de la fuente durante la animación */
+    }
+}
+.fichaUsuario .btnAceptar{
+    align-self: flex-end;
+}
+
+.fa-camera{
+    bottom: 20px;
+    left: 90px;
+    font-size: 30px;
+    background-color: var(--colorWhite);
+    border-radius: 100px;
+    padding: 7px;
+    cursor: pointer;
+}
