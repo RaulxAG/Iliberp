@@ -212,8 +212,9 @@ tr{
     background-color: #1E2225!important;
 }
 
-.modal-content{
-    background-image: var(--gradient);
+.modalEliminar{
+    color: var(--colorBlack);
+    border: 1px solid var(--colorOrange);
 }
 
 .mensajeCreado{
@@ -234,4 +235,13 @@ tr{
     }100%{
         opacity: 0;
     }
+}
+
+.main .etiquetaAutonomo{
+    background-image: var(--gradient);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 0 0 10px 10px;
+    transform: translateX(-15px);
+    cursor: default;
 }

@@ -39,31 +39,57 @@
         </section>
         <section class="main box d-flex">
             <div class="mx-auto w-75 my-5">
-                <h2 class='tittleDetalle'>Empresa A</h2>
-                <div class="d-flex justify-content-end mt-3">
-                    <button class="buttonReverse me-2" onclick="window.location.href='empresas.html'">
+                <h2 class='tittleDetalle'>Juan González Pérez</h2>
+                <div class="d-flex justify-content-between mt-3">
+                    <button class="buttonReverse me-2" onclick="window.location.href='contactos.html'">
                         <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
                         Volver
                     </button>
-                    <button class="button" onclick="habilitarEdicion()">
-                        <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
-                        Editar
-                    </button>
+                    <div>
+                        <button class="button" onclick="habilitarEdicion()">
+                            <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                            Editar
+                        </button>  
+                        <button class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fa-solid fa-trash" style="color: #f8f8f8;"></i>
+                            Eliminar
+                        </button> 
+  
+                        <!-- Modal -->
+                        <div class="modal fade modalEliminar" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar contacto</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro que desea eliminar el contacto 'Juan' de 'Empresa 1'?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                                        <button type="button" class="btn btn-outline-danger">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
                
                 <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
                     <div class="row gy-4">
                         <div class="col-4">
                             <h6 class="fw-bold">Nombre</h6>
-                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="Empresa A">
+                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="Juan">
                         </div>
                         <div class="col-4">
-                            <h6 class="fw-bold">Cif/Nif</h6>
-                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="G67890123">
+                            <h6 class="fw-bold">Apellidos</h6>
+                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="González Pérez">
                         </div>
                         <div class="col-4">
-                            <h6 class="fw-bold">Dirección</h6>
-                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="Plaza Este 789">
+                            <h6 class="fw-bold">Dni</h6>
+                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="12345678A">
                         </div>
                         <div class="col-4">
                             <h6 class="fw-bold">Teléfono</h6>
@@ -71,12 +97,13 @@
                         </div>
                         <div class="col-4">
                             <h6 class="fw-bold">Correo</h6>
-                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="empresaA@example.com">
+                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="juan@example.com">
+                        </div>
+                        <div class="col-4">
+                            <h6 class="fw-bold">Empresa</h6>
+                            <input type="text" class="border-bottom bg-transparent w-100" disabled value="Empresa B">
                         </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button class="etiquetaAutonomo px-3">Autónomo</button>
                 </div>
             </div>
         </section>

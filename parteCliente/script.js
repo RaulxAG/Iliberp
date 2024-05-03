@@ -1,11 +1,13 @@
 let empleados = []
 let incidencias = []
 let empresas = []
+let contactos = []
 
 window.onload = function() {
     datosEmpleados()
     datosIncidencias()
     datosEmpresas()
+    datosContactos()
 }
 
 function datosEmpleados() {
@@ -60,6 +62,24 @@ function datosEmpresas() {
             console.error('Error al obtener las incidencias:', error);
         });
 }
+
+function datosContactos() {
+    fetch('http://localhost:3000/contactos')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se pudo obtener la respuesta del servidor.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            contactos = data;
+            console.log('Datos de contatctos obtenidos:', contactos);
+            llenarTablaContactos(); // Llamada a la función después de obtener los datos
+        })
+        .catch(error => {
+            console.error('Error al obtener los contactos:', error);
+        });
+}
 // Función para llenar la tabla con los datos de los empleados obtenidos del servidor
 function llenarTablaEmpleados() {
     const tablaBody = document.getElementById('tablaEmpleados');
@@ -102,6 +122,23 @@ function llenarTablaEmpresas() {
             <td>${empresa.direccion}</td>
             <td>${empresa.telefono}</td>
             <td>${empresa.correo}</td>
+        `;
+        tablaBody.appendChild(fila);
+    });
+}
+
+function llenarTablaContactos() {
+    const tablaBody = document.getElementById('tablaContactos');
+
+    contactos.forEach(contacto => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${contacto.nombre}</td>
+            <td>${contacto.apellidos}</td>
+            <td>${contacto.dni}</td>
+            <td>${contacto.telefono}</td>
+            <td>${contacto.correo_electronico}</td>
+            <td>${contacto.empresa}</td>
         `;
         tablaBody.appendChild(fila);
     });
