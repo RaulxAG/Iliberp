@@ -335,4 +335,27 @@ body {
   color: #e65522;
 }
 
+.modulos__ticets .tickets__botones .botones__ticket {
+  background-color: #1E2225;
+}
+.modulos__ticets .tickets__botones .botones__ticket .ticket__fecha {
+  font-size: small;
+}
+.modulos__ticets .tickets__botones .botones__ticket .btn {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+.modulos__ticets .tickets__botones .botones__modal {
+  background-color: rgba(32, 32, 32, 0.7) !important;
+}
+.modulos__ticets .tickets__botones .botones__modal .modal-header {
+  border-bottom: 1px solid #e65522;
+}
+.modulos__ticets .tickets__botones .botones__modal .btn-close {
+  color: white !important;
+}
+.modulos__ticets .tickets__botones .botones__modal .modal-content {
+  background-color: #1E2225;
+  border: 1px solid #e65522;
+}
+
 /*# sourceMappingURL=main.css.map */

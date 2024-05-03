@@ -1,0 +1,32 @@
+.modulos__ticets {
+    .tickets__botones {
+        .botones__ticket {
+            background-color: $colorBlack;
+
+            .ticket__fecha {
+                font-size: small;
+            }
+        
+            .btn {
+                background-image: $gradient;
+            }
+        }
+
+        .botones__modal {
+            background-color: rgba(32, 32, 32, 0.7) !important;
+            
+            .modal-header {
+                border-bottom: 1px solid $colorOrange;
+            }
+
+            .btn-close {
+                color: white !important;
+            }
+
+            .modal-content {
+                background-color: $colorBlack;
+                border: 1px solid $colorOrange;
+            }
+        }
+    }
+}

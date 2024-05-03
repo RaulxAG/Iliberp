@@ -3,6 +3,7 @@ import CardMensaje from "../components/CardMensaje";
 import ProductosDestacados from "../components/ProductosDestacados";
 import ReportarIncidencia from "../components/ReportarIncidencia";
 import Tiempo from "../components/Tiempo";
+import Tickets from "../components/Tickets";
 
 export default function Inicio() {
     return (
@@ -17,7 +18,7 @@ export default function Inicio() {
             </section>
             <section className="modulos__chats grid_mod2 box">
               <h4 className="tittle fs-5 fw-bold p-1">Mensajes Recientes</h4>
-              <div className="chats__mensajes w-100 mt-5 px-2">
+              <div className="chats__mensajes w-100 mt-3 px-2">
                 <CardMensaje />
                 <CardMensaje />
                 <CardMensaje />
@@ -27,8 +28,9 @@ export default function Inicio() {
               <h4 className="tittle fs-5 fw-bold p-1">Reportar Incidencia</h4>
               <ReportarIncidencia />
             </section>
-            <section className="grid_mod4 box">
+            <section className="modulos__ticets grid_mod4 box">
               <h4 className="tittle fs-5 fw-bold p-1">Tickets en Curso</h4>
+              <Tickets />
             </section>
             <section className="modulos__tiempo grid_mod5 box d-flex align-items-center justify-content-center">
               <Tiempo />
