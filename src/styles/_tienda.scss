@@ -68,67 +68,93 @@
             }
         }
     }
-    
-    .productos{
-        margin: 2vh 5vh;
-        padding: 2vh;
-        margin-bottom: 3vh;
-        background-color: $colorGray;
-        display: flex;
-        justify-content: center;
-        gap: 3%;
-        flex-wrap: wrap;
-        max-height: 100%;
-        overflow-y:auto;
+    .containerTienda{
+        overflow-y:auto; 
 
-        &__producto{
-            width: 42vh;
-            margin-top: 1vh;
+        .filtros{
+            width: 15%;
             padding: 2vh;
+            background-color: $colorGray;
+            max-height: 100%;
+            margin-right: 1vh;
+
+            //ESTILOS TITULO ACORDEON
+            .accordion-button{
+                padding: 0;
+            }
+            .accordion-button:focus{
+                box-shadow: none;
+            }
+            .accordion-button:not(.collapsed),.accordion-button,.accordion-item{
+                background-color: transparent;
+                border: none;
+                color: $colorWhite;
+            }
+            .accordion-button::after{
+                background-color: $colorWhite;
+            }
+        }
+        .productos{
+            width: 85%;
+            padding: 2vh;
+            background-color: $colorGray;
             display: flex;
-            flex-direction: column;
-
-            img{
-                margin: auto;
-                width: 70%;
-            }
-            h4{
-                font-size: 18px;
-                text-align: center;
-            }
-            .producto__descripcion{
-                font-size: 16px;
-                color: rgba(0, 0, 0, 0.473);
-                font-weight: 500;
-            }
-            .producto__precio{
-                font-weight: bold;
+            justify-content: center;
+            gap: 3%;
+            flex-wrap: wrap;
+            max-height: 100%;
+            overflow-y:auto;
+    
+            &__producto{
+                max-width: 42vh;
+                margin-top: 1vh;
+                padding: 2vh;
                 display: flex;
-                align-items: center;
-                align-content: center;
-                justify-content: space-between;
-                
-                p{
-                    color: $colorOrange;
-                    font-size: 21px;
-                    margin: 0!important;
+                flex-direction: column;
+    
+                img{
+                    margin: auto;
+                    width: 70%;
                 }
-
-                div{
-                    width: 9vh;
-                    height: 5vh;
+                h4{
+                    font-size: 18px;
+                    text-align: center;
+                }
+                .producto__descripcion{
+                    font-size: 16px;
+                    color: rgba(0, 0, 0, 0.473);
+                    font-weight: 500;
+                }
+                .producto__precio{
+                    font-weight: bold;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
-                    border-radius: 1vh;
-                    background-image: $gradient;
-                    text-align: center;
-                    font-size: 26px;
-                    cursor: pointer;
+                    align-content: center;
+                    justify-content: space-between;
+                    
+                    p{
+                        color: $colorOrange;
+                        font-size: 21px;
+                        margin: 0!important;
+                    }
+    
+                    div{
+                        width: 9vh;
+                        height: 5vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 1vh;
+                        background-image: $gradient;
+                        text-align: center;
+                        font-size: 26px;
+                        cursor: pointer;
+                    }
                 }
             }
         }
     }
+    
 
     .carrito{
         width: 70px;

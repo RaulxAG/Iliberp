@@ -210,10 +210,33 @@ body {
   font-size: 4vh;
   line-height: 7vh;
 }
-.contenedor .productos {
-  margin: 2vh 5vh;
+.contenedor .containerTienda {
+  overflow-y: auto;
+}
+.contenedor .containerTienda .filtros {
+  width: 15%;
   padding: 2vh;
-  margin-bottom: 3vh;
+  background-color: rgba(85, 89, 91, 0.4);
+  max-height: 100%;
+  margin-right: 1vh;
+}
+.contenedor .containerTienda .filtros .accordion-button {
+  padding: 0;
+}
+.contenedor .containerTienda .filtros .accordion-button:focus {
+  box-shadow: none;
+}
+.contenedor .containerTienda .filtros .accordion-button:not(.collapsed), .contenedor .containerTienda .filtros .accordion-button, .contenedor .containerTienda .filtros .accordion-item {
+  background-color: transparent;
+  border: none;
+  color: #F8F8F8;
+}
+.contenedor .containerTienda .filtros .accordion-button::after {
+  background-color: #F8F8F8;
+}
+.contenedor .containerTienda .productos {
+  width: 85%;
+  padding: 2vh;
   background-color: rgba(85, 89, 91, 0.4);
   display: flex;
   justify-content: center;
@@ -222,39 +245,39 @@ body {
   max-height: 100%;
   overflow-y: auto;
 }
-.contenedor .productos__producto {
-  width: 42vh;
+.contenedor .containerTienda .productos__producto {
+  max-width: 42vh;
   margin-top: 1vh;
   padding: 2vh;
   display: flex;
   flex-direction: column;
 }
-.contenedor .productos__producto img {
+.contenedor .containerTienda .productos__producto img {
   margin: auto;
   width: 70%;
 }
-.contenedor .productos__producto h4 {
+.contenedor .containerTienda .productos__producto h4 {
   font-size: 18px;
   text-align: center;
 }
-.contenedor .productos__producto .producto__descripcion {
+.contenedor .containerTienda .productos__producto .producto__descripcion {
   font-size: 16px;
   color: rgba(0, 0, 0, 0.473);
   font-weight: 500;
 }
-.contenedor .productos__producto .producto__precio {
+.contenedor .containerTienda .productos__producto .producto__precio {
   font-weight: bold;
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-between;
 }
-.contenedor .productos__producto .producto__precio p {
+.contenedor .containerTienda .productos__producto .producto__precio p {
   color: #e65522;
   font-size: 21px;
   margin: 0 !important;
 }
-.contenedor .productos__producto .producto__precio div {
+.contenedor .containerTienda .productos__producto .producto__precio div {
   width: 9vh;
   height: 5vh;
   display: flex;

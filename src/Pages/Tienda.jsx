@@ -32,6 +32,11 @@ export default function Inicio() {
     console.log(categSelected)
     console.log(carrito)
 
+    const [acordeonAbierto, setAcordeonAbierto] = useState(false);
+
+    const toggleAcordeon = () => {
+      setAcordeonAbierto(!acordeonAbierto);
+    };
 
     return (
         <div className='containerPrincipal'>
@@ -39,21 +44,8 @@ export default function Inicio() {
             <Menu selected="incidencias"></Menu>
             <div className="contenedor box">
                 <h2 className='tittle'>Tienda</h2>
-                <div className='w-100 m-auto px-4 pt-5 d-flex justify-content-between align-items-center row'>
-                    
-                    <div className='d-flex  align-items-center col-5'>
-                        <p className='m-0 me-4'>Precio</p>
-                        <Slider
-                            getAriaLabel={() => 'Temperature range'}
-                            value={value}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                            className='w-50'
-                        /> 
-                    </div>
-                    
-                   <input class="form-control me-2 float-end w-25 search col-3" type="search" placeholder="Search" aria-label="Search"/> 
+                <div className='w-100 m-auto px-4 pt-5 d-flex justify-content-end align-items-center'>
+                   <input class="form-control w-25 search" type="search" placeholder="Search" aria-label="Search"/> 
                 </div>
 
                 <div className="categorias">
@@ -90,9 +82,52 @@ export default function Inicio() {
                         </div>
                     </div> */}
                 </div>
-                <section className="productos box barScroll">
-                      <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito}></Productos> 
-                </section>
+                <div className='d-flex containerTienda m-2'>
+                    <section className='box filtros'>
+                        <p className='text-center h3'>Filtrar por</p>
+                        <p className='m-0 me-4 pt-3'>Precio</p>
+                        <Slider
+                            getAriaLabel={() => 'Temperature range'}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            getAriaValueText={valuetext}
+                        /> 
+                        <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                                <h2 className="accordion-header">
+                                    <button className={`accordion-button ${acordeonAbierto ? '' : 'collapsed'} m-0 me-4 pt-3 `} type="button" onClick={toggleAcordeon} aria-expanded={acordeonAbierto} aria-controls="collapseOne">
+                                        Categoría
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" className={`accordion-collapse collapse ${acordeonAbierto ? 'show' : ''}`} aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div className="accordion-body p-0 mt-2 ps-3">
+                                        <div className='d-flex gap-2'>
+                                            <input type="checkbox" name="ordenador" id="ordenador"/> 
+                                            <label htmlFor="ordenador">Ordenadores</label>
+                                        </div>
+                                        <div className='d-flex gap-2'>
+                                            <input type="checkbox" name="teclado" id="teclado"/> 
+                                            <label htmlFor="teclado">Teclados</label>
+                                        </div>
+                                        <div className='d-flex gap-2'>
+                                            <input type="checkbox" name="raton" id="raton"/> 
+                                            <label htmlFor="raton">Ratones</label>
+                                        </div>
+                                        <div className='d-flex gap-2'>
+                                            <input type="checkbox" name="monitor" id="monitor"/> 
+                                            <label htmlFor="monitor">Monitores</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="productos box barScroll ">
+                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito}></Productos> 
+                    </section>
+                </div>
+                
                 <button className='carrito rounded-circle border-0' title='Ver carrito' onClick={()=>setCarritoVisible(true)}>
                     <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
                     <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{carrito.length}</p>
