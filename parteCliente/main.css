@@ -98,23 +98,47 @@ tr{
     cursor: pointer;
 }
 
-.fichaUsuario img{
+.formularioCrud img{
     width: 17vh;
     height: 17vh;
 }
 
-.fichaUsuario input{
+.formularioCrud input{
     border:none;
     color: var(--colorWhite);
     padding: 3px;
     
 }
 
-.fichaUsuario input:enabled{
+.formularioCrud input:enabled{
     border:none;
     animation: animacionTexto 0.5s ease;
     background-color: #1e22259c!important;
     border-radius: 3px 3px 0px 0px;
+}
+.formularioCrud select:enabled{
+    animation: animacionTexto 0.5s ease;
+}
+.formularioCrud textarea{
+    height: 135px;
+    color: var(--colorWhite);
+}
+
+.barScroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.barScroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.barScroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.barScroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @keyframes animacionTexto {
@@ -122,7 +146,7 @@ tr{
         font-size: 18px; /* Tamaño de la fuente durante la animación */
     }
 }
-.fichaUsuario .btnAceptar{
+.formularioCrud .btnAceptar{
     align-self: flex-end;
 }
 
@@ -134,4 +158,80 @@ tr{
     border-radius: 100px;
     padding: 7px;
     cursor: pointer;
+}
+
+.circleEmpleado{
+    width: 32px;
+    height: 32px;
+    font-size: 23px;
+    background-color: #e65522;
+    text-align: center;
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+}
+.circleEmpleado p::after {
+    content: "Judith Manjón";
+    font-size: 16px;
+    background-image: var(--gradient);
+    padding: 2px 5px;
+    border-radius: 3px;
+    position: absolute;
+    bottom: -30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* Para que el texto se quede en una línea */
+    opacity: 0;
+    transition: opacity 0.3s linear; 
+}
+
+.circleEmpleado p:hover::after {
+    opacity: 1; 
+}
+.formularioCrud select{
+    padding: 3px;
+}
+.form-select:focus{
+    box-shadow: 0 0 0 .25rem #e65622af;
+}
+.form-select .custom {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Agregar estilos personalizados */
+    background-color: #F5A623;
+    color: #fff;
+    border: 1px solid #F5A623;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilo cuando se pasa el mouse por encima de las opciones */
+.form-select .custom:hover {
+    background-color: #1E2225!important;
+}
+
+.modal-content{
+    background-image: var(--gradient);
+}
+
+.mensajeCreado{
+    position: absolute;
+    top: 0;
+    right: 0;
+    animation: aparecerDesaparecer 3s ease;
+    opacity: 0;
+    padding: 1%;
+    margin: 2%;
+}
+
+@keyframes aparecerDesaparecer {
+    0% {
+        opacity: 1; 
+    }80%{
+        opacity: 0.7;
+    }100%{
+        opacity: 0;
+    }
 }
