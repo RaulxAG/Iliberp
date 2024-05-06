@@ -56,6 +56,7 @@ body {
   text-align: center;
   position: relative;
   padding-top: 3vh;
+  animation: aparecerCentro 2.5s ease forwards;
 }
 .tittle::after {
   content: "";
@@ -66,6 +67,80 @@ body {
   height: 2px;
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
   transform: translateX(50%);
+}
+
+@keyframes aparecerDesdeIzquierda {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes aparecerDesdeDerecha {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes aparecerCentro {
+  from {
+    clip-path: circle(0.4% at 50% 50%);
+  }
+  to {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+.productos__producto {
+  position: relative;
+  overflow: hidden;
+  transition: all 2s linear;
+  box-shadow: -8px -8px 20px rgba(255, 255, 255, 0.04), 8px 8px 20px rgba(0, 0, 0, 0.35);
+}
+.productos__producto:hover {
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.03), 2px 2px 4px rgba(0, 0, 0, 0.35);
+}
+.productos__producto::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  transition: all 0.2s linear;
+  clip-path: circle(10% at 97% 2%);
+  z-index: 0;
+}
+.productos__producto:hover::after {
+  clip-path: circle(138.1% at 97% 2%);
+}
+.productos__producto:hover img {
+  filter: drop-shadow(0 0 5px rgb(46, 46, 46));
+}
+.productos__producto:hover .producto__precio p {
+  color: #F8F8F8 !important;
+}
+.productos__producto:hover .producto__precio div {
+  background-image: none !important;
+  background-color: rgba(85, 89, 91, 0.4) !important;
+  color: #e65522 !important;
+  transition: all 0.1s linear;
+}
+.productos__producto:hover .producto__precio div:hover {
+  background-color: #1E2225 !important;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 2px rgb(46, 46, 46));
+}
+.productos__producto img, .productos__producto h4, .productos__producto .producto__descripcion, .productos__producto .producto__precio {
+  position: relative;
+  z-index: 2;
 }
 
 .mainInicio {
@@ -156,6 +231,7 @@ body {
   border-bottom: 1px solid #ee3040;
   border-radius: 0;
   color: #F8F8F8;
+  animation: aparecerCentro 2.5s ease forwards;
 }
 .contenedor .search::placeholder {
   color: rgba(255, 255, 255, 0.76);
@@ -214,7 +290,8 @@ body {
   overflow-y: auto;
 }
 .contenedor .containerTienda .filtros {
-  width: 15%;
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  min-width: 150px;
   padding: 2vh;
   background-color: rgba(85, 89, 91, 0.4);
   max-height: 100%;
@@ -234,7 +311,21 @@ body {
 .contenedor .containerTienda .filtros .accordion-button::after {
   background-color: #F8F8F8;
 }
+.contenedor .containerTienda .filtros .accordion-body {
+  font-size: 14px;
+}
+.contenedor .containerTienda .filtros input {
+  appearance: none;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+}
+.contenedor .containerTienda .filtros input:checked {
+  background: #e65522;
+}
 .contenedor .containerTienda .productos {
+  animation: aparecerDesdeDerecha 1s ease forwards;
   width: 85%;
   padding: 2vh;
   background-color: rgba(85, 89, 91, 0.4);
@@ -246,24 +337,30 @@ body {
   overflow-y: auto;
 }
 .contenedor .containerTienda .productos__producto {
-  max-width: 42vh;
+  width: 42vh;
   margin-top: 1vh;
   padding: 2vh;
-  display: flex;
-  flex-direction: column;
+}
+.contenedor .containerTienda .productos__producto .abrirModalDetalle {
+  cursor: pointer;
 }
 .contenedor .containerTienda .productos__producto img {
   margin: auto;
   width: 70%;
+  animation: aparecerDesdeDerecha 1s ease forwards;
+  animation-delay: 0.2s;
 }
 .contenedor .containerTienda .productos__producto h4 {
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  animation-delay: 0.2s;
 }
 .contenedor .containerTienda .productos__producto .producto__descripcion {
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.473);
+  font-size: 15px;
   font-weight: 500;
+  animation: aparecerDesdeDerecha 1s ease forwards;
+  animation-delay: 0.2s;
 }
 .contenedor .containerTienda .productos__producto .producto__precio {
   font-weight: bold;
@@ -274,8 +371,11 @@ body {
 }
 .contenedor .containerTienda .productos__producto .producto__precio p {
   color: #e65522;
+  border-radius: 1vh;
   font-size: 21px;
   margin: 0 !important;
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  animation-delay: 0.2s;
 }
 .contenedor .containerTienda .productos__producto .producto__precio div {
   width: 9vh;
@@ -288,6 +388,8 @@ body {
   text-align: center;
   font-size: 26px;
   cursor: pointer;
+  animation: aparecerDesdeDerecha 1s ease forwards;
+  animation-delay: 0.2s;
 }
 .contenedor .carrito {
   width: 70px;
@@ -311,6 +413,17 @@ body {
   right: -15px;
   color: #1E2225;
   background-color: #F8F8F8;
+}
+
+.modalDetalle .modal-content {
+  background-color: #5b5b5b;
+}
+.modalDetalle .modal-content .btn-close {
+  color: #F8F8F8;
+  background-color: #e65522;
+}
+.modalDetalle .modal-content .modal-footer, .modalDetalle .modal-content .modal-header {
+  border: none;
 }
 
 .containerTramite {
@@ -357,6 +470,52 @@ body {
   border-radius: 1vh;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.menuLateral .menuLateral__profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.menuLateral .menuLateral__profile > img.profile__photo {
+  object-fit: contain;
+  width: 100%;
+}
+.menuLateral .menuLateral__profile p {
+  font-weight: 500;
+}
+.menuLateral .menuLateral__logo img {
+  object-fit: contain;
+  width: 40%;
+  margin-top: 0.5rem;
+}
+.menuLateral .menuLateral__enlaces ul {
+  list-style: none;
+  padding: 0;
+}
+.menuLateral .menuLateral__enlaces ul li {
+  text-align: center;
+  padding: 30% 0;
+}
+.menuLateral .menuLateral__enlaces ul a {
+  font-size: larger;
+  border-radius: 100%;
+  padding: 1rem;
+  text-decoration: none;
+  color: #e65522;
+  transition: background 0.2s linear;
+}
+.menuLateral .menuLateral__enlaces ul a:hover {
+  background-color: #1E2225;
+}
+.menuLateral .menuLateral__enlaces ul .selected {
+  transition: color 0.2s linear;
+  background-color: #1E2225;
+  border-radius: 100%;
+}
+.menuLateral .menuLateral__enlaces ul .selected:hover {
+  color: #F8F8F8;
 }
 
 /*# sourceMappingURL=main.css.map */

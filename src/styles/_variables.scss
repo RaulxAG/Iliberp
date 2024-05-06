@@ -11,6 +11,13 @@ $gradient: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
 $fontRaleway: "Raleway";
 
 //SOMBRAS
-$dropShadow: -15px -15px 20px rgba(255,255,255,.8), 15px 15px 20px rgba(57,65,124,.08);
-$innerShadow: -2px -2px 5px rgba(255,255,255,.9), 2px 2px 4px rgba(57,65,124,.2);
-$btnShadow: -5px -5px 15px rgba(255,255,255,.9), 5px 5px 15px rgba(60,14,189,.3);
+$dropShadow:-8px -8px 20px rgba(255, 255, 255, .04), 8px 8px 20px rgba(0, 0, 0, .35);
+$innerShadow: -2px -2px 5px rgba(255, 255, 255, .03), 2px 2px 4px rgba(0, 0, 0, .35);
+$btnShadow: -5px -5px 15px rgba(255,255,255,.03),5px 5px 15px rgba(0,0,0,.35);
+
+//MIXINS
+@mixin flex-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

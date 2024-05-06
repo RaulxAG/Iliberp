@@ -5,6 +5,7 @@
         border-bottom: 1px solid $colorRed;
         border-radius: 0;
         color: $colorWhite;
+        animation: aparecerCentro 2.5s ease forwards;
         &::placeholder{
             color: rgba(255, 255, 255, 0.76);
         }
@@ -72,12 +73,14 @@
         overflow-y:auto; 
 
         .filtros{
-            width: 15%;
+            animation: aparecerDesdeIzquierda 1s ease forwards;
+
+            min-width: 150px;
             padding: 2vh;
             background-color: $colorGray;
             max-height: 100%;
             margin-right: 1vh;
-
+            
             //ESTILOS TITULO ACORDEON
             .accordion-button{
                 padding: 0;
@@ -93,8 +96,25 @@
             .accordion-button::after{
                 background-color: $colorWhite;
             }
+
+            .accordion-body {
+                font-size: 14px;
+            }
+            input{
+                appearance: none;
+                cursor: pointer;
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
+                
+                &:checked {
+                    background:$colorOrange;
+                }
+            }
         }
         .productos{
+            animation: aparecerDesdeDerecha 1s ease forwards;
+
             width: 85%;
             padding: 2vh;
             background-color: $colorGray;
@@ -106,24 +126,34 @@
             overflow-y:auto;
     
             &__producto{
-                max-width: 42vh;
+                width: 42vh;
                 margin-top: 1vh;
                 padding: 2vh;
-                display: flex;
-                flex-direction: column;
+                
+                .abrirModalDetalle{
+                    cursor: pointer;
+                }
     
                 img{
                     margin: auto;
                     width: 70%;
+                    animation: aparecerDesdeDerecha 1s ease forwards;
+                    animation-delay: 0.2s;
+
                 }
                 h4{
-                    font-size: 18px;
+                    font-size: 20px;
                     text-align: center;
+                    animation: aparecerDesdeIzquierda 1s ease forwards;
+                    animation-delay: 0.2s;
+
                 }
                 .producto__descripcion{
-                    font-size: 16px;
-                    color: rgba(0, 0, 0, 0.473);
+                    font-size: 15px;
                     font-weight: 500;
+                    animation: aparecerDesdeDerecha 1s ease forwards;
+                    animation-delay: 0.2s;
+
                 }
                 .producto__precio{
                     font-weight: bold;
@@ -134,8 +164,12 @@
                     
                     p{
                         color: $colorOrange;
+                        border-radius: 1vh;
                         font-size: 21px;
                         margin: 0!important;
+                        animation: aparecerDesdeIzquierda 1s ease forwards;
+                        animation-delay: 0.2s;
+
                     }
     
                     div{
@@ -149,6 +183,9 @@
                         text-align: center;
                         font-size: 26px;
                         cursor: pointer;
+                        animation: aparecerDesdeDerecha 1s ease forwards;
+                        animation-delay: 0.2s;
+
                     }
                 }
             }
@@ -183,4 +220,15 @@
         }
     }
     
+}
+.modalDetalle .modal-content{
+    background-color: $colorGray2;
+
+    .btn-close{
+        color: $colorWhite;
+        background-color: $colorOrange;
+    }
+    .modal-footer,.modal-header{
+        border: none;
+    }
 }

@@ -60,6 +60,7 @@ body {
     text-align: center;
     position: relative;
     padding-top: 3vh;
+    animation: aparecerCentro 2.5s ease forwards;
 
     &::after{
         content: ""; 
