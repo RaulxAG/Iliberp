@@ -137,7 +137,7 @@
                 img{
                     margin: auto;
                     width: 70%;
-                    animation: aparecerDesdeDerecha 1s ease forwards;
+                    // animation: aparecerDesdeDerecha 1s ease forwards;
                     animation-delay: 0.2s;
 
                 }
@@ -222,6 +222,7 @@
     
 }
 .modalDetalle .modal-content{
+    z-index: 100;
     background-color: $colorGray2;
 
     .btn-close{

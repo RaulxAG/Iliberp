@@ -39,7 +39,7 @@ export default function Producto({producto, carrito, setCarrito}){
                 </div>
             </div>
              {/* MODAL DETALLE DE PRODUCTO */}
-             <div className="modal modalDetalle fade" id="modalDetalle" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+             <div className="modal modalDetalle fade" id="modalDetalle" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

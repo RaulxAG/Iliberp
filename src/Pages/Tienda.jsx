@@ -8,7 +8,7 @@ import Carrito from './Carrito';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 
-export default function Inicio() {
+export default function Tienda() {
 
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
@@ -42,7 +42,7 @@ export default function Inicio() {
             <div className="contenedor box">
                 <h2 className='tittle'>Tienda</h2>
                 <div className='w-100 m-auto px-4 pt-5 d-flex justify-content-end align-items-center'>
-                   <input class="form-control w-25 search" type="search" placeholder="Search" aria-label="Search"/> 
+                   <input className="form-control w-25 search" type="search" placeholder="Search" aria-label="Search"/> 
                 </div>
 
                 <div className="categorias">
@@ -122,21 +122,22 @@ export default function Inicio() {
                         </div>
                         <p className='text-center h3 mt-5 border-bottom pb-1'>Ordenar por</p>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="checkbox" name="nombreAsc" id="nombreAsc"/> 
+                            <input type="radio" name="orden" id="nombreAsc"/> 
                             <label htmlFor="nombreAsc">Nombre A-Z</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="checkbox" name="nombreDes" id="nombreDesc"/> 
+                            <input type="radio" name="orden" id="nombreDesc"/> 
                             <label htmlFor="nombreDesc">Nombre Z-A</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="checkbox" name="precioAsc" id="precioAsc"/> 
+                            <input type="radio" name="orden" id="precioAsc"/> 
                             <label htmlFor="precioAsc">Precio asc.</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="checkbox" name="precioDes" id="precioDesc"/> 
+                            <input type="radio" name="orden" id="precioDesc"/> 
                             <label htmlFor="precioDesc">Precio desc.</label>
                         </div>
+
                     </section>
                     <section className="productos box barScroll ">
                         <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito}></Productos> 
@@ -148,6 +149,7 @@ export default function Inicio() {
                     <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{carrito.length}</p>
                 </button>
             </div>
+            
         </div>
     );
 

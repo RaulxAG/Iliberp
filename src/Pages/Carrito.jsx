@@ -1,4 +1,5 @@
 import laptopImg from '/assets/img/laptop.png';
+import { Link } from 'react-router-dom';
 
 export default function Carrito({carrito,setCarritoVisible}) {
     console.log(carrito.length)
@@ -28,7 +29,11 @@ export default function Carrito({carrito,setCarritoVisible}) {
                         </div>
                     </div>
                 ))}
-                {carrito.length > 0 && <button className='tramitarPedido'>Tramitar pedido</button>} 
+                {carrito.length > 0 && (
+                    <Link to="/tramitar-pedido">
+                        <button className='tramitarPedido'>Tramitar pedido</button>
+                    </Link>
+                )}
                 
             </div>
         </div>

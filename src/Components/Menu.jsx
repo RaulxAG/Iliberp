@@ -4,47 +4,58 @@ export default function Menu({ selected }) {
 
   // menuLateral
   return (
-    <section className="menuLateral box d-flex flex-column align-items-center justify-content-between">
-          <div>
+    <section className="menuLateral box">
+          <div className="d-flex flex-column align-items-center justify-content-between h-100">
               <section className="menuLateral__profile">
                   <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
                   <p>Usuario</p>
               </section>
-
-              <section className="menuLateral__enlaces">
+              <section className="menuLateral__enlaces h-100 w-100">
                   <ul>
-                      <li>
-                          <a href="/" className={selected === "inicio" ? "selected" : ""}>
-                              <i className="fa-solid fa-house"></i>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="/incidencias" className={selected === "incidencias" ? "selected" : ""} >
-                              <i className="fa-solid fa-triangle-exclamation"></i>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="/mensajeria" className={selected === "mensajeria" ? "selected" : ""} >
-                              <i className="fa-solid fa-comments"></i>
-                          </a>
-                      </li>
-                      <li className={selected === "tienda" ? "selected" : ""} >
-                          <a href="#">
-                              <i className="fa-solid fa-shop"></i>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <i className="fa-solid fa-language"></i>
-                          </a>
-                      </li>
+                    <li className="w-100">
+                        <a href="/" className="position-relative">
+                            <img src="/assets/img/logoChat.png" alt=""  className="w-100"/>
+                            <div className="position-absolute">
+                                <img src="/assets/img/logoChatBlanco.png" alt="" />
+                                <p>Chat</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li className="w-100">
+                        <a href="/" className="position-relative">
+                            <img src="/assets/img/logoIncident.png" alt="" />
+                            <div className="position-absolute">
+                                <img src="/assets/img/logoIncidentBlanco.png" alt="" />
+                                <p>Incidencias</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li className="w-100">
+                        <a href="/" className="position-relative">
+                            <img src="/assets/img/logoCompras.png" alt="" />
+                            <div className="position-absolute">
+                                <img src="/assets/img/logoComprasBlanco.png" alt="" />
+                                <p>Tienda</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li className="w-100">
+                        <a href="/" className="position-relative">
+                            <img src="/assets/img/logoTraductor.png" alt="" />
+                            <div className="position-absolute">
+                                <img src="/assets/img/logoTraductorBlanco.png" alt="" />
+                                <p>Traductor</p>
+                            </div>
+                        </a>
+                    </li>
                   </ul>
               </section>
+              <section className="menuLateral__logo d-flex align-items-center justify-content-center py-2">
+                <img src="/assets/img/logo.png" alt="logo" />
+            </section>
           </div>
 
-          <section className="menuLateral__logo d-flex align-items-center justify-content-center py-2">
-              <img src="/assets/img/logo.png" alt="logo" />
-          </section>
+          
           
     </section>  
   );

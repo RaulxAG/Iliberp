@@ -34,15 +34,13 @@ body {
     gap: 1%;
     padding: 1%;
 
-    .menuLateral{
-        width: 5%;
-        min-width: 70px;
-    }
+    // .menuLateral{
+    //     min-width: 5%;
+    // }
 
     .contenedor{
         display: flex;
         flex-direction: column;
-        width: 95%;
     }
     
 }

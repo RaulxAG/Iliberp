@@ -131,6 +131,7 @@ export default function TramitarPedido() {
                                                         <div className="mb-3 col-4">
                                                             <TextField id="outlined-basic" label="MM" className='w-100'/>
                                                         </div>
+                                                        <p className='col-1 h2 text-center'>/</p>
                                                         <div className="mb-3 col-4">
                                                             <TextField id="outlined-basic" label="YY" className='w-100'/>
                                                         </div>
