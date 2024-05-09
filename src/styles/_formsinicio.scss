@@ -47,14 +47,15 @@
         border-radius: 1vh;
         text-align: center;
         padding: 50px 15px;
-
+        .formRegistrarse form{
+            padding: 10px 0px;
+            gap: 12px!important;
+        }
         h3 {
             color: $colorWhite;
         }
 
         form {
-            margin: 40px 0px 20px 0px;
-
             input {
                 background-color: rgba(255, 255, 255, 0.399);
                 border: 1px solid $colorWhite;
@@ -100,7 +101,9 @@
             margin: 0 !important;
 
         }
-
+        p{
+            margin-top: 15px!important;
+        }
         button {
             margin-top: 10px !important;
         }
@@ -122,12 +125,6 @@
         input,
         button {
             font-size: 14px;
-            margin: 0 !important;
-
-        }
-
-        button {
-            margin-top: 15px !important;
         }
     }
 }
@@ -145,12 +142,7 @@
 
         p,input,button {
             font-size: 16px;
-            margin: 0 !important;
-            margin: 0px 20px!important;
         }
 
-        button {
-            margin-top: 18px !important;
-        }
     }
 }

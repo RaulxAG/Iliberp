@@ -21,16 +21,27 @@ export default function FormInicio() {
                 </div>
 
                 <div className="formularios position-absolute">
-                    <div className="form">
+                    {/* <div className="formIniciarSesion">
                         <h3 className="text-uppercase">Iniciar Sesión</h3>
-                        <form action="" className="d-flex flex-column gap-4">
+                        <form action="" className="d-flex flex-column gap-4 mt-4">
                             <input type="text" placeholder="Usuario"/>
                             <input type="text" placeholder="Contraseña"/>
                         </form>
-                        <p>¿Has olvidado tu contraseña?</p>
+                        <p className='mt-4'>¿Has olvidado tu contraseña?</p>
                         <Link to="/tienda">
                             <button>Iniciar Sesión</button>
                         </Link>
+                    </div> */}
+                    <div className="formRegistrarse">
+                        <h3 className="text-uppercase">Crear cuenta</h3>
+                        <form action="" className="d-flex flex-column gap-4">
+                            <input type="text" placeholder="Usuario"/>
+                            <input type="text" placeholder="Contraseña"/>
+                            <input type="text" placeholder="Nombre completo"/>
+                            <input type="text" placeholder="Teléfono"/>
+                            <input type="text" placeholder="Email"/>
+                        </form>
+                        <button>Registrarme</button>
                     </div>
                 </div>
             </div>
