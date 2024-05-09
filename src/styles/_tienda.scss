@@ -113,7 +113,7 @@
             }
         }
         .productos{
-            animation: aparecerDesdeDerecha 1s ease forwards;
+            animation:  1s ease forwards;
 
             width: 85%;
             padding: 2vh;
@@ -132,22 +132,23 @@
                 
                 .abrirModalDetalle{
                     cursor: pointer;
+                    img{
+                        margin: auto;
+                        width: 70%;
+                        animation: aparecerDesdeDerecha 1s ease forwards;
+                        animation-delay: 0.2s;
+    
+                    }
+                    h4{
+                        font-size: 20px;
+                        text-align: center;
+                        animation: aparecerDesdeIzquierda 1s ease forwards;
+                        animation-delay: 0.2s;
+    
+                    }
                 }
     
-                img{
-                    margin: auto;
-                    width: 70%;
-                    // animation: aparecerDesdeDerecha 1s ease forwards;
-                    animation-delay: 0.2s;
-
-                }
-                h4{
-                    font-size: 20px;
-                    text-align: center;
-                    animation: aparecerDesdeIzquierda 1s ease forwards;
-                    animation-delay: 0.2s;
-
-                }
+                
                 .producto__descripcion{
                     font-size: 15px;
                     font-weight: 500;
@@ -188,6 +189,24 @@
 
                     }
                 }
+                .modalDetalle{
+                    img{
+                        width: 100%;
+                    }
+                    
+                    .modal-content{
+                        z-index: 100;
+                        background-color: $colorGray2;
+                    
+                        .btn-close{
+                            color: $colorWhite;
+                            background-color: $colorOrange;
+                        }
+                        .modal-footer,.modal-header{
+                            border: none;
+                        }
+                    }
+                } 
             }
         }
     }
@@ -220,16 +239,4 @@
         }
     }
     
-}
-.modalDetalle .modal-content{
-    z-index: 100;
-    background-color: $colorGray2;
-
-    .btn-close{
-        color: $colorWhite;
-        background-color: $colorOrange;
-    }
-    .modal-footer,.modal-header{
-        border: none;
-    }
 }

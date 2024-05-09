@@ -1,25 +1,21 @@
 // CARGA DE LAS CARD
 @keyframes aparecerDesdeIzquierda {
     from {
-        opacity: 0;
         transform: translateX(-100%);
     }
     to {
-        opacity: 1;
         transform: translateX(0);
     }
 }
 
-// @keyframes aparecerDesdeDerecha {
-//     from {
-//         opacity: 0;
-//         transform: translateX(100%);
-//     }
-//     to {
-//         opacity: 1;
-//         transform: translateX(0);
-//     }
-// }
+@keyframes aparecerDesdeDerecha {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
 @keyframes aparecerCentro {
     from {
         clip-path: circle(0.4% at 50% 50%);

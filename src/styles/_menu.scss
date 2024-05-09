@@ -33,60 +33,60 @@
         justify-content: start;
         gap: 40px;
         align-items: center;
+
         li {
             text-align: center;
-        }
+            width: 100%;
 
-        a {
-            font-size: larger;
-            border-radius: 100%;
-            text-decoration: none;
-            color: $colorOrange;
-            transition: background .2s linear;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:hover div{
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            }
-
-            div{
-                z-index: 10;
+            a {
+                font-size: larger;
+                border-radius: 100%;
+                text-decoration: none;
+                color: $colorOrange;
+                transition: background .2s linear;
                 display: flex;
                 align-items: center;
-                justify-content: start;
-                background-image: $gradient;
-                width: 23vh;
-                border-radius: 0px 10px 10px 0px;
-                left: 0vh;
-                padding: 3px 10px;
-                transition: 0.2s linear;
-                clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-
+                justify-content: center;
+                width: 100%;
+    
+                &:hover div{
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
                 img{
                     width: 100%;
                 }
-
-                p{
-                  padding-left: 10px;  
+                div{
+                    z-index: 10;
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    background-image: $gradient;
+                    width: 23vh;
+                    border-radius: 0px 10px 10px 0px;
+                    left: 0vh;
+                    padding: 3px 10px;
+                    transition: 0.2s linear;
+                    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                    filter: drop-shadow(0 0 2px rgba(46,46,46,01));
+                    p{
+                      padding-left: 10px;  
+                    }
                 }
-            }
-            p{
-                display: flex;
-                padding: 0% 2px;
-                color: $colorWhite;
-                margin: 0;
-                
-            }
-
-            img{
-                max-width: 40px;
+                p{
+                    display: flex;
+                    padding: 0% 2px;
+                    color: $colorWhite;
+                    margin: 0;
+                    
+                }
+    
+                img{
+                    max-width: 40px;
+                }
             }
         }
 
-        
-
+       
         .selected {
             transition: color .2s linear;
             background-color: $colorBlack;

@@ -6,22 +6,21 @@ export default function Menu({ selected }) {
   return (
     <section className="menuLateral box">
           <div className="d-flex flex-column align-items-center justify-content-between h-100">
-              <section className="menuLateral__profile">
+              <section className="menuLateral__profile border-bottom pb-2">
                   <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
-                  <p>Usuario</p>
               </section>
               <section className="menuLateral__enlaces h-100 w-100">
                   <ul>
-                    <li className="w-100">
+                    <li className="">
                         <a href="/" className="position-relative">
-                            <img src="/assets/img/logoChat.png" alt=""  className="w-100"/>
+                            <img src="/assets/img/logoChat.png" alt=""  className=""/>
                             <div className="position-absolute">
                                 <img src="/assets/img/logoChatBlanco.png" alt="" />
                                 <p>Chat</p>
                             </div>
                         </a>
                     </li>
-                    <li className="w-100">
+                    <li className="">
                         <a href="/" className="position-relative">
                             <img src="/assets/img/logoIncident.png" alt="" />
                             <div className="position-absolute">
@@ -30,7 +29,7 @@ export default function Menu({ selected }) {
                             </div>
                         </a>
                     </li>
-                    <li className="w-100">
+                    <li className="">
                         <a href="/" className="position-relative">
                             <img src="/assets/img/logoCompras.png" alt="" />
                             <div className="position-absolute">
@@ -39,7 +38,7 @@ export default function Menu({ selected }) {
                             </div>
                         </a>
                     </li>
-                    <li className="w-100">
+                    <li className="">
                         <a href="/" className="position-relative">
                             <img src="/assets/img/logoTraductor.png" alt="" />
                             <div className="position-absolute">

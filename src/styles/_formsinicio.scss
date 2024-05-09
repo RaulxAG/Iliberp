@@ -1,21 +1,22 @@
-.containerInicio{
+.containerInicio {
     background-color: $colorGray2;
     height: 100vh;
 
-    .portadaForms{
+    .portadaForms {
         background-color: $colorWhite;
-        width: 50%;
         border-radius: 1vh;
         text-align: center;
-        
-        .portadaRegistro,.portadaLogin{
-            padding: 50px 50px;
-            
-            p{
+        width: 50%;
+
+        .portadaRegistro,
+        .portadaLogin {
+            padding: 50px 0px;
+
+            p {
                 padding: 0px 10px;
             }
-            
-            div{
+
+            div {
                 background-image: $gradient;
                 width: 100px;
                 height: 100px;
@@ -25,7 +26,7 @@
                 margin: 20px 0px 40px 0px;
             }
 
-            button{
+            button {
                 background-image: $gradient;
                 color: $colorWhite;
                 padding: 5px 40px;
@@ -35,7 +36,8 @@
             }
         }
     }
-    .formularios{
+
+    .formularios {
         top: 0;
         right: 0;
         //left: 0;
@@ -44,35 +46,111 @@
         background-image: $gradient;
         border-radius: 1vh;
         text-align: center;
-        padding: 50px 50px;
-        
-        h3{
-           color: $colorWhite; 
+        padding: 50px 15px;
+
+        h3 {
+            color: $colorWhite;
         }
 
-        form{
+        form {
             margin: 40px 0px 20px 0px;
-            
-            input{
+
+            input {
                 background-color: rgba(255, 255, 255, 0.399);
                 border: 1px solid $colorWhite;
                 border-radius: 1vh;
                 padding: 3px 10px;
+                margin: 0px 20px;
 
-                &::placeholder{
+                &::placeholder {
                     color: $colorWhite;
                 }
             }
 
         }
-        button{
+
+        button {
             background-color: $colorBlack;
             color: $colorWhite;
-            padding: 5px 40px;
+            padding: 5px 25px;
             border: none;
             border-radius: 3vh;
             text-transform: uppercase;
-            margin-top: 46px;
+            margin-top: 6px;
+        }
+    }
+}
+
+// -------------MEDIA QUERY---------------
+/* pantallas pequeñas */
+@media only screen and (max-width: 767px) {
+    .containerInicio {
+        .portadaForms {
+            width: 95%;
+        }
+
+        h3 {
+            font-size: 19px;
+        }
+
+        p,
+        input,
+        button {
+            font-size: 12px;
+            margin: 0 !important;
+
+        }
+
+        button {
+            margin-top: 10px !important;
+        }
+    }
+}
+
+/* Pantallas medianas*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .containerInicio {
+        .portadaForms {
+            width: 75%;
+        }
+
+        h3 {
+            font-size: 22px;
+        }
+
+        p,
+        input,
+        button {
+            font-size: 14px;
+            margin: 0 !important;
+
+        }
+
+        button {
+            margin-top: 15px !important;
+        }
+    }
+}
+
+/* Pantallas grandes*/
+@media only screen and (min-width: 992px) {
+    .containerInicio {
+        .portadaForms {
+            width: 50%;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p,input,button {
+            font-size: 16px;
+            margin: 0 !important;
+            margin: 0px 20px!important;
+        }
+
+        button {
+            margin-top: 18px !important;
         }
     }
 }
