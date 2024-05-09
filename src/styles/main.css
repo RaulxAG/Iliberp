@@ -600,17 +600,21 @@ body {
 }
 .containerInicio .formularios {
   top: 0;
-  right: 0;
+  left: 50%;
   height: 100%;
   width: 50%;
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
   border-radius: 1vh;
   text-align: center;
   padding: 50px 15px;
+  transition: left 0.3s linear;
 }
 .containerInicio .formularios .formRegistrarse form {
   padding: 10px 0px;
   gap: 12px !important;
+}
+.containerInicio .formularios .formRegistrarse form input {
+  padding: 3px 10px;
 }
 .containerInicio .formularios h3 {
   color: #F8F8F8;
@@ -679,7 +683,7 @@ body {
     font-size: 24px;
   }
   .containerInicio p, .containerInicio input, .containerInicio button {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
