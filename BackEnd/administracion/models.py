@@ -45,6 +45,7 @@ class Cliente(models.Model):
     foto_perfil = models.BinaryField(blank=True, null=True) 
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)  # Relación con el modelo Empresa
     
+
 class Empleado(models.Model):
     """
     Modelo que representa los datos de los empleados
@@ -58,15 +59,6 @@ class Empleado(models.Model):
         departamento (CharField): Departamento al que pertenece el empleado
         foto_perfil (BinaryField, opcional): Foto de perfil del empleado (opcional)
     """
-
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
-    dni = models.CharField(max_length=20)
-    correo = models.EmailField(max_length=100)
-    telefono = models.CharField(max_length=20)
-    departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
-    foto_perfil = models.BinaryField(blank=True, null=True)
-
     DEPARTAMENTOS = [
         ('web', 'Web'),
         ('programacion', 'Programación'),
@@ -76,3 +68,13 @@ class Empleado(models.Model):
         ('sistemas', 'Sistemas'),
         ('taller', 'Taller'),
     ]
+    
+    nombre = models.CharField(max_length=100)
+    apellidos = models.CharField(max_length=100)
+    dni = models.CharField(max_length=20)
+    correo = models.EmailField(max_length=100)
+    telefono = models.CharField(max_length=20)
+    departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
+    foto_perfil = models.BinaryField(blank=True, null=True)
+
+
