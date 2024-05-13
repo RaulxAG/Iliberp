@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'administracion',
+    'fichaje',
+    'incidencias',
+    'inventario',
+    'mensajeria',
+    'trello',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
