@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from administracion.models import Cliente
 
 # Create your models here.
 class Contacto(models.Model):
@@ -11,8 +12,8 @@ class Contacto(models.Model):
         return self.nombre
 
 class Mensaje(models.Model):
-    emisor = models.ForeignKey(Contacto, on_delete=models.CASCADE)
-    receptor = models.ForeignKey(Contacto, on_delete=models.CASCADE)
+    emisor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='mensajes_enviados')
+    receptor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='mensajes_recibidos')
     texto = models.TextField(blank=True, null=True)
     archivo = models.FileField(upload_to='archivos/', blank=True, null=True)
     fecha_envio = models.DateTimeField(auto_now_add=True)
@@ -21,9 +22,9 @@ class Mensaje(models.Model):
         return f"Mensaje de {self.emisor.nombre} - {self.fecha_envio}"
 
 class Chat(models.Model):
-    emisor = models.ForeignKey(Contacto, on_delete=models.CASCADE)
-    receptor = models.ForeignKey(Contacto, on_delete=models.CASCADE)
+    emisor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='chats_enviados')
+    receptor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='chats_recibidos')
     mensajes = models.ManyToManyField(Mensaje)
 
     def __str__(self):
-        return f"Chat entre {self.usuario.username} y {self.contacto.nombre}"
+        return f"Chat entre {self.emisor.nombre} y {self.receptor.nombre}"
