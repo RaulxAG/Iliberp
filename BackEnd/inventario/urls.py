@@ -1,7 +1,8 @@
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
+from inventario import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/productos/', views.productos_api, name='productos-api'),
 ]
