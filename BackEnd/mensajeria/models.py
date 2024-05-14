@@ -24,7 +24,7 @@ class Mensaje(models.Model):
 class Chat(models.Model):
     emisor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='chats_enviados')
     receptor = models.ForeignKey(Contacto, on_delete=models.CASCADE, related_name='chats_recibidos')
-    mensajes = models.ManyToManyField(Mensaje)
+    mensajes = models.ForeignKey(Mensaje,null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Chat entre {self.emisor.nombre} y {self.receptor.nombre}"

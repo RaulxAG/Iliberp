@@ -15,4 +15,4 @@ class Registro(models.Model):
         self.save()
 
     def __str__(self):
-        return "registro-" + self.id + "-" + self.fecha # formatear con el empleado mas adelante
+        return "registro-" + str(self.id) + "-" + str(self.fecha) # formatear con el empleado mas adelante
