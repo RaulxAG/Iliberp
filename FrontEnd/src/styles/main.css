@@ -35,11 +35,12 @@ body {
   padding: 1%;
 }
 .containerPrincipal .menuLateral {
-  min-width: 60px;
+  max-width: 70px;
 }
 .containerPrincipal .contenedor {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .box {
@@ -478,13 +479,12 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 5px 15px;
-  padding: 0px 5px;
   width: 100%;
 }
 .menuLateral.box .menuLateral__profile > img.profile__photo {
   object-fit: contain;
   width: 100%;
+  padding: 3px;
 }
 .menuLateral.box .menuLateral__profile p {
   font-weight: 500;

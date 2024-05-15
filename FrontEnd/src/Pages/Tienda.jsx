@@ -1,6 +1,8 @@
 import Menu from '../Components/Menu'
 import Productos from './Productos';
+
 import { useState,useEffect } from 'react';
+import { Navigate,useNavigate } from 'react-router-dom'; 
 
 import laptopImg from '/assets/img/laptop.png';
 import Carrito from './Carrito';
@@ -14,9 +16,10 @@ export default function Tienda() {
     const [carrito, setCarrito] = useState([]);
     const [categSelected, setCategSelected] = useState("hardware");
     const [carritoVisible, setCarritoVisible] = useState(false);
-
+    const [search,setSearch] = useState("")
     const [value, setValue] = useState([200, 600]);
 
+    let navegate=useNavigate();
 
     function valuetext(value) {
         return `${value}°C`;
@@ -26,14 +29,18 @@ export default function Tienda() {
         setValue(newValue);
       };
     
-    console.log(categSelected)
-    console.log(carrito)
 
     const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
     const toggleAcordeon = () => {
       setAcordeonAbierto(!acordeonAbierto);
     };
+
+    const changeSearch = (e) =>{
+        const newValue = e.target.value;
+        setSearch(newValue);
+        navegate("/tienda?search=" + newValue);
+    }
 
     return (
         <div className='containerPrincipal'>
@@ -42,7 +49,7 @@ export default function Tienda() {
             <div className="contenedor box">
                 <h2 className='tittle'>Tienda</h2>
                 <div className='w-100 m-auto px-4 pt-5 d-flex justify-content-end align-items-center'>
-                   <input className="form-control w-25 search" type="search" placeholder="Search" aria-label="Search"/> 
+                   <input className="form-control w-25 search" type="search" placeholder="Search" aria-label="Search" value={search} onChange={changeSearch}/> 
                 </div>
 
                 <div className="categorias">
@@ -140,7 +147,7 @@ export default function Tienda() {
 
                     </section>
                     <section className="productos box barScroll ">
-                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito}></Productos> 
+                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch}></Productos> 
                     </section>
                 </div>
                 

@@ -5,13 +5,12 @@
     .menuLateral__profile {
         @include flex-centered;
         flex-direction: column;
-        margin: 5px 15px;
-        padding: 0px 5px;
         width: 100%;
 
         >img.profile__photo {
             object-fit: contain;
             width: 100%;
+            padding: 3px;
         }
 
         p {

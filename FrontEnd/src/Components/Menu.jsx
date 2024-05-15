@@ -6,7 +6,7 @@ export default function Menu({ selected }) {
   return (
     <section className="menuLateral box">
           <div className="d-flex flex-column align-items-center justify-content-between h-100">
-              <section className="menuLateral__profile border-bottom pb-2">
+              <section className="menuLateral__profile border-bottom">
                   <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
               </section>
               <section className="menuLateral__enlaces h-100 w-100">

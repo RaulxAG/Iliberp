@@ -35,12 +35,13 @@ body {
     padding: 1%;
 
     .menuLateral{
-        min-width: 60px;
+        max-width: 70px;
     }
 
     .contenedor{
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
     
 }
