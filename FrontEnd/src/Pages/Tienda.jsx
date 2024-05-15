@@ -1,8 +1,8 @@
 import Menu from '../Components/Menu'
 import Productos from './Productos';
 
-import { useState,useEffect } from 'react';
-import { Navigate,useNavigate } from 'react-router-dom'; 
+import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import laptopImg from '/assets/img/laptop.png';
 import Carrito from './Carrito';
@@ -16,10 +16,26 @@ export default function Tienda() {
     const [carrito, setCarrito] = useState([]);
     const [categSelected, setCategSelected] = useState("hardware");
     const [carritoVisible, setCarritoVisible] = useState(false);
-    const [search,setSearch] = useState("")
+    const [search, setSearch] = useState("")
     const [value, setValue] = useState([200, 600]);
+    const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
-    let navegate=useNavigate();
+    const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
+
+
+    // Función para manejar el cambio en el checkbox
+    const addCategoria = (e) => {
+        const value = e.currentTarget.id;
+        e.target.checked ?
+            setCategoriasSeleccionadas([...categoriasSeleccionadas, value])
+            :
+            setCategoriasSeleccionadas(prevCategorias => prevCategorias.filter(categoria => categoria !== value));
+
+    };
+
+
+    console.log(categoriasSeleccionadas)
+    let navegate = useNavigate();
 
     function valuetext(value) {
         return `${value}°C`;
@@ -27,20 +43,19 @@ export default function Tienda() {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-      };
-    
-
-    const [acordeonAbierto, setAcordeonAbierto] = useState(false);
-
-    const toggleAcordeon = () => {
-      setAcordeonAbierto(!acordeonAbierto);
     };
 
-    const changeSearch = (e) =>{
+
+    const toggleAcordeon = () => {
+        setAcordeonAbierto(!acordeonAbierto);
+    };
+
+    const changeSearch = (e) => {
         const newValue = e.target.value;
         setSearch(newValue);
         navegate("/tienda?search=" + newValue);
     }
+
 
     return (
         <div className='containerPrincipal'>
@@ -49,7 +64,7 @@ export default function Tienda() {
             <div className="contenedor box">
                 <h2 className='tittle'>Tienda</h2>
                 <div className='w-100 m-auto px-4 pt-5 d-flex justify-content-end align-items-center'>
-                   <input className="form-control w-25 search" type="search" placeholder="Search" aria-label="Search" value={search} onChange={changeSearch}/> 
+                    <input className="form-control w-25 search" type="search" placeholder="Search" aria-label="Search" value={search} onChange={changeSearch} />
                 </div>
 
                 <div className="categorias">
@@ -97,7 +112,7 @@ export default function Tienda() {
                             valueLabelDisplay="auto"
                             getAriaValueText={valuetext}
                             max={1500}
-                        /> 
+                        />
                         <div className="accordion" id="accordionExample">
                             <div className="accordion-item">
                                 <h2 className="accordion-header">
@@ -108,19 +123,19 @@ export default function Tienda() {
                                 <div id="collapseOne" className={`accordion-collapse collapse ${acordeonAbierto ? 'show' : ''}`} aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div className="accordion-body p-0 mt-2 ps-3">
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="ordenador" id="ordenador"/> 
-                                            <label htmlFor="ordenador">Ordenadores</label>
+                                            <input type="checkbox" name="portatil" id="portatil" className='categoria' onChange={addCategoria} />
+                                            <label htmlFor="portatil">Portátiles</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="teclado" id="teclado"/> 
+                                            <input type="checkbox" name="teclado" id="teclado" className='categoria' onChange={addCategoria} />
                                             <label htmlFor="teclado">Teclados</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="raton" id="raton"/> 
+                                            <input type="checkbox" name="raton" id="raton" className='categoria' onChange={addCategoria} />
                                             <label htmlFor="raton">Ratones</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="monitor" id="monitor"/> 
+                                            <input type="checkbox" name="monitor" id="monitor" className='categoria' onChange={addCategoria} />
                                             <label htmlFor="monitor">Monitores</label>
                                         </div>
                                     </div>
@@ -129,34 +144,34 @@ export default function Tienda() {
                         </div>
                         <p className='text-center h3 mt-5 border-bottom pb-1'>Ordenar por</p>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="nombreAsc"/> 
+                            <input type="radio" name="orden" id="nombreAsc" />
                             <label htmlFor="nombreAsc">Nombre A-Z</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="nombreDesc"/> 
+                            <input type="radio" name="orden" id="nombreDesc" />
                             <label htmlFor="nombreDesc">Nombre Z-A</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="precioAsc"/> 
+                            <input type="radio" name="orden" id="precioAsc" />
                             <label htmlFor="precioAsc">Precio asc.</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="precioDesc"/> 
+                            <input type="radio" name="orden" id="precioDesc" />
                             <label htmlFor="precioDesc">Precio desc.</label>
                         </div>
 
                     </section>
                     <section className="productos box barScroll ">
-                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch}></Productos> 
+                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch} categoriasSeleccionadas={categoriasSeleccionadas}></Productos>
                     </section>
                 </div>
-                
-                <button className='carrito rounded-circle border-0' title='Ver carrito' onClick={()=>setCarritoVisible(true)}>
-                    <i className="fa-solid fa-cart-shopping" style={{color: "#f8f8f8"}}></i>
+
+                <button className='carrito rounded-circle border-0' title='Ver carrito' onClick={() => setCarritoVisible(true)}>
+                    <i className="fa-solid fa-cart-shopping" style={{ color: "#f8f8f8" }}></i>
                     <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{carrito.length}</p>
                 </button>
             </div>
-            
+
         </div>
     );
 

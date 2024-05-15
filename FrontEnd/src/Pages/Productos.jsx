@@ -1,17 +1,30 @@
 import Producto from './Producto';
 import { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
-export default function Productos({ productos, setProductos, carrito, setCarrito, search, setSearch }) {
+
+export default function Productos({ productos, setProductos, carrito, setCarrito, search, setSearch,categoriasSeleccionadas }) {
     const location = useLocation();
     const [productosFiltrados,setProductosFiltrados] = useState([])
 
     useEffect(() => {
-        // Filtrar los productos según la búsqueda
-        // Esperar medio segundo antes de realizar la búsqueda
-        setTimeout(() => {
-            setProductosFiltrados(productos.filter(producto => ((producto.nombre).toLowerCase()).includes((search).toLowerCase())));
-        }, 1000);
-    }, [search]);
+        // Filtrar los productos 
+        setProductosFiltrados(
+            categoriasSeleccionadas.length > 0 ?
+                // Filtrar por categorías seleccionadas
+                productos.filter(producto =>
+                    categoriasSeleccionadas.includes(producto.tipo) &&
+                    ((producto.nombre).toLowerCase()).includes((search).toLowerCase())
+                    
+                )
+                
+            :
+                // Si no hay categorías seleccionadas, filtrar solo por la búsqueda
+                productos.filter(producto =>
+                    ((producto.nombre).toLowerCase()).includes((search).toLowerCase())
+                )
+                
+        )
+    }, [search, categoriasSeleccionadas, productos]);
 
     //Cuandi recargamos recogemos el search de la url y aparece en el value del search
     useEffect(() => {
@@ -21,7 +34,6 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     }, [location.search]);
     
     
-
     useEffect(() => {
         fetch('http://127.0.0.1:8000/api/productos/')
             .then(response => response.json())
@@ -33,6 +45,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     // Si no hay busqueda, mostrar todos los productos
     const productList = search === "" ? productos : productosFiltrados;
+    console.log("hi")
     
     return (
         <>

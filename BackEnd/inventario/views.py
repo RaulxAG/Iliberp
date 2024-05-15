@@ -10,6 +10,7 @@ def productos_api(request):
             'nombre': producto.nombre,
             'descripcion': producto.descripcion,
             'precio': producto.precio,
+            'tipo' : producto.tipo,
             
         }
         for producto in productos
