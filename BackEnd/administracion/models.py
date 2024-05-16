@@ -35,11 +35,10 @@ class Cliente(models.Model):
         foto_perfil (BinaryField): Foto de perfil del cliente (opcional)
         empresa (ForeignKey): Relación con el modelo Empresa para asociar el cliente con una empresa
     """
-
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
+    # Relación con el modelo User para el usuario de Django. 
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)# (Esta clase tiene los atributos Username,Emlail,FirstName, LastName, Admin)
     dni = models.CharField(max_length=20)
-    correo = models.EmailField(max_length=100)
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
     foto_perfil = models.BinaryField(blank=True, null=True) 
@@ -59,6 +58,8 @@ class Empleado(models.Model):
         departamento (CharField): Departamento al que pertenece el empleado
         foto_perfil (BinaryField, opcional): Foto de perfil del empleado (opcional)
     """
+    # Relación con el modelo User para el usuario de Django. 
+        
     DEPARTAMENTOS = [
         ('web', 'Web'),
         ('programacion', 'Programación'),
@@ -68,11 +69,8 @@ class Empleado(models.Model):
         ('sistemas', 'Sistemas'),
         ('taller', 'Taller'),
     ]
-    
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)# (Esta clase tiene los atributos Username,Emlail,FirstName, LastName, Admin)
     dni = models.CharField(max_length=20)
-    correo = models.EmailField(max_length=100)
     telefono = models.CharField(max_length=20)
     departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
     foto_perfil = models.BinaryField(blank=True, null=True)
