@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Empresa(models.Model):
     """
@@ -6,7 +7,7 @@ class Empresa(models.Model):
 
     Campos:
         nombre (CharField): Nombre de la empresa
-        cif_nif (Charfield): Cif o nif (en caso de autónomo) de la empresa
+        cif_nif (CharField): Cif o nif (en caso de autónomo) de la empresa
         direccion (CharField): Dirección de la empresa
         email (EmailField): Correo electrónico de la empresa.
         telefono1 (CharField): Número de teléfono principal de la empresa (se usa char para permitir el prefijo con +)
@@ -36,8 +37,7 @@ class Cliente(models.Model):
         empresa (ForeignKey): Relación con el modelo Empresa para asociar el cliente con una empresa
     """
     # Relación con el modelo User para el usuario de Django. 
-    
-    user = models.OneToOneField(User, on_delete=models.CASCADE)# (Esta clase tiene los atributos Username,Emlail,FirstName, LastName, Admin)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     dni = models.CharField(max_length=20)
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
@@ -69,10 +69,8 @@ class Empleado(models.Model):
         ('sistemas', 'Sistemas'),
         ('taller', 'Taller'),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE)# (Esta clase tiene los atributos Username,Emlail,FirstName, LastName, Admin)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     dni = models.CharField(max_length=20)
     telefono = models.CharField(max_length=20)
     departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
     foto_perfil = models.BinaryField(blank=True, null=True)
-
-

@@ -45,7 +45,6 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     // Si no hay busqueda, mostrar todos los productos
     const productList = search === "" ? productos : productosFiltrados;
-    console.log("hi")
     
     return (
         <>
