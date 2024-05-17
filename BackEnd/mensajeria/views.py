@@ -1,11 +1,12 @@
 from django.http import JsonResponse
-from .models import Chat, Mensaje
 from django.contrib.auth.models import User
 import json
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from .models import Mensaje, Chat,UsuarioChat
 from django.core.paginator import Paginator,EmptyPage
+from django.utils import timezone
+
 
 def getChats(request,user_id):
     #Obtener el usuario
@@ -69,7 +70,35 @@ def getMessages(request,chat_id):
 
     # Devolver los mensajes en JSON
     return JsonResponse({'message': messagesJson})
+@csrf_exempt
+def setMessage(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user_id =data['user_id']
+        chat_id = data['chat_id']
+        texto = data['texto']
+    user=User.objects.get(pk=user_id)
+    chat=Chat.objects.get(pk=chat_id)
+    fecha = timezone.now().date()
+    hora = datetime.now().time()
 
+    new_message = Mensaje.objects.create(
+        usuario=user,
+        chat=chat,
+        texto=texto,
+        fecha=fecha,
+        hora=hora
+    )
+
+    message = {
+        'usuario': new_message.usuario.username,
+        'chat': new_message.chat.id,
+        'texto': new_message.texto,
+        'fecha': new_message.fecha.strftime('%Y-%m-%d'),
+        'hora': new_message.hora.strftime('%H:%M:%S'),
+    }
+
+    return JsonResponse({'message': message})
 # @csrf_exempt
 # def getChats(request, id_user):
 #     if request.method == 'POST':
