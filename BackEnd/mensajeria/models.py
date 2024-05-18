@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 class Chat(models.Model):
     """
     Modelo que representa un chat en el sistema.
+    receptor ( ForeignKey) Persona a la que le queremos mandar el mensaje
     """
-    pass
-
+    
 class UsuarioChat(models.Model):
     """
     Modelo que representa la relación entre usuarios y chats.

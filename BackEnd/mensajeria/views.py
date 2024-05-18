@@ -45,6 +45,8 @@ def getChats(request,user_id):
 def getMessages(request,chat_id):
     #Obtenemos la página que quiere ver
     page = request.GET.get('page')
+    if not page:
+        page=1
     chat= Chat.objects.get(pk=chat_id)
     messages = Mensaje.objects.filter(chat=chat).order_by('fecha', 'hora')
     messagesJson=[]
@@ -69,7 +71,8 @@ def getMessages(request,chat_id):
         messagesJson.append(message_info)
 
     # Devolver los mensajes en JSON
-    return JsonResponse({'message': messagesJson})
+    return JsonResponse({'messages': messagesJson})
+
 @csrf_exempt
 def setMessage(request):
     if request.method == 'POST':
@@ -77,6 +80,7 @@ def setMessage(request):
         user_id =data['user_id']
         chat_id = data['chat_id']
         texto = data['texto']
+
     user=User.objects.get(pk=user_id)
     chat=Chat.objects.get(pk=chat_id)
     fecha = timezone.now().date()
@@ -99,6 +103,49 @@ def setMessage(request):
     }
 
     return JsonResponse({'message': message})
+
+@csrf_exempt
+def setChat(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user1_id =data['user1']
+        user2_id =data['user2']
+
+        user1=User.objects.get(pk=user1_id)
+        user2=User.objects.get(pk=user2_id)
+
+        #Filtramos para ver si hay algún chat entre los dos
+        existing_chats = Chat.objects.filter(
+            usuariochat__usuario=user1
+        ).filter(
+            usuariochat__usuario=user2
+        )
+
+        #Si hay, llamamos a la funcion getMessages
+        if existing_chats.exists(): 
+            chat = existing_chats.first()  # Usamos .first() para obtener el primer chat
+            return getMessages(request, chat.id)
+        else:
+            #Si no hay, creamos el chat y asociamos a los usuarios al chat
+            new_chat = Chat.objects.create()
+            # Asociar ambos usuarios al chat
+            UsuarioChat.objects.create(usuario=user1, chat=new_chat)
+            UsuarioChat.objects.create(usuario=user2, chat=new_chat)
+
+            response_data = {
+                'chat_id': new_chat.id,
+                'user1': {
+                    'id':user1.id,
+                    'username':user1.username,
+                },
+                'user2_id': {
+                    'id':user2.id,
+                    'username':user2.username,
+                },
+                'messages': []
+            }
+            return JsonResponse(response_data, status=201)
+
 # @csrf_exempt
 # def getChats(request, id_user):
 #     if request.method == 'POST':
