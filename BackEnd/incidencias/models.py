@@ -45,10 +45,10 @@ class Incidencia(models.Model):
 
     categoria = models.CharField(max_length=20, choices=CATEGORIAS)
     descripcion = models.TextField()
-    estado = models.CharField(max_length=20, choices=ESTADOS)
+    estado = models.CharField(max_length=20, choices=ESTADOS,default='pendiente')
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL,null=True)
-    empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL,null=True)
-    prioridad = models.CharField(max_length=10, choices=PRIORIDADES)
+    empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL,null=True, blank=True)
+    prioridad = models.CharField(max_length=10, choices=PRIORIDADES,null=True, blank=True)
     observaciones = models.TextField(blank=True, null=True)
     fecha_inicio = models.DateTimeField(default=datetime.now)
     fecha_fin = models.DateTimeField(blank=True, null=True)
