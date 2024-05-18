@@ -73,12 +73,12 @@ export default function Tiempo() {
           <div className='d-flex justify-content-between pb-4 h-50'>
             <article className='text-start'>
               <p className='fs-1 fw-bold m-0'>{formattedTime}</p>
-              <p className='fs-5 m-0'>{fechaFormateada}</p>
+              <p className='fs-4 fw-bold m-0'>{fechaFormateada}</p>
             </article>
             
             <article className='text-end'>
-              <p className='mt-4'>{weatherData && weatherData.nombre}, {weatherData && weatherData.provincia}</p>
-              <p>{description}</p>
+              <p className='mt-2 fs-4 fw-bold'>{weatherData && weatherData.nombre}, {weatherData && weatherData.provincia}</p>
+              <p className='fs-4 fw-bold'>{description}</p>
               
             </article>
           </div>
