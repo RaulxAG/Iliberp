@@ -145,37 +145,3 @@ def setChat(request):
                 'messages': []
             }
             return JsonResponse(response_data, status=201)
-
-# @csrf_exempt
-# def getChats(request, id_user):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         nuevo_chat = Chat.objects.create() 
-#         return JsonResponse({'message': 'Chat creado exitosamente'}, status=201)
-#     else:
-#         return JsonResponse({'error': 'Método no permitido'}, status=405)
-
-# @csrf_exempt
-# def createUser(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         nuevo_usuario = User.objects.create(username=data['username'], email=data['email'], password=data['password'])  
-#         return JsonResponse({'message': 'Usuario creado exitosamente'}, status=201)
-#     else:
-#         return JsonResponse({'error': 'Método no permitido'}, status=405)
-# @csrf_exempt
-# def createMessage(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         chat_id = data['chat_id']
-#         usuario_id = data['usuario_id']
-#         texto = data['texto']
-#         chat = Chat.objects.get(id=chat_id)
-#         usuario = User.objects.get(id=usuario_id)
-#         fecha_actual = datetime.now()
-#         hora_actual = datetime.now().time()
-#         nuevo_mensaje = Mensaje.objects.create(usuario=usuario, chat=chat, texto=texto, fecha=fecha_actual, hora=hora_actual)
-        
-#         return JsonResponse({'message': 'Mensaje enviado exitosamente'}, status=201)
-#     else:
-#         return JsonResponse({'error': 'Método no permitido'}, status=405)
