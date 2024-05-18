@@ -4,7 +4,7 @@ from .models import Producto, Linea, Pedido
 # Register your models here.
 @admin.register(Producto)
 class Producto(admin.ModelAdmin):
-    list_display = ('nombre', 'descripcion', 'precio', 'especificaciones', 'foto')
+    list_display = ('nombre', 'descripcion', 'precio', 'especificaciones', 'precio_descuento', 'tipo', 'destacado', 'foto')
 
 @admin.register(Linea)
 class Linea(admin.ModelAdmin):
