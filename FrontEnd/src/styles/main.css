@@ -1,0 +1,361 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway";
+  background-color: #1E2225;
+}
+
+.containerPrincipal {
+  height: 100vh;
+  background-color: #1E2225;
+  color: white;
+  display: flex;
+  gap: 1%;
+  padding: 1%;
+}
+.containerPrincipal .menuLateral {
+  width: 7%;
+  min-width: 70px;
+}
+.containerPrincipal .contenedor {
+  width: 93%;
+  display: flex;
+  flex-direction: column;
+}
+
+.box {
+  background-color: rgba(85, 89, 91, 0.4);
+  border-radius: 10px;
+  padding: 1vh;
+}
+
+.tittle {
+  font-size: 50px;
+  color: #F8F8F8;
+  text-align: center;
+  position: relative;
+  padding-top: 3vh;
+}
+.tittle::after {
+  content: "";
+  position: absolute;
+  bottom: -1vh;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  transform: translateX(50%);
+}
+
+.mainInicio__modulos {
+  text-align: center;
+  display: grid;
+}
+.mainInicio__modulos .modulos__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 1%;
+  grid-row-gap: 2%;
+}
+.mainInicio__modulos .modulos__grid .grid_mod1 {
+  grid-area: 1/1/4/5;
+}
+.mainInicio__modulos .modulos__grid .grid_mod2 {
+  grid-area: 1/5/5/7;
+}
+.mainInicio__modulos .modulos__grid .grid_mod3 {
+  grid-area: 4/1/7/3;
+}
+.mainInicio__modulos .modulos__grid .grid_mod4 {
+  grid-area: 4/3/7/5;
+}
+.mainInicio__modulos .modulos__grid .grid_mod5 {
+  grid-area: 5/5/7/7;
+}
+.mainInicio__modulos .modulos__grid .botones__boton {
+  width: 23.3%;
+  height: 33.3%;
+  background-color: #1E2225;
+  font-weight: 600;
+  font-size: small;
+  color: #F8F8F8;
+}
+.mainInicio__modulos .modulos__grid .botones__boton svg {
+  font-size: xx-large;
+}
+.mainInicio__modulos .modulos__grid .botones__boton:hover {
+  color: #e65522;
+}
+.mainInicio__modulos .modulos__grid .modulos__chats {
+  overflow: hidden;
+}
+
+.menuLateral .menuLateral__profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.menuLateral .menuLateral__profile > img.profile__photo {
+  object-fit: contain;
+  width: 80%;
+  padding: 0.3rem 0;
+}
+.menuLateral .menuLateral__profile p {
+  font-weight: 500;
+}
+.menuLateral .menuLateral__logo img {
+  object-fit: contain;
+  width: 40%;
+  margin-top: 0.5rem;
+}
+.menuLateral .menuLateral__enlaces ul {
+  list-style: none;
+  padding: 0;
+}
+.menuLateral .menuLateral__enlaces ul li {
+  text-align: center;
+  padding: 30% 0;
+}
+.menuLateral .menuLateral__enlaces ul a {
+  font-size: larger;
+  border-radius: 100%;
+  padding: 1rem;
+  text-decoration: none;
+  color: #e65522;
+  transition: background 0.2s linear;
+}
+.menuLateral .menuLateral__enlaces ul a:hover {
+  background-color: #1E2225;
+}
+.menuLateral .menuLateral__enlaces ul .selected {
+  transition: color 0.2s linear;
+  background-color: #1E2225;
+}
+.menuLateral .menuLateral__enlaces ul .selected:hover {
+  color: #F8F8F8;
+}
+
+.mainIncidencias .mainIncidencias__formulario .formulario__input {
+  padding-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.mainIncidencias .mainIncidencias__formulario .formulario__input input, .mainIncidencias .mainIncidencias__formulario .formulario__input textarea, .mainIncidencias .mainIncidencias__formulario .formulario__input select {
+  border-radius: 15px;
+  border: 0px;
+  padding: 0.5rem;
+  color: #F8F8F8;
+  background-color: #1E2225;
+}
+.mainIncidencias .mainIncidencias__formulario .formulario__inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mainIncidencias .formulario__acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.mainIncidencias .formulario__acciones figure img {
+  width: 15%;
+}
+.mainIncidencias .formulario__acciones figure p {
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  font-size: 130%;
+}
+.mainIncidencias .formulario__acciones > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.mainIncidencias .formulario__acciones > div input {
+  margin-top: 1.2rem;
+  padding: 0.5rem;
+  font-size: x-large;
+  font-weight: bold;
+  color: #F8F8F8;
+  border: 0px;
+  border-radius: 15px;
+  width: 80%;
+}
+.mainIncidencias .formulario__acciones > div #submit {
+  background-color: #30a846 !important;
+}
+.mainIncidencias .formulario__acciones > div #reset {
+  background-color: #c93333 !important;
+}
+
+.mainMensajeria__chat {
+  background-color: rgba(85, 89, 91, 0.4);
+  border-radius: 10px;
+  width: 65%;
+}
+
+.contactos__head .contactos__head__acciones button {
+  color: #e65522;
+  font-size: x-large;
+}
+.contactos__head #busqueda {
+  color: #F8F8F8;
+  position: relative;
+  border: 0.5px solid transparent;
+}
+.contactos__head #busqueda:focus {
+  outline: 0.5px solid rgba(85, 89, 91, 0.4);
+}
+
+.contactos__chats {
+  height: 86vh;
+  border-radius: 10px;
+  scroll-behavior: smooth;
+}
+
+.chat__cabecera {
+  border-bottom: 3px solid #F8F8F8;
+  border-radius: 10px 10px 0 0;
+  background-color: #1E2225;
+}
+.chat__cabecera .cabecera__logo {
+  width: 180px;
+  padding-right: 2rem;
+}
+.chat__cabecera .cabecera__logo img {
+  width: 50%;
+}
+.chat__cabecera .cabecera__logo p {
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  line-height: 100%;
+  font-size: 130%;
+}
+
+.chat__cuerpo {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+.chat__cuerpo .enviado {
+  align-self: flex-end;
+  border-radius: 10px;
+  background-color: #1E2225;
+}
+.chat__cuerpo .recibido {
+  border-radius: 10px;
+  background-color: #e65522;
+}
+
+.chat__acciones button {
+  width: 7.5%;
+  color: #e65522;
+}
+.chat__acciones #mensaje {
+  width: 85%;
+  color: #F8F8F8;
+  border: 1px solid transparent;
+}
+.chat__acciones #mensaje:focus {
+  outline: 0.2px solid #e65522;
+}
+
+.chats__card {
+  transition: background 0.2s linear;
+}
+
+.chats__card:hover {
+  background-color: #1E2225;
+}
+
+.destacados__carrusel .carousel-indicators button {
+  height: 8px !important;
+  width: 60px !important;
+  margin: 0 10px;
+  background-image: linear-gradient(51deg, #a3a3a3 50%, #b8b8b8 65%, #ebebeb 100%);
+  border-radius: 10px !important;
+  border: 1px solid transparent;
+}
+.destacados__carrusel .carousel-indicators .active {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+.destacados__carrusel .carrusel__seccion {
+  height: 30vh;
+  gap: 1rem;
+  width: 70%;
+  margin: auto;
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto {
+  border-radius: 10px;
+  height: 90%;
+  width: 40%;
+  background-color: #1E2225;
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto .producto__imagen {
+  width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(46, 46, 46, 0.8));
+  transition: all 0.3s ease-out;
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto .producto__acciones {
+  font-size: smaller;
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto .producto__acciones button {
+  background-image: linear-gradient(51deg, #a3a3a3 50%, #b8b8b8 65%, #ebebeb 100%);
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto .producto__acciones button:hover {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+.destacados__carrusel .carrusel__seccion .seccion__producto:hover .producto__imagen {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 5px rgba(150, 149, 149, 0.8));
+}
+.destacados__carrusel .carrusel__control:hover {
+  color: #e65522;
+}
+
+.modulos__tiempo .tiempo__logo {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
+}
+.modulos__tiempo .tiempo__logo article {
+  line-height: normal;
+}
+.modulos__tiempo .spinner-border {
+  color: #e65522;
+}
+
+.modulos__ticets .tickets__botones .botones__ticket {
+  background-color: #1E2225;
+}
+.modulos__ticets .tickets__botones .botones__ticket .ticket__fecha {
+  font-size: small;
+}
+.modulos__ticets .tickets__botones .botones__ticket .btn {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+.modulos__ticets .tickets__botones .botones__modal {
+  background-color: rgba(32, 32, 32, 0.7) !important;
+}
+.modulos__ticets .tickets__botones .botones__modal .modal-header {
+  border-bottom: 1px solid #e65522;
+}
+.modulos__ticets .tickets__botones .botones__modal .btn-close {
+  color: white !important;
+}
+.modulos__ticets .tickets__botones .botones__modal .modal-content {
+  background-color: #1E2225;
+  border: 1px solid #e65522;
+}
+
+/*# sourceMappingURL=main.css.map */
