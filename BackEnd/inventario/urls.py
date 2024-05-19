@@ -1,8 +1,15 @@
-
-from django.contrib import admin
 from django.urls import path
-from inventario import views
+from . import views
 
 urlpatterns = [
-    path('api/productos/', views.productos_api, name='productos-api'),
+    # Add more URL patterns as needed
+    path("getProductsJSON/", views.getProductsJSON),
+    path("getSingleProductJSON/", views.getSingleProductJSON),
+    path("getFeaturedProductsJSON/", views.getFeaturedProductsJSON),
+    path("getCategorizedProductsJSON/", views.getCategorizedProductsJSON),
+
+    path("getOrdersJSON/", views.getOrdersJSON),
+    path("getSingleOrderJSON/", views.getSingleOrderJSON),
+    path("makeOrderJSON/", views.makeOrderJSON),
+    path("cancelOrderJSON/", views.cancelOrderJSON),
 ]
