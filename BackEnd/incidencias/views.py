@@ -16,7 +16,7 @@ def getIncidents(request,client_id):
         client_id =data['client_id']
 
     #Obtener el usuario
-    client=User.objects.get(pk=client)
+    client=Cliente.objects.get(pk=client_id)
 
     #Obtener las incidencias reportadas por ese cliente
     incidents= Incidencia.objects.filter(cliente=client)
@@ -36,7 +36,7 @@ def getIncidents(request,client_id):
         }
         incidentJson.append(incident_info)
 
-    return JsonResponse({'incidents': incidentJson})
+    return JsonResponse(incidentJson, safe=False)
 
 @csrf_exempt
 def setIncident(request):
@@ -53,6 +53,7 @@ def setIncident(request):
 
     #Asignar el empleado aleatoriamente, teniendo en cuenta que el departamento tiene que ser igual a la categoria que ha indicado
     empleados = Empleado.objects.filter(departamento=categoria)
+
     # Verificar si hay empleados
     if empleados.exists():
         # Si hay empleados, elegir uno aleatorio
@@ -79,10 +80,41 @@ def setIncident(request):
         'empleado': new_incident.empleado,
     }
    
-    return JsonResponse({'incident': incident}, status=201)
+    return JsonResponse(incident, safe=False)
     
 def deleteIncident(request,incident_id):
     incidencia = Incidencia.objects.get(pk=incident_id)
     
     incidencia.delete()
-    return JsonResponse({'message': 'La incidencia ha sido eliminada correctamente.'}, status=200)
+    return JsonResponse({'message': 'La incidencia ha sido eliminada correctamente.'})
+
+@csrf_exempt
+def editIncident(request,incident_id):
+    #Obtener la incidencia
+    incidencia = Incidencia.objects.get(pk=incident_id)
+
+    #Obtener los datos que se quieren editar por el body
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        categoria =data['categoria']
+        descripcion = data['descripcion']
+        observaciones = data['observaciones']
+
+        # Actualizar la incidencia
+        incidencia.categoria = categoria
+        incidencia.descripcion = descripcion
+        incidencia.observaciones = observaciones
+
+    #Crear un array con toda la información de la incidencia que se ha actualizado
+    updated_incident = {
+        'id': incidencia.id,
+        'categoria': incidencia.categoria,
+        'descripcion': incidencia.descripcion,
+        'observaciones': incidencia.observaciones,
+        'estado': incidencia.estado,
+        'prioridad': incidencia.prioridad,
+        'fecha_inicio': incidencia.fecha_inicio.strftime('%Y-%m-%d'),
+        'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
+    }
+    return JsonResponse(updated_incident, safe=False)
