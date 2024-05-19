@@ -9,5 +9,7 @@ urlpatterns = [
     path("getCategorizedProductsJSON/", views.getCategorizedProductsJSON),
 
     path("getOrdersJSON/", views.getOrdersJSON),
+    path("getSingleOrderJSON/", views.getSingleOrderJSON),
     path("makeOrderJSON/", views.makeOrderJSON),
+    path("cancelOrderJSON/", views.cancelOrderJSON),
 ]

@@ -56,7 +56,7 @@ def getSingleProductJSON(request):
 
         producto_id = request.GET.get("id");
 
-        # Obtener todos los productos de la base de datos
+        # Obtener el producto de la base de datos
         product = Producto.objects.get(pk=producto_id)
 
         data = [{
@@ -76,15 +76,13 @@ def getSingleProductJSON(request):
         response_data = {'error': 'Se esperaba una solicitud GET'}
         return JsonResponse(response_data, status=400)
 
-
-
 @csrf_exempt
 def getFeaturedProductsJSON(request):
     if request.method == 'GET':
-        # Obtener todos los productos de la base de datos
+        # Obtener todos los productos destacados de la base de datos
         products = Producto.objects.filter(destacado=True)
         
-        # Crear una lista de diccionarios con los datos de los productos
+        # Crear un array de objetos con los datos de los productos
         data = [{
             "nombre": product.nombre,
             "descripcion": product.descripcion,
@@ -179,57 +177,97 @@ def getOrdersJSON(request):
         return JsonResponse(response_data, status=400)
     
 @csrf_exempt
+def getSingleOrderJSON(request):
+    if request.method == 'GET':
+
+        pedido_id = request.GET.get("pedido");
+
+        # Obtener el pedido de la base de datos
+        pedido = Pedido.objects.get(pk=pedido_id)
+
+        data = [{
+            "cliente": pedido.cliente.id,
+            "fecha": pedido.fecha,
+            "direccion": pedido.direccion,
+            "estado": pedido.estado,
+            "subtotal": pedido.subtotal,
+            "IVA": pedido.IVA,
+            "total": pedido.total,
+            "lineas": [{
+                "articulo": linea.articulo.nombre if linea.articulo else None,
+                "unidades": linea.unidades
+            } for linea in pedido.lineas.all()]
+        }]
+
+        # Retornar los datos paginados como JSON
+        return JsonResponse(data, safe=False)
+    else:
+        # Si la solicitud no es GET, devolver un error
+        response_data = {'error': 'Se esperaba una solicitud GET'}
+        return JsonResponse(response_data, status=400)
+    
+@csrf_exempt
 def makeOrderJSON(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            
-            cliente_id = data.get('cliente_id')
-            direccion = data.get('direccion')
-            lineas_data = data.get('lineas')
-
-            if not cliente_id or not direccion or not lineas_data:
-                return JsonResponse({"error": "Faltan datos requeridos (cliente_id, direccion o lineas)"}, status=400)
-            
-            # Verificar si el cliente existe
-            try:
-                cliente = Cliente.objects.get(pk=cliente_id)
-            except Cliente.DoesNotExist:
-                return JsonResponse({"error": "El cliente no existe"}, status=404)
-            
-            # Crear el pedido
-            pedido = Pedido.objects.create(cliente=cliente, direccion=direccion, estado=0, fecha=timezone.now())
-            
-            subtotal = 0
-            
-            # Crear las lineas del pedido
-            for linea_data in lineas_data:
-                articulo_id = linea_data.get('articulo_id')
-                unidades = linea_data.get('unidades')
-               
-                articulo = Producto.objects.get(pk=articulo_id)
-                
-                # Crear la linea
-                linea = Linea.objects.create(articulo=articulo, unidades=unidades, pedido=pedido)
-                
-                # Calcular el subtotal
-                subtotal += float(articulo.precio) * unidades
-            
-            # Calcular IVA y total
-            IVA = subtotal * 0.21
-            total = subtotal + IVA
-            
-            # Actualizar el pedido con los totales calculados
-            pedido.subtotal = subtotal
-            pedido.IVA = IVA
-            pedido.total = total
-            pedido.save()
-            
-            return JsonResponse({"message": "Pedido creado exitosamente", "pedido_id": pedido.id}, status=201)
+        data = json.loads(request.body)
         
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Formato JSON inválido"}, status=400)
+        cliente_id = data.get('cliente_id')
+        direccion = data.get('direccion')
+        lineas_data = data.get('lineas')
+
+        if not cliente_id or not direccion or not lineas_data:
+            return JsonResponse({"error": "Faltan datos requeridos (cliente_id, direccion o lineas)"}, status=400)
+        
+        cliente = Cliente.objects.get(pk=cliente_id)
+        
+        # Crear el pedido
+        pedido = Pedido.objects.create(cliente=cliente, direccion=direccion, estado=0, fecha=timezone.now())
+        
+        subtotal = 0
+        
+        # Crear las lineas del pedido
+        for linea_data in lineas_data:
+            articulo_id = linea_data.get('articulo_id')
+            unidades = linea_data.get('unidades')
+            
+            articulo = Producto.objects.get(pk=articulo_id)
+            
+            # Crear la linea
+            linea = Linea.objects.create(articulo=articulo, unidades=unidades, pedido=pedido)
+            
+            # Calcular el subtotal
+            subtotal += float(articulo.precio) * unidades
+        
+        # Calcular IVA y total
+        IVA = subtotal * 0.21
+        total = subtotal + IVA
+        
+        # Actualizar el pedido con los totales calculados
+        pedido.subtotal = subtotal
+        pedido.IVA = IVA
+        pedido.total = total
+        pedido.save()
+        
+        return JsonResponse({"message": "Pedido creado exitosamente", "pedido_id": pedido.id}, status=201)
     
+    else:
+        # Si la solicitud no es POST, devolver un error
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
+    
+@csrf_exempt
+def cancelOrderJSON(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        pedido_id = data.get('pedido_id')
+
+        try:
+            pedido = Pedido.objects.delete(pk=pedido_id)
+
+            return JsonResponse({"message": "Pedido eliminado con éxito", "pedido_id": pedido.id}, status=200)
+        except:
+            return JsonResponse({"message": "Error al eliminar el pedido", "pedido_id": pedido.id}, status=400)
     else:
         # Si la solicitud no es POST, devolver un error
         response_data = {'error': 'Se esperaba una solicitud POST'}
