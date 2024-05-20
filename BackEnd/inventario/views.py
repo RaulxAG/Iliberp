@@ -26,6 +26,7 @@ def getProductsJSON(request):
         
         # Crear una lista de diccionarios con los datos de los productos
         data = [{
+            "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
             "especificaciones": product.especificaciones,
