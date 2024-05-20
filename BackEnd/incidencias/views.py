@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from datetime import datetime
 
-def getIncidents(request,client_id):
+def getIncidentsJSON(request,client_id):
     if request.method == 'POST':
         data = json.loads(request.body)
         client_id =data['client_id']
@@ -39,7 +39,7 @@ def getIncidents(request,client_id):
     return JsonResponse(incidentJson, safe=False)
 
 @csrf_exempt
-def setIncident(request):
+def setIncidentJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
@@ -82,14 +82,14 @@ def setIncident(request):
    
     return JsonResponse(incident, safe=False)
     
-def deleteIncident(request,incident_id):
+def deleteIncidentJSON(request,incident_id):
     incidencia = Incidencia.objects.get(pk=incident_id)
     
     incidencia.delete()
     return JsonResponse({'message': 'La incidencia ha sido eliminada correctamente.'})
 
 @csrf_exempt
-def editIncident(request,incident_id):
+def editIncidentJSON(request,incident_id):
     #Obtener la incidencia
     incidencia = Incidencia.objects.get(pk=incident_id)
 
