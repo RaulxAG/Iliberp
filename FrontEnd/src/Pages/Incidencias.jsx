@@ -8,18 +8,46 @@ import { useForm } from "react-hook-form";
 export default function Incidencias() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const initialCategoria = searchParams.get('categoria') || ''; // Get initial category from URL params
+    const initialCategoria = searchParams.get('categoria') || '';
 
     const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
         defaultValues: {
-            categoria: initialCategoria // Set default value for categoria
+            categoria: initialCategoria
         }
     });
 
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        console.log(data);
+    
+        fetch('http://127.0.0.1:8000/setIncidentJSON/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                client_id: data.client_id,
+                categoria: data.categoria,
+                descripcion: data.descripcion,
+                observaciones: data.observaciones
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(responseData => {
+            console.log('Success:', responseData);
+            alert('Se ha registrado tu incidencia de manera exitosa');
+            window.location.href = '/inicio';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };    
 
     useEffect(() => {
-        // Update categoria when location changes
         const newCategoria = searchParams.get('categoria') || '';
         setValue('categoria', newCategoria);
     }, [location, setValue, searchParams]);
@@ -31,7 +59,7 @@ export default function Incidencias() {
                 <section className="box col-9">
                     <h4 className="tittle fs-3 mb-5">Reportar una incidencia</h4>
 
-                    <input type="text" name="cliente" value={1} hidden id="cliente" {...register("cliente", { required: true })}/>
+                    <input type="text" name="cliente" value={2} hidden id="cliente" {...register("client_id", { required: true })}/>
 
                     <div className="px-5"> 
                         <div className="formulario__input">

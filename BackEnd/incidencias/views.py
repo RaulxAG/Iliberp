@@ -10,41 +10,46 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from datetime import datetime
 
+@csrf_exempt
 def getIncidentsJSON(request,client_id):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        client_id =data['client_id']
+    if request.method == 'GET':
 
-    #Obtener el usuario
-    client=Cliente.objects.get(pk=client_id)
+        #Obtener el usuario
+        client=Cliente.objects.get(pk=client_id)
 
-    #Obtener las incidencias reportadas por ese cliente
-    incidents= Incidencia.objects.filter(cliente=client)
+        #Obtener las incidencias reportadas por ese cliente
+        incidents= Incidencia.objects.filter(cliente=client)
 
-    #Creamos el json con la info de las incidencias
-    incidentJson =[]
-    for incident in incidents:
-        incident_info = {
-            'categoria': incident.categoria,
-            'descripcion': incident.descripcion,
-            'estado': incident.estado,
-            'empleado': incident.empleado.username if incident.empleado else None,
-            'prioridad': incident.prioridad,
-            'observaciones': incident.observaciones,
-            'fecha_inicio': incident.fecha_inicio.strftime('%Y-%m-%d'),
-            'fecha_fin': incident.fecha_fin.strftime('%Y-%m-%d') if incident.fecha_fin else None,
-        }
-        incidentJson.append(incident_info)
+        #Creamos el json con la info de las incidencias
+        incidentJson =[]
+        for incident in incidents:
+            incident_info = {
+                'id': incident.id,
+                'categoria': incident.categoria,
+                'descripcion': incident.descripcion,
+                'estado': incident.estado,
+                'empleado': incident.empleado.username if incident.empleado else None,
+                'cliente': {
+                    'nombre': incident.cliente.user.username,
+                    'empresa': incident.cliente.empresa.nombre,
+                    'telefono': incident.cliente.telefono1,
+                },
+                'prioridad': incident.prioridad,
+                'observaciones': incident.observaciones,
+                'fecha_inicio': incident.fecha_inicio.strftime('%Y-%m-%d'),
+                'fecha_fin': incident.fecha_fin.strftime('%Y-%m-%d') if incident.fecha_fin else None,
+            }
+            incidentJson.append(incident_info)
 
-    return JsonResponse(incidentJson, safe=False)
+        return JsonResponse(incidentJson, safe=False)
 
 @csrf_exempt
 def setIncidentJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
-        client_id =data['client_id']
-        categoria =data['categoria']
+        client_id = data['client_id']
+        categoria = data['categoria']
         descripcion = data['descripcion']
         observaciones = data['observaciones']
 
@@ -68,7 +73,8 @@ def setIncidentJSON(request):
         descripcion=descripcion,
         observaciones=observaciones,
         fecha_inicio=fecha_inicio.strftime('%Y-%m-%d'),
-        empleado=empleado_asignado
+        empleado=empleado_asignado,
+        prioridad='baja',
     )
 
     incident = {
@@ -78,6 +84,7 @@ def setIncidentJSON(request):
         'observaciones': new_incident.observaciones,
         'fecha_inicio': new_incident.fecha_inicio,
         'empleado': new_incident.empleado,
+        'prioridad': new_incident.prioridad,
     }
    
     return JsonResponse(incident, safe=False)
