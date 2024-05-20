@@ -8,4 +8,4 @@ class Empresa(admin.ModelAdmin):
 
 @admin.register(Cliente)
 class Cliente(admin.ModelAdmin):
-    list_display = ('nombre', 'apellidos', 'dni', 'correo', 'telefono1', 'telefono2', 'foto_perfil', 'empresa')
+    list_display = ('user', 'dni', 'telefono1', 'telefono2', 'foto_perfil', 'empresa')

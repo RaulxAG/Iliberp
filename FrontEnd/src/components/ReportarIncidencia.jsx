@@ -19,7 +19,7 @@ export default function ReportarIncidencia() {
                 <i className="fa-solid fa-shield-virus"></i>
                 <p className="m-0 pt-2">Ciberseguridad</p>
             </Link>
-            <Link to="/incidencias?categoria=Mantenimiento" className="botones__boton btn d-flex flex-column align-items-center justify-content-center">
+            <Link to="/incidencias?categoria=Taller" className="botones__boton btn d-flex flex-column align-items-center justify-content-center">
                 <i className="fa-solid fa-screwdriver-wrench"></i>
                 <p className="m-0 pt-2">Mantenimiento</p>
             </Link>

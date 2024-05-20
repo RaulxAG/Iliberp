@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Empresa(models.Model):
@@ -24,6 +25,7 @@ class Empresa(models.Model):
 class Cliente(models.Model):
     """
     Modelo que representa los datos de los clientes
+
     Campos:
         nombre (CharField): Nombre del cliente
         apellidos (CharField): Apellidos del cliente
@@ -34,11 +36,9 @@ class Cliente(models.Model):
         foto_perfil (BinaryField): Foto de perfil del cliente (opcional)
         empresa (ForeignKey): Relación con el modelo Empresa para asociar el cliente con una empresa
     """
-
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
+    # Relación con el modelo User para el usuario de Django. 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     dni = models.CharField(max_length=20)
-    correo = models.EmailField(max_length=100)
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
     foto_perfil = models.BinaryField(blank=True, null=True) 

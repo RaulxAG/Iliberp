@@ -8,7 +8,7 @@ export default function Tickets() {
                 <p className="m-0 text-start w-100">Estado</p>
                 <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
                     <p className="ticket__fecha m-0">27/04/2024</p>
-                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-file-invoice"></i></button>
+                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="fa-solid fa-file-invoice"></i></button>
                 </div>
             </article>
 
@@ -17,7 +17,7 @@ export default function Tickets() {
                 <p className="m-0 text-start w-100">Estado</p>
                 <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
                     <p className="ticket__fecha m-0">27/04/2024</p>
-                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-file-invoice"></i></button>
+                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="fa-solid fa-file-invoice"></i></button>
                 </div>
             </article>
 
@@ -26,7 +26,7 @@ export default function Tickets() {
                 <p className="m-0 text-start w-100">Estado</p>
                 <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
                     <p className="ticket__fecha m-0">27/04/2024</p>
-                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-file-invoice"></i></button>
+                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="fa-solid fa-file-invoice"></i></button>
                 </div>
             </article>
 
@@ -35,13 +35,13 @@ export default function Tickets() {
                 <p className="m-0 text-start w-100">Estado</p>
                 <div className="mt-2 d-flex w-100 align-items-center justify-content-between">
                     <p className="ticket__fecha m-0">27/04/2024</p>
-                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-file-invoice"></i></button>
+                    <button type="button" className="btn ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="fa-solid fa-file-invoice"></i></button>
                 </div>
             </article>
 
 
             {/* <!-- Modal --> */}
-            <div className="botones__modal modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="botones__modal modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header" data-bs-theme="dark">
