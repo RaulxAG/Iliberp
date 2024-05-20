@@ -11,35 +11,22 @@ import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 
 export default function Tienda() {
-
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
-    const [categSelected, setCategSelected] = useState("hardware");
+    const [categoria, setCategoria] = useState("");
     const [carritoVisible, setCarritoVisible] = useState(false);
     const [search, setSearch] = useState("")
-    const [value, setValue] = useState([200, 600]);
+    const [value, setValue] = useState([0, 1500]);
     const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
-    const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
-
-
-    // Función para manejar el cambio en el checkbox
-    const addCategoria = (e) => {
-        const value = e.currentTarget.id;
-        e.target.checked ?
-            setCategoriasSeleccionadas([...categoriasSeleccionadas, value])
-            :
-            setCategoriasSeleccionadas(prevCategorias => prevCategorias.filter(categoria => categoria !== value));
-
-    };
-
-
-    console.log(categoriasSeleccionadas)
     let navegate = useNavigate();
 
+    let precioMin=value[0]
+    let  precioMax = value[1]
+    
     function valuetext(value) {
-        return `${value}°C`;
-    }
+        return `$${value[0]} - $${value[1]}`;
+    }    
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -55,6 +42,7 @@ export default function Tienda() {
         setSearch(newValue);
         navegate("/tienda?search=" + newValue);
     }
+
 
 
     return (
@@ -106,13 +94,24 @@ export default function Tienda() {
                         <p className='text-center h3 border-bottom pb-1'>Filtrar por</p>
                         <p className='m-0 me-4 pt-2 fw-bold'>Precio</p>
                         <Slider
-                            getAriaLabel={() => 'Temperature range'}
-                            value={value}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                            max={1500}
-                        />
+                                getAriaLabel={() => 'Temperature range'}
+                                value={value}
+                                onChange={handleChange}
+                                valueLabelDisplay="auto"
+                                getAriaValueText={valuetext}
+                                max={1700}
+                            />
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                <p className='m-0'>min.</p> 
+                                <p>{value[0]}€</p>
+                            </div>
+                            <div>
+                                <p className='text-end m-0'>máx.</p> 
+                                <p>{value[1] === 1500 ? <strong>{`+ ${value[1]}€`}</strong> : `${value[1]}€`}</p>
+                            </div>
+                        </div>
+                        
                         <div className="accordion" id="accordionExample">
                             <div className="accordion-item">
                                 <h2 className="accordion-header">
@@ -123,26 +122,26 @@ export default function Tienda() {
                                 <div id="collapseOne" className={`accordion-collapse collapse ${acordeonAbierto ? 'show' : ''}`} aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div className="accordion-body p-0 mt-2 ps-3">
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="portatil" id="portatil" className='categoria' onChange={addCategoria} />
+                                            <input type="radio" name="categoria" id="portatil" className='categoria' onChange={(e)=>setCategoria(e.target.id)} />
                                             <label htmlFor="portatil">Portátiles</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="teclado" id="teclado" className='categoria' onChange={addCategoria} />
+                                            <input type="radio" name="categoria" id="teclado" className='categoria' onChange={(e)=>setCategoria(e.target.id)} />
                                             <label htmlFor="teclado">Teclados</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="raton" id="raton" className='categoria' onChange={addCategoria} />
+                                            <input type="radio" name="categoria" id="raton" className='categoria' onChange={(e)=>setCategoria(e.target.id)} />
                                             <label htmlFor="raton">Ratones</label>
                                         </div>
                                         <div className='d-flex gap-2 align-items-center'>
-                                            <input type="checkbox" name="monitor" id="monitor" className='categoria' onChange={addCategoria} />
+                                            <input type="radio" name="categoria" id="monitor" className='categoria' onChange={(e)=>setCategoria(e.target.id)} />
                                             <label htmlFor="monitor">Monitores</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <p className='text-center h3 mt-5 border-bottom pb-1'>Ordenar por</p>
+                        <p className='text-center h3 mt-4 border-bottom pb-1'>Ordenar por</p>
                         <div className='d-flex gap-2 align-items-center'>
                             <input type="radio" name="orden" id="nombreAsc" />
                             <label htmlFor="nombreAsc">Nombre A-Z</label>
@@ -162,7 +161,7 @@ export default function Tienda() {
 
                     </section>
                     <section className="productos box barScroll ">
-                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch} categoriasSeleccionadas={categoriasSeleccionadas}></Productos>
+                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch} categoria={categoria} setCategoria={setCategoria} precioMax={precioMax} precioMin={precioMin}></Productos>
                     </section>
                 </div>
 

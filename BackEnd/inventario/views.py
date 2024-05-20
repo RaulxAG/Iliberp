@@ -29,6 +29,7 @@ def getProductsJSON(request):
         
         # Crear una lista de diccionarios con los datos de los productos
         data = [{
+            "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
             "precio": product.precio,
@@ -61,6 +62,7 @@ def getSingleProductJSON(request):
         product = Producto.objects.get(pk=producto_id)
 
         data = [{
+            "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
             "especificaciones": product.especificaciones,
@@ -85,6 +87,7 @@ def getFeaturedProductsJSON(request):
         
         # Crear un array de objetos con los datos de los productos
         data = [{
+            "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
             "especificaciones": product.especificaciones,
@@ -126,6 +129,7 @@ def getCategorizedProductsJSON(request):
         
         # Crear un array con los datos de los productos
         data = [{
+            "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
             "especificaciones": product.especificaciones,
@@ -158,6 +162,7 @@ def getOrdersJSON(request):
         
         # Crear un arrray de objetos con los datos de los pedidos
         data = [{
+            "id": pedido.id,
             "cliente": pedido.cliente.id,
             "fecha": pedido.fecha,
             "direccion": pedido.direccion,
@@ -187,6 +192,7 @@ def getSingleOrderJSON(request):
         pedido = Pedido.objects.get(pk=pedido_id)
 
         data = [{
+            "id": pedido.id,
             "cliente": pedido.cliente.id,
             "fecha": pedido.fecha,
             "direccion": pedido.direccion,

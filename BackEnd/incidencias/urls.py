@@ -4,8 +4,8 @@ from django.urls import path,include
 from incidencias import views
 
 urlpatterns = [
-    path('getIncidents/<int:client_id>/',views.getIncidents,name='getIncidents'),
-    path('setIncident/',views.setIncident,name='setIncident'),
-    path('deleteIncident/<int:incident_id>/',views.deleteIncident,name='deleteIncident'),
-    path('editIncident/<int:incident_id>/',views.editIncident,name='editIncident'),
+    path('getIncidentsJSON/<int:client_id>/',views.getIncidentsJSON,name='getIncidentsJSON'),
+    path('setIncidentJSON/',views.setIncidentJSON,name='setIncidentJSON'),
+    path('deleteIncidentJSON/<int:incident_id>/',views.deleteIncidentJSON,name='deleteIncidentJSON'),
+    path('editIncidentJSON/<int:incident_id>/',views.editIncidentJSON,name='editIncidentJSON'),
 ]

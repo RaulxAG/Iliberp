@@ -8,7 +8,7 @@ from django.core.paginator import Paginator,EmptyPage
 from django.utils import timezone
 
 
-def getChats(request,user_id):
+def getChatsJSON(request,user_id):
     #Obtener el usuario
     user=User.objects.get(pk=user_id)
 
@@ -42,7 +42,7 @@ def getChats(request,user_id):
     return JsonResponse({'chats': chats_info})
 
 
-def getMessages(request,chat_id):
+def getMessagesJSON(request,chat_id):
     #Obtenemos la página que quiere ver
     page = request.GET.get('page')
     if not page:
@@ -74,7 +74,7 @@ def getMessages(request,chat_id):
     return JsonResponse({'messages': messagesJson})
 
 @csrf_exempt
-def setMessage(request):
+def setMessageJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user_id =data['user_id']
@@ -105,7 +105,7 @@ def setMessage(request):
     return JsonResponse({'message': message})
 
 @csrf_exempt
-def setChat(request):
+def setChatJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user1_id =data['user1']

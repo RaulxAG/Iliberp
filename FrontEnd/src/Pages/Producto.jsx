@@ -16,7 +16,7 @@ export default function Producto({producto, carrito, setCarrito}){
         setCarrito(nuevoCarrito);
         
     }
-    console.log(producto.especificaciones)
+    
     return(
         <div className="productos__producto box">
             <div data-bs-toggle="modal" data-bs-target="#modalDetalle" className='d-flex flex-column abrirModalDetalle'>

@@ -335,6 +335,7 @@ body {
   width: 42vh;
   margin-top: 1vh;
   padding: 2vh;
+  height: 350px;
 }
 .contenedor .containerTienda .productos__producto .abrirModalDetalle {
   cursor: pointer;
