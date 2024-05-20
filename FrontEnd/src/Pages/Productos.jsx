@@ -35,10 +35,11 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     
     
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/productos/')
+        fetch('http://localhost:8000/getProductsJSON/')
             .then(response => response.json())
             .then(data => {
-                setProductos(data);
+                setProductos(data.products);
+                console.log(data)
             })
             .catch(error => console.error('Error al obtener productos:', error));
     }, [setProductos]);

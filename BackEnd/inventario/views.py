@@ -31,6 +31,7 @@ def getProductsJSON(request):
         data = [{
             "nombre": product.nombre,
             "descripcion": product.descripcion,
+            "precio": product.precio,
             "especificaciones": product.especificaciones,
             "precio_descuento": product.precio_descuento,
             "tipo": product.tipo,

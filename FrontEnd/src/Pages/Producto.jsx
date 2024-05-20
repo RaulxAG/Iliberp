@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export default function Producto({producto, carrito, setCarrito}){
     const [comprado, setComprado] = useState(false);
+    const especificaciones = Object.entries(producto.especificaciones); //Para uqe nos devuelva un array de clave-valor
 
     const addCarrito = () =>{
         // Actualizar el estado de comprado antes de agregar el producto al carrito
@@ -13,9 +14,9 @@ export default function Producto({producto, carrito, setCarrito}){
 
         // Actualizar el estado del carrito
         setCarrito(nuevoCarrito);
-        console.log(comprado)
+        
     }
-
+    console.log(producto.especificaciones)
     return(
         <div className="productos__producto box">
             <div data-bs-toggle="modal" data-bs-target="#modalDetalle" className='d-flex flex-column abrirModalDetalle'>
@@ -24,7 +25,7 @@ export default function Producto({producto, carrito, setCarrito}){
             </div>
             <p className='producto__descripcion text-center'> {producto.descripcion} </p>
             <div className="producto__precio">
-                <p>{producto.precio}€</p>
+                <p>{producto.precio_descuento}€</p>
                 <div onClick={addCarrito}>
                     { comprado 
                         ? 
@@ -51,9 +52,9 @@ export default function Producto({producto, carrito, setCarrito}){
                             <p className='border-bottom pb-3'>{producto.descripcion}</p>
                             <h3>Especificaciones</h3>
                             <ul>
-                                <li>Socket: LGA 1200</li> 
-                                <li>Formato: ATX</li>
-                                <li>Chipset: Intel B460</li>
+                                {especificaciones.map(([clave, valor]) => (
+                                    <li key={clave}><strong>{clave}:</strong> {valor}</li>
+                                ))}
                             </ul>
                         </div>
                     </div>
