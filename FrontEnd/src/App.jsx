@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<FormInicio />} ></Route>
           <Route path='/tienda' element={<Tienda />} ></Route>
-          <Route path='/tramitar-pedido' element={<TramitarPedido />} ></Route>
+          <Route path='/tramitar-pedido' element={<TramitarPedido />}></Route>
         </Routes>
       </BrowserRouter>
     </>
