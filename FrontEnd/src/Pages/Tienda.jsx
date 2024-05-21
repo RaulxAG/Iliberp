@@ -20,6 +20,8 @@ export default function Tienda() {
     const [value, setValue] = useState([0, 1500]);
     const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
+    const totalCantidad = carrito.reduce((total, producto) => total + producto.cantidad, 0); //Vamos acumulando la cantidad para mostrarla en el icono del carrito
+
     let navegate = useNavigate();
 
     let precioMin=value[0]
@@ -48,7 +50,7 @@ export default function Tienda() {
 
     return (
         <div className='containerPrincipal'>
-            {carritoVisible && <Carrito carrito={carrito} setCarritoVisible={setCarritoVisible} />}
+            {carritoVisible && <Carrito carrito={carrito} setCarritoVisible={setCarritoVisible} setCarrito={setCarrito}/>}
             <Menu selected="tienda"></Menu>
             <div className="contenedor box">
                 <h2 className='tittle'>Tienda</h2>
@@ -172,7 +174,7 @@ export default function Tienda() {
 
                 <button className='carrito rounded-circle border-0' title='Ver carrito' onClick={() => setCarritoVisible(true)}>
                     <i className="fa-solid fa-cart-shopping" style={{ color: "#f8f8f8" }}></i>
-                    <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{carrito.length}</p>
+                    <p className='carrito__cant rounded-circle d-flex justify-content-center align-items-center'>{totalCantidad}</p>
                 </button>
             </div>
 

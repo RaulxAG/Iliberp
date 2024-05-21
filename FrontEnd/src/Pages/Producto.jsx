@@ -5,17 +5,34 @@ export default function Producto({producto, carrito, setCarrito}){
     const [comprado, setComprado] = useState(false);
     const especificaciones = Object.entries(producto.especificaciones); //Para uqe nos devuelva un array de clave-valor
 
-    const addCarrito = () =>{
+    const addCarrito = () => {
         // Actualizar el estado de comprado antes de agregar el producto al carrito
-        setComprado(!comprado);
-    
-        // Coger el carrito actual y añadirle el nuevo producto
-        const nuevoCarrito = [...carrito, producto];
+        setComprado(true);
+
+        // Crear una copia del carrito
+        const nuevoCarrito = [...carrito];
+
+        // Buscar si el producto ya está en el carrito
+        const index = nuevoCarrito.findIndex(item => item.id === producto.id);
+
+        if (index !== -1) {
+            // Si el producto ya está en el carrito, aumentar la cantidad
+            nuevoCarrito[index].cantidad += 1;
+        } else {
+            // Si el producto no está en el carrito, agregarlo con cantidad 1
+            nuevoCarrito.push({ 
+                id: producto.id, 
+                cantidad: 1,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                foto: producto.foto
+            });
+        }
 
         // Actualizar el estado del carrito
         setCarrito(nuevoCarrito);
-        
     }
+    console.log(carrito)
     
     return(
         <div className="productos__producto box">
@@ -29,13 +46,13 @@ export default function Producto({producto, carrito, setCarrito}){
                 <div onClick={addCarrito}>
                     { comprado 
                         ? 
-                            <section>
-                                <i className="fa-solid fa-cart-shopping" style={{color:"#f8f8f8"}}></i>
-                            </section>
-                        : 
                             <div>
                                 <i className="fa-solid fa-plus"></i>
                             </div>
+                        : 
+                            <section>
+                                <i className="fa-solid fa-cart-shopping" style={{color:"#f8f8f8"}}></i>
+                            </section>
                     }
                 </div>
             </div>
