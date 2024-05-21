@@ -88,7 +88,8 @@ def setIncidentJSON(request):
     }
    
     return JsonResponse(incident, safe=False)
-    
+
+@csrf_exempt    
 def deleteIncidentJSON(request,incident_id):
     incidencia = Incidencia.objects.get(pk=incident_id)
     
@@ -97,14 +98,14 @@ def deleteIncidentJSON(request,incident_id):
 
 @csrf_exempt
 def editIncidentJSON(request,incident_id):
-    #Obtener la incidencia
-    incidencia = Incidencia.objects.get(pk=incident_id)
-
-    #Obtener los datos que se quieren editar por el body
     if request.method == 'POST':
+        #Obtener la incidencia
+        incidencia = Incidencia.objects.get(pk=incident_id)
+
+        #Obtener los datos que se quieren editar por el body
         data = json.loads(request.body)
 
-        categoria =data['categoria']
+        categoria = data['categoria']
         descripcion = data['descripcion']
         observaciones = data['observaciones']
 
@@ -113,15 +114,18 @@ def editIncidentJSON(request,incident_id):
         incidencia.descripcion = descripcion
         incidencia.observaciones = observaciones
 
-    #Crear un array con toda la información de la incidencia que se ha actualizado
-    updated_incident = {
-        'id': incidencia.id,
-        'categoria': incidencia.categoria,
-        'descripcion': incidencia.descripcion,
-        'observaciones': incidencia.observaciones,
-        'estado': incidencia.estado,
-        'prioridad': incidencia.prioridad,
-        'fecha_inicio': incidencia.fecha_inicio.strftime('%Y-%m-%d'),
-        'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
-    }
-    return JsonResponse(updated_incident, safe=False)
+        incidencia.save()
+
+        #Crear un array con toda la información de la incidencia que se ha actualizado
+        updated_incident = {
+            'id': incidencia.id,
+            'categoria': incidencia.categoria,
+            'descripcion': incidencia.descripcion,
+            'observaciones': incidencia.observaciones,
+            'estado': incidencia.estado,
+            'prioridad': incidencia.prioridad,
+            'fecha_inicio': incidencia.fecha_inicio.strftime('%Y-%m-%d'),
+            'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
+        }
+
+        return JsonResponse(updated_incident, safe=False)
