@@ -2,11 +2,12 @@ import Producto from './Producto';
 import { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 
-export default function Productos({ productos, setProductos, carrito, setCarrito, search, setSearch, categoria, setCategoria,precioMax, precioMin }) {
+export default function Productos({ productos, setProductos, carrito, setCarrito, search, setSearch, categoria,precioMax, precioMin,orden }) {
     const location = useLocation();
     const [productosFiltradosCategoria, setProductosFiltradosCategoria] = useState([]);
     const [productosFiltradosBusqueda, setProductosFiltradosBusqueda] = useState([]);
     const [productosFiltradosPrecio, setProductosFiltradosPrecio] = useState([]);
+   
 
     // Cuando cambia la URL, actualizamos el valor de búsqueda
     useEffect(() => {
@@ -15,7 +16,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
         setSearch(searchParam || "");
     }, [location.search, setSearch]);
     
-    // Llamada inicial para obtener todos los productos
+    // Llamada para obtener todos los productos
     useEffect(() => {
         fetch('http://localhost:8000/getProductsJSON/')
             .then(response => response.json())
@@ -57,31 +58,41 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     // Filtrar productos por precio
     useEffect(() => {
         const filtered = productos.filter(producto =>
-            producto.precio >= precioMin && (precioMax === 1500 || producto.precio <= precioMax)
+            producto.precio >= precioMin && (precioMax === 1500 || producto.precio <= precioMax) //Controlar el valor max que tenemos puesto en el slider (1500)
         );
         setProductosFiltradosPrecio(filtered);
     }, [productos, precioMin, precioMax]);
 
     const productosFiltrados = productosFiltradosCategoria
         .filter(producto =>
-            productosFiltradosBusqueda.some(prod => prod.id === producto.id)
+            productosFiltradosBusqueda.find(prod => prod.id === producto.id)
         )
         .filter(producto =>
-            productosFiltradosPrecio.some(prod => prod.id === producto.id)
+            productosFiltradosPrecio.find(prod => prod.id === producto.id)
         );
 
-    // Filtrar productos por precio, búsqueda y categoría en una sola operación
-    // const productosFiltrados = productosFiltradosBusqueda
-    // .filter(producto =>
-    //     producto.precio >= precioMinimo && producto.precio <= precioMaximo
-    // )
-    // .filter(producto =>
-    //     productosFiltradosCategoria.some(prod => prod.id === producto.id)
-    // );
+    // Ordenar los productos filtrados
+    const productosOrdenados = [...productosFiltrados];
+    switch (orden) {
+        case 'precioAsc':
+            productosOrdenados.sort((a, b) => parseFloat(a.precio) - parseFloat(b.precio));
+            break;
+        case 'precioDesc':
+            productosOrdenados.sort((a, b) => parseFloat(b.precio) - parseFloat(a.precio));
+            break;
+        case 'nombreAsc':
+            productosOrdenados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            break;
+        case 'nombreDesc':
+            productosOrdenados.sort((a, b) => b.nombre.localeCompare(a.nombre));
+            break;
+        default:
+            break;
+    }
 
     return (
         <>
-            {productosFiltrados.map(producto => (
+            {productosOrdenados.map(producto => (
                 <Producto key={producto.id} producto={producto} carrito={carrito} setCarrito={setCarrito}></Producto>
             ))}
         </>

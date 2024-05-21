@@ -14,6 +14,7 @@ export default function Tienda() {
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
     const [categoria, setCategoria] = useState("");
+    const [orden,setOrden] = useState("nombreAsc")
     const [carritoVisible, setCarritoVisible] = useState(false);
     const [search, setSearch] = useState("")
     const [value, setValue] = useState([0, 1500]);
@@ -99,7 +100,7 @@ export default function Tienda() {
                                 onChange={handleChange}
                                 valueLabelDisplay="auto"
                                 getAriaValueText={valuetext}
-                                max={1700}
+                                max={1500}
                             />
                         <div className="d-flex justify-content-between">
                             <div>
@@ -137,31 +138,35 @@ export default function Tienda() {
                                             <input type="radio" name="categoria" id="monitor" className='categoria' onChange={(e)=>setCategoria(e.target.id)} />
                                             <label htmlFor="monitor">Monitores</label>
                                         </div>
+                                        <div className='d-flex gap-2 align-items-center'>
+                                            <input type="radio" name="categoria" id="todos" defaultChecked className='categoria' onChange={(e)=>setCategoria("")} />
+                                            <label htmlFor="todos" className='fw-bold h6 m-0'>Todos</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <p className='text-center h3 mt-4 border-bottom pb-1'>Ordenar por</p>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="nombreAsc" />
+                            <input type="radio" name="orden" id="nombreAsc" onChange={(e)=>setOrden(e.target.id)}/>
                             <label htmlFor="nombreAsc">Nombre A-Z</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="nombreDesc" />
+                            <input type="radio" name="orden" id="nombreDesc" onChange={(e)=>setOrden(e.target.id)}/>
                             <label htmlFor="nombreDesc">Nombre Z-A</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="precioAsc" />
+                            <input type="radio" name="orden" id="precioAsc" onChange={(e)=>setOrden(e.target.id)}/>
                             <label htmlFor="precioAsc">Precio asc.</label>
                         </div>
                         <div className='d-flex gap-2 align-items-center'>
-                            <input type="radio" name="orden" id="precioDesc" />
+                            <input type="radio" name="orden" id="precioDesc" onChange={(e)=>setOrden(e.target.id)}/>
                             <label htmlFor="precioDesc">Precio desc.</label>
                         </div>
 
                     </section>
                     <section className="productos box barScroll ">
-                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch} categoria={categoria} setCategoria={setCategoria} precioMax={precioMax} precioMin={precioMin}></Productos>
+                        <Productos productos={productos} setProductos={setProductos} carrito={carrito} setCarrito={setCarrito} search={search} setSearch={setSearch} categoria={categoria} setCategoria={setCategoria} precioMax={precioMax} precioMin={precioMin} orden={orden}></Productos>
                     </section>
                 </div>
 
