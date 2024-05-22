@@ -1,0 +1,57 @@
+.menuLateral {
+    &__profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  
+      > img.profile__photo {
+        object-fit: contain;
+        width: 100px;
+      }
+  
+      p {
+        font-weight: 500;
+      }
+    }
+  
+    &__logo img {
+      object-fit: contain;
+      width: 100px;
+      margin-top: 0.5rem;
+    }
+  
+    &__enlaces ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        text-align: center;
+        padding: 30% 0;
+  
+        a {
+          font-size: larger;
+          border-radius: 100%;
+          padding: 1rem;
+          text-decoration: none;
+          color: #e65522;
+          transition: background 0.2s linear;
+  
+          &:hover {
+            background-color: #1E2225;
+          }
+        }
+  
+        &.selected {
+          transition: color 0.2s linear;
+          background-color: #1E2225;
+          border-radius: 100%;
+  
+          &:hover {
+            color: #F8F8F8;
+          }
+        }
+      }
+    }
+  }
+  

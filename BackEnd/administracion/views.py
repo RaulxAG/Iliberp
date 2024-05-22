@@ -1,3 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
-# Create your views here.
+def employeesView(request):
+    return render(request, 'administracion/employeesView.html')

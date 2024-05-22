@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="main.css">
+
+<body>
+    <main>
+        <!-- Menu lateral -->
+        {% include 'global/submenu.html' %} 
+        <section class="main box d-flex flex-column">
+            <h2 class='tittle'>Empleados</h2>
+            <div class=" mt-5 w-75 m-auto">
+                <button class="float-end button">
+                    <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
+                    Nuevo empleado
+                </button>
+                <table class="table table-dark table-striped tablaEmpleados box m-auto ">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Departamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEmpleados" >
+                        <!--Relleno con js-->
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </section>
+    </main>
+</body>

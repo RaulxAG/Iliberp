@@ -82,10 +82,13 @@ export default function TramitarPedido() {
         handleNext();
     };
 
+    const direccion=`${watch('calle')},${watch('numero')},${watch('provincia')},${watch('localidad')},${watch('codigoPostal')}`
+
+    console.log(direccion)
     const finalizarPedido = () => {
         const pedido = {
             cliente_id: 28,  // Cambiar por el id cuando se loguee
-            direccion: "Calle Falsa 123",  // Crear el string de la calle
+            direccion: direccion,  // Crear el string de la calle
             lineas: carrito.map(producto => ({
                 articulo_id: producto.id,
                 unidades: producto.cantidad
