@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { eliminarIncidencia } from "../librerias/libTickets";
 
 export default function Tickets() {
     const [client_id, setClient_id] = useState(2);
@@ -10,6 +11,7 @@ export default function Tickets() {
     const [editedObservations, setEditedObservations] = useState(""); // Estado para almacenar las observaciones editadas
     const [editedCategory, setEditedCategory] = useState("");
     const [ticketChangeCounter, setTicketChangeCounter] = useState(0);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,34 +42,9 @@ export default function Tickets() {
         fetchData();
     }, [client_id, ticketChangeCounter]); // client_id es una dependencia, la solicitud se realizará cuando cambie
 
-    const eliminarIncidencia = (incident_id) =>{
-        const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar la incidencia numero: " + incident_id + "?");
-        if (confirmacion) {
-            fetch(`http://127.0.0.1:8000/deleteIncidentJSON/${incident_id}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    alert("Ha habido un error");
-                    throw new Error('Network response was not ok');
-                } else {
-                    alert("Incidencia eliminada con éxito");
-                    setTicketChangeCounter(prevCounter => prevCounter + 1);
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-        } else {
-            // Aquí puedes manejar el caso en que el usuario cancela la eliminación
-            alert("Eliminación cancelada");
-        }
-    }
+    const handleEliminarIncidencia = (incident_id) => {
+        eliminarIncidencia(incident_id, navigate);
+    };
 
     const editarIncidencia = (incident_id, description, observations, category) => {
         setEditingTicketId(incident_id);
@@ -199,7 +176,7 @@ export default function Tickets() {
                                 </div>
                                 
                                 <div className="accionesDetalleTicket d-flex gap-2 justify-content-center w-100">
-                                    <button onClick={() => eliminarIncidencia(ticket.id)} className="btn btn-outline-danger fw-bold align-self-center w-50"><i className="fa-solid fa-trash"></i> Eliminar</button>
+                                    <button onClick={() => handleEliminarIncidencia(ticket.id)} className="btn btn-outline-danger fw-bold align-self-center w-50"><i className="fa-solid fa-trash"></i> Eliminar</button>
                                     {editingTicketId === ticket.id ? ( // Mostrar botón de guardar si el ticket está en modo de edición
                                         <button onClick={() => guardarCambios(ticket.id, editedDescription, editedObservations, editedCategory)} className="btn btn-outline-success fw-bold align-self-center w-50"><i className="fa-solid fa-save"></i> Guardar Cambios</button>
                                     ) : (

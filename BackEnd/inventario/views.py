@@ -257,6 +257,35 @@ def makeOrderJSON(request):
         return JsonResponse(response_data, status=400)
     
 @csrf_exempt
+def addAddressJSON(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        pedido_id = data.get('pedido_id')
+
+        calle = data.get('calle')
+        numero = data.get('numero')
+        provincia = data.get('provincia')
+        localidad = data.get('localidad')
+        codigo_postal = data.get('codigo_postal')
+
+        try:
+            pedido = Pedido.objects.get(pk=pedido_id)
+
+            pedido.direccion = calle + ", nº" + str(numero) + ", " + str(codigo_postal) + ", " + localidad + ", " + provincia
+
+            pedido.save() 
+
+            return JsonResponse({"message": "Dirección añadida con éxito", "pedido_id": pedido.id, "direccion": pedido.direccion}, status=200)
+        except:
+            return JsonResponse({"message": "Error al añadir la dirección del pedido", "pedido_id": pedido.id}, status=400)
+        else:
+            # Si la solicitud no es POST, devolver un error 
+            response_data = {'error': 'Se esperaba una solicitud POST'}
+            return JsonResponse(response_data, status=400)
+
+
+@csrf_exempt
 def cancelOrderJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -264,7 +293,8 @@ def cancelOrderJSON(request):
         pedido_id = data.get('pedido_id')
 
         try:
-            pedido = Pedido.objects.delete(pk=pedido_id)
+            pedido = Pedido.objects.deleteIncidentJSON(pk=pedido_id)
+
 
             return JsonResponse({"message": "Pedido eliminado con éxito", "pedido_id": pedido.id}, status=200)
         except:

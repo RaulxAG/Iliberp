@@ -12,4 +12,5 @@ urlpatterns = [
     path("getSingleOrderJSON/", views.getSingleOrderJSON),
     path("makeOrderJSON/", views.makeOrderJSON),
     path("cancelOrderJSON/", views.cancelOrderJSON),
+    path("addAddressJSON/", views.addAddressJSON),
 ]
