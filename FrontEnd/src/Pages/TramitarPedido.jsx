@@ -39,13 +39,13 @@ export default function TramitarPedido() {
 
     const handleNextStep = () => {
         // Verificar si el formulario es válido solo en los pasos 0 y 1
-        if (activeStep === 0 || activeStep === 1) {
-            // Hacer la validación del formulario y luego llamar onSubmit si es válido
-            handleSubmit(onSubmit)();
-        } else {
+        // if (activeStep === 0 || activeStep === 1) {
+        //     // Hacer la validación del formulario y luego llamar onSubmit si es válido
+        //     handleSubmit(onSubmit)();
+        // } else {
             // Si no está en los pasos 0 o 1,  avanzar al siguiente paso
             handleNext();
-        }
+        // }
     };
 
     const handleBack = () => {
@@ -83,7 +83,7 @@ export default function TramitarPedido() {
             <Menu selected="incidencias"></Menu>
             <div className="contenedor box">
                 <h2 className='tittle mb-5'>Tramitar pedido</h2>
-                <div className='containerTramite box w-75 mx-auto'>
+                <div className='containerTramite box w-75 mx-auto barScroll'>
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
@@ -111,7 +111,7 @@ export default function TramitarPedido() {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <div className='p-4'>
+                                <div className='p-4 px-5 mx-5'>
                                     {activeStep === 0 && (
                                         <Box>
                                             {/* Información de envío */}
@@ -269,7 +269,7 @@ export default function TramitarPedido() {
                                             <Typography variant="h6" className='text-center fs-3'>Resumen del pedido</Typography>
                                             <div className=' '>
                                                 <Box my={2}>
-                                                    <Typography variant="subtitle1" className='border-bottom fw-bold'>Información de envío</Typography>
+                                                    <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Información de envío</Typography>
                                                     <Typography>Calle: {watch('calle')}</Typography>
                                                     <Typography>Número, piso, portal: {watch('numero')}</Typography>
                                                     <Typography>Provincia: {watch('provincia')}</Typography>
@@ -277,14 +277,14 @@ export default function TramitarPedido() {
                                                     <Typography>Código postal: {watch('codigoPostal')}</Typography>
                                                 </Box>
                                                 <Box my={2}>
-                                                    <Typography variant="subtitle1" className='border-bottom fw-bold'>Información de pago</Typography>
+                                                    <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Información de pago</Typography>
                                                     <Typography>Número de la tarjeta: {watch('numeroTarjeta')}</Typography>
                                                     <Typography>Nombre del titular: {watch('nombreTitular')}</Typography>
                                                     <Typography>Fecha de vencimiento: {watch('mm')}/{watch('yy')}</Typography>
                                                     <Typography>CVV: {watch('cvv')}</Typography>
                                                 </Box>
                                                 <Box my={2}>
-                                                    <Typography variant="subtitle1" className='border-bottom fw-bold'>Artículos del carrito</Typography>
+                                                    <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Artículos del carrito</Typography>
                                                     {carrito.map(producto => (
                                                         <Box key={producto.id} my={1}>
                                                             <Typography>Nombre: {producto.nombre}</Typography>
@@ -292,7 +292,7 @@ export default function TramitarPedido() {
                                                             <Typography>Precio total: {producto.precio * producto.cantidad}€</Typography>
                                                         </Box>
                                                     ))}
-                                                    <Typography variant="h6" className='fw-bold'>Precio total del pedido: {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
+                                                    <Typography variant="h6" className='fw-bold text-end'>Precio total del pedido: {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
                                                 </Box>
                                             </div>
                                         </Box>

@@ -428,7 +428,7 @@ body {
 .containerTramite {
   background-color: rgba(85, 89, 91, 0.4);
   padding: 30px 20px;
-  height: 100%;
+  overflow-y: auto;
 }
 .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
   color: #e65522;
