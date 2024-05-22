@@ -221,8 +221,8 @@ def makeOrderJSON(request):
         cliente_id = data.get('cliente_id')
         direccion = data.get('direccion')
         lineas_data = data.get('lineas')
-
-        if not cliente_id or not direccion or not lineas_data:
+        
+        if cliente_id is None or not direccion or not lineas_data:
             return JsonResponse({"error": "Faltan datos requeridos (cliente_id, direccion o lineas)"}, status=400)
         
         cliente = Cliente.objects.get(pk=cliente_id)

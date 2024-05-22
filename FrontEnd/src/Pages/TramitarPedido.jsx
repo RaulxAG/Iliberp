@@ -39,13 +39,16 @@ export default function TramitarPedido() {
 
     const handleNextStep = () => {
         // Verificar si el formulario es válido solo en los pasos 0 y 1
-        // if (activeStep === 0 || activeStep === 1) {
-        //     // Hacer la validación del formulario y luego llamar onSubmit si es válido
-        //     handleSubmit(onSubmit)();
-        // } else {
-            // Si no está en los pasos 0 o 1,  avanzar al siguiente paso
-            handleNext();
-        // }
+        if (activeStep === 0 || activeStep === 1) {
+          // Hacer la validación del formulario y luego llamar onSubmit si es válido
+          handleSubmit(onSubmit)();
+        } else if (activeStep === steps.length - 1) {
+          // Si es el último paso, finalizar el pedido
+          finalizarPedido();
+        } else {
+          // Si no está en los pasos 0, 1 o el último, avanzar al siguiente paso
+          handleNext();
+        }
     };
 
     const handleBack = () => {
@@ -73,10 +76,42 @@ export default function TramitarPedido() {
     let carrito = location.state.carrito;
     const { register, handleSubmit, watch,formState: { errors } } = useForm();
 
+    console.log(carrito)
     const onSubmit = (data) => {
         //Avanzar al siguiente formulario
         handleNext();
     };
+
+    const finalizarPedido = () => {
+        const pedido = {
+            cliente_id: 28,  // Cambiar por el id cuando se loguee
+            direccion: "Calle Falsa 123",  // Crear el string de la calle
+            lineas: carrito.map(producto => ({
+                articulo_id: producto.id,
+                unidades: producto.cantidad
+            }))
+        };
+    
+        fetch('http://localhost:8000/makeOrderJSON/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pedido)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert('Pedido creado exitosamente. ID del pedido: ' + data.pedido_id);
+            } else {
+                alert('Error al crear el pedido');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
 
     return (
         <div className='containerPrincipal'>
