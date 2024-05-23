@@ -1,15 +1,5 @@
-.button{
-    background-image: $gradient;
-    border-radius: 1vh;
-    color: $colorWhite;
-    border: 1px solid transparent;
-    padding: 1vh 2vh;
-    margin: 1vh 0px;
-    transition: all 0.1s linear;
-    &:hover{
-        transform: scale(1.06);
-    }
-}
+// ESTILOS VISTA GENERAL DE LOS CRUD (TABLA EMPLEADOS, CONTACTOS...)
+
 .tabla{
     thead th:last-child{
         border-radius: 0px 10px 0px 0px;
@@ -19,5 +9,80 @@
     }
     tbody tr{
         cursor: pointer;
+    }
+}
+@keyframes animacionTexto {
+    50% {
+        font-size: 18px; /* Tamaño de la fuente durante la animación */
+    }
+}
+// ESTILOS CRUD DETALLE
+.buttonReverse a{
+    text-decoration: none;
+    color: $colorOrange;
+}
+.formularioCrud {
+    .fa-camera{
+        bottom: 20px;
+        left: 90px;
+        font-size: 30px;
+        background-color:$colorWhite;
+        border-radius: 100px;
+        padding: 7px;
+        cursor: pointer;
+    }
+    img {
+        width: 17vh;
+        height: 17vh;
+    }
+    .btnAceptar{
+        align-self: flex-end;
+    }
+    input {
+        border: none;
+        color: $colorWhite;
+        padding: 3px;
+
+        &:enabled {
+            border: none;
+            animation: animacionTexto 0.5s ease;
+            background-color: #1e22259c !important;
+            border-radius: 3px 3px 0px 0px;
+        }
+    }
+
+    select:enabled {
+        animation: animacionTexto 0.5s ease;
+    }
+
+    textarea {
+        height: 135px;
+        color: $colorWhite;
+    }
+
+    select {
+        padding: 3px;
+
+        .form-select:focus {
+            box-shadow: 0 0 0 .25rem #e65622af;
+        }
+
+        .custom {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* Agregar estilos personalizados */
+            background-color: #F5A623;
+            color: #fff;
+            border: 1px solid #F5A623;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            /* Estilo cuando se pasa el mouse por encima de las opciones */
+            &:hover {
+                background-color: #1E2225 !important;
+            }
+        }
     }
 }

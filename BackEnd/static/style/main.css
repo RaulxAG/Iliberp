@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -80,6 +81,18 @@ body {
   transform: scale(1.06);
 }
 
+.buttonReverse {
+  background-color: #F8F8F8;
+  border-radius: 1vh;
+  color: #e65522;
+  border: 1px solid #e65522;
+  padding: 1vh 2vh;
+  margin: 1vh 0px;
+}
+.buttonReverse:hover {
+  transform: scale(1.06);
+}
+
 .tabla thead th:last-child {
   border-radius: 0px 10px 0px 0px;
 }
@@ -88,6 +101,73 @@ body {
 }
 .tabla tbody tr {
   cursor: pointer;
+}
+
+@keyframes animacionTexto {
+  50% {
+    font-size: 18px; /* Tamaño de la fuente durante la animación */
+  }
+}
+.buttonReverse a {
+  text-decoration: none;
+  color: #e65522;
+}
+
+.formularioCrud .fa-camera {
+  bottom: 20px;
+  left: 90px;
+  font-size: 30px;
+  background-color: #F8F8F8;
+  border-radius: 100px;
+  padding: 7px;
+  cursor: pointer;
+}
+.formularioCrud img {
+  width: 17vh;
+  height: 17vh;
+}
+.formularioCrud .btnAceptar {
+  align-self: flex-end;
+}
+.formularioCrud input {
+  border: none;
+  color: #F8F8F8;
+  padding: 3px;
+}
+.formularioCrud input:enabled {
+  border: none;
+  animation: animacionTexto 0.5s ease;
+  background-color: rgba(30, 34, 37, 0.6117647059) !important;
+  border-radius: 3px 3px 0px 0px;
+}
+.formularioCrud select:enabled {
+  animation: animacionTexto 0.5s ease;
+}
+.formularioCrud textarea {
+  height: 135px;
+  color: #F8F8F8;
+}
+.formularioCrud select {
+  padding: 3px;
+}
+.formularioCrud select .form-select:focus {
+  box-shadow: 0 0 0 0.25rem rgba(230, 86, 34, 0.6862745098);
+}
+.formularioCrud select .custom {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Agregar estilos personalizados */
+  background-color: #F5A623;
+  color: #fff;
+  border: 1px solid #F5A623;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  /* Estilo cuando se pasa el mouse por encima de las opciones */
+}
+.formularioCrud select .custom:hover {
+  background-color: #1E2225 !important;
 }
 
 .menuLateral.box {

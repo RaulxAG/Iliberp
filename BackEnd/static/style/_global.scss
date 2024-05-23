@@ -72,3 +72,26 @@ body {
         transform: translateX(50%);
     }
 }
+.button{
+    background-image: $gradient;
+    border-radius: 1vh;
+    color: $colorWhite;
+    border: 1px solid transparent;
+    padding: 1vh 2vh;
+    margin: 1vh 0px;
+    transition: all 0.1s linear;
+    &:hover{
+        transform: scale(1.06);
+    }
+}
+.buttonReverse{
+    background-color:$colorWhite;
+    border-radius: 1vh;
+    color:$colorOrange;
+    border: 1px solid$colorOrange;
+    padding: 1vh 2vh;
+    margin: 1vh 0px;
+    &:hover{
+        transform: scale(1.06);
+    }
+}

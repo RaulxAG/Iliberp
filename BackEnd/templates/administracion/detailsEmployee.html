@@ -1,0 +1,66 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Empleados{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div class="mx-auto w-75 my-5">
+        <h2 class='tittleDetalle'>{{employee.user.first_name}} {{employee.user.last_name}}</h2>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="buttonReverse me-2" onclick="window.location.href='empleados.html'">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                <a href="javascript:history.back()">Volver</a>
+                
+            </button>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button> 
+        </div>
+        
+        <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
+            <div class="position-relative">
+              <img src="#" alt="" class="rounded-circle mb-4 border border-light p-1">
+              <label for="fileInput">
+                <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
+                <input type="file" id="fileInput" class="d-none">
+              </label>
+            </div>
+            
+            <div class="row gy-4">
+                <div class="col-4">
+                    <h6 class="fw-bold">Nombre</h6>
+                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100" disabled value={{employee.user.first_name}}>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Apellidos</h6>
+                    <input type="text" id="apellidos" class="border-bottom bg-transparent w-100" disabled value={{employee.user.last_name}}>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">DNI</h6>
+                    <input type="text" id="dni" class="border-bottom bg-transparent w-100" disabled value={{employee.dni}}>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Correo</h6>
+                    <input type="text" id="email" class="border-bottom bg-transparent w-100" disabled value={{employee.user.email}}>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Teléfono</h6>
+                    <input type="text" id="telefono" class="border-bottom bg-transparent w-100" disabled value={{employee.telefono}}>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Departamento</h6>
+                    <input type="text" id="departamento" class="border-bottom bg-transparent w-100" disabled value={{employee.departamento}}>
+                </div>
+                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value={{employee.id}}>
+            </div>
+            
+        </div>
+    </div>
+    
+</section>
+<script src="{% static '/js/employee.js' %}"></script>
+{% endblock content %}

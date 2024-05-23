@@ -30,7 +30,7 @@
                     </thead>
                     <tbody id="tablaEmpleados">
                         {% for employee in employees %}
-                            <tr>
+                            <tr onclick="window.location.href = '/detailsEmployee-{{ employee.id }}';">
                                 <td>{{employee.user.first_name}}</td>
                                 <td>{{employee.user.last_name}}</td>
                                 <td>{{employee.dni}}</td>
