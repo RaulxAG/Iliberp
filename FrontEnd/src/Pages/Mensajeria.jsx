@@ -1,6 +1,7 @@
 import Menu from "../components/Menu";
 import CardMensaje from "../components/CardMensaje";
 import Chat from "../components/Chat";
+import UltimosMensajes from "../components/UltimosMensajes";
 
 export default function Mensajeria() {
     return (
@@ -23,53 +24,8 @@ export default function Mensajeria() {
                     </form>
 
                     <div className="contactos__chats w-100 mt-3 px-2 overflow-scroll">
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-                            <CardMensaje></CardMensaje>
-
-                        </div>
+                        <UltimosMensajes />
+                    </div>
                 </section>
                 
                 <Chat></Chat>

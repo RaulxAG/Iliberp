@@ -7,7 +7,7 @@ from .models import Mensaje, Chat,UsuarioChat
 from django.core.paginator import Paginator,EmptyPage
 from django.utils import timezone
 
-
+@csrf_exempt
 def getChatsJSON(request,user_id):
     #Obtener el usuario
     user=User.objects.get(pk=user_id)
@@ -41,7 +41,7 @@ def getChatsJSON(request,user_id):
     # Devolver los chats en JSON
     return JsonResponse({'chats': chats_info})
 
-
+@csrf_exempt
 def getMessagesJSON(request,chat_id):
     #Obtenemos la página que quiere ver
     page = request.GET.get('page')
