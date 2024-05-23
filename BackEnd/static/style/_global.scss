@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $fontRaleway;
+}
+
+//ESTILOS PARA LA BARRA SCROLLEABLE
+.barScroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.barScroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.barScroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.barScroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.containerPrincipal{
+    height: 100vh;
+    background-color: $colorBlack;
+    color: white;
+    display: flex;
+    gap: 1%;
+    padding: 1%;
+
+    .menuLateral{
+        max-width: 70px;
+    }
+
+    .contenedor{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+}
+
+
+.box{
+    background-color: $colorGray;
+    border-radius: 10px;
+    padding: 1vh;
+}
+
+.tittle{
+    font-size: 50px;
+    color: $colorWhite;
+    text-align: center;
+    position: relative;
+    padding-top: 3vh;
+    animation: aparecerCentro 2.5s ease forwards;
+
+    &::after{
+        content: ""; 
+        position: absolute; 
+        bottom: -1vh; 
+        left: 0; 
+        width: 50%; 
+        height: 2px; 
+        background-image: $gradient;
+        transform: translateX(50%);
+    }
+}

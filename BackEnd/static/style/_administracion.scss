@@ -1,0 +1,23 @@
+.button{
+    background-image: $gradient;
+    border-radius: 1vh;
+    color: $colorWhite;
+    border: 1px solid transparent;
+    padding: 1vh 2vh;
+    margin: 1vh 0px;
+    transition: all 0.1s linear;
+    &:hover{
+        transform: scale(1.06);
+    }
+}
+.tabla{
+    thead th:last-child{
+        border-radius: 0px 10px 0px 0px;
+    } 
+    thead th:first-child{
+        border-radius: 10px 0px 0px 0px;
+    }
+    tbody tr{
+        cursor: pointer;
+    }
+}

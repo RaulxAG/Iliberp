@@ -1,32 +1,46 @@
-<link rel="stylesheet" href="main.css">
+{% extends '../global/cdns.html' %}
+{% load static %}
 
-<body>
-    <main>
-        <!-- Menu lateral -->
-        {% include 'global/submenu.html' %} 
-        <section class="main box d-flex flex-column">
-            <h2 class='tittle'>Empleados</h2>
-            <div class=" mt-5 w-75 m-auto">
-                <button class="float-end button">
+{% block title %}Empleados{% endblock %}
+
+{% block content %}
+    
+    <!-- Menu lateral -->
+    {% include 'global/submenu.html' %} 
+    <section class="box d-flex flex-column contenedor">
+        <h2 class='tittle'>Empleados</h2>
+        <div class="mx-auto">
+            <div class="d-flex justify-content-end">
+                <button class="button d-flex align-items-center gap-2  mt-5 ">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
-                    Nuevo empleado
+                    <p class="m-0">Nuevo empleado</p>
                 </button>
-                <table class="table table-dark table-striped tablaEmpleados box m-auto ">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Teléfono</th>
-                            <th>Departamento</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaEmpleados" >
-                        <!--Relleno con js-->
-                    </tbody>
-                </table>
-                
             </div>
             
-        </section>
-    </main>
-</body>
+            <div class="box p-3">
+                <table class="table table-dark table-striped tabla">
+                    <thead class="h5 text-uppercase ">
+                        <tr class="">
+                            <th class="p-3">Nombre</th>
+                            <th class="p-3">Apellidos</th>
+                            <th class="p-3">Dni</th>
+                            <th class="p-3">Teléfono</th>
+                            <th class="p-3">Departamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEmpleados">
+                        {% for employee in employees %}
+                            <tr>
+                                <td>{{employee.user.first_name}}</td>
+                                <td>{{employee.user.last_name}}</td>
+                                <td>{{employee.dni}}</td>
+                                <td>{{employee.telefono}}</td>
+                                <td>{{employee.departamento}}</td>
+                            </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

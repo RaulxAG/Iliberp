@@ -1,46 +1,181 @@
-.menuLateral__profile {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway";
+}
+
+.barScroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.barScroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.barScroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.barScroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.containerPrincipal {
+  height: 100vh;
+  background-color: #1E2225;
+  color: white;
+  display: flex;
+  gap: 1%;
+  padding: 1%;
+}
+.containerPrincipal .menuLateral {
+  max-width: 70px;
+}
+.containerPrincipal .contenedor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.box {
+  background-color: rgba(85, 89, 91, 0.4);
+  border-radius: 10px;
+  padding: 1vh;
+}
+
+.tittle {
+  font-size: 50px;
+  color: #F8F8F8;
+  text-align: center;
+  position: relative;
+  padding-top: 3vh;
+  animation: aparecerCentro 2.5s ease forwards;
+}
+.tittle::after {
+  content: "";
+  position: absolute;
+  bottom: -1vh;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  transform: translateX(50%);
+}
+
+.button {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  border-radius: 1vh;
+  color: #F8F8F8;
+  border: 1px solid transparent;
+  padding: 1vh 2vh;
+  margin: 1vh 0px;
+  transition: all 0.1s linear;
+}
+.button:hover {
+  transform: scale(1.06);
+}
+
+.tabla thead th:last-child {
+  border-radius: 0px 10px 0px 0px;
+}
+.tabla thead th:first-child {
+  border-radius: 10px 0px 0px 0px;
+}
+.tabla tbody tr {
+  cursor: pointer;
+}
+
+.menuLateral.box {
+  padding: 0;
+  margin: 0;
+}
+.menuLateral.box .menuLateral__profile {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
 }
-.menuLateral__profile > img.profile__photo {
+.menuLateral.box .menuLateral__profile > img.profile__photo {
   object-fit: contain;
-  width: 100px;
+  width: 100%;
+  padding: 3px;
 }
-.menuLateral__profile p {
+.menuLateral.box .menuLateral__profile p {
   font-weight: 500;
 }
-.menuLateral__logo img {
+.menuLateral.box .menuLateral__logo img {
   object-fit: contain;
-  width: 100px;
-  margin-top: 0.5rem;
+  width: 70%;
 }
-.menuLateral__enlaces ul {
+.menuLateral.box .menuLateral__enlaces ul {
   list-style: none;
   padding: 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 40px;
+  align-items: center;
 }
-.menuLateral__enlaces ul li {
+.menuLateral.box .menuLateral__enlaces ul li {
   text-align: center;
-  padding: 30% 0;
+  width: 100%;
 }
-.menuLateral__enlaces ul li a {
+.menuLateral.box .menuLateral__enlaces ul li a {
   font-size: larger;
   border-radius: 100%;
-  padding: 1rem;
   text-decoration: none;
   color: #e65522;
   transition: background 0.2s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-.menuLateral__enlaces ul li a:hover {
-  background-color: #1E2225;
+.menuLateral.box .menuLateral__enlaces ul li a:hover div {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-.menuLateral__enlaces ul li.selected {
+.menuLateral.box .menuLateral__enlaces ul li a img {
+  width: 100%;
+}
+.menuLateral.box .menuLateral__enlaces ul li a div {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  width: 23vh;
+  border-radius: 0px 10px 10px 0px;
+  left: 0vh;
+  padding: 3px 10px;
+  transition: 0.2s linear;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  filter: drop-shadow(0 0 2px rgb(46, 46, 46));
+}
+.menuLateral.box .menuLateral__enlaces ul li a div p {
+  padding-left: 10px;
+}
+.menuLateral.box .menuLateral__enlaces ul li a p {
+  display: flex;
+  padding: 0% 2px;
+  color: #F8F8F8;
+  margin: 0;
+}
+.menuLateral.box .menuLateral__enlaces ul li a img {
+  max-width: 40px;
+}
+.menuLateral.box .menuLateral__enlaces ul .selected {
   transition: color 0.2s linear;
   background-color: #1E2225;
   border-radius: 100%;
 }
-.menuLateral__enlaces ul li.selected:hover {
+.menuLateral.box .menuLateral__enlaces ul .selected:hover {
   color: #F8F8F8;
 }
 
