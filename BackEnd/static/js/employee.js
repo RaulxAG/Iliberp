@@ -1,4 +1,16 @@
 window.onload=()=> {
+    // COMO ESTE CÓDIGO ES IGUAL PARA TODOS LOS CRUD Y SOLO CAMBIA EL fetch, HACEMOS ESTE IF Y CAMBIAMOS EL fetch
+    let url = window.location.href
+    let rutaLlamaAjax=""
+    let location=""
+    if (url.includes('Employee')) {
+        rutaLlamaAjax=/saveEmployee/
+        location='/employees'
+    } else if (url.includes('Enterprise')){
+        rutaLlamaAjax=/saveEnterprise/
+        location='/enterprises'
+    }
+
     let buttonEdit = document.querySelector("#buttonEdit");
     const btnAceptarExiste = document.querySelector("#btnAceptar")
     const inputs = document.querySelector('.formularioCrud').querySelectorAll('input');
@@ -28,7 +40,7 @@ window.onload=()=> {
         data.action = window.location.href.includes("new") ? "new" : "edit";
         console.log(data)
         // // Enviar los datos a saveEmployee utilizando AJAX
-        fetch("/saveEmployee/", {
+        fetch(`${rutaLlamaAjax}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -53,7 +65,7 @@ window.onload=()=> {
 
             setTimeout(() => {
                 alert.remove();  // Remover la alerta 
-                window.location.href='/employees'
+                window.location.href=`${location}`
             }, 1000);
         })
         

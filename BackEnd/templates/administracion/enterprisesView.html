@@ -1,0 +1,48 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Empresas{% endblock %}
+
+{% block content %}
+    
+    <!-- Menu lateral -->
+    {% include 'global/submenu.html' %} 
+    <section class="box d-flex flex-column contenedor">
+        <h2 class='tittle' id="titulo">Empresas</h2>
+        <div class="mx-auto overflow-hidden">
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'detailsEnterprise' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                    <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
+                    <p class="m-0">Nueva empresa</p>
+                </a>
+            </div>            
+            
+            <div class="box px-3 overflow-scroll barScroll h-75">
+                <table class="table table-dark table-striped tabla">
+                    <thead class="fs-5 text-uppercase ">
+                        <tr class="">
+                            <th class="p-3">Nombre</th>
+                            <th class="p-3">CIF</th>
+                            <th class="p-3">Dirección</th>
+                            <th class="p-3">Email</th>
+                            <th class="p-3">Teléf.1</th>
+                            <th class="p-3">Teléf.2</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEmpleados">
+                        {% for enterprise in enterprises %}
+                            <tr onclick="window.location.href = '/detailsEnterprise-{{ enterprise.id }}';">
+                                <td>{{enterprise.nombre}}</td>
+                                <td>{{enterprise.cif_nif}}</td>
+                                <td>{{enterprise.direccion}}</td>
+                                <td>{{enterprise.email}}</td>
+                                <td>{{enterprise.telefono1}}</td>
+                                <td>{{enterprise.telefono2}}</td>
+                            </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Empleado
+from .models import Empleado,Cliente,Empresa
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -84,4 +84,73 @@ def deleteEmployee(request,employee_id):
     employee = Empleado.objects.get(pk=employee_id)
     employee.delete()
     return redirect('employeesView')
+            
+
+def enterprisesView(request):
+    enterprises= Empresa.objects.all()
+    return render(request, 'administracion/enterprisesView.html', {'enterprises': enterprises})
+
+# VISTA DETALLE DEL EMPELADO SELECCIONADO
+def detailsEnterprise(request,enterprise_id=None):
+    #Si hay id, es la vista de editar/detalle
+    if enterprise_id :
+        enterprise= Empresa.objects.get(pk=enterprise_id)
+        print(enterprise.nombre)
+        return render(request, 'administracion/detailsEnterprise.html', {'enterprise': enterprise})
+    #Si no hay es la vista de crear uno nuevo
+    else:
+        return render(request, 'administracion/detailsEnterprise.html')
+
+
+@csrf_exempt
+# FUNCIÓN PARA GUARDAR EL EMPLEADO EDITADO
+def saveEnterprise(request):
+    if request.method == 'POST':
+         # Obtener los datos del empleado
+        data = json.loads(request.body) 
+        enterprise_id = data.get('id')
+        nombre = data.get('nombre')
+        cif_nif = data.get('cif_nif')
+        direccion = data.get('direccion')
+        email = data.get('email')
+        telefono1 = data.get('telefono1')
+        telefono2 = data.get('telefono2')
+        accion = data.get('action')
+        
+        if accion == "edit":
+            # Buscar el empleado que vamos a editar
+            enterprise_id = int(enterprise_id)
+            enterprise = Empresa.objects.get(pk=enterprise_id)
+
+            # Actualizar los campos del empleado
+            enterprise.nombre = nombre
+            enterprise.cif_nif = cif_nif
+            enterprise.direccion = direccion
+            enterprise.email = email
+            enterprise.telefono1 = telefono1
+            enterprise.telefono2 = telefono2
+
+            enterprise.save() 
+
+            response_data = {'success': True, 'message': 'Empresa guardada exitosamente'}
+            return JsonResponse(response_data)
+        else:
+            # Crear una nueva empresa
+            new_enterprise = Empresa.objects.create(
+                nombre = nombre,
+                cif_nif = cif_nif,
+                direccion = direccion,
+                email = email,
+                telefono1 = telefono1, 
+                telefono2 = telefono2,
+            )
+
+            # Devolver una respuesta JSON indicando el éxito de la operación
+            response_data = {'success': True, 'message': 'Empresa creada exitosamente'}
+            return JsonResponse(response_data)
+
+def deleteEnterprise(request,enterprise_id):
+    enterprise = Empresa.objects.get(pk=enterprise_id)
+    enterprise.delete()
+    return redirect('enterprisesView')
             

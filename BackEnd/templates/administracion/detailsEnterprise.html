@@ -1,7 +1,7 @@
 {% extends '../global/cdns.html' %}
 {% load static %}
 
-{% block title %}Empleado{% endblock %}
+{% block title %}Empresa{% endblock %}
 
 {% block content %}
 <!-- Menu lateral -->
@@ -9,12 +9,11 @@
 <section class="main box d-flex contenedor">
     <div id="alertas"></div>
     <div class="mx-auto w-75 my-5">
-        <h2 class='tittleDetalle'>{{employee.user.first_name}} {{employee.user.last_name}}</h2>
+        <h2 class='tittleDetalle' id="titulo">{{enterprise.nombre}}</h2>
         <div class="d-flex justify-content-end mt-3">
-            <button class="buttonReverse me-2 buttonVolver" onclick="window.location.href='empleados.html'">
+            <button class="buttonReverse me-2 buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
-                <a href="javascript:history.back()">Volver</a>
-                
+                <a href="">Volver</a>
             </button>  
             <button class="button" id="buttonEdit">
                 <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
@@ -23,44 +22,37 @@
         </div>
         
         <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
-            <div class="position-relative">
-              <img src="#" alt="" class="rounded-circle mb-4 border border-light p-1">
-              <label for="fileInput">
-                <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
-                <input type="file" id="fileInput" class="d-none">
-              </label>
-            </div>
             
             <div class="row gy-4">
                 <div class="col-4">
                     <h6 class="fw-bold">Nombre</h6>
-                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100" disabled value="{{employee.user.first_name}}">
+                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.nombre}}">
                 </div>
                 <div class="col-4">
-                    <h6 class="fw-bold">Apellidos</h6>
-                    <input type="text" id="apellidos" class="border-bottom bg-transparent w-100" disabled value="{{employee.user.last_name}}">
+                    <h6 class="fw-bold">CIF</h6>
+                    <input type="text" id="cif_nif" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.cif_nif}}">
                 </div>
                 <div class="col-4">
-                    <h6 class="fw-bold">DNI</h6>
-                    <input type="text" id="dni" class="border-bottom bg-transparent w-100" disabled value="{{employee.dni}}">
+                    <h6 class="fw-bold">Dirección</h6>
+                    <input type="text" id="direccion" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.direccion}}">
                 </div>
                 <div class="col-4">
                     <h6 class="fw-bold">Correo</h6>
-                    <input type="text" id="email" class="border-bottom bg-transparent w-100" disabled value="{{employee.user.email}}">
+                    <input type="text" id="email" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.email}}">
                 </div>
                 <div class="col-4">
-                    <h6 class="fw-bold">Teléfono</h6>
-                    <input type="text" id="telefono" class="border-bottom bg-transparent w-100" disabled value="{{employee.telefono}}">
+                    <h6 class="fw-bold">Teléfono 1</h6>
+                    <input type="text" id="telefono1" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono1}}">
                 </div>
                 <div class="col-4">
-                    <h6 class="fw-bold">Departamento</h6>
-                    <input type="text" id="departamento" class="border-bottom bg-transparent w-100" disabled value="{{employee.departamento}}">
+                    <h6 class="fw-bold">Teléfono 2</h6>
+                    <input type="text" id="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono2}}">
                 </div>
-                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{employee.id}}">
+                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.id}}">
             </div>
         </div>
         <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
-        {% if employee %}
+        {% if enterprise %}
             <div class="d-flex justify-content-end">
                 <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Eliminar
@@ -73,21 +65,21 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empleado</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empresa</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ¿Seguro que desea eliminar al empleado '{{employee.user.first_name}}'?
+                            ¿Seguro que desea eliminar la empresa '{{enterprise.nombre}}'?
                         </div>
                         <div class="modal-footer">
-                            <a href="{% url 'deleteEmployee' employee.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                            <a href="{% url 'deleteEnterprise' enterprise.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
                             Aceptar
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+        {% endif %} 
         
         
     </div>
