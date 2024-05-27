@@ -9,17 +9,17 @@
     {% include 'global/submenu.html' %} 
     <section class="box d-flex flex-column contenedor">
         <h2 class='tittle'>Empleados</h2>
-        <div class="mx-auto">
+        <div class="mx-auto overflow-hidden">
             <div class="d-flex justify-content-end">
-                <button class="button d-flex align-items-center gap-2  mt-5 ">
+                <a href="{% url 'detailsEmployee' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
                     <p class="m-0">Nuevo empleado</p>
-                </button>
-            </div>
+                </a>
+            </div>            
             
-            <div class="box p-3">
+            <div class="box p-3 overflow-scroll barScroll h-100">
                 <table class="table table-dark table-striped tabla">
-                    <thead class="h5 text-uppercase ">
+                    <thead class="fs-5 text-uppercase ">
                         <tr class="">
                             <th class="p-3">Nombre</th>
                             <th class="p-3">Apellidos</th>

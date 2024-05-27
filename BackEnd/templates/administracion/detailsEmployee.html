@@ -7,10 +7,11 @@
 <!-- Menu lateral -->
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
+    <div id="alertas"></div>
     <div class="mx-auto w-75 my-5">
         <h2 class='tittleDetalle'>{{employee.user.first_name}} {{employee.user.last_name}}</h2>
         <div class="d-flex justify-content-end mt-3">
-            <button class="buttonReverse me-2" onclick="window.location.href='empleados.html'">
+            <button class="buttonReverse me-2 buttonVolver" onclick="window.location.href='empleados.html'">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
                 <a href="javascript:history.back()">Volver</a>
                 
@@ -57,10 +58,40 @@
                 </div>
                 <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value={{employee.id}}>
             </div>
-            
         </div>
+        <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+        {% if employee %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Eliminar
+                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empleado</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Seguro que desea eliminar al empleado '{{employee.user.first_name}}'?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'deleteEmployee' employee.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                            Aceptar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        
     </div>
     
 </section>
-<script src="{% static '/js/employee.js' %}"></script>
+<script src="{% static 'js/employee.js' %}"></script>
 {% endblock content %}
