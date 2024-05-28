@@ -1,0 +1,148 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencia{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5"> 
+        <h2 class='tittleDetalle'>Empresa | Contacto</h2>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="buttonReverse me-2 buttonVolver" onclick="window.location.href='empleados.html'">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                <a href="javascript:history.back()">Volver</a>
+            </button>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button> 
+        </div>
+        
+        <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
+            <div class="row gy-4">
+                <div class="col-6">
+                    <h6 class="fw-bold">Descripción</h6>
+                    <textarea class="form-control bg-transparent barScroll" id="descripcion" disabled>{{incident.descripcion}}</textarea>
+                </div>
+                <div class="col-6">
+                    <h6 class="fw-bold">Observaciones</h6>
+                    <textarea class="form-control  bg-transparent barScroll" id="observaciones" disabled>{{incident.observaciones}}</textarea>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Cliente</h6>
+                    <select class="form-select" name="Cliente" id="Cliente" disabled>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}" class="custom" {% if incident.cliente.id == client.id %}selected style="font-weight: bold;"{% endif %}>
+                                {{ client.user.first_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Categoría</h6>
+                    <select class="form-select" name="categoria" id="categoria" disabled>
+                        {% for departament in departaments %}
+                            <option value="{{ departament.0 }}" class="custom" {% if incident.departamento == departament.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ departament.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Prioridad</h6>
+                    <select class="form-select" name="Prioridad" id="Prioridad" disabled>
+                        {% for priority in priorities %}
+                            <option value="{{ priority.0 }}" class="custom" {% if incident.prioridad == priority.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ priority.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Empresa</h6>
+                    <select class="form-select" name="Empresa" id="Empresa" disabled>
+                        {% for enterprise in enterprises %}
+                            <option value="{{ enterprise.id }}" class="custom" {% if incident.cliente.empresa.id == enterprise.id %}selected style="font-weight: bold;"{% endif %}>
+                                {{ enterprise.nombre }}
+                            </option>
+                        {% endfor %}
+                        
+                        hiiii
+                    </select>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Tiempo empleado</h6>
+                    <input type="text" class="border-bottom bg-transparent w-100" disabled value="2h 13min" id="tiempo_empleado">
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Estado</h6>
+                    <select class="form-select" name="empleado" id="estado" disabled>
+                        {% for state in states %}
+                            <option value="{{ state.0 }}" class="custom" {% if incident.estado == state.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ state.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Fecha inicio</h6>
+                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_inicio|date:'Y-m-d' }}" id="fecha_inicio">
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Fecha fin</h6>
+                    <input type="text" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_fin}}" id="fecha_fin">
+                </div>
+                <div class="col-4">
+                    <h6 class="fw-bold">Empleado asignado</h6>
+                    <div class="bg-transparent w-100 d-flex gap-3">
+                        <div class="circleEmpleado">
+                            <p class="p-0 m-0">J</p>
+                        </div>
+                        <div class="circleEmpleado bg-primary">
+                            <p class="p-0 m-0">M</p>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
+            </div>
+        </div>
+        <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+        {% if employee %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Eliminar
+                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empleado</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Seguro que desea eliminar al empleado '{{employee.user.first_name}}'?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'deleteEmployee' employee.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                            Aceptar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        
+    </div>
+    
+</section>
+<script src="{% static 'js/employee.js' %}"></script>
+{% endblock content %}

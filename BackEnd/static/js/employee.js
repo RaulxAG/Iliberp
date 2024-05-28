@@ -12,12 +12,18 @@ window.onload=()=> {
     }else if (url.includes('Client')){
         rutaLlamaAjax=/saveClient/
         location='/clients'
+    }else if (url.includes('Incident')){
+        rutaLlamaAjax=/saveIncident/
+        location='/incidents'
     }
 
-    console.log(rutaLlamaAjax)
+    console.log(rutaLlamaAjax+"llama")
     let buttonEdit = document.querySelector("#buttonEdit");
     const btnAceptarExiste = document.querySelector("#btnAceptar")
+    //Recoger los datos del formulario
     const inputs = document.querySelector('.formularioCrud').querySelectorAll('input');
+    const textareas = document.querySelector('.formularioCrud').querySelectorAll('textarea');
+    const selects = document.querySelector('.formularioCrud').querySelectorAll('select');
     const formularioCrud = document.querySelector("#formularioCrud")
     let containerAlertas = document.querySelector('#alertas')
 
@@ -33,17 +39,22 @@ window.onload=()=> {
     //Listener
     buttonEdit.addEventListener("click",habilitarEdicion)
     buttonAceptar.addEventListener("click", function() {
-        console.log(rutaLlamaAjax)
-        //Recoger los datos del formulario
-        const inputs = document.querySelector('.formularioCrud').querySelectorAll('input');
         //Creo un objeto con los datos del usuario
         const data = {};
         inputs.forEach(input => {
             data[input.id] = input.value;
         });
+        textareas.forEach(textarea => {
+            data[textarea.id] = textarea.value;
+        });
+        selects.forEach(select => {
+            data[select.id] = select.value;
+        });
+
         // Agregar un parámetro que indique la acción (nuevo empleado o editar empleado)
         data.action = window.location.href.includes("new") ? "new" : "edit";
         console.log(data)
+
         // // Enviar los datos a saveEmployee utilizando AJAX
         fetch(`${rutaLlamaAjax}`, {
             method: "POST",
@@ -82,7 +93,22 @@ window.onload=()=> {
     function habilitarEdicion() {
         //Ponerlos editables los inputs
         inputs.forEach(input => {
-            input.disabled = false;
+            if (window.location.href.includes("Incident")) {
+                let tiempo_empleado =document.querySelector('#tiempo_empleado')
+                let fecha_fin =document.querySelector('#fecha_fin')
+                tiempo_empleado.disabled = true;
+                fecha_fin.disabled = true;
+                input.disabled = false; 
+            }else{
+               input.disabled = false; 
+            }
+            
+        });
+        textareas.forEach(textarea => {
+            textarea.disabled = false;
+        });
+        selects.forEach(select => {
+            select.disabled = false;
         });
 
         //Ponemos esta comprobación para que solo lo añada una vez el botón de aceptar
@@ -99,7 +125,19 @@ window.onload=()=> {
         inputs.forEach(input => {
             input.disabled = false;
         });
+        textareas.forEach(textarea => {
+            textarea.disabled = false;
+        });
+        selects.forEach(select => {
+            select.disabled = false;
+        });
         buttonEdit.classList.add("d-none");
         buttonAceptar.classList.remove("d-none");
+    }
+
+    //Si estamos en las incidencias, Tiempo empleado no se puede cambiar porq es un campo calculado y la fecha fin tampoco
+    if (window.location.href.includes("incident")) {
+        let tiempo_empleado =document.querySelector('#tiempo_empleado')
+        tiempo_empleado.disabled = true;
     }
 };

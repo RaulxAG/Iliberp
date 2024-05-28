@@ -50,5 +50,5 @@ class Incidencia(models.Model):
     empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL,null=True, blank=True)
     prioridad = models.CharField(max_length=10, choices=PRIORIDADES,null=True, blank=True)
     observaciones = models.TextField(blank=True, null=True)
-    fecha_inicio = models.DateTimeField(default=datetime.now)
-    fecha_fin = models.DateTimeField(blank=True, null=True)
+    fecha_inicio = models.DateField(default=datetime.now)
+    fecha_fin = models.DateField(blank=True, null=True)

@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from .models import Incidencia
-from administracion.models import Empleado,Cliente
 from django.contrib.auth.models import User
 import json
 import random
@@ -9,6 +7,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from datetime import datetime
+
+from .models import Incidencia
+from administracion.models import Empleado,Cliente,Empresa
 
 def getIncidentsJSON(request,client_id):
     if request.method == 'POST':
@@ -118,3 +119,91 @@ def editIncidentJSON(request,incident_id):
         'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
     }
     return JsonResponse(updated_incident, safe=False)
+
+
+
+
+
+def incidentsView(request):
+    incidents= Incidencia.objects.all()
+    return render(request, 'incidencias/incidentsView.html', {'incidents': incidents})
+
+def detailsIncident(request,incident_id=None):
+    clients = Cliente.objects.all()
+    departaments = Empleado.DEPARTAMENTOS
+    priorities = Incidencia.PRIORIDADES
+    enterprises = Empresa.objects.all()
+    states = Incidencia.ESTADOS
+
+    if incident_id :
+        incident= Incidencia.objects.get(pk=incident_id)
+        return render(request, 'incidencias/detailsIncident.html', {'incident': incident,
+                                                                    'clients':clients,
+                                                                    'departaments':departaments,
+                                                                    'priorities':priorities,
+                                                                    'enterprises':enterprises,
+                                                                    'states':states})
+    #Si no hay es la vista de crear uno nuevo
+    else:
+        return render(request, 'incidencias/detailsIncident.html', {'clients':clients,
+                                                                    'departaments':departaments,
+                                                                    'priorities':priorities,
+                                                                    'enterprises':enterprises,
+                                                                    'states':states})
+
+
+
+@csrf_exempt
+def saveIncident(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        incident_id = data.get('id')
+        categoria = data.get('categoria')
+        descripcion = data.get('descripcion')
+        estado = data.get('estado')
+        prioridad = data.get('prioridad')
+        observaciones = data.get('observaciones')
+        cliente_id = data.get('cliente')
+        empleado_id = data.get('empleado')
+        fecha_inicio = data.get('fecha_inicio')
+        fecha_fin = data.get('fecha_fin')
+        accion = data.get('action')
+
+        if accion == "edit":
+            incident_id = int(incident_id)
+            incident = Incidencia.objects.get(pk=incident_id)
+
+            incident.categoria = categoria
+            incident.descripcion = descripcion
+            incident.estado = estado
+            incident.prioridad = prioridad
+            incident.observaciones = observaciones
+            incident.cliente_id = cliente_id
+            incident.empleado_id = empleado_id
+            incident.fecha_inicio = fecha_inicio
+            # incident.fecha_fin = fecha_fin
+
+            incident.save()
+
+            response_data = {'success': True, 'message': 'Incidencia guardada exitosamente'}
+            return JsonResponse(response_data)
+        else:
+            new_incident = Incidencia.objects.create(
+                categoria=categoria,
+                descripcion=descripcion,
+                estado=estado,
+                prioridad=prioridad,
+                observaciones=observaciones,
+                cliente_id=cliente_id,
+                empleado_id=empleado_id,
+                fecha_inicio=fecha_inicio,
+                # fecha_fin=fecha_fin
+            )
+
+            response_data = {'success': True, 'message': 'Incidencia creada exitosamente'}
+            return JsonResponse(response_data)
+
+def deleteIncident(request,incident_id):
+    incident = Incidencia.objects.get(pk=incident_id)
+    incident.delete()
+    return redirect('incidentsView')

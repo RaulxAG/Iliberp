@@ -1,0 +1,48 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencias{% endblock %}
+
+{% block content %}
+    
+    <!-- Menu lateral -->
+    {% include 'global/submenu.html' %} 
+    <section class="box d-flex flex-column contenedor">
+        <h2 class='tittle' id="titulo">Incidencias</h2>
+        <div class="mx-auto overflow-hidden">
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'detailsIncident' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                    <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
+                    <p class="m-0">Nueva incidencia</p>
+                </a>
+            </div>            
+            
+            <div class="box px-3 overflow-y-auto barScroll h-75">
+                <table class="table table-dark table-striped tabla">
+                    <thead class="fs-5 text-uppercase sticky-top">
+                        <tr class="">
+                            <th class="p-3">Categoría</th>
+                            <th class="p-3">Estado</th>
+                            <th class="p-3">Cliente</th>
+                            <th class="p-3">Asignado a</th>
+                            <th class="p-3">Prioridad</th>
+                            <th class="p-3">Fecha inicio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEmpleados">
+                        {% for incident in incidents %}
+                            <tr onclick="window.location.href = '/detailsIncident-{{ incident.id }}';">
+                                <td>{{incident.categoria}}</td>
+                                <td>{{incident.estado}}</td>
+                                <td>{{incident.cliente.user.first_name}}</td>
+                                <td>{{incident.empleado.user.first_name}}</td>
+                                <td>{{incident.prioridad}}</td>
+                                <td>{{incident.fecha_inicio}}</td>
+                            </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
