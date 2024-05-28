@@ -16,5 +16,12 @@ urlpatterns = [
     path('detailsEnterprise-<int:enterprise_id>/', views.detailsEnterprise, name='detailsEnterprise'),      #Url vista detalles empresa y editarlas
     path('newEnterprise/', views.detailsEnterprise, name='detailsEnterprise'),                              #Url nueva empresa
     path('saveEnterprise/', views.saveEnterprise, name='saveEnterprise'),                                   #Url guardar empleado nuevo o editado
-    path('deleteEnterprise-<int:enterprise_id>/', views.deleteEnterprise, name='deleteEnterprise'),                 #Url eliminar empleado
+    path('deleteEnterprise-<int:enterprise_id>/', views.deleteEnterprise, name='deleteEnterprise'),         #Url eliminar empleado
+
+     # -----------------------------------URL CLIENTES---------------------------------------
+    path('clients/', views.clientsView, name='clientsView'),                                               #Url vista general de los clientes
+    path('detailsClient-<int:client_id>/', views.detailsClient, name='detailsClient'),                     #Url vista detalles clientes y editarlos
+    path('newClient/', views.detailsClient, name='detailsClient'),                                         #Url nuevo cliente
+    path('saveClient/', views.saveClient, name='saveClient'),                                              #Url guardar cliente nuevo o editado
+    path('deleteClient-<int:client_id>/', views.deleteClient, name='deleteClient'),                 #Url eliminar empleado
 ]

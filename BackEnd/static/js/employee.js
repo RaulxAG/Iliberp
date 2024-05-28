@@ -9,8 +9,12 @@ window.onload=()=> {
     } else if (url.includes('Enterprise')){
         rutaLlamaAjax=/saveEnterprise/
         location='/enterprises'
+    }else if (url.includes('Client')){
+        rutaLlamaAjax=/saveClient/
+        location='/clients'
     }
 
+    console.log(rutaLlamaAjax)
     let buttonEdit = document.querySelector("#buttonEdit");
     const btnAceptarExiste = document.querySelector("#btnAceptar")
     const inputs = document.querySelector('.formularioCrud').querySelectorAll('input');
@@ -29,6 +33,7 @@ window.onload=()=> {
     //Listener
     buttonEdit.addEventListener("click",habilitarEdicion)
     buttonAceptar.addEventListener("click", function() {
+        console.log(rutaLlamaAjax)
         //Recoger los datos del formulario
         const inputs = document.querySelector('.formularioCrud').querySelectorAll('input');
         //Creo un objeto con los datos del usuario

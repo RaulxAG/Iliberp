@@ -1,19 +1,19 @@
 {% extends '../global/cdns.html' %}
 {% load static %}
 
-{% block title %}Empleados{% endblock %}
+{% block title %}Clientes{% endblock %}
 
 {% block content %}
     
     <!-- Menu lateral -->
     {% include 'global/submenu.html' %} 
     <section class="box d-flex flex-column contenedor">
-        <h2 class='tittle'>Empleados</h2>
+        <h2 class='tittle' id="titulo">Clientes</h2>
         <div class="mx-auto overflow-hidden">
             <div class="d-flex justify-content-end">
-                <a href="{% url 'detailsEmployee' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                <a href="{% url 'detailsClient' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
-                    <p class="m-0">Nuevo empleado</p>
+                    <p class="m-0">Nuevo cliente</p>
                 </a>
             </div>            
             
@@ -24,18 +24,20 @@
                             <th class="p-3">Nombre</th>
                             <th class="p-3">Apellidos</th>
                             <th class="p-3">Dni</th>
-                            <th class="p-3">Teléfono</th>
-                            <th class="p-3">Departamento</th>
+                            <th class="p-3">Teléf.1</th>
+                            <th class="p-3">Teléf.2</th>
+                            <th class="p-3">Empresa</th>
                         </tr>
                     </thead>
                     <tbody id="tablaEmpleados">
-                        {% for employee in employees %}
-                            <tr onclick="window.location.href = '/detailsEmployee-{{ employee.id }}';">
-                                <td>{{employee.user.first_name}}</td>
-                                <td>{{employee.user.last_name}}</td>
-                                <td>{{employee.dni}}</td>
-                                <td>{{employee.telefono}}</td>
-                                <td>{{employee.departamento}}</td>
+                        {% for client in clients %}
+                            <tr onclick="window.location.href = '/detailsClient-{{ client.id }}';"> 
+                                <td>{{client.user.first_name}}</td>
+                                <td>{{client.user.last_name}}</td>
+                                <td>{{client.dni}}</td>
+                                <td>{{client.telefono1}}</td>
+                                <td>{{client.telefono2}}</td>
+                                <td>{{client.empresa.nombre}}</td>
                             </tr>
                         {% endfor %} 
                     </tbody>

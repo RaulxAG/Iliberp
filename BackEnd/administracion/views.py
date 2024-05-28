@@ -154,3 +154,79 @@ def deleteEnterprise(request,enterprise_id):
     enterprise.delete()
     return redirect('enterprisesView')
             
+
+
+def clientsView(request):
+    clients= Cliente.objects.all()
+    return render(request, 'administracion/clientsView.html', {'clients': clients})
+
+
+def detailsClient(request,client_id=None):
+    #Si hay id, es la vista de editar/detalle
+    if client_id :
+        client= Cliente.objects.get(pk=client_id)
+        return render(request, 'administracion/detailsClient.html', {'client': client})
+    #Si no hay es la vista de crear uno nuevo
+    else:
+        return render(request, 'administracion/detailsClient.html')
+
+@csrf_exempt
+def saveClient(request):
+    if request.method == 'POST':
+         # Obtener los datos del empleado
+        data = json.loads(request.body) 
+        client_id = data.get('id')
+        nombre = data.get('nombre')
+        apellidos = data.get('apellidos')
+        dni = data.get('dni')
+        telefono1 = data.get('telefono1')
+        telefono2 = data.get('telefono2')
+        empresa_id = data.get('empresa')
+        accion = data.get('action')
+        
+        empresa_id = int(empresa_id)
+        empresa=Empresa.objects.get(pk=empresa_id)
+        print("*******************")
+        print(empresa_id) 
+        if accion == "edit":
+            client_id = int(client_id)
+            client = Cliente.objects.get(pk=client_id)
+            print(client.id)
+            # Actualizar los campos del empleado
+            client.user.first_name = nombre
+            client.user.last_name = apellidos
+            client.dni = dni
+            client.telefono1 = telefono1
+            client.telefono2 = telefono2
+            client.empresa = empresa
+            client.save() 
+            client.user.save()
+
+            response_data = {'success': True, 'message': 'Cliente guardada exitosamente'}
+            return JsonResponse(response_data)
+        else:
+            # Crear un nuevo usuario
+            new_user = User.objects.create(
+                username=nombre,
+                first_name=nombre,
+                last_name=apellidos,
+            )
+
+            new_client = Cliente.objects.create(
+                user=new_user,
+                dni = dni,
+                telefono1 = telefono1,
+                telefono2 = telefono2,
+                empresa = empresa,
+            )
+            
+            print(new_user)
+            # Devolver una respuesta JSON indicando el éxito de la operación
+            response_data = {'success': True, 'message': 'Cliente creado exitosamente'}
+            return JsonResponse(response_data)
+
+def deleteClient(request,client_id):
+    client = Cliente.objects.get(pk=client_id)
+    client.delete()
+    return redirect('clientsView')
+  
