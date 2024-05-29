@@ -32,11 +32,11 @@
                     <tbody id="tablaEmpleados">
                         {% for incident in incidents %}
                             <tr onclick="window.location.href = '/detailsIncident-{{ incident.id }}';">
-                                <td>{{incident.categoria}}</td>
-                                <td>{{incident.estado}}</td>
+                                <td>{{incident.get_categoria_display}}</td>
+                                <td>{{incident.get_estado_display}}</td>
                                 <td>{{incident.cliente.user.first_name}}</td>
                                 <td>{{incident.empleado.user.first_name}}</td>
-                                <td>{{incident.prioridad}}</td>
+                                <td>{{incident.get_prioridad_display}}</td>
                                 <td>{{incident.fecha_inicio}}</td>
                             </tr>
                         {% endfor %} 

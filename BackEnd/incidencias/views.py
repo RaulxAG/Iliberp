@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 import json
 import random
@@ -137,6 +137,7 @@ def detailsIncident(request,incident_id=None):
 
     if incident_id :
         incident= Incidencia.objects.get(pk=incident_id)
+        print(incident.prioridad)
         return render(request, 'incidencias/detailsIncident.html', {'incident': incident,
                                                                     'clients':clients,
                                                                     'departaments':departaments,
@@ -164,11 +165,16 @@ def saveIncident(request):
         prioridad = data.get('prioridad')
         observaciones = data.get('observaciones')
         cliente_id = data.get('cliente')
-        empleado_id = data.get('empleado')
+        # empleado_id = data.get('empleado')
         fecha_inicio = data.get('fecha_inicio')
         fecha_fin = data.get('fecha_fin')
         accion = data.get('action')
 
+        cliente_id = int(cliente_id)
+        # Obtener objetos Cliente y Empleado
+        cliente = Cliente.objects.get(pk=cliente_id) if cliente_id else None
+        # empleado = Empleado.objects.get(id=empleado_id) if empleado_id else None
+        print(cliente)
         if accion == "edit":
             incident_id = int(incident_id)
             incident = Incidencia.objects.get(pk=incident_id)
@@ -178,11 +184,11 @@ def saveIncident(request):
             incident.estado = estado
             incident.prioridad = prioridad
             incident.observaciones = observaciones
-            incident.cliente_id = cliente_id
-            incident.empleado_id = empleado_id
+            incident.cliente = cliente
+            # incident.empleado = empleado
             incident.fecha_inicio = fecha_inicio
             # incident.fecha_fin = fecha_fin
-
+            print(incident.cliente)
             incident.save()
 
             response_data = {'success': True, 'message': 'Incidencia guardada exitosamente'}
@@ -194,12 +200,12 @@ def saveIncident(request):
                 estado=estado,
                 prioridad=prioridad,
                 observaciones=observaciones,
-                cliente_id=cliente_id,
-                empleado_id=empleado_id,
+                cliente=cliente,
+                # empleado=empleado,
                 fecha_inicio=fecha_inicio,
                 # fecha_fin=fecha_fin
             )
-
+            
             response_data = {'success': True, 'message': 'Incidencia creada exitosamente'}
             return JsonResponse(response_data)
 

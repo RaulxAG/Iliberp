@@ -51,6 +51,7 @@ window.onload=()=> {
             data[select.id] = select.value;
         });
 
+        console.log(data)
         // Agregar un parámetro que indique la acción (nuevo empleado o editar empleado)
         data.action = window.location.href.includes("new") ? "new" : "edit";
         console.log(data)
