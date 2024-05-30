@@ -167,6 +167,33 @@ body {
   background-color: #1E2225 !important;
 }
 
+.circleEmpleado {
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background-color: rebeccapurple;
+  cursor: pointer;
+}
+.circleEmpleado:hover {
+  background-color: #F8F8F8;
+  border: 1px solid rebeccapurple;
+  color: rebeccapurple;
+}
+
+.fa-asterisk {
+  font-size: 10px;
+  transform: translateY(-8px);
+}
+
+#offcanvasWithBothOptions textarea, #offcanvasWithBothOptions input {
+  border-radius: 10px;
+  padding: 5px;
+}
+
 .menuLateral.box {
   padding: 0;
   margin: 0;

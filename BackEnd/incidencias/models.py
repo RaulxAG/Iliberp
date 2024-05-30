@@ -1,7 +1,25 @@
 from django.db import models
 from datetime import datetime
 from administracion.models import Cliente, Empleado
+from django.contrib.auth.models import User
 
+class Line(models.Model):
+    """
+    Modelo que representa las líneas asociadas a incidencias, cada persona que participa en la incidencia es una línea
+
+    Campos:
+        empleado (ForeignKey a User): Clave foránea que hace referencia al empleado asociado a la línea.
+        observaciones (CharField): Descripción o comentarios sobre la línea.
+        comienzo (TimeField): Hora de inicio de la tarea.
+        fin (TimeField): Hora de finalización de la tarea.
+        tiempo (TimeFiled): Tiempo dedicado a la incidencia
+    """
+
+    empleado = models.ForeignKey(User, default='empleado no existente', on_delete=models.SET_DEFAULT)
+    observaciones = models.CharField(max_length=120)
+    comienzo = models.TimeField(null=True, blank=True)
+    fin = models.TimeField(null=True, blank=True)
+    tiempo = models.TimeField(null=True, blank=True)
 
 class Incidencia(models.Model):
     """
@@ -52,3 +70,6 @@ class Incidencia(models.Model):
     observaciones = models.TextField(blank=True, null=True)
     fecha_inicio = models.DateField(default=datetime.now)
     fecha_fin = models.DateField(blank=True, null=True)
+    lines = models.ManyToManyField(Line, blank=True)
+
+

@@ -1,0 +1,28 @@
+.circleEmpleado{
+    width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background-color: rebeccapurple;
+  cursor: pointer;
+
+  &:hover{
+    background-color: $colorWhite;
+    border: 1px solid rebeccapurple;
+    color: rebeccapurple;
+  }
+}
+
+.fa-asterisk{
+        font-size: 10px;
+    transform: translateY(-8px);
+}
+#offcanvasWithBothOptions{
+    & textarea, input{
+        border-radius: 10px;
+        padding: 5px;
+    }
+}

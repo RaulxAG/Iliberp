@@ -72,8 +72,6 @@
                                 {{ enterprise.nombre }}
                             </option>
                         {% endfor %}
-                        
-                        hiiii
                     </select>
                 </div>
                 <div class="col-4">
@@ -100,18 +98,80 @@
                 </div>
                 <div class="col-4">
                     <h6 class="fw-bold">Empleado asignado</h6>
-                    <div class="bg-transparent w-100 d-flex gap-3">
+                    <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado">
+                        
                         <div class="circleEmpleado">
                             <p class="p-0 m-0">J</p>
                         </div>
-                        <div class="circleEmpleado bg-primary">
-                            <p class="p-0 m-0">M</p>
+                        <div class="circleEmpleado " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                            <p class="p-0 m-0">+</p>
                         </div>
+                        
                     </div>
                 </div>
                 <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
             </div>
         </div>
+
+        <!-- MODAL DE COLABORAR -->
+        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title H3" id="offcanvasWithBothOptionsLabel">Colaborar</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>Colaborar en la incidencia de la empresa '{{incident.cliente.empresa.nombre}}'</p>
+                <div class="row gap-3">
+                    <div class="d-flex flex-column">
+                        <div>
+                            <label for="comments">Observaciones</label>
+                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        </div>
+                        <textarea name="comments" id="comments" cols="30" rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex flex-column col">
+                        <div>
+                            <label for="start">H. comienzo</label>
+                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        </div>
+                        <input type="time" name="start" id="start" class="inputHours w-75" min="07:00" max="21:00">
+                    </div>
+
+                    <div class="d-flex flex-column col align-items-end">
+                        <div>
+                            <label for="end">H. fin</label>
+                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        </div>
+                        <input type="time" name="end" id="end" class="inputHours w-75" min="07:00" max="21:00">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <label for="end">Fecha</label>
+                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        </div>
+                        <input type="date" name="date" id="date">
+                    </div>
+                    
+                    <div class="d-flex flex-column">
+                        <label for="time">Tiempo empleado</label>
+                        <input type="text" name="time" id="time" disabled>
+                        <div>
+                            <input type="checkbox" name="addTime" id="addTime">
+                            <label for="addTime">Añadir tiempo manualmente</label>
+                        </div>
+                    </div>
+                    
+                    
+            </div>
+
+            
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" id="saveLine">Guardar</button>
+            </div>
+            </div>
+        </div>
+
         <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
         {% if incident %}
             <div class="d-flex justify-content-end">
@@ -147,4 +207,5 @@
     
 </section>
 <script src="{% static 'js/employee.js' %}"></script>
+<script src="{% static 'js/incident.js' %}"></script>
 {% endblock content %}
