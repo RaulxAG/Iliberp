@@ -28,7 +28,7 @@ def getIncidentsJSON(request,client_id):
                 'categoria': incident.categoria,
                 'descripcion': incident.descripcion,
                 'estado': incident.estado,
-                'empleado': incident.empleado.username if incident.empleado else None,
+                'empleado': incident.empleado.user.username if incident.empleado else None,
                 'cliente': {
                     'nombre': incident.cliente.user.username,
                     'empresa': incident.cliente.empresa.nombre,
@@ -83,7 +83,7 @@ def setIncidentJSON(request):
         'descripcion': new_incident.descripcion,
         'observaciones': new_incident.observaciones,
         'fecha_inicio': new_incident.fecha_inicio,
-        'empleado': new_incident.empleado,
+        'empleado': new_incident.empleado.user.username if new_incident.empleado else None,
         'prioridad': new_incident.prioridad,
     }
    

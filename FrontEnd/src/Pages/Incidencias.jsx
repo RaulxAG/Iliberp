@@ -10,7 +10,7 @@ export default function Incidencias() {
     const searchParams = new URLSearchParams(location.search);
     const initialCategoria = searchParams.get('categoria') || '';
 
-    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
+    const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
             categoria: initialCategoria
         }

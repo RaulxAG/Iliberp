@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/incidencias" element={<Incidencias />} />
 
         <Route path="/mensajeria" element={<Mensajeria />} />
+        <Route path="/mensajeria/:chat_id" element={<Mensajeria />} />
 
         <Route path="/tiempo" element={<WeatherComponent />} />
       </Routes>

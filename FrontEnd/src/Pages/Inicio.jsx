@@ -20,7 +20,7 @@ export default function Inicio() {
             <section className="modulos__chats grid_mod2 box">
               <h4 className="tittle fs-5 fw-bold p-1">Mensajes Recientes</h4>
               <div className="chats__mensajes w-100 mt-3 px-2">
-                <UltimosMensajes />
+                <UltimosMensajes page={"inicio"}/>
               </div>
             </section>
             <section className="modulos__incidencias grid_mod3 box">

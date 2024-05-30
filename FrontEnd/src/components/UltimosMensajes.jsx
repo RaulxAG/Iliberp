@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import CardMensaje from "./CardMensaje";
 
-export default function UltimosMensajes() {
+export default function UltimosMensajes({ page, selected, query }) {
     const [ mensajes, setMensajes ] = useState();
     const [ loading, setLoading ] = useState(true);
 
-    const obtenerMensajes = async (user_id) => {
+    const obtenerChats = async (user_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getChatsJSON/2/`, {
+            const response = await fetch(`http://127.0.0.1:8000/getChatsJSON/${user_id}/`, {
                 method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -29,10 +29,9 @@ export default function UltimosMensajes() {
     };
 
     useEffect(() => {
-        obtenerMensajes(2);
+        obtenerChats(2);
+        // console.log(mensajes);
     }, []);
-
-    console.log(mensajes);
 
     return (
         <>
@@ -42,12 +41,15 @@ export default function UltimosMensajes() {
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                
             )}
 
             {!loading && mensajes.map((mensaje, index) => (
-                <CardMensaje key={index} mensaje={mensaje} />
+                <CardMensaje key={index} mensaje={mensaje} page={page} selected={selected} query={query}/>
             ))}
+
+            {!loading && mensajes.length === 0 && (
+                <h5>No tienes conversaciones pendientes</h5>
+            )}
         </>
     );
 }

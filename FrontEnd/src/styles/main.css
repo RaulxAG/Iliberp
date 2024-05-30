@@ -258,6 +258,14 @@ body {
   background-color: #e65522;
 }
 
+.chat__acciones .inputfile-3 + label {
+  color: #fff;
+}
+.chat__acciones .inputfile-3:focus + label,
+.chat__acciones .inputfile-3.has-focus + label,
+.chat__acciones .inputfile-3 + label:hover {
+  color: #c39f77;
+}
 .chat__acciones button {
   width: 7.5%;
   color: #e65522;
@@ -276,6 +284,10 @@ body {
 }
 
 .chats__card:hover {
+  background-color: #1E2225;
+}
+
+.selected {
   background-color: #1E2225;
 }
 

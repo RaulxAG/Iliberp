@@ -6,8 +6,8 @@ import Inidencias from './Pages/Incidencias'
 function App() {
   return (
     <>
-      <Inicio></Inicio>
-      <Inidencias></Inidencias>
+      {/* <Inicio></Inicio> */}
+      {/* <Inidencias></Inidencias> */}
     </>
   )
 }

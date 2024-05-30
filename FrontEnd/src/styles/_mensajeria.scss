@@ -70,6 +70,16 @@
 }
 
 .chat__acciones {
+    .inputfile-3 + label {
+        color: #fff;
+    }
+    
+    .inputfile-3:focus + label,
+    .inputfile-3.has-focus + label,
+    .inputfile-3 + label:hover {
+        color: #c39f77;
+    }
+
     button {
         width: 7.5%;
         color: $colorOrange;
