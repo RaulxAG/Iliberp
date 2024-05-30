@@ -1,8 +1,8 @@
 var addTimeCheckbox = document.querySelector("#addTime");
-var timeInput = document.querySelector("#time");
+var timeInput = document.querySelector("#timeLine");
 var startInput = document.getElementById("start");
 var endInput = document.getElementById("end");
-
+var commentsLine = document.getElementById("commentsLine")
 
 startInput.addEventListener("input", calculateTimeDifference);
 endInput.addEventListener("input", calculateTimeDifference);
@@ -16,6 +16,12 @@ addTimeCheckbox.addEventListener("change", function () {
 startInput.addEventListener("input", calculateTimeDifference);
 endInput.addEventListener("input", calculateTimeDifference);
 
+//Lllamar a la funcion que habilita o desabilita el boton de guardar en todos los eventos
+startInput.addEventListener("input", enableDisableSaveButton);
+endInput.addEventListener("input", enableDisableSaveButton);
+addTimeCheckbox.addEventListener("change", enableDisableSaveButton);
+timeInput.addEventListener("input", enableDisableSaveButton);
+commentsLine.addEventListener("input", enableDisableSaveButton);
 
 function calculateTimeDifference() {
     // Obtener las horas de inicio y fin
@@ -23,18 +29,25 @@ function calculateTimeDifference() {
     var endTime = endInput.valueAsDate;
 
     if (startTime && endTime) {
-        // Calcular la diferencia de tiempo en milisegundos
-        var difference = endTime.getTime() - startTime.getTime();
+        //Controlar el claculo negativo
+        if (endTime.getTime() < startTime.getTime()) {
+            timeInput.value="Horas negativas"
+        }else{
+            // Calcular la diferencia de tiempo en milisegundos
+            var difference = endTime.getTime() - startTime.getTime(); 
 
-        // Formatear la hora
-        var hours = Math.floor(difference / (1000 * 60 * 60));
-        var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            // Formatear la hora
+            var hours = Math.floor(difference / (1000 * 60 * 60));
+            var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
-        // Formatear la diferencia como hh:mm
-        var formattedDifference = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+            // Formatear la diferencia como hh:mm
+            var formattedDifference = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
 
-        // Mostrar la hora calculada
-        timeInput.value = formattedDifference;
+            // Mostrar la hora calculada
+            timeInput.value = formattedDifference;
+        }
+
+        
 
     } else {
         timeInput.value = '';
@@ -69,6 +82,25 @@ function calculateManual() {
             var endMinutes = endDate.getMinutes().toString().padStart(2, '0');
 
             endInput.value = `${endHours}:${endMinutes}`;
+
         }
+    }
+}
+
+// Función para habilitar o deshabilitar el botón de guardar
+function enableDisableSaveButton() {
+    var commentsLine = document.getElementById("commentsLine").value;
+    var dateLine = document.getElementById("dateLine").value;
+    var timeLine = document.getElementById("timeLine").value;
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+console.log(timeLine)
+    var btnSave =document.querySelector("#saveLine")
+
+    // Verificar si todos los campos están rellenos y la hora de fin no es menor que la de inicio
+    if (commentsLine && dateLine && timeLine!=="Horas negativas" && start && end) {
+        btnSave.disabled = false; // Habilitar el botón de guardar
+    } else {
+        btnSave.disabled = true; // Deshabilitar el botón de guardar
     }
 }

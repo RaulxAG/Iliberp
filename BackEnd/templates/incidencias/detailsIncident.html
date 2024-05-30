@@ -124,10 +124,10 @@
                 <div class="row gap-3">
                     <div class="d-flex flex-column">
                         <div>
-                            <label for="comments">Observaciones</label>
+                            <label for="commentsLine">Observaciones</label>
                             <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
                         </div>
-                        <textarea name="comments" id="comments" cols="30" rows="3" required></textarea>
+                        <textarea name="commentsLine" id="commentsLine" cols="30" rows="3" required></textarea>
                     </div>
                     <div class="d-flex flex-column col">
                         <div>
@@ -146,15 +146,15 @@
                     </div>
                     <div class="d-flex flex-column">
                         <div>
-                            <label for="end">Fecha</label>
+                            <label for="dateLine">Fecha</label>
                             <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
                         </div>
-                        <input type="date" name="date" id="date">
+                        <input type="date" name="dateLine" id="dateLine">
                     </div>
                     
                     <div class="d-flex flex-column">
-                        <label for="time">Tiempo empleado</label>
-                        <input type="text" name="time" id="time" disabled>
+                        <label for="timeLine">Tiempo empleado</label>
+                        <input type="text" name="timeLine" id="timeLine" disabled>
                         <div>
                             <input type="checkbox" name="addTime" id="addTime">
                             <label for="addTime">Añadir tiempo manualmente</label>
@@ -167,7 +167,7 @@
             
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-danger" id="saveLine">Guardar</button>
+                <button type="submit" class="btn btn-danger" id="saveLine" disabled>Guardar</button>
             </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empleado</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
