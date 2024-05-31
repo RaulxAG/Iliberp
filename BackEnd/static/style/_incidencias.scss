@@ -6,13 +6,14 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  background-color: rebeccapurple;
+  background-image: $gradient;
   cursor: pointer;
 
   &:hover{
     background-color: $colorWhite;
-    border: 1px solid rebeccapurple;
-    color: rebeccapurple;
+    background-image: none;
+    border: 1px solid $colorOrange;
+    color: $colorOrange;
   }
 }
 
@@ -25,4 +26,31 @@
         border-radius: 10px;
         padding: 5px;
     }
+}
+
+/* Estilos para los botones y la información adicional */
+.circleEmpleado {
+  .position-absolute {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+  }
+  &:hover .position-absolute {
+    display: block;
+    opacity: 1;
+  }
+  button{
+    border: 1px solid $colorOrange;
+    text-wrap: nowrap;
+  }
 }

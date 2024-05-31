@@ -1,15 +1,18 @@
+if (window.location.href.includes("details")) {
 var addTimeCheckbox = document.querySelector("#addTime");
 var timeInput = document.querySelector("#timeLine");
 var startInput = document.getElementById("start");
 var endInput = document.getElementById("end");
 var commentsLine = document.getElementById("commentsLine")
+var dateLine = document.getElementById("dateLine");
+var btnSave =document.querySelector("#saveLine")
 
 startInput.addEventListener("input", calculateTimeDifference);
 endInput.addEventListener("input", calculateTimeDifference);
 addTimeCheckbox.addEventListener("change", calculateTimeDifference);
 
 addTimeCheckbox.addEventListener("change", function () {
-    timeInput.disabled = !this.checked;
+    timeInput.readOnly = !this.checked;
     calculateManual();
 });
 
@@ -19,9 +22,9 @@ endInput.addEventListener("input", calculateTimeDifference);
 //Lllamar a la funcion que habilita o desabilita el boton de guardar en todos los eventos
 startInput.addEventListener("input", enableDisableSaveButton);
 endInput.addEventListener("input", enableDisableSaveButton);
-addTimeCheckbox.addEventListener("change", enableDisableSaveButton);
 timeInput.addEventListener("input", enableDisableSaveButton);
 commentsLine.addEventListener("input", enableDisableSaveButton);
+dateLine.addEventListener("change", enableDisableSaveButton);
 
 function calculateTimeDifference() {
     // Obtener las horas de inicio y fin
@@ -69,19 +72,23 @@ function calculateManual() {
 
          // Verifica que haya dos partes en el tiempo empleado y que ambas partes sean números
          if (timeParts.length === 2 && timePattern.test(timeInput.value)) {
-            var startHours = parseInt(startTime.split(':')[0], 10);
-            var startMinutes = parseInt(startTime.split(':')[1], 10);
+            if (timeInput.value !== "Horas negativas") {
+                var startHours = parseInt(startTime.split(':')[0], 10);
+                var startMinutes = parseInt(startTime.split(':')[1], 10);
 
-            var additionalHours = parseInt(timeParts[0], 10);
-            var additionalMinutes = parseInt(timeParts[1], 10);
+                var additionalHours = parseInt(timeParts[0], 10);
+                var additionalMinutes = parseInt(timeParts[1], 10);
 
-            var endDate = new Date();
-            endDate.setHours(startHours + additionalHours, startMinutes + additionalMinutes);
+                var endDate = new Date();
+                endDate.setHours(startHours + additionalHours, startMinutes + additionalMinutes);
 
-            var endHours = endDate.getHours().toString().padStart(2, '0');
-            var endMinutes = endDate.getMinutes().toString().padStart(2, '0');
+                var endHours = endDate.getHours().toString().padStart(2, '0');
+                var endMinutes = endDate.getMinutes().toString().padStart(2, '0');
 
-            endInput.value = `${endHours}:${endMinutes}`;
+                endInput.value = `${endHours}:${endMinutes}`;
+            } else {
+                endInput.value = ""; // Limpiar el campo de hora de finalización si las horas son negativas
+            }
 
         }
     }
@@ -94,8 +101,7 @@ function enableDisableSaveButton() {
     var timeLine = document.getElementById("timeLine").value;
     var start = document.getElementById("start").value;
     var end = document.getElementById("end").value;
-console.log(timeLine)
-    var btnSave =document.querySelector("#saveLine")
+    console.log(commentsLine+"-"+dateLine+"-"+timeLine+"-"+start+"-"+end)
 
     // Verificar si todos los campos están rellenos y la hora de fin no es menor que la de inicio
     if (commentsLine && dateLine && timeLine!=="Horas negativas" && start && end) {
@@ -103,4 +109,6 @@ console.log(timeLine)
     } else {
         btnSave.disabled = true; // Deshabilitar el botón de guardar
     }
+}
+
 }

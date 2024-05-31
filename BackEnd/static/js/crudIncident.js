@@ -1,23 +1,9 @@
 window.onload=()=> {
     // COMO ESTE CÓDIGO ES IGUAL PARA TODOS LOS CRUD Y SOLO CAMBIA EL fetch, HACEMOS ESTE IF Y CAMBIAMOS EL fetch
-    let url = window.location.href
-    let rutaLlamaAjax=""
-    let location=""
-    if (url.includes('Employee')) {
-        rutaLlamaAjax=/saveEmployee/
-        location='/employees'
-    } else if (url.includes('Enterprise')){
-        rutaLlamaAjax=/saveEnterprise/
-        location='/enterprises'
-    }else if (url.includes('Client')){
-        rutaLlamaAjax=/saveClient/
-        location='/clients'
-    }else if (url.includes('Incident')){
-        rutaLlamaAjax=/saveIncident/
-        location='/incidents'
-    }
+    
+    let rutaLlamaAjax="saveIncident"
+    let location="incidents"
 
-    console.log(rutaLlamaAjax+"llama")
     let buttonEdit = document.querySelector("#buttonEdit");
     const btnAceptarExiste = document.querySelector("#btnAceptar")
     //Recoger los datos del formulario
@@ -37,6 +23,7 @@ window.onload=()=> {
     buttonAceptar.classList.add("d-none");
 
     //Listener
+    
     buttonEdit.addEventListener("click",habilitarEdicion)
     buttonAceptar.addEventListener("click", function() {
         //Creo un objeto con los datos del usuario
@@ -55,6 +42,7 @@ window.onload=()=> {
         // Agregar un parámetro que indique la acción (nuevo empleado o editar empleado)
         data.action = window.location.href.includes("new") ? "new" : "edit";
         console.log(data)
+
 
         // // Enviar los datos a saveEmployee utilizando AJAX
         fetch(`${rutaLlamaAjax}`, {
@@ -92,32 +80,33 @@ window.onload=()=> {
     });
     
     function habilitarEdicion() {
-        //Ponerlos editables los inputs
+        if (window.location.href.includes("detailsLine")) {
+        
+        }else{
+            //Ponerlos editables los inputs
         inputs.forEach(input => {
-            if (window.location.href.includes("Incident")) {
-                let tiempo_empleado =document.querySelector('#tiempo_empleado')
-                let fecha_fin =document.querySelector('#fecha_fin')
-                tiempo_empleado.disabled = true;
-                fecha_fin.disabled = true;
-                input.disabled = false; 
-            }else{
-               input.disabled = false; 
-            }
-            
-        });
-        textareas.forEach(textarea => {
-            textarea.disabled = false;
-        });
-        selects.forEach(select => {
-            select.disabled = false;
-        });
+            let tiempo_empleado =document.querySelector('#tiempo_empleado')
+            let fecha_fin =document.querySelector('#fecha_fin')
+            tiempo_empleado.disabled = true;
+            fecha_fin.disabled = true;
+            input.disabled = false; 
+        
+    });
+    textareas.forEach(textarea => {
+        textarea.disabled = false;
+    });
+    selects.forEach(select => {
+        select.disabled = false;
+    });
 
-        //Ponemos esta comprobación para que solo lo añada una vez el botón de aceptar
-        if (!btnAceptarExiste) { 
-            formularioCrud.appendChild(buttonAceptar)  
-            buttonAceptar.classList.remove("d-none");
-            buttonAceptar.classList.add("d-block");
-        }
+    //Ponemos esta comprobación para que solo lo añada una vez el botón de aceptar
+    if (!btnAceptarExiste) { 
+        formularioCrud.appendChild(buttonAceptar)  
+        buttonAceptar.classList.remove("d-none");
+        buttonAceptar.classList.add("d-block");
+    }
+        } 
+        
         
         
     }
@@ -126,6 +115,8 @@ window.onload=()=> {
     if (window.location.href.includes("new")) {
         inputs.forEach(input => {
             input.disabled = false;
+            let fecha_fin =document.querySelector('#fecha_fin')
+            fecha_fin.disabled = true;
         });
         textareas.forEach(textarea => {
             textarea.disabled = false;
@@ -138,8 +129,7 @@ window.onload=()=> {
     }
 
     //Si estamos en las incidencias, Tiempo empleado no se puede cambiar porq es un campo calculado y la fecha fin tampoco
-    if (window.location.href.includes("incident")) {
+    
         let tiempo_empleado =document.querySelector('#tiempo_empleado')
         tiempo_empleado.disabled = true;
-    }
 };

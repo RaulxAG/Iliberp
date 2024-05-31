@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils.timezone import now
 from administracion.models import Cliente, Empleado
 from django.contrib.auth.models import User
 
@@ -15,10 +16,11 @@ class Line(models.Model):
         tiempo (TimeFiled): Tiempo dedicado a la incidencia
     """
 
-    empleado = models.ForeignKey(User, default='empleado no existente', on_delete=models.SET_DEFAULT)
+    empleado = models.ForeignKey(Empleado, default='empleado no existente', on_delete=models.SET_DEFAULT)
     observaciones = models.CharField(max_length=120)
     comienzo = models.TimeField(null=True, blank=True)
     fin = models.TimeField(null=True, blank=True)
+    fecha = models.DateField(default=now)
     tiempo = models.TimeField(null=True, blank=True)
 
 class Incidencia(models.Model):

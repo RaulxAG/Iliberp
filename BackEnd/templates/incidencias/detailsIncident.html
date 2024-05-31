@@ -21,7 +21,7 @@
             </button> 
         </div>
         
-        <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
+        <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
             <div class="row gy-4">
                 <div class="col-6">
                     <h6 class="fw-bold">Descripción</h6>
@@ -95,83 +95,94 @@
                 <div class="col-4">
                     <h6 class="fw-bold">Fecha fin</h6>
                     <input type="text" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_fin}}" id="fecha_fin">
-                </div>
+                </div>                
+                {% if incident %}
                 <div class="col-4">
                     <h6 class="fw-bold">Empleado asignado</h6>
-                    <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado">
-                        
-                        <div class="circleEmpleado">
-                            <p class="p-0 m-0">J</p>
-                        </div>
-                        <div class="circleEmpleado " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                    <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado flex-wrap">
+                        {% for line in lines %} 
+                            <div class="circleEmpleado position-relative" >
+                                <p class="p-0 m-0">{{ line.empleado.user.first_name|slice:":1" }}{{line.id}}</p>
+                                <div class="position-absolute">
+                                    <p class="text-center">{{line.empleado.user.first_name}}</p>
+                                    <div class="d-flex gap-1">
+                                        <!-- Botón de Editar que abre el modal y carga los datos -->
+                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'edit')">Editar</button>
+                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'details')">Ver detalles</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="circleEmpleado" id="addLine" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                             <p class="p-0 m-0">+</p>
                         </div>
                         
                     </div>
                 </div>
+                {% endif %}
                 <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
             </div>
         </div>
 
         <!-- MODAL DE COLABORAR -->
-        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title H3" id="offcanvasWithBothOptionsLabel">Colaborar</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <p>Colaborar en la incidencia de la empresa '{{incident.cliente.empresa.nombre}}'</p>
-                <div class="row gap-3">
-                    <div class="d-flex flex-column">
-                        <div>
-                            <label for="commentsLine">Observaciones</label>
-                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+        {% if incident %}
+        <form method="post" action="{% url 'saveLineIncident' incident.id %}">
+            <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header">
+                <h5 class="offcanvas-title H3" id="offcanvasWithBothOptionsLabel">Colaborar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <p>Colaborar en la incidencia de la empresa '{{incident.cliente.empresa.nombre}}'</p>
+                    <div class="row gap-3">
+                        <div class="d-flex flex-column">
+                            <div>
+                                <label for="commentsLine">Observaciones</label>
+                                <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                            </div>
+                            <textarea name="commentsLine" id="commentsLine" cols="30" rows="3" required></textarea>
                         </div>
-                        <textarea name="commentsLine" id="commentsLine" cols="30" rows="3" required></textarea>
-                    </div>
-                    <div class="d-flex flex-column col">
-                        <div>
-                            <label for="start">H. comienzo</label>
-                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        <div class="d-flex flex-column col">
+                            <div>
+                                <label for="start">H. comienzo</label>
+                                <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                            </div>
+                            <input type="time" name="start" id="start" class="inputHours w-75" min="07:00" max="21:00">
                         </div>
-                        <input type="time" name="start" id="start" class="inputHours w-75" min="07:00" max="21:00">
-                    </div>
 
-                    <div class="d-flex flex-column col align-items-end">
-                        <div>
-                            <label for="end">H. fin</label>
-                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        <div class="d-flex flex-column col align-items-end">
+                            <div>
+                                <label for="end">H. fin</label>
+                                <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                            </div>
+                            <input type="time" name="end" id="end" class="inputHours w-75" min="07:00" max="21:00">
                         </div>
-                        <input type="time" name="end" id="end" class="inputHours w-75" min="07:00" max="21:00">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div>
-                            <label for="dateLine">Fecha</label>
-                            <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                        <div class="d-flex flex-column">
+                            <div>
+                                <label for="dateLine">Fecha</label>
+                                <i class="fa-solid fa-asterisk" style="color: #eb0017;"></i>
+                            </div>
+                            <input type="date" name="dateLine" id="dateLine">
                         </div>
-                        <input type="date" name="dateLine" id="dateLine">
-                    </div>
-                    
-                    <div class="d-flex flex-column">
-                        <label for="timeLine">Tiempo empleado</label>
-                        <input type="text" name="timeLine" id="timeLine" disabled>
-                        <div>
-                            <input type="checkbox" name="addTime" id="addTime">
-                            <label for="addTime">Añadir tiempo manualmente</label>
+                        
+                        <div class="d-flex flex-column">
+                            <label for="timeLine">Tiempo empleado</label>
+                            <input type="text" name="timeLine" id="timeLine" readonly>
+                            <div>
+                                <input type="checkbox" name="addTime" id="addTime">
+                                <label for="addTime">Añadir tiempo manualmente</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="saveLine" disabled>Guardar</button>
                         </div>
                     </div>
-                    
-                    
+                </div>
+                
             </div>
-
-            
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-danger" id="saveLine" disabled>Guardar</button>
-            </div>
-            </div>
-        </div>
-
+        </form>
+        {% endif %}
         <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
         {% if incident %}
             <div class="d-flex justify-content-end">
@@ -206,6 +217,8 @@
     </div>
     
 </section>
-<script src="{% static 'js/employee.js' %}"></script>
+<!-- <script src="{% static 'js/employee.js' %}"></script> -->
+<script src="{% static 'js/crudIncident.js' %}"></script>
 <script src="{% static 'js/incident.js' %}"></script>
+<script src="{% static 'js/linesIncident.js' %}"></script>
 {% endblock content %}

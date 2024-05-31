@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from datetime import datetime
 
-from .models import Incidencia
+from .models import Incidencia,Line
 from administracion.models import Empleado,Cliente,Empresa
 
 def getIncidentsJSON(request,client_id):
@@ -134,16 +134,18 @@ def detailsIncident(request,incident_id=None):
     priorities = Incidencia.PRIORIDADES
     enterprises = Empresa.objects.all()
     states = Incidencia.ESTADOS
-
+    
     if incident_id :
         incident= Incidencia.objects.get(pk=incident_id)
-        print(incident.prioridad)
+        lines = incident.lines.all()
+        
         return render(request, 'incidencias/detailsIncident.html', {'incident': incident,
                                                                     'clients':clients,
                                                                     'departaments':departaments,
                                                                     'priorities':priorities,
                                                                     'enterprises':enterprises,
-                                                                    'states':states})
+                                                                    'states':states,
+                                                                    'lines':lines})
     #Si no hay es la vista de crear uno nuevo
     else:
         return render(request, 'incidencias/detailsIncident.html', {'clients':clients,
@@ -174,7 +176,7 @@ def saveIncident(request):
         # Obtener objetos Cliente y Empleado
         cliente = Cliente.objects.get(pk=cliente_id) if cliente_id else None
         # empleado = Empleado.objects.get(id=empleado_id) if empleado_id else None
-        print(cliente)
+
         if accion == "edit":
             incident_id = int(incident_id)
             incident = Incidencia.objects.get(pk=incident_id)
@@ -188,7 +190,6 @@ def saveIncident(request):
             # incident.empleado = empleado
             incident.fecha_inicio = fecha_inicio
             # incident.fecha_fin = fecha_fin
-            print(incident.cliente)
             incident.save()
 
             response_data = {'success': True, 'message': 'Incidencia guardada exitosamente'}
@@ -213,3 +214,53 @@ def deleteIncident(request,incident_id):
     incident = Incidencia.objects.get(pk=incident_id)
     incident.delete()
     return redirect('incidentsView')
+
+@csrf_exempt
+def saveLineIncident(request, incident_id):
+    if request.method == 'POST':
+        print(request.POST)
+        # Obtener los datos del formulario
+        # empleado_id = request.POST.get('empleado_id')
+        observaciones = request.POST.get('commentsLine')
+        comienzo = request.POST.get('start')
+        fin = request.POST.get('end')
+        fecha = request.POST.get('dateLine')
+        tiempo = request.POST.get('timeLine')
+        empleado_id=12
+        empleado=Empleado.objects.get(pk=empleado_id)
+        print(tiempo)
+        # Crear una nueva instancia de Line
+        line = Line.objects.create(
+            empleado=empleado,
+            observaciones=observaciones,
+            comienzo=comienzo,
+            fin=fin,
+            fecha=fecha,
+            tiempo=tiempo
+        )
+
+        # Obtener la incidencia asociada
+        incident = Incidencia.objects.get(id=incident_id)
+
+        # Agregar la línea a la incidencia
+        incident.lines.add(line)
+
+        return redirect('detailsIncident', incident_id=incident_id)
+
+def detailsLine(request, line_id):
+    line = Line.objects.get(pk=line_id)
+    
+    line_data = {
+        'id': line.id,
+        'observacion': line.observaciones,  
+        'tiempo':line.tiempo,
+        'fecha':line.fecha,
+        'comienzo':line.comienzo,
+        'fin':line.fin
+    }
+    return JsonResponse(line_data)
+    # if request.is_ajax():
+    #     return JsonResponse(line_data)
+    # else:
+    #     # Si no es una solicitud AJAX, renderiza la plantilla HTML completa con los datos proporcionados
+    #     return render(request, 'detailsIncident')

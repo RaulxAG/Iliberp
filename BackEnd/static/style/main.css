@@ -127,7 +127,8 @@ body {
   height: 17vh;
 }
 .formularioCrud .btnAceptar {
-  align-self: flex-end;
+  align-self: flex-start;
+  margin: 0;
 }
 .formularioCrud input {
   border: none;
@@ -175,13 +176,14 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  background-color: rebeccapurple;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
   cursor: pointer;
 }
 .circleEmpleado:hover {
   background-color: #F8F8F8;
-  border: 1px solid rebeccapurple;
-  color: rebeccapurple;
+  background-image: none;
+  border: 1px solid #e65522;
+  color: #e65522;
 }
 
 .fa-asterisk {
@@ -192,6 +194,30 @@ body {
 #offcanvasWithBothOptions textarea, #offcanvasWithBothOptions input {
   border-radius: 10px;
   padding: 5px;
+}
+
+/* Estilos para los botones y la información adicional */
+.circleEmpleado .position-absolute {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.circleEmpleado:hover .position-absolute {
+  display: block;
+  opacity: 1;
+}
+.circleEmpleado button {
+  border: 1px solid #e65522;
+  text-wrap: nowrap;
 }
 
 .menuLateral.box {
