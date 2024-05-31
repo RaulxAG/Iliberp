@@ -5,6 +5,8 @@ import Inicio from './Pages/Inicio';
 import Incidencias from './Pages/Incidencias';
 import Mensajeria from './Pages/Mensajeria';
 import WeatherComponent from './components/Tiempo';
+import Login from './Pages/Login';
+import NotFound from './Pages/404';
 // import App from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -12,9 +14,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     {/* <App /> */}
     <Router>
       <Routes>
+        <Route path="*" element={<NotFound />} />
+
         <Route path="/" element={<Inicio />} />
         <Route path="/home" element={<Inicio />} />
         <Route path="/inicio" element={<Inicio />} />
+
+        <Route path="/login" element={<Login />} />
 
         <Route path="/incidencias" element={<Incidencias />} />
 

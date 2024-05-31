@@ -9,8 +9,18 @@
             padding: .3rem 0;
         }
 
-        p {
-            font-weight: 500;
+        .link {
+            text-decoration: none;
+            color: $colorWhite;
+            
+            p {
+            
+                font-weight: 500;
+            }
+        }
+
+        .link:hover {
+            text-decoration: underline;
         }
     }
 

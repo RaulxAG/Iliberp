@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function Menu({ selected }) {
@@ -8,8 +9,9 @@ export default function Menu({ selected }) {
             <div>
                 <section className="menuLateral__profile">
                     <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
-                    <p>Usuario</p>
+                    <Link className="link" to={"/login"}><p>Usuario</p></Link>
                 </section>
+
 
                 <section className="menuLateral__enlaces">
                     <ul>

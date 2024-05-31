@@ -44,6 +44,49 @@
 
         .modulos__chats {
             overflow: hidden;
+            .chats__mensajes {
+                height: 90%;
+                overflow-x: hidden;
+                
+                .chats__card {
+                    animation: dropRigth .7s linear;
+                }
+            }
         }
+
+        .modulos__incidencias {
+            .botones__boton {
+                animation: growUp .7s linear;
+            }
+        }
+
+        
+    }
+}
+
+@keyframes dropRigth {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(0);
+    }
+    70% {
+        transform: translateX(5%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes growUp {
+    0% {
+        transform: scale(.4);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
     }
 }

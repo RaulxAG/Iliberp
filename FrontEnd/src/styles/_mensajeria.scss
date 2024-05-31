@@ -61,11 +61,13 @@
         align-self: flex-end;
         border-radius: 10px;
         background-color: $colorBlack;
+        animation: left-right .7s ease-in;
     }
 
     .recibido {
         border-radius: 10px;
         background-color: $colorOrange;
+        animation: right-left .7s ease-in;
     }
 }
 
@@ -93,5 +95,24 @@
 
     #mensaje:focus {
         outline: .2px solid $colorOrange;
+    }
+}
+
+
+@keyframes right-left {
+    0% {
+        transform: translateX(-150%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes left-right {
+    0% {
+        transform: translateX(150%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }

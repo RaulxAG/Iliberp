@@ -141,7 +141,7 @@ export default function Chat({ chat }) {
                     </article>
                 </figure>
             </header>
-            <section ref={chatCuerpoRef} className="chat__cuerpo w-100 h-100 overflow-y-scroll">
+            <section ref={chatCuerpoRef} className="chat__cuerpo w-100 h-100 overflow-y-scroll overflow-x-hidden">
                 {mensajes.length === 0 && (
                     <h5 className="d-flex h-100 align-items-center justify-content-center">Selecciona un Chat para ver los mensajes o inicia uno nuevo.</h5>
                 )}

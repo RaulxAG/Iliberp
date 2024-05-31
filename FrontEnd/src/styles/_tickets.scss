@@ -1,6 +1,7 @@
-.modulos__ticets {
+.modulos__tickets {
     .tickets__botones {
         .botones__ticket {
+            animation: dropUp .7s ease-in-out;
             background-color: $colorBlack;
 
             .ticket__fecha {
@@ -28,5 +29,11 @@
                 border: 1px solid $colorOrange;
             }
         }
+    }
+}
+
+@keyframes dropUp {
+    0% {
+        transform: translateY(400%);
     }
 }

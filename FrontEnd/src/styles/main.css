@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -51,6 +52,173 @@ body {
   transform: translateX(50%);
 }
 
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #e65522;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.error404 {
+  overflow: hidden;
+}
+.error404 img {
+  position: absolute;
+  bottom: 0;
+  opacity: 0.3;
+}
+.error404 .code {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  text-align: center;
+  font-size: 20rem;
+  font-weight: bold;
+  opacity: 0.4;
+}
+.error404 .text {
+  position: absolute;
+  font-weight: 600;
+  top: 15%;
+  left: 30%;
+  font-size: 9rem;
+}
+
+.containerInicio {
+  background-color: rgba(85, 89, 91, 0.4);
+  height: 100vh;
+}
+.containerInicio .portadaForms {
+  background-color: #F8F8F8;
+  border-radius: 1vh;
+  text-align: center;
+  width: 50%;
+}
+.containerInicio .portadaForms .portadaRegistro,
+.containerInicio .portadaForms .portadaLogin {
+  padding: 50px 0px;
+}
+.containerInicio .portadaForms .portadaRegistro p,
+.containerInicio .portadaForms .portadaLogin p {
+  padding: 0px 10px;
+}
+.containerInicio .portadaForms .portadaRegistro div,
+.containerInicio .portadaForms .portadaLogin div {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  border-radius: 100px;
+  margin: 20px 0px 40px 0px;
+}
+.containerInicio .portadaForms .portadaRegistro button,
+.containerInicio .portadaForms .portadaLogin button {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  color: #F8F8F8;
+  padding: 5px 40px;
+  border: none;
+  border-radius: 3vh;
+  text-transform: uppercase;
+}
+.containerInicio .formularios {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  border-radius: 1vh;
+  text-align: center;
+  padding: 50px 15px;
+  transition: left 0.3s linear;
+}
+.containerInicio .formularios .formRegistrarse form {
+  padding: 10px 0px;
+  gap: 12px !important;
+}
+.containerInicio .formularios .formRegistrarse form input {
+  padding: 3px 10px;
+}
+.containerInicio .formularios h3 {
+  color: #F8F8F8;
+}
+.containerInicio .formularios form input {
+  background-color: rgba(255, 255, 255, 0.399);
+  border: 1px solid #F8F8F8;
+  border-radius: 1vh;
+  padding: 3px 10px;
+  margin: 0px 20px;
+}
+.containerInicio .formularios form input::placeholder {
+  color: #F8F8F8;
+}
+.containerInicio .formularios button {
+  background-color: #1E2225;
+  color: #F8F8F8;
+  padding: 5px 25px;
+  border: none;
+  border-radius: 3vh;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* pantallas pequeñas */
+@media only screen and (max-width: 767px) {
+  .containerInicio .portadaForms {
+    width: 95%;
+  }
+  .containerInicio h3 {
+    font-size: 19px;
+  }
+  .containerInicio p,
+  .containerInicio input,
+  .containerInicio button {
+    font-size: 12px;
+    margin: 0 !important;
+  }
+  .containerInicio p {
+    margin-top: 15px !important;
+  }
+  .containerInicio button {
+    margin-top: 10px !important;
+  }
+}
+/* Pantallas medianas*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .containerInicio .portadaForms {
+    width: 75%;
+  }
+  .containerInicio h3 {
+    font-size: 22px;
+  }
+  .containerInicio p,
+  .containerInicio input,
+  .containerInicio button {
+    font-size: 14px;
+  }
+}
+/* Pantallas grandes*/
+@media only screen and (min-width: 992px) {
+  .containerInicio .portadaForms {
+    width: 50%;
+  }
+  .containerInicio h3 {
+    font-size: 24px;
+  }
+  .containerInicio p, .containerInicio input, .containerInicio button {
+    font-size: 14px;
+  }
+}
 .mainInicio__modulos {
   text-align: center;
   display: grid;
@@ -94,7 +262,42 @@ body {
 .mainInicio__modulos .modulos__grid .modulos__chats {
   overflow: hidden;
 }
+.mainInicio__modulos .modulos__grid .modulos__chats .chats__mensajes {
+  height: 90%;
+  overflow-x: hidden;
+}
+.mainInicio__modulos .modulos__grid .modulos__chats .chats__mensajes .chats__card {
+  animation: dropRigth 0.7s linear;
+}
+.mainInicio__modulos .modulos__grid .modulos__incidencias .botones__boton {
+  animation: growUp 0.7s linear;
+}
 
+@keyframes dropRigth {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(5%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes growUp {
+  0% {
+    transform: scale(0.4);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .menuLateral .menuLateral__profile {
   display: flex;
   align-items: center;
@@ -106,8 +309,15 @@ body {
   width: 80%;
   padding: 0.3rem 0;
 }
-.menuLateral .menuLateral__profile p {
+.menuLateral .menuLateral__profile .link {
+  text-decoration: none;
+  color: #F8F8F8;
+}
+.menuLateral .menuLateral__profile .link p {
   font-weight: 500;
+}
+.menuLateral .menuLateral__profile .link:hover {
+  text-decoration: underline;
 }
 .menuLateral .menuLateral__logo img {
   object-fit: contain;
@@ -193,11 +403,21 @@ body {
 }
 .mainIncidencias .formulario__acciones > div #submit {
   background-color: #30a846 !important;
+  animation: appear 0.3s linear;
 }
 .mainIncidencias .formulario__acciones > div #reset {
   background-color: #c93333 !important;
+  animation: appear 0.3s linear;
 }
 
+@keyframes appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .mainMensajeria__chat {
   background-color: rgba(85, 89, 91, 0.4);
   border-radius: 10px;
@@ -252,10 +472,12 @@ body {
   align-self: flex-end;
   border-radius: 10px;
   background-color: #1E2225;
+  animation: left-right 0.7s ease-in;
 }
 .chat__cuerpo .recibido {
   border-radius: 10px;
   background-color: #e65522;
+  animation: right-left 0.7s ease-in;
 }
 
 .chat__acciones .inputfile-3 + label {
@@ -279,6 +501,22 @@ body {
   outline: 0.2px solid #e65522;
 }
 
+@keyframes right-left {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes left-right {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 .chats__card {
   transition: background 0.2s linear;
 }
@@ -347,27 +585,34 @@ body {
   color: #e65522;
 }
 
-.modulos__ticets .tickets__botones .botones__ticket {
+.modulos__tickets .tickets__botones .botones__ticket {
+  animation: dropUp 0.7s ease-in-out;
   background-color: #1E2225;
 }
-.modulos__ticets .tickets__botones .botones__ticket .ticket__fecha {
+.modulos__tickets .tickets__botones .botones__ticket .ticket__fecha {
   font-size: small;
 }
-.modulos__ticets .tickets__botones .botones__ticket .btn {
+.modulos__tickets .tickets__botones .botones__ticket .btn {
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
 }
-.modulos__ticets .tickets__botones .botones__modal {
+.modulos__tickets .tickets__botones .botones__modal {
   background-color: rgba(32, 32, 32, 0.7) !important;
 }
-.modulos__ticets .tickets__botones .botones__modal .modal-header {
+.modulos__tickets .tickets__botones .botones__modal .modal-header {
   border-bottom: 1px solid #e65522;
 }
-.modulos__ticets .tickets__botones .botones__modal .btn-close {
+.modulos__tickets .tickets__botones .botones__modal .btn-close {
   color: white !important;
 }
-.modulos__ticets .tickets__botones .botones__modal .modal-content {
+.modulos__tickets .tickets__botones .botones__modal .modal-content {
   background-color: #1E2225;
   border: 1px solid #e65522;
+}
+
+@keyframes dropUp {
+  0% {
+    transform: translateY(400%);
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

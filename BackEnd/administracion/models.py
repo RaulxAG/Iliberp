@@ -38,11 +38,11 @@ class Cliente(models.Model):
     """
     # Relación con el modelo User para el usuario de Django. 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    dni = models.CharField(max_length=20)
+    dni = models.CharField(max_length=20, null=True)
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
     foto_perfil = models.BinaryField(blank=True, null=True) 
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)  # Relación con el modelo Empresa
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)  # Relación con el modelo Empresa
 
 class Empleado(models.Model):
     """

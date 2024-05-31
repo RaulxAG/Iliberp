@@ -19,7 +19,7 @@ export default function Inicio() {
             </section>
             <section className="modulos__chats grid_mod2 box">
               <h4 className="tittle fs-5 fw-bold p-1">Mensajes Recientes</h4>
-              <div className="chats__mensajes w-100 mt-3 px-2">
+              <div className="chats__mensajes w-100 mt-3 px-2 overflow-y-scroll">
                 <UltimosMensajes page={"inicio"}/>
               </div>
             </section>
@@ -27,7 +27,7 @@ export default function Inicio() {
               <h4 className="tittle fs-5 fw-bold p-1">Reportar Incidencia</h4>
               <ReportarIncidencia />
             </section>
-            <section className="modulos__ticets grid_mod4 box">
+            <section className="modulos__tickets grid_mod4 box">
               <h4 className="tittle fs-5 fw-bold p-1">Tickets en Curso</h4>
               <Tickets />
             </section>
