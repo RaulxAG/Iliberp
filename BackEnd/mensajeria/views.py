@@ -59,12 +59,23 @@ def getChatsJSON(request,user_id):
 def getMessagesJSON(request,chat_id):
     #Obtenemos la página que quiere ver
     page = request.GET.get('page')
+    user_id = request.GET.get('user')
+
+    user = User.objects.get(pk=user_id)
 
     if not page:
         page=1
     chat= Chat.objects.get(pk=chat_id)
     messages = Mensaje.objects.filter(chat=chat).order_by('fecha', 'hora')
     messagesJson=[]
+
+    participants = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=user)
+        
+    # Extract IDs and usernames of other participants
+    participants_info = [{
+        'id': participant.usuario.id,
+        'nombre': participant.usuario.username
+    } for participant in participants]
     
     paginator = Paginator(messages, 8)
     total_pages = paginator.num_pages
@@ -87,6 +98,7 @@ def getMessagesJSON(request,chat_id):
             'usuario': message.usuario.id,
             'chat': message.chat.id,
             'texto': message.texto,
+            'fichero': message.fichero.url if message.fichero else None,
             'fecha': message.fecha.strftime('%Y-%m-%d'),
             'hora': message.hora.strftime('%H:%M:%S'),
         }
@@ -99,15 +111,15 @@ def getMessagesJSON(request,chat_id):
     }
 
     # Devolver los mensajes en JSON
-    return JsonResponse({'messages': messagesJson, 'pages': pagesJson})
+    return JsonResponse({'participants': participants_info, 'messages': messagesJson, 'pages': pagesJson})
 
 @csrf_exempt
 def setMessageJSON(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        user_id =data['user_id']
-        chat_id = data['chat_id']
-        texto = data['mensaje']
+        user_id = request.POST.get('user_id')
+        chat_id = request.POST.get('chat_id')
+        texto = request.POST.get('mensaje')
+        fichero = request.FILES.get('fichero')
 
     user=User.objects.get(pk=user_id)
     chat=Chat.objects.get(pk=chat_id)
@@ -118,6 +130,7 @@ def setMessageJSON(request):
         usuario=user,
         chat=chat,
         texto=texto,
+        fichero=fichero if fichero else None,
         fecha=fecha,
         hora=hora
     )
@@ -126,6 +139,7 @@ def setMessageJSON(request):
         'usuario': new_message.usuario.username,
         'chat': new_message.chat.id,
         'texto': new_message.texto,
+        # 'fichero': new_message.fichero if new_message.fichero else None,
         'fecha': new_message.fecha.strftime('%Y-%m-%d'),
         'hora': new_message.hora.strftime('%H:%M:%S'),
     }

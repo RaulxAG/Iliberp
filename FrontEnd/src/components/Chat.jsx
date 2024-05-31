@@ -9,10 +9,11 @@ export default function Chat({ chat }) {
     const [mensajes, setMensajes] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState();
+    const [participants, setParticipants] = useState();
 
-    const obtenerPaginasTotales = async (chat) => {
+    const obtenerPaginasTotales = async (chat, user_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?page=0`, {
+            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?user=${user_id}&page=0`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,18 +26,18 @@ export default function Chat({ chat }) {
 
             const responseData = await response.json();
 
-            // Actualizar el estado con los datos recibidos
+            setParticipants(responseData.participants);
             setMensajes(responseData.messages);
-            setPage(responseData.pages.current_page);
+            setPage(responseData.pages.total_pages);
             setTotalPages(responseData.pages.total_pages);
-        } catch (error) { 
+        } catch (error) {
             console.error('Error:', error);
         }
     };
 
-    const obtenerMensajes = async (chat, pageNumber) => {
+    const obtenerMensajes = async (chat, user_id, pageNumber) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?page=${pageNumber}`, {
+            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?user=${user_id}&page=${pageNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,16 +50,18 @@ export default function Chat({ chat }) {
 
             const responseData = await response.json();
 
-            // Verificar si algún mensaje ya contiene el mensaje_id
-            const mensajesNoDuplicados = responseData.messages.filter(nuevoMensaje => !mensajes.some(mensaje => mensaje.mensaje_id === nuevoMensaje.mensaje_id));
+            // Guardar la posición actual del scroll
+            const scrollTop = chatCuerpoRef.current.scrollTop;
+            const scrollHeight = chatCuerpoRef.current.scrollHeight;
 
-            // Actualizar el estado solo con los mensajes no duplicados
-            // setMensajes(prevMensajes => [...prevMensajes, ...mensajesNoDuplicados]);
-            setMensajes(prevMensajes => ({
-                ...prevMensajes,
-                [pageNumber]: mensajesNoDuplicados
-            }));
-            
+            // Actualizar el estado agregando nuevos mensajes al principio del array
+            setMensajes((prevMensajes) => [...responseData.messages, ...prevMensajes]);
+
+            // Calcular la nueva posición del scroll para mantenerlo en el mismo lugar
+            setTimeout(() => {
+                chatCuerpoRef.current.scrollTop = scrollTop + (chatCuerpoRef.current.scrollHeight - scrollHeight);
+            }, 0);
+
             setPage(responseData.pages.current_page);
         } catch (error) {
             console.error('Error:', error);
@@ -67,25 +70,30 @@ export default function Chat({ chat }) {
 
     useEffect(() => {
         if (chat) {
-            obtenerPaginasTotales(chat);
+            obtenerPaginasTotales(chat, 2);
         }
     }, [chat]);
 
     const cargarPaginaAnterior = async () => {
         if (page > 0) {
             const previousPage = page - 1;
-            await obtenerMensajes(chat, previousPage);
+            await obtenerMensajes(chat, 2, previousPage);
         }
     };
 
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
         try {
+            const formData = new FormData();
+            formData.append('user_id', data.user_id);
+            formData.append('chat_id', data.chat_id);
+            formData.append('mensaje', data.mensaje);
+            if (data.fichero.length > 0) {
+                formData.append('fichero', data.fichero[0]);
+            }
+
             const response = await fetch('http://127.0.0.1:8000/setMessageJSON/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: formData
             });
 
             if (response.ok) {
@@ -100,11 +108,13 @@ export default function Chat({ chat }) {
     };
 
     useEffect(() => {
-        // Desplazar al final del chatCuerpoRef cuando los mensajes cambian
-        if (chatCuerpoRef.current) {
+        // Desplazar al final del chatCuerpoRef cuando los mensajes cambian solo si no se están cargando mensajes anteriores
+        if (chatCuerpoRef.current && page === totalPages) {
             chatCuerpoRef.current.scrollTop = chatCuerpoRef.current.scrollHeight;
         }
-    }, [mensajes]);
+
+        console.log(participants)
+    }, [mensajes, page]);
 
     // Función para formatear la fecha y la hora
     const formatTime = hora => {
@@ -119,7 +129,7 @@ export default function Chat({ chat }) {
                 {mensajes.length > 0 && (
                     <figure className="d-flex align-items-center gap-3 mt-2">
                         <img src="../assets/img/usuario.png" width={34} alt="Foto de perfil del contacto" />
-                        <h5 className="p-0 m-0">Nombre contacto</h5>
+                        <h5 className="p-0 m-0">{participants[0].nombre}</h5>
                     </figure>
                 )}
                 
@@ -131,37 +141,44 @@ export default function Chat({ chat }) {
                     </article>
                 </figure>
             </header>
-            <button onClick={cargarPaginaAnterior} className="btn btn-primary mb-3">Cargar página anterior</button>
-            <section ref={chatCuerpoRef} className="chat__cuerpo w-100 h-100 overflow-scroll">
-                {mensajes.length == 0 && (
+            <section ref={chatCuerpoRef} className="chat__cuerpo w-100 h-100 overflow-y-scroll">
+                {mensajes.length === 0 && (
                     <h5 className="d-flex h-100 align-items-center justify-content-center">Selecciona un Chat para ver los mensajes o inicia uno nuevo.</h5>
                 )}
-                {console.log(mensajes)}
 
-                {Object.values(mensajes).map((mensaje, index) => (
-                    Array.isArray(mensaje) ? (
-                        mensaje.map((mensajeIndividual, innerIndex) => (
-                            <article key={innerIndex} className={`shadow-sm w-75 py-3 px-3 my-3 mx-2 ${mensajeIndividual.usuario === 2 ? 'enviado' : 'recibido'}`}>
-                                <p>{mensajeIndividual.texto}</p>
-                                <p className="m-0 text-end">{formatTime(mensajeIndividual.hora)}</p>
-                            </article>
-                        ))
-                    ) : (
-                        <article key={index} className={`shadow-sm w-75 py-3 px-3 my-3 mx-2 ${mensaje.usuario === 2 ? 'enviado' : 'recibido'}`}>
-                            <p>{mensaje.texto}</p>
-                            <p className="m-0 text-end">{formatTime(mensaje.hora)}</p>
-                        </article>
-                    )
+                {mensajes.length > 0 && page > 1 && (
+                    <button onClick={cargarPaginaAnterior} className="btn btn-primary mb-3">Cargar página anterior</button>
+                )}
+
+                {mensajes.map((mensaje, index) => (
+                    <article key={index} className={`shadow-sm w-50 py-3 px-3 my-3 mx-2 ${mensaje.usuario === 2 ? 'enviado' : 'recibido'}`}>
+                        {mensaje.fichero && (
+                            mensaje.fichero.match(/\.(jpeg|jpg|gif|png)$/) ? (
+                                <img src={`http://127.0.0.1:8000${mensaje.fichero}`} alt="fichero" className='w-100 mb-3' />
+                            ) : (
+                                <a href={`http://127.0.0.1:8000${mensaje.fichero}`} className='text-white mb-3' target="_blank" rel="noopener noreferrer">
+                                    {mensaje.fichero.split('/').pop()} <i className="fa-solid fa-download"></i>
+                                </a>
+                            )
+                        )}
+                        {mensaje.texto && (<p>{mensaje.texto}</p>)}
+                        <p className="m-0 text-end">{formatTime(mensaje.hora)}</p>
+                    </article>
                 ))}
             </section>
             <footer className="chat__acciones w-100">
                 {mensajes.length > 0 && (
                     <form onSubmit={handleSubmit(onSubmit)} method="post" className="shadow-lg">
-                        <button type="button" className="btn fs-3"><i className="fa-solid fa-paperclip"></i></button>
+                        {/* <button type="button" className="btn fs-3"><i className="fa-solid fa-paperclip"></i><input type="file" name="file" id="file" class="d-none" /></button> */}
 
-                        <input type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje" className="box py-3 px-3" {...register('mensaje', { required: true, autoComplete: 'off', spellCheck: false})} />
-                        <input type="number" name="chat_id" id="chat_id" className="d-none" value={mensajes.length > 0 ? mensajes[0].chat : ''} {...register('chat_id', { required: true})} />
-                        <input type="number" name="user_id" id="user_id" className="d-none" value={2} {...register('user_id', { required: true})} />
+                        <label htmlFor="fichero" className="btn fs-3">
+                            <i className="fa-solid fa-paperclip"></i>
+                            <input type="file" name="fichero" id="fichero" className="d-none" {...register('fichero')}/>
+                        </label>
+
+                        <input type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje" autoComplete='off' className="box py-3 px-3" {...register('mensaje', { required: true, autoComplete: 'off' })} />
+                        <input type="number" name="chat_id" id="chat_id" className="d-none" value={mensajes.length > 0 ? mensajes[0].chat : ''} {...register('chat_id', { required: true })} />
+                        <input type="number" name="user_id" id="user_id" className="d-none" value={2} {...register('user_id', { required: true })} />
 
                         <button type="submit" className="btn fs-3"><i className="fa-solid fa-paper-plane"></i></button>
                     </form>

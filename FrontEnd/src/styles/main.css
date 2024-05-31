@@ -266,7 +266,7 @@ body {
 .chat__acciones .inputfile-3 + label:hover {
   color: #c39f77;
 }
-.chat__acciones button {
+.chat__acciones button, .chat__acciones label {
   width: 7.5%;
   color: #e65522;
 }
