@@ -81,7 +81,13 @@ window.onload=()=> {
     
     function habilitarEdicion() {
         if (window.location.href.includes("detailsLine")) {
-        
+            const url = window.location.href; 
+            // Encuentra la posición del primer "/" después de "detailsIncident"
+            const endIndex = url.indexOf("/", url.indexOf("detailsIncident"));
+
+            // Extrae la subcadena desde el inicio hasta la posición de endIndex
+            const extracted = url.substring(0, endIndex);
+            window.location.href = `${extracted}`; // Redireccionar a la página de detalles de la incidencia correspondiente
         }else{
             //Ponerlos editables los inputs         
             inputs.forEach(input => {

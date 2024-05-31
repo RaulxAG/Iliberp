@@ -128,6 +128,9 @@ def incidentsView(request):
     incidents= Incidencia.objects.all()
     return render(request, 'incidencias/incidentsView.html', {'incidents': incidents})
 
+def reloadIncident(request, incident_id=None, line_id=None):
+    return redirect('detailsIncident', incident_id=incident_id)
+
 def detailsIncident(request,incident_id=None):
     clients = Cliente.objects.all()
     departaments = Empleado.DEPARTAMENTOS
@@ -230,7 +233,7 @@ def saveLineIncident(request, incident_id):
 
         empleado_id=12
         empleado=Empleado.objects.get(pk=empleado_id)
-        
+
         # Si idLine es '-', crea una nueva línea
         if idLine == '-':
             # Crear una nueva instancia de Line
@@ -271,8 +274,3 @@ def detailsLine(request, line_id):
         'fin':line.fin
     }
     return JsonResponse(line_data)
-    # if request.is_ajax():
-    #     return JsonResponse(line_data)
-    # else:
-    #     # Si no es una solicitud AJAX, renderiza la plantilla HTML completa con los datos proporcionados
-    #     return render(request, 'detailsIncident')

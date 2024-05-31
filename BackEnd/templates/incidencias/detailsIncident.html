@@ -107,8 +107,8 @@
                                     <p class="text-center">{{line.empleado.user.first_name}}</p>
                                     <div class="d-flex gap-1">
                                         <!-- Botón de Editar que abre el modal y carga los datos -->
-                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'edit')">Editar</button>
-                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'details')">Ver detalles</button>
+                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'edit', {{incident.id}})">Editar</button>
+                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'details', {{incident.id}})">Ver detalles</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,6 @@
                         <div class="circleEmpleado" id="addLine" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                             <p class="p-0 m-0">+</p>
                         </div>
-                        
                     </div>
                 </div>
                 {% endif %}

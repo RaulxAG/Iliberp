@@ -15,7 +15,12 @@ document.getElementById('addLine').addEventListener('click', function() {
 });
 
 // Definir la función cargarObservacion
-function cargarObservacion(id,action) {
+function cargarObservacion(id,action,incidentId) {
+    //Cambiar el btn editar a 'ver incidencia
+    let buttonEdit = document.querySelector("#buttonEdit");
+    buttonEdit.innerHTML = 'Ver incidencia';
+
+
     // Verificar si el botón de aceptar existe en el documento
     if (document.querySelector("#btnAceptar")) {
         // Obtener referencia al botón de aceptar
@@ -54,8 +59,9 @@ function cargarObservacion(id,action) {
                 timePattern=data.tiempo.split(":")
                 tiempoEmpleadoField.value = timePattern[0]+"h "+timePattern[1]+"min"; 
                 
-                //Cambiar la url para luego tenerla en cuenta cuadno vayamos a editar
-                history.pushState({}, '', `/detailsLine/${id}`);
+                // Cambiar la URL para luego tenerla en cuenta cuando vayamos a editar
+                history.pushState({}, '', `/detailsIncident-${incidentId}/detailsLine-${id}`);
+
             } else if (action === "edit") {
                     // Cargar datos en el modal
                     document.getElementById('commentsLine').value = data.observacion || '';
