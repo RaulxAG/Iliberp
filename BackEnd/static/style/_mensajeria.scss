@@ -1,0 +1,32 @@
+.containerPersona{
+    margin: 1%!important;
+    border-radius: 5px;
+    figure{
+        margin-bottom: 0;
+        padding: 0;
+        img{
+            width: 80%;
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 200px!important;
+           i{
+                width: 100%;
+            } 
+        } 
+    } 
+    p{
+        margin: 0;
+        padding: 0;
+    }
+    .ultMensaje{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.01);
+    }
+}

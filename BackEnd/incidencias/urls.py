@@ -17,5 +17,6 @@ urlpatterns = [
     path('saveIncident/', views.saveIncident, name='saveIncident'),                                         #Url guardar incidencia nueva o editada
     path('deleteIncident-<int:incident_id>/', views.deleteIncident, name='deleteIncident'),                 #Url eliminar incidencia
     path('saveLineIncident-<int:incident_id>/', views.saveLineIncident, name='saveLineIncident'),           #Url guardar linea de la incidencia
-    path('detailsIncident-<int:incident_id>/detailsLine-<int:line_id>/', views.reloadIncident, name='reloadIncident'),    #Url guardar linea de la incidencia
+    path('detailsIncident-<int:incident_id>/detailsLine-<int:line_id>/', views.reloadIncident, name='reloadIncident'),    #Url para que cuando recargue vaya de nuevo al detalle de la incidencia
+     
 ]

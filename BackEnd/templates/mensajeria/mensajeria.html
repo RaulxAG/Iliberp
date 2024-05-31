@@ -1,0 +1,70 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencias{% endblock %}
+
+{% block content %}
+    
+    <!-- Menu lateral -->
+    {% include 'global/submenu.html' %} 
+    <section class="box contenedor flex-row gap-2">
+        <section class="w-25 box">
+            <figure class="border-bottom pb-2 d-flex justify-content-between align-items-end">
+                <img src="{% static 'assets/img/logoIncident.png' %}" alt="" class="rounded-circle bg-dark "/>
+                <div>
+                    <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        + Nuevo chat
+                    </button>
+                    <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                        <div class="offcanvas-header">
+                          <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Nuevo chat</h5>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="containerNew">
+                                <label for="tipoPersona">Chat con:</label>
+                                <select class="form-select" id="tipoPersona">
+                                    <option value="empleado" selected>Empleado</option>
+                                    <option value="cliente">Cliente</option>
+                                </select>
+                                <label for="persona" class="pt-3" id="labelPersona">Empleado:</label>
+                                <select class="form-select" id="selectPersona">
+                                    {% for employee in employees%}
+                                        <option value="empleado">{{employee.user.first_name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div>
+                                  <button class="btn button text-white mt-3 float-end">Crear</button>  
+                                </div>
+                                
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                
+            </figure>
+            <form class="d-flex mb-4" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+            <div class="chats pt-2">
+                {% for chat in chat_data %}
+                <div class="containerPersona d-flex row overflow-hidden align-items-end bg-dark p-1">
+                    <figure class="col-3">
+                        <img src="{% static 'assets/img/logoIncident.png' %}" alt="" class="rounded-circle bg-dark "/>
+                    </figure>
+                    <p class="col-9 ultMensaje">{{chat.remitente}}: {{ chat.texto }}</p>
+                    <p class="col-12 text-end small">{{ chat.fecha_hora }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </section>
+        <section class="w-75 box d-flex">
+            <div class="m-auto">
+                SELECCIONE UN CHAT O CREA UN NUEVO CHAT
+            </div>
+        </section>
+    </section>
+
+    <script src="{% static 'js/mensajeria.js' %}"></script>
+{% endblock content %}

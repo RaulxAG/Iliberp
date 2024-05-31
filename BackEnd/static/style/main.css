@@ -168,6 +168,39 @@ body {
   background-color: #1E2225 !important;
 }
 
+.containerPersona {
+  margin: 1% !important;
+  border-radius: 5px;
+}
+.containerPersona figure {
+  margin-bottom: 0;
+  padding: 0;
+}
+.containerPersona figure img {
+  width: 80%;
+  margin: 0;
+  padding: 0;
+}
+.containerPersona figure div {
+  width: 200px !important;
+}
+.containerPersona figure div i {
+  width: 100%;
+}
+.containerPersona p {
+  margin: 0;
+  padding: 0;
+}
+.containerPersona .ultMensaje {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.containerPersona:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
 .circleEmpleado {
   width: 35px;
   height: 35px;

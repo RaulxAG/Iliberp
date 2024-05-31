@@ -7,6 +7,8 @@ from .models import Mensaje, Chat,UsuarioChat
 from django.core.paginator import Paginator,EmptyPage
 from django.utils import timezone
 
+from django.shortcuts import render,redirect
+from administracion.models import Cliente, Empleado
 
 def getChatsJSON(request,user_id):
     #Obtener el usuario
@@ -145,3 +147,65 @@ def setChatJSON(request):
                 'messages': []
             }
             return JsonResponse(response_data, status=201)
+
+
+
+def chatView(request):
+    user = User.objects.get(pk=4)  # Usar el usuario con ID 4 para esta prueba
+    employees = Empleado.objects.all()
+    chats_usuario = UsuarioChat.objects.filter(usuario=user).values_list('chat_id', flat=True)
+    chats_info = []
+
+    for chat_id in set(chats_usuario):
+        # Obtener el último mensaje del chat
+        mensaje = Mensaje.objects.filter(chat_id=chat_id).order_by('-fecha', '-hora').first()
+
+        # Obtener la fecha y hora del último mensaje
+        if mensaje:
+            if mensaje.fecha == timezone.now().date():
+                fecha_hora = mensaje.hora.strftime('%H:%M')
+            else:
+                fecha_hora = mensaje.fecha.strftime('%Y-%m-%d')
+            texto = mensaje.texto
+
+            # Determinar quién escribió el último mensaje
+            remitente = 'tú' if mensaje.usuario == user else mensaje.usuario.username
+
+            # Obtener el receptor del chat
+            receptor = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=user).first().usuario
+
+            # Crear un diccionario con la información del chat
+            chat_info = {
+                'chat_id': chat_id,
+                'receptor_nombre': receptor.username,
+                'texto': texto,
+                'fecha_hora': fecha_hora,
+                'remitente': remitente,
+            }
+
+            chats_info.append(chat_info)
+
+    return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chat_data': chats_info})
+
+def allClients(request):
+    clients = Cliente.objects.all()
+    clients_data = [
+        {
+            'id': client.id, 
+            'nombre': client.user.first_name
+        } 
+        for client in clients
+    ]  
+    return JsonResponse(clients_data, safe=False)
+
+def allEmployees(request):
+    employees = Empleado.objects.all()
+    employees_data = [
+        {
+            'id': employee.id, 
+            'nombre': employee.user.first_name
+        } 
+        for employee in employees
+    ] 
+    return JsonResponse(employees_data, safe=False)
+
