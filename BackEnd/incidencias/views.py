@@ -226,24 +226,36 @@ def saveLineIncident(request, incident_id):
         fin = request.POST.get('end')
         fecha = request.POST.get('dateLine')
         tiempo = request.POST.get('timeLine')
+        idLine = request.POST.get('idLine')
+
         empleado_id=12
         empleado=Empleado.objects.get(pk=empleado_id)
-        print(tiempo)
-        # Crear una nueva instancia de Line
-        line = Line.objects.create(
-            empleado=empleado,
-            observaciones=observaciones,
-            comienzo=comienzo,
-            fin=fin,
-            fecha=fecha,
-            tiempo=tiempo
-        )
-
-        # Obtener la incidencia asociada
-        incident = Incidencia.objects.get(id=incident_id)
-
-        # Agregar la línea a la incidencia
-        incident.lines.add(line)
+        
+        # Si idLine es '-', crea una nueva línea
+        if idLine == '-':
+            # Crear una nueva instancia de Line
+            line = Line.objects.create(
+                empleado=empleado,
+                observaciones=observaciones,
+                comienzo=comienzo,
+                fin=fin,
+                fecha=fecha,
+                tiempo=tiempo
+            )
+            # Obtener la incidencia asociada
+            incident = Incidencia.objects.get(id=incident_id)
+            # Agregar la línea a la incidencia
+            incident.lines.add(line)
+        else:
+            # Si idLine no es '-', edite la línea existente
+            line = Line.objects.get(pk=idLine)
+            # Actualizar los campos
+            line.observaciones = observaciones
+            line.comienzo = comienzo
+            line.fin = fin
+            line.fecha = fecha
+            line.tiempo = tiempo
+            line.save()
 
         return redirect('detailsIncident', incident_id=incident_id)
 

@@ -83,32 +83,29 @@ window.onload=()=> {
         if (window.location.href.includes("detailsLine")) {
         
         }else{
-            //Ponerlos editables los inputs
-        inputs.forEach(input => {
-            let tiempo_empleado =document.querySelector('#tiempo_empleado')
-            let fecha_fin =document.querySelector('#fecha_fin')
-            tiempo_empleado.disabled = true;
-            fecha_fin.disabled = true;
-            input.disabled = false; 
-        
-    });
-    textareas.forEach(textarea => {
-        textarea.disabled = false;
-    });
-    selects.forEach(select => {
-        select.disabled = false;
-    });
+            //Ponerlos editables los inputs         
+            inputs.forEach(input => {
+                let tiempo_empleado =document.querySelector('#tiempo_empleado')
+                let fecha_fin =document.querySelector('#fecha_fin')
+                tiempo_empleado.disabled = true;
+                fecha_fin.disabled = true;
+                input.disabled = false; 
+            
+            });
+            textareas.forEach(textarea => {
+                textarea.disabled = false;
+            });
+            selects.forEach(select => {
+                select.disabled = false;
+            });
 
-    //Ponemos esta comprobación para que solo lo añada una vez el botón de aceptar
-    if (!btnAceptarExiste) { 
-        formularioCrud.appendChild(buttonAceptar)  
-        buttonAceptar.classList.remove("d-none");
-        buttonAceptar.classList.add("d-block");
-    }
+            //Ponemos esta comprobación para que solo lo añada una vez el botón de aceptar
+            if (!btnAceptarExiste) { 
+                formularioCrud.appendChild(buttonAceptar)  
+                buttonAceptar.classList.remove("d-none");
+                buttonAceptar.classList.add("d-block");
+            }
         } 
-        
-        
-        
     }
 
     // Comprobar si la URL contiene "new"
@@ -129,7 +126,6 @@ window.onload=()=> {
     }
 
     //Si estamos en las incidencias, Tiempo empleado no se puede cambiar porq es un campo calculado y la fecha fin tampoco
-    
-        let tiempo_empleado =document.querySelector('#tiempo_empleado')
-        tiempo_empleado.disabled = true;
+    let tiempo_empleado =document.querySelector('#tiempo_empleado')
+    tiempo_empleado.disabled = true;
 };
