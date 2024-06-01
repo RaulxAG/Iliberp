@@ -27,7 +27,7 @@ INSERT INTO inventario_pedido (fecha, direccion, estado, subtotal, IVA, total, c
 ('2024-05-06', '987 Birch St, Springfield', 0, 350.00, 73.50, 423.50, 1),
 ('2024-05-07', '159 Cedar St, Shelbyville', 1, 400.00, 84.00, 484.00, 1);
 
-INSERT INTO inventario_lineas (unidades, articulo_id, pedido_id) VALUES
+INSERT INTO inventario_linea (unidades, articulo_id, pedido_id) VALUES
 (2, 1, 1),
 (1, 2, 1),
 (3, 3, 2),

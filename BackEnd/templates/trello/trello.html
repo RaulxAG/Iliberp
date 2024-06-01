@@ -12,12 +12,12 @@
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
 
-<div class="mt-4 d-flex flex-column flex-md-row align-items-start justify-content-between">
+<div class="d-flex flex-column flex-md-row align-items-start justify-content-between">
 
     <div class="listaCategorias d-flex align-items-center justify-content-center">
         <ul class="text-center d-flex flex-row flex-wrap flex-md-column p-0 align-items-center justify-content-center">
             <li class="list-group-item p-0">
-                <a href="{% url 'trello' 'Administración' %}" id="optionCategory_trello-Administracion" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                <a href="{% url 'trello' 'Administración' %}" id="optionCategory_trello-Administración" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
                     <i class="fa-solid fa-user-tie fs-3 py-2 px-3 rounded-pill"></i>
                     <p class="d-none d-md-block">Administración</p>
                 </a>
@@ -29,13 +29,13 @@
                 </a>
             </li>
             <li class="list-group-item p-0">
-                <a href="{% url 'trello' 'Programación' %}" id="optionCategory_trello-Programacion" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                <a href="{% url 'trello' 'Programación' %}" id="optionCategory_trello-Programación" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
                     <i class="fa-solid fa-laptop-code fs-3 py-2 px-3 rounded-pill"></i>
                     <p class="d-none d-md-block">Programación</p>
                 </a>
             </li>
             <li class="list-group-item p-0">
-                <a href="{% url 'trello' 'Telefonía' %}" id="optionCategory_trello-Telefonia" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                <a href="{% url 'trello' 'Telefonía' %}" id="optionCategory_trello-Telefonía" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
                     <i class="fa-solid fa-tower-cell fs-3 py-2 px-3 rounded-pill"></i>
                     <p class="d-none d-md-block">Telefonía</p>
                 </a>
@@ -93,16 +93,8 @@
                 <select name="enterprise" id="enterprise" class="rounded me-1 mb-1 bg-dark text-ligth">  
                     <option class="bg-secondary text-light" value=""  disabled selected style="display:none;">Empresa</option>
                     {% for enterprise in enterprises %}
-                        <option class="bg-secondary text-light" value="{{enterprise.id}}">{{enterprise.name}}</option>
+                        <option class="bg-secondary text-light" value="{{enterprise.id}}">{{enterprise.nombre}}</option>
                     {% endfor %}
-                </select>
-                <select name="headquarter" id="headquarter" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>  
-                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Sede</option>
-                    {% if headquarter%}
-                        {% for headquarter in headquarters %}
-                            <option class="bg-secondary text-light" value="{{headquarter.id}}">{{headquarter.locality}}</option>
-                        {% endfor %}
-                    {% endif %}
                 </select>
                 <select name="client" id="client" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>
                     <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Cliente</option>
@@ -129,7 +121,7 @@
                                 {% csrf_token %}
 
                                 <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
-                                    <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+                                    <p class="px-3  text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
 
                                     <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
                                         <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
@@ -145,7 +137,7 @@
                                         <div class="modal-content bg-dark">
                                             <div class="modal-header {{ task.prioridad }} fw-bold text-light">
                                                 <div>
-                                                    <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                    <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                     <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                     <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
                                                     <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
@@ -169,6 +161,7 @@
                                                     </div>
                                                 {% endif %}
                                                 <div class="row">
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
                                                     <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
                                                     <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
                                                     <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
@@ -193,7 +186,7 @@
                             {% csrf_token %}
 
                             <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
-                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+                                <p class="px-3  text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
 
                                 <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
                                     <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
@@ -209,7 +202,7 @@
                                     <div class="modal-content bg-dark">
                                         <div class="modal-header {{ task.prioridad }} fw-bold text-light">
                                             <div>
-                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
                                                 <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
@@ -233,6 +226,7 @@
                                                 </div>
                                             {% endif %}
                                             <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
@@ -257,7 +251,7 @@
                             {% csrf_token %}
 
                             <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
-                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+                                <p class="px-3  text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
 
                                 <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
                                     <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
@@ -273,7 +267,7 @@
                                     <div class="modal-content bg-dark">
                                         <div class="modal-header {{ task.prioridad }} fw-bold text-light">
                                             <div>
-                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
                                                 <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
@@ -297,6 +291,7 @@
                                                 </div>
                                             {% endif %}
                                             <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
@@ -320,7 +315,7 @@
                             {% csrf_token %}
 
                             <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
-                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+                                <p class="px-3  text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
 
                                 <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
                                     <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
@@ -336,7 +331,7 @@
                                     <div class="modal-content bg-dark">
                                         <div class="modal-header {{ task.prioridad }} fw-bold text-light">
                                             <div>
-                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
                                                 <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
@@ -360,6 +355,7 @@
                                                 </div>
                                             {% endif %}
                                             <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
                                                 <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
@@ -378,14 +374,14 @@
         </div>
 
 
-        <!-- <p class="btnInfo align-self-end p-2 fs-3 position-fixed bottom-0"><i class="fa-solid fa-circle-info"></i></p>
-        <article class="priorityLegend position-fixed bottom-0 mb-4 me-2 w-0 align-self-end bg-light p-3 rounded shadow-lg">
+        <p class="btnInfo align-self-end p-2 fs-3 position-fixed bottom-0"><i class="fa-solid fa-circle-info"></i></p>
+        <article class="priorityLegend position-fixed bottom-0 mb-4 me-2 w-0 align-self-end bg-dark p-3 rounded shadow-lg">
             <p class="fw-bold">Orden de prioridades</p>
             <p><span class="prioridadUrg px-2 rounded-pill me-2"></span> Urgente</p>
             <p><span class="prioridadImp px-2 rounded-pill me-2"></span> Importante</p>
             <p><span class="prioridadMed px-2 rounded-pill me-2"></span> Media</p>
             <p><span class="prioridadLow px-2 rounded-pill me-2"></span> Baja</p>
-        </article> -->
+        </article>
     </div>
     
 </div>

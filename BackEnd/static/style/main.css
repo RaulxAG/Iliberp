@@ -292,10 +292,33 @@ body {
   font-weight: bold;
   font-size: 3rem;
   color: #F8F8F8;
+  z-index: 1;
+  position: relative;
 }
-.inventario__buttons a:hover {
-  border: 5px solid #F8F8F8;
+.inventario__buttons .button--bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  clip-path: circle(0 at bottom left);
+  transition: clip-path 0.5s;
+}
+.inventario__buttons .button--bg:nth-child(even):before {
+  clip-path: circle(0 at bottom right);
+}
+.inventario__buttons .button--bg:hover::before {
+  clip-path: circle(150% at bottom left);
+  z-index: -1;
+}
+.inventario__buttons .button--bg:nth-child(even):hover::before {
+  clip-path: circle(150% at bottom right);
+}
+.inventario__buttons .button--bg:hover {
+  border: 5px solid #F8F8F8;
+  z-index: 1;
 }
 
 /*# sourceMappingURL=main.css.map */

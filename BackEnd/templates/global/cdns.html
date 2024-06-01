@@ -25,6 +25,8 @@
         {% block content %}{% endblock %}
     </main>
     
-    {% block extra_scripts %}{% endblock %}
+    {% block extra_scripts %}
+        <script type="text/javascript" src="{% static 'js/selected-menu.js' %}"></script>
+    {% endblock %}
 </body>
  

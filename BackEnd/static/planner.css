@@ -19,11 +19,16 @@
 }
 
 .listaCategorias ul {
+    width: 80px;
     background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
 }
 
 .listaCategorias ul li {
     border: none;
+}
+
+.listaCategorias ul li a {
+    font-size: .6rem;
 }
 
 .listaCategorias .btnCategoria {
@@ -32,6 +37,7 @@
 }
 
 .listaCategorias ul li a.btnCategoria svg {
+    width: 20px;
     border: 2px solid transparent;
     animation: all .5s linear;
 }
@@ -197,10 +203,10 @@
     opacity: 1;
 }
 
-.prioridadUrg {background-color: var(--priority-urgent);}
-.prioridadImp {background-color: var(--priority-important);}
-.prioridadMed {background-color: var(--priority-medium);}
-.prioridadLow {background-color: var(--priority-low);}
+.prioridadUrg {background-color: #ae4646;}
+.prioridadImp {background-color: #cab048;}
+.prioridadMed {background-color: #84d16a;}
+.prioridadLow {background-color: #a09f9f;}
 
 
 /* .btnInfo:hover {

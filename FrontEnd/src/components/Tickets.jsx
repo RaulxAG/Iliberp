@@ -150,7 +150,7 @@ export default function Tickets() {
                                     </div>
                                     <div className="d-flex flex-column w-50">
                                         <p className="m-0">Prioridad</p>
-                                        <p className={`m-0 ${ticket.prioridad === 'urgente' ? 'bg-danger' : ticket.prioridad === 'importante' ? 'bg-warning' : ticket.prioridad === 'media' ? 'bg-sucess' : ticket.prioridad === 'baja' ? 'bg-secondary' : ''} py-1 px-2 text-center rounded-pill w-75`}>{ticket.prioridad}</p>
+                                        <p className={`m-0 ${ticket.prioridad === 'urgente' ? 'bg-danger' : ticket.prioridad === 'importante' ? 'bg-warning' : ticket.prioridad === 'media' ? 'bg-success' : ticket.prioridad === 'baja' ? 'bg-secondary' : ''} py-1 px-2 text-center rounded-pill w-75`}>{ticket.prioridad}</p>
                                     </div>
                                 </div>
                                 <div className="d-flex gap-2 mb-3 justify-content-between w-100">

@@ -8,7 +8,7 @@ urlpatterns = [
     path('inventario/', views.inventario, name="inventario"),                                           # URL Página principal de gestión del inventario
     path('articulos/', views.articulos, name="articulos"),                                              # URL Página de gestión de articulos de la tienda
     path('detalleArticulo-<int:product_id>/', views.detalleArticulo, name="detalleArticulo"),           # URL Página de gestión de articulos de la tienda
-    # path('pedidos/', views.pedidos, name="pedidos"),                                                    # URL Página de gestión de pedidos de la tienda
+    path('pedidos/', views.pedidos, name="pedidos"),                                                    # URL Página de gestión de pedidos de la tienda
 
     path("getProductsJSON/", views.getProductsJSON),
     path("getSingleProductJSON/", views.getSingleProductJSON),

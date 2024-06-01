@@ -16,6 +16,12 @@ def articulos(request):
 
     return render(request, "inventario/articulos.html", {'products': products})
 
+def pedidos(request):
+    orders = Pedido.objects.all()
+
+    return render(request, "inventario/pedidos.html", {'orders': orders})
+
+
 def detalleArticulo(request, product_id=None):
     product = Producto.objects.get(pk=product_id)
 
