@@ -4,7 +4,23 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Producto, Pedido, Linea
 from administracion.models import Cliente
+from django.shortcuts import render
 from django.utils import timezone
+
+
+def inventario(request):
+    return render(request, "inventario/inventario.html")
+
+def articulos(request):
+    products = Producto.objects.all()
+
+    return render(request, "inventario/articulos.html", {'products': products})
+
+def detalleArticulo(request, product_id=None):
+    product = Producto.objects.get(pk=product_id)
+
+    return render(request, "inventario/detalleArticulo.html", {'product': product})
+
 
 @csrf_exempt
 def getProductsJSON(request):

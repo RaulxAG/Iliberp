@@ -1,0 +1,401 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencia{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'planner.css' %}">
+{% endblock extra_styles %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+
+<div class="mt-4 d-flex flex-column flex-md-row align-items-start justify-content-between">
+
+    <div class="listaCategorias d-flex align-items-center justify-content-center">
+        <ul class="text-center d-flex flex-row flex-wrap flex-md-column p-0 align-items-center justify-content-center">
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Administración' %}" id="optionCategory_trello-Administracion" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-user-tie fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Administración</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Ciberseguridad' %}" id="optionCategory_trello-Ciberseguridad" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-shield-halved fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Ciberseguridad</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Programación' %}" id="optionCategory_trello-Programacion" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-laptop-code fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Programación</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Telefonía' %}" id="optionCategory_trello-Telefonia" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-tower-cell fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Telefonía</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Sistemas' %}" id="optionCategory_trello-Sistemas" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-computer fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Sistemas</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Taller' %}" id="optionCategory_trello-Taller" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-screwdriver-wrench fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Taller</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' 'Web' %}" id="optionCategory_trello-Web" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-globe fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Web</p>
+                </a>
+            </li>
+            <li class="list-group-item p-0">
+                <a href="{% url 'trello' %}" id="optionCategory_trello" class="btn btnCategoria d-flex flex-column align-items-center justify-content-center py-1">
+                    <i class="fa-solid fa-envelopes-bulk fs-3 py-2 px-3 rounded-pill"></i>
+                    <p class="d-none d-md-block">Todas</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container-fluid col d-flex flex-column align-items-center ">
+        
+        <div class="w-100 d-flex align-items-center justify-content-between flex-column flex-xxl-row containerFiltros">
+            <div class="filtros mb-xxl-0 mb-2 d-flex flex-wrap flex-lg-row align-items-center justify-content-center flex-column">
+                <select name="employee_asigned" id="employee_asigned" class="rounded me-1 mb-1 bg-dark text-ligth">
+                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Asignado a</option>
+                    {% for employee in employees %}
+                        <option class="bg-secondary text-light" value="{{employee.id}}">
+                            {{employee.user.username}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <select name="date" id="date" class="rounded me-1 mb-1 bg-dark text-ligth">
+                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Fecha</option>
+                    <option class="bg-secondary text-light" value="recientes">Más recientes</option>
+                    <option class="bg-secondary text-light" value="antiguas">Más antiguas</option>
+                </select>
+                <select name="priority" id="priority" class="rounded me-1 mb-1 bg-dark text-ligth">
+                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Prioridad</option>
+                    {% for priority_value, priority_text in priorities %}
+                        <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
+                    {% endfor %}
+                </select>
+                <select name="enterprise" id="enterprise" class="rounded me-1 mb-1 bg-dark text-ligth">  
+                    <option class="bg-secondary text-light" value=""  disabled selected style="display:none;">Empresa</option>
+                    {% for enterprise in enterprises %}
+                        <option class="bg-secondary text-light" value="{{enterprise.id}}">{{enterprise.name}}</option>
+                    {% endfor %}
+                </select>
+                <select name="headquarter" id="headquarter" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>  
+                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Sede</option>
+                    {% if headquarter%}
+                        {% for headquarter in headquarters %}
+                            <option class="bg-secondary text-light" value="{{headquarter.id}}">{{headquarter.locality}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <select name="client" id="client" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>
+                    <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Cliente</option>
+                    {% if clients %}
+                        {% for client in clients %}
+                            <option class="bg-secondary text-light" value="{{client.id}}">{{client.full_name}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <div class="searchContainer">
+                    <input type="search" name="searchInput" id="searchInput">
+                    <button onClick={clearFilters()} id="clearFiltersBtn">Borrar Filtros</button>
+            </div>
+        </div>
+        
+        <div class="row listaTareas mt-5 align-items-center justify-content-between container-fluid ms-0 p-0" id="listaTareas">
+            <div class="col-12 col-lg-6 col-xxl-3 mx-2 mb-3 text-center shadow-lg p-0">
+                <div class="d-flex flex-column align-items-center">
+                    <p class="columna m-0 p-2 text-light fw-bold w-100 bg-primary rounded-top">Pendientes</p>
+                    <div class="tareas " id="Pendiente">
+                        {% for task in tasks %}
+                            {% if task.estado == 'pendiente' %}
+                                {% csrf_token %}
+
+                                <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
+                                    <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+
+                                    <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
+                                        <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
+                                        <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">            
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                    
+                                <!-- Modal -->
+                                <div class="modal fade bg-transparent" id="detail-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content bg-dark">
+                                            <div class="modal-header {{ task.prioridad }} fw-bold text-light">
+                                                <div>
+                                                    <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                    <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
+                                                    <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
+                                                    <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                                </div>
+
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-start">
+                                                <div>
+                                                    <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
+                                                    <p class="bg-secondary p-3 rounded">
+                                                        {{ task.descripcion }}
+                                                    </p>
+                                                </div>
+                                                {% if task.observaciones %}
+                                                    <div>
+                                                        <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
+                                                        <p class="bg-secondary p-3 rounded">
+                                                            {{ task.observaciones }}
+                                                        </p>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="row">
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-12 col-lg-6 col-xxl-3 mx-2 mb-3 text-center shadow-lg p-0">
+                <div class="d-flex flex-column align-items-center">
+                <p class="columna m-0 p-2 text-light fw-bold w-100 bg-primary rounded-top">Proceso</p>
+                <div class="tareas" id="Proceso">
+                    {% for task in tasks %}
+                        {% if task.estado == 'proceso' %}
+                            {% csrf_token %}
+
+                            <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
+                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+
+                                <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
+                                    <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
+                                    <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">            
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                                
+                            <!-- Modal -->
+                            <div class="modal fade bg-transparent" id="detail-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-dark">
+                                        <div class="modal-header {{ task.prioridad }} fw-bold text-light">
+                                            <div>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
+                                                <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
+                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                            </div>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <div>
+                                                <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
+                                                <p class="bg-secondary p-3 rounded">
+                                                    {{ task.descripcion }}
+                                                </p>
+                                            </div>
+                                            {% if task.observaciones %}
+                                                <div>
+                                                    <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
+                                                    <p class="bg-secondary p-3 rounded">
+                                                        {{ task.observaciones }}
+                                                    </p>
+                                                </div>
+                                            {% endif %}
+                                            <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xxl-3 mx-2 mb-3 text-center shadow-lg p-0">
+                <div class="d-flex flex-column align-items-center">
+                <p class="columna m-0 p-2 text-light fw-bold w-100 bg-primary rounded-top">Pausadas</p>
+                <div class="tareas" id="Pausa">
+                    {% for task in tasks %}
+                        {% if task.estado == 'pausa' %}
+                            {% csrf_token %}
+
+                            <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
+                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+
+                                <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
+                                    <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
+                                    <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">            
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade bg-transparent" id="detail-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-dark">
+                                        <div class="modal-header {{ task.prioridad }} fw-bold text-light">
+                                            <div>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
+                                                <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
+                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                            </div>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <div>
+                                                <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
+                                                <p class="bg-secondary p-3 rounded">
+                                                    {{ task.descripcion }}
+                                                </p>
+                                            </div>
+                                            {% if task.observaciones %}
+                                                <div>
+                                                    <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
+                                                    <p class="bg-secondary p-3 rounded">
+                                                        {{ task.observaciones }}
+                                                    </p>
+                                                </div>
+                                            {% endif %}
+                                            <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xxl-3 mx-2 mb-3 text-center shadow-lg p-0">
+                <div class="d-flex flex-column align-items-center">
+                <p class="columna m-0 p-2 text-light fw-bold w-100 bg-primary rounded-top">Terminadas</p>
+                <div class="tareas"  id="Terminada">
+                    {% for task in tasks %}
+                        {% if task.estado == 'terminada' %}
+                            {% csrf_token %}
+
+                            <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
+                                <p class="px-3  text-start">(INC) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
+
+                                <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
+                                    <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
+                                    <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">            
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade bg-transparent" id="detail-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-dark">
+                                        <div class="modal-header {{ task.prioridad }} fw-bold text-light">
+                                            <div>
+                                                <h2 class="modal-title fs-5 text-start">Incidencia</h2>
+                                                <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
+                                                <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
+                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                            </div>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <div>
+                                                <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
+                                                <p class="bg-secondary p-3 rounded">
+                                                    {{ task.descripcion }}
+                                                </p>
+                                            </div>
+                                            {% if task.observaciones %}
+                                                <div>
+                                                    <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
+                                                    <p class="bg-secondary p-3 rounded">
+                                                        {{ task.observaciones }}
+                                                    </p>
+                                                </div>
+                                            {% endif %}
+                                            <div class="row">
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <p class="btnInfo align-self-end p-2 fs-3 position-fixed bottom-0"><i class="fa-solid fa-circle-info"></i></p>
+        <article class="priorityLegend position-fixed bottom-0 mb-4 me-2 w-0 align-self-end bg-light p-3 rounded shadow-lg">
+            <p class="fw-bold">Orden de prioridades</p>
+            <p><span class="prioridadUrg px-2 rounded-pill me-2"></span> Urgente</p>
+            <p><span class="prioridadImp px-2 rounded-pill me-2"></span> Importante</p>
+            <p><span class="prioridadMed px-2 rounded-pill me-2"></span> Media</p>
+            <p><span class="prioridadLow px-2 rounded-pill me-2"></span> Baja</p>
+        </article> -->
+    </div>
+    
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/planner.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/selected-category.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+<!-- {% include 'global/submenu.html' %} -->
+
+<div class='containerInicio d-flex w-100 h-100'>
+    <div class="portadaForms m-auto row justify-content-between position-relative">
+        <div class="portadaRegistro col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Crear cuenta</h3>
+            <div class="">
+                <i class="fa-solid fa-user" ></i>
+            </div>
+            <p>¿Aún no tienes cuenta? Regístrate</p>
+            <button >Regístrate</button>
+        </div>
+        <div class="portadaLogin col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Iniciar Sesión</h3>
+            <div>
+                <i class="fa-solid fa-user" ></i>
+            </div>
+            <button >Iniciar Sesión</button>
+        </div>
+
+        <div class="formularios position-absolute" id='formularios'>
+           
+                <div class="formIniciarSesion" id='formIniciarSesion'>
+                    <h3 class="text-uppercase">Iniciar Sesión</h3>
+                    <form action="" class="d-flex flex-column gap-4 mt-4">
+                        <input type="text" placeholder="Usuario"/>
+                        <input type="text" placeholder="Contraseña"/>
+                    </form>
+                    <p class='mt-4'>¿Has olvidado tu contraseña?</p>
+                    <button>Iniciar Sesión</button>
+                </div>
+
+                <!-- <div class="formRegistrarse">
+                    <h3 class="text-uppercase">Crear cuenta</h3>
+                    <form action="" method="post" class="d-flex flex-column gap-4">
+                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" />
+
+                        <input type="password" name="password" id="password" placeholder="Contraseña" />
+
+                        <input type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre completo" />
+
+                        <input type="text" name="telefono" id="telefono" placeholder="Teléfono" />
+
+                        <input type="text" name="email" id="email" placeholder="Email" />
+
+                        <button type="submit" class="w-50 justify-self-center align-self-center">Registrarme</button>
+                    </form>
+                    
+                </div> -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

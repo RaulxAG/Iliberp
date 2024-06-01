@@ -1,0 +1,60 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencia{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5"> 
+        <h2 class='tittleDetalle'>Producto ( {{ product.id }} ): {{ product.nombre }}</h2>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            <a href="javascript:history.back()" class="buttonReverse buttonVolver">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                Volver
+            </a>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button>
+            <button class="button" id="buttonEdit">
+                <i class="fa-solid fa-trash-can" style="color: #f8f8f8;"></i>
+                Eliminar
+            </button> 
+        </div>
+        
+        <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
+            <div class="row gy-4">
+                <div class="col-6">
+                    <h6 class="fw-bold">Descripción</h6>
+                    <textarea class="form-control bg-transparent barScroll" rows="7" id="descripcion" disabled>{{product.descripcion}}</textarea>
+                </div>
+                <div class="col-6">
+                    <h6 class="fw-bold">Especificaciones</h6>
+                    <textarea class="form-control bg-transparent barScroll" rows="7" id="espeficicaciones" disabled>{{product.especificaciones}}</textarea>
+                </div>
+                <div class="col-3">
+                    <h6 class="fw-bold">Nombre</h6>
+                    <input type="text" class="form-control bg-transparent barScroll" id="nombre" value="{{product.nombre}}" disabled>
+                </div>
+                <div class="col-3">
+                    <h6 class="fw-bold">Tipo</h6>
+                    <select class="form-control bg-transparent barScroll" id="descripcion" disabled>
+                        <option value="{{product.tipo}}" selected>{{product.get_tipo_display}}</option>
+                    }</select>
+                </div>
+                <div class="col-3">
+                    <h6 class="fw-bold">Precio</h6>
+                    <input type="text" class="form-control bg-transparent barScroll" id="precio" value="{{product.precio}}" disabled>
+                </div>
+                <div class="col-3">
+                    <h6 class="fw-bold">Precio descuento</h6>
+                    <input type="text" class="form-control bg-transparent barScroll" id="descuento" value="{{product.precio_descuento}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

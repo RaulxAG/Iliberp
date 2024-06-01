@@ -1,0 +1,51 @@
+{% load static %}
+
+<section class="menuLateral box d-flex flex-column align-items-center justify-content-between">
+    <div>
+        <section class="menuLateral__profile">
+            <img src="{% static 'assets/img/usuario.png' %}" class="profile__photo" alt="Foto de perfil" />
+            <a class="link" href="/"><p>Usuario</p></a>
+        </section>
+
+
+        <section class="menuLateral__enlaces">
+            <ul>
+                <li>
+                    <a href="/inicio" >
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"  >
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"  >
+                        <i class="fa-solid fa-comments"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/trello">
+                        <i class="fa-brands fa-trello"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/inventario">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-language"></i>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <section class="menuLateral__logo d-flex align-items-center justify-content-center py-2">
+        <img src="{% static 'assets/img/logo.png' %}" alt="logo" />
+    </section>
+    
+</section> 

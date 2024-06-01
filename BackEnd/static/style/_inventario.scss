@@ -1,0 +1,14 @@
+.inventario__buttons {
+    a {
+        padding: 5rem 10rem;
+        border: 5px solid $colorOrange;
+        font-weight: bold;
+        font-size: 3rem;
+        color: $colorWhite;
+    }
+
+    a:hover {
+        border: 5px solid $colorWhite;
+        background-image: $gradient;
+    }
+}

@@ -1,0 +1,64 @@
+.menuLateral {
+    .menuLateral__profile {
+        @include flex-centered;
+        flex-direction: column;
+
+        >img.profile__photo {
+            object-fit: contain;
+            width: 80%;
+            padding: .3rem 0;
+        }
+
+        .link {
+            text-decoration: none;
+            color: $colorWhite;
+            
+            p {
+            
+                font-weight: 500;
+            }
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .menuLateral__logo img {
+        object-fit: contain;
+        width: 40%;
+        margin-top: .5rem;
+    }
+
+    .menuLateral__enlaces ul {
+        list-style: none;
+        padding: 0;
+    
+        li {
+            text-align: center;
+            padding: 30% 0;
+        }
+
+        a {
+            font-size: larger;
+            border-radius: 100%;
+            padding: 1rem;
+            text-decoration: none;
+            color: $colorOrange;
+            transition: background .2s linear;
+        }
+
+        a:hover {
+            background-color: $colorBlack;
+        }
+
+        .selected {
+            transition: color .2s linear;
+            background-color: $colorBlack;
+        }
+
+        .selected:hover {
+            color: $colorWhite;
+        }
+    }
+}
