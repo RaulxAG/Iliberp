@@ -30,11 +30,11 @@
                                 <label for="persona" class="pt-3" id="labelPersona">Empleado:</label>
                                 <select class="form-select" id="selectPersona">
                                     {% for employee in employees%}
-                                        <option value="empleado">{{employee.user.first_name}}</option>
+                                        <option value="{{employee.user.id}}">{{employee.user.first_name}}</option>
                                     {% endfor %}
                                 </select>
                                 <div>
-                                  <button class="btn button text-white mt-3 float-end">Crear</button>  
+                                  <button class="btn button text-white mt-3 float-end" id="btnCrearChat">Crear</button>  
                                 </div>
                                 
                             </div>

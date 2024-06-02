@@ -69,7 +69,7 @@ def getMessagesJSON(request,chat_id):
     paginator = Paginator(messages, 8)
     total_pages = paginator.num_pages
 
-    if not page or not page.isdigit() or int(page) > total_pages or int(page) < 1:
+    if not page or int(page) > total_pages or int(page) < 1:
         page = total_pages
     else:
         page = int(page)
@@ -99,8 +99,12 @@ def getMessagesJSON(request,chat_id):
         'total_pages': paginator.num_pages
     }
 
+    #Devolver info chat
+    chat = {
+        'chat_id':chat.id
+    }
     # Devolver los mensajes en JSON
-    return JsonResponse({'participants': participants_info, 'messages': messagesJson, 'pages': pagesJson})
+    return JsonResponse({'participants': participants_info, 'messages': messagesJson, 'pages': pagesJson,'chat_id':chat_id})
 
 @csrf_exempt
 def setMessageJSON(request):
@@ -152,8 +156,9 @@ def setChatJSON(request):
 
         #Si hay, llamamos a la funcion getMessages
         if existing_chats.exists(): 
+            print("hi")
             chat = existing_chats.first()  # Usamos .first() para obtener el primer chat
-            return getMessages(request, chat.id)
+            return getMessagesJSON(request, chat.id)
         else:
             #Si no hay, creamos el chat y asociamos a los usuarios al chat
             new_chat = Chat.objects.create()
@@ -181,9 +186,11 @@ def chatView(request):
     user = User.objects.get(pk=4)  # Usar el usuario con ID 4 para esta prueba
     employees = Empleado.objects.all()
     chats_usuario = UsuarioChat.objects.filter(usuario=user).values_list('chat_id', flat=True)
+    print(chats_usuario)
     chats_user = []
 
     for chat_id in set(chats_usuario):
+        print(chat_id)
         # Obtener el último mensaje del chat
         mensaje = Mensaje.objects.filter(chat_id=chat_id).order_by('-fecha', '-hora').first()
 
@@ -211,7 +218,8 @@ def chatView(request):
             }
 
             chats_user.append(chat_info)
-            
+            print("----------")
+            print(chat_info)
             # Ordenar los chats por la fecha y hora del último mensaje en orden descendente
             chats_user.sort(key=lambda x: x['fecha_hora'], reverse=True)
 
@@ -221,7 +229,7 @@ def allClients(request):
     clients = Cliente.objects.all()
     clients_data = [
         {
-            'id': client.id, 
+            'id': client.user.id, 
             'nombre': client.user.first_name
         } 
         for client in clients
@@ -232,7 +240,7 @@ def allEmployees(request):
     employees = Empleado.objects.all()
     employees_data = [
         {
-            'id': employee.id, 
+            'id': employee.user.id, 
             'nombre': employee.user.first_name
         } 
         for employee in employees
