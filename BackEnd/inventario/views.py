@@ -4,7 +4,8 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Producto, Pedido, Linea
 from administracion.models import Cliente
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.utils import timezone
 
 
@@ -22,10 +23,57 @@ def pedidos(request):
     return render(request, "inventario/pedidos.html", {'orders': orders})
 
 
+def nuevoArticulo(request):
+    tipos = Producto.TIPO
+
+    return render(request, "inventario/nuevoArticulo.html", {'tipos': tipos})
+
+def guardarArticulo(request):
+    if request.method == 'POST':
+        descripcion = request.POST.get('descripcion')
+        #especificaciones
+        nombre = request.POST.get('nombre')
+        tipo = request.POST.get('tipo')
+        precio = request.POST.get('precio')
+        precio_descuento = request.POST.get('descuento')
+        #imagen
+        
+        try:
+            newProduct = Producto.objects.create(
+                descripcion = descripcion,
+                #especificaciones
+                nombre = nombre,
+                tipo = tipo,
+                precio = precio,
+                precio_descuento = precio_descuento if precio_descuento else None,
+                #imagen
+            )
+
+            messages.success(request, 'Producto añadido correctamente.')
+        except Exception as e:
+            messages.error(request, 'Error al añadir el producto.' + str(e))
+
+        return redirect("/articulos")
+        
+
 def detalleArticulo(request, product_id=None):
     product = Producto.objects.get(pk=product_id)
+    especificaciones = product.especificaciones
 
-    return render(request, "inventario/detalleArticulo.html", {'product': product})
+    return render(request, "inventario/detalleArticulo.html", {'product': product, 'especificaciones': especificaciones})
+
+def eliminarArticulo(request, product_id=None):
+    products = Producto.objects.all()
+
+    try:
+
+        product = Producto.objects.get(pk=product_id)
+        product.delete()
+        messages.success(request, 'Producto eliminado correctamente.')
+    except Exception as e:
+        messages.error(request, 'Error al eliminar el producto.')
+
+    return redirect("/articulos")
 
 
 @csrf_exempt

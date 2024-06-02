@@ -181,7 +181,7 @@
 #clearFiltersBtn{
     border-radius: 10px;
 }
-.containerFiltros > .filtros > #client, .containerFiltros > .filtros > #headquarter {
+.containerFiltros > .filtros > #client_filter {
     opacity: 0.5;
 }
 

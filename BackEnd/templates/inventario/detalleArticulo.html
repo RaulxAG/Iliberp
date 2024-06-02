@@ -19,39 +19,64 @@
                 <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
                 Editar
             </button>
-            <button class="button" id="buttonEdit">
+            <button class="button" id="buttonEdit" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                 <i class="fa-solid fa-trash-can" style="color: #f8f8f8;"></i>
                 Eliminar
-            </button> 
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Desea borrar el producto: <b>"{{ product.nombre }}"</b> con el ID <b>"{{ product.id }}"</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/eliminarArticulo-{{ product.id }}'">Si, Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
         
         <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
             <div class="row gy-4">
                 <div class="col-6">
                     <h6 class="fw-bold">Descripción</h6>
-                    <textarea class="form-control bg-transparent barScroll" rows="7" id="descripcion" disabled>{{product.descripcion}}</textarea>
+                    <textarea class="form-control bg-dark barScroll" rows="7" id="descripcion" disabled>{{product.descripcion}}</textarea>
                 </div>
                 <div class="col-6">
                     <h6 class="fw-bold">Especificaciones</h6>
-                    <textarea class="form-control bg-transparent barScroll" rows="7" id="espeficicaciones" disabled>{{product.especificaciones}}</textarea>
+                    <ul class="list-group bg-dark barScroll text-light h-75 overflow-y-scroll">
+                        {% for key, value in especificaciones.items %}
+                            <li class="list-group-item bg-dark text-light d-flex justify-content-between">
+                                <strong>{{ key }}:</strong> {{ value }}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="col-3">
                     <h6 class="fw-bold">Nombre</h6>
-                    <input type="text" class="form-control bg-transparent barScroll" id="nombre" value="{{product.nombre}}" disabled>
+                    <input type="text" class="form-control bg-dark barScroll" id="nombre" value="{{product.nombre}}" disabled>
                 </div>
                 <div class="col-3">
                     <h6 class="fw-bold">Tipo</h6>
-                    <select class="form-control bg-transparent barScroll" id="descripcion" disabled>
+                    <select class="form-select bg-dark barScroll text-light" id="descripcion" disabled>
                         <option value="{{product.tipo}}" selected>{{product.get_tipo_display}}</option>
                     }</select>
                 </div>
                 <div class="col-3">
                     <h6 class="fw-bold">Precio</h6>
-                    <input type="text" class="form-control bg-transparent barScroll" id="precio" value="{{product.precio}}" disabled>
+                    <input type="text" class="form-control bg-dark barScroll" id="precio" value="{{product.precio}}" disabled>
                 </div>
                 <div class="col-3">
                     <h6 class="fw-bold">Precio descuento</h6>
-                    <input type="text" class="form-control bg-transparent barScroll" id="descuento" value="{{product.precio_descuento}}" disabled>
+                    <input type="text" class="form-control bg-dark barScroll" id="descuento" value="{{product.precio_descuento}}" disabled>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    especificaciones = models.JSONField()
+    especificaciones = models.JSONField(blank=True, null=True)
     precio_descuento = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     tipo = models.CharField(max_length=20,choices=TIPO)
     destacado = models.BooleanField(default=False)
