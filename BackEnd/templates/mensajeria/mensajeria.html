@@ -74,12 +74,13 @@
             
             <div class="containerCreateMensaje bg-dark mx-1 row align-items-center py-3 d-none">
                 <i class="fa-solid fa-circle-plus col-1 p-0 h2 m-0" style="color: #e65522;"></i>
-                <input type="text" placeholder="Escribe un mensaje" class="col-10 py-1">
-                <i class="fa-solid fa-paper-plane col-1 p-0 m-0 h4" style="color: #e65522;"></i>
+                <input type="text" placeholder="Escribe un mensaje" id="inputNewMesagge" class="col-10 py-1">
+                <i class="fa-solid fa-paper-plane col-1 p-0 m-0 h4" id="btnEnviar" style="color: #e65522;"></i>
             </div>
         </section>
     </section>
 
     <script src="{% static 'js/mensajeria.js' %}"></script>
     <script src="{% static 'js/newMensaje.js' %}"></script>
+    <script src="{% static 'js/newChat.js' %}"></script>
 {% endblock content %}

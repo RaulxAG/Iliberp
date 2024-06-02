@@ -8,6 +8,7 @@ let chatId
 let containerMensajes = document.getElementById("containerMensajes");
 let scrollMensajes = document.querySelector('.containerMensajes');
 let leerMas = false; //Para evitar que cuando se hace solo click, se incremente la pág
+let receptor
 
 containers.forEach(container => {
     // Agregar un evento de clic a cada elemento
@@ -27,7 +28,22 @@ containers.forEach(container => {
         leerMas = false;
 
         cargarMensajes(chatId,pagActual,true)
+
+        // Enviar nuevo mensaje
+        let btnEnviar = document.querySelector('#btnEnviar');
+        let inputNewMesagge = document.querySelector('#inputNewMesagge');
+        btnEnviar.addEventListener('click', function() {
+            console.log("hi")
+            let messageText = inputNewMesagge.value;
+            if (messageText) {
+                // Crear un nuevo mensaje en el servidor
+                createNewMessage( receptor, chatId, messageText);
+                // Limpiar el campo de entrada
+                inputNewMesagge.value = '';
+            }
+        });
     });
+    
 });
 
 function cargarMensajes(chatId,page, habilitarLeerMas = false) {
@@ -54,6 +70,7 @@ function cargarMensajes(chatId,page, habilitarLeerMas = false) {
             divMensaje.appendChild(pMensaje)
             divMensaje.appendChild(pHora)
 
+            receptor=data.participants[0].id
             //Añdirlos al principio
             containerMensajes.prepend(divMensaje);
         });
@@ -82,3 +99,24 @@ scrollMensajes.addEventListener('scroll', function() {
         console.log("hi")
     }
 });
+
+
+function createNewMessage(userId, chatId, texto) {
+    fetch('/setMessageJSON/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id: userId,
+            chat_id: chatId,
+            texto: texto
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Recargar mensajes con la primera página
+        cargarMensajes(chatId, 1);
+    })
+    .catch(error => console.error('Error creating message:', error));
+}
