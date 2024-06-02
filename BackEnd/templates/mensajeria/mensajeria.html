@@ -47,24 +47,39 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </form>
             <div class="chats pt-2">
-                {% for chat in chat_data %}
+                
+                {% for chat in chats_user %}
                 <div class="containerPersona d-flex row overflow-hidden align-items-end bg-dark p-1">
                     <figure class="col-3">
                         <img src="{% static 'assets/img/logoIncident.png' %}" alt="" class="rounded-circle bg-dark "/>
                     </figure>
                     <p class="col-9 ultMensaje">{{chat.remitente}}: {{ chat.texto }}</p>
                     <p class="col-12 text-end small">{{ chat.fecha_hora }}</p>
+                    <input type="hidden" name="idChat" value="{{chat.chat_id}}" id="idChat">
                 </div>
                 {% endfor %}
             </div>
             
         </section>
-        <section class="w-75 box d-flex">
-            <div class="m-auto">
-                SELECCIONE UN CHAT O CREA UN NUEVO CHAT
+        <section class="w-75 box d-flex flex-column h-100 " id="containerChat">
+            <h2 class="border-bottom p-3" id="nombreUsuario"></h2>
+            <div class="flex-grow-1 my-3 containerMensajes position-relative barScroll">
+                <div class="d-flex w-100 flex-column gap-4 " id="containerMensajes">
+                    <p class="m-auto pt-5 mt-5">SELECCIONE UN CHAT O CREE UNO NUEVO</p> 
+                    <!-- <div class="bg-dark text-center position-sticky top-0">
+                        <p>Hoy</p>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="containerCreateMensaje bg-dark mx-1 row align-items-center py-3 d-none">
+                <i class="fa-solid fa-circle-plus col-1 p-0 h2 m-0" style="color: #e65522;"></i>
+                <input type="text" placeholder="Escribe un mensaje" class="col-10 py-1">
+                <i class="fa-solid fa-paper-plane col-1 p-0 m-0 h4" style="color: #e65522;"></i>
             </div>
         </section>
     </section>
 
     <script src="{% static 'js/mensajeria.js' %}"></script>
+    <script src="{% static 'js/newMensaje.js' %}"></script>
 {% endblock content %}

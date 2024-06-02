@@ -44,16 +44,36 @@ def getChatsJSON(request,user_id):
     return JsonResponse({'chats': chats_info})
 
 
+@csrf_exempt
 def getMessagesJSON(request,chat_id):
     #Obtenemos la página que quiere ver
     page = request.GET.get('page')
+    user_id = request.GET.get('user')
+
+    # user = User.objects.get(pk=user_id)
+    user = User.objects.get(pk=4)
     if not page:
         page=1
     chat= Chat.objects.get(pk=chat_id)
-    messages = Mensaje.objects.filter(chat=chat).order_by('fecha', 'hora')
+    messages = Mensaje.objects.filter(chat=chat).order_by('-fecha', '-hora')
     messagesJson=[]
+
+    participants = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=user)
+        
+    # Extract IDs and usernames of other participants
+    participants_info = [{
+        'id': participant.usuario.id,
+        'nombre': participant.usuario.username
+    } for participant in participants]
     
     paginator = Paginator(messages, 8)
+    total_pages = paginator.num_pages
+
+    if not page or not page.isdigit() or int(page) > total_pages or int(page) < 1:
+        page = total_pages
+    else:
+        page = int(page)
+
     try:
         # Obtener los mensajes de la página actual
         page_obj = paginator.page(page)
@@ -63,17 +83,24 @@ def getMessagesJSON(request,chat_id):
 
     for message in page_obj:
         message_info = {
-            'usuario': message.usuario.username,
+            'mensaje_id': message.id,
+            'usuario': message.usuario.id,
             'chat': message.chat.id,
             'texto': message.texto,
+            # 'fichero': message.fichero.url if message.fichero else None,
             'fecha': message.fecha.strftime('%Y-%m-%d'),
-            'hora': message.hora.strftime('%H:%M:%S'),
-            'num_pages': paginator.num_pages
+            'hora': message.hora.strftime('%H:%M'),
         }
         messagesJson.append(message_info)
+    
+    # Devolver los mensajes en JSON junto con el número de página actual y el número total de páginas
+    pagesJson = {
+        'current_page': page_obj.number,
+        'total_pages': paginator.num_pages
+    }
 
     # Devolver los mensajes en JSON
-    return JsonResponse({'messages': messagesJson})
+    return JsonResponse({'participants': participants_info, 'messages': messagesJson, 'pages': pagesJson})
 
 @csrf_exempt
 def setMessageJSON(request):
@@ -154,7 +181,7 @@ def chatView(request):
     user = User.objects.get(pk=4)  # Usar el usuario con ID 4 para esta prueba
     employees = Empleado.objects.all()
     chats_usuario = UsuarioChat.objects.filter(usuario=user).values_list('chat_id', flat=True)
-    chats_info = []
+    chats_user = []
 
     for chat_id in set(chats_usuario):
         # Obtener el último mensaje del chat
@@ -183,9 +210,12 @@ def chatView(request):
                 'remitente': remitente,
             }
 
-            chats_info.append(chat_info)
+            chats_user.append(chat_info)
+            
+            # Ordenar los chats por la fecha y hora del último mensaje en orden descendente
+            chats_user.sort(key=lambda x: x['fecha_hora'], reverse=True)
 
-    return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chat_data': chats_info})
+    return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chats_user': chats_user})
 
 def allClients(request):
     clients = Cliente.objects.all()
@@ -208,4 +238,5 @@ def allEmployees(request):
         for employee in employees
     ] 
     return JsonResponse(employees_data, safe=False)
+
 
