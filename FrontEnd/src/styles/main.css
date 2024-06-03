@@ -19,11 +19,11 @@ body {
   padding: 1%;
 }
 .containerPrincipal .menuLateral {
-  width: 7%;
+  width: 4%;
   min-width: 70px;
 }
 .containerPrincipal .contenedor {
-  width: 93%;
+  width: 96%;
   display: flex;
   flex-direction: column;
 }
