@@ -54,3 +54,11 @@
     text-wrap: nowrap;
   }
 }
+
+#formFiltros{
+  option:hover{
+    appearance: none!important;
+    cursor: pointer;
+    background-color: #ccc!important;
+  }
+}

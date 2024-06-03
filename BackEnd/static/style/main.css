@@ -313,6 +313,12 @@ body {
   text-wrap: nowrap;
 }
 
+#formFiltros option:hover {
+  appearance: none !important;
+  cursor: pointer;
+  background-color: #ccc !important;
+}
+
 .menuLateral.box {
   padding: 0;
   margin: 0;

@@ -125,8 +125,21 @@ def editIncidentJSON(request,incident_id):
 
 
 def incidentsView(request):
-    incidents= Incidencia.objects.all()
-    return render(request, 'incidencias/incidentsView.html', {'incidents': incidents})
+    departaments = Empleado.DEPARTAMENTOS
+    states = Incidencia.ESTADOS
+    clients = Cliente.objects.all()
+    empleados = Empleado.objects.all()
+    priorities = Incidencia.PRIORIDADES
+    
+    incidents = Incidencia.objects.all()
+    return render(request, 'incidencias/incidentsView.html', {
+        'incidents': incidents,
+        'clients': clients,
+        'departaments': departaments,
+        'priorities': priorities,
+        'states': states,
+        'empleados': empleados
+    })
 
 def reloadIncident(request, incident_id=None, line_id=None):
     return redirect('detailsIncident', incident_id=incident_id)
@@ -274,3 +287,168 @@ def detailsLine(request, line_id):
         'fin':line.fin
     }
     return JsonResponse(line_data)
+
+@csrf_exempt
+def updateFilterIncident(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+        # Obtener los filtros de la solicitud POST
+        date_filter = data.get('date')
+        employee_filter = data.get('employee')
+        priority_filter = data.get('priority')
+        client_filter = data.get('client')
+        state_filter = data.get('state')
+        category_filter = data.get('category')
+
+        # Obtener todas las incidencias
+        incidents = Incidencia.objects.all()
+
+        # Aplicar los filtros
+        if employee_filter:
+            incidents = incidents.filter(empleado_id=employee_filter)
+        if priority_filter:
+            incidents = incidents.filter(prioridad=priority_filter)
+        if client_filter:
+            incidents = incidents.filter(cliente_id=client_filter)
+        if state_filter:
+            incidents = incidents.filter(estado=state_filter)
+        if category_filter:
+            incidents = incidents.filter(categoria=category_filter)
+
+        # Aplicar filtro de fecha
+        if date_filter:
+            if date_filter == 'asc':
+                incidents = incidents.order_by('fecha_inicio')
+            elif date_filter == 'desc':
+                incidents = incidents.order_by('-fecha_inicio')
+
+        # Preparar la respuesta
+        data = [{
+            'id': incident.id,
+            'description': incident.descripcion,
+            'comments': incident.observaciones,
+            'employee_asigned': incident.empleado.user.username if incident.empleado else None,
+            'client': {
+                'username': incident.cliente.user.username if incident.cliente else None,
+            } if incident.cliente else None,
+            'date': incident.fecha_inicio.strftime('%d/%m/%Y') if incident.fecha_inicio else None,
+            'priority': incident.get_prioridad_display(),
+            'state': incident.get_estado_display(),
+            'category': incident.get_categoria_display(),
+        } for incident in incidents]
+        
+        return JsonResponse(data, safe=False)
+    else:
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
+
+@csrf_exempt
+def updateFilterEmployes(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        option = data.get('option')
+        search = data.get('search')
+
+    employees = Empleado.objects.all()
+    
+    if option == 'first_name':
+        employees = employees.filter(user__first_name__icontains=search)
+    elif option == 'last_name':
+        employees = employees.filter(user__last_name__icontains=search)
+    elif option == 'dni':
+        employees = employees.filter(dni__icontains=search)
+    elif option == 'telefono':
+        employees = employees.filter(telefono__icontains=search)
+    elif option == 'departamento':
+        employees = employees.filter(departamento__icontains=search)
+
+    results = []
+    for employee in employees:
+        results.append({
+            'id': employee.id,
+            'user': {
+                'first_name': employee.user.first_name,
+                'last_name': employee.user.last_name,
+            },
+            'dni': employee.dni,
+            'telefono': employee.telefono,
+            'departamento': employee.departamento,
+        })
+    
+    return JsonResponse(results, safe=False)
+
+@csrf_exempt
+def updateFilterClients(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        option = data.get('option')
+        search = data.get('search')
+
+    clients = Cliente.objects.all()
+    
+    if option == 'first_name':
+        clients = clients.filter(user__first_name__icontains=search)
+    elif option == 'last_name':
+        clients = clients.filter(user__last_name__icontains=search)
+    elif option == 'dni':
+        clients = clients.filter(dni__icontains=search)
+    elif option == 'telefono1':
+        clients = clients.filter(telefono1__icontains=search)
+    elif option == 'telefono2':
+        clients = clients.filter(telefono2__icontains=search)
+    elif option == 'empresa':
+        clients = clients.filter(empresa__nombre__icontains=search)
+
+    results = []
+    for client in clients:
+        results.append({
+            'id': client.id,
+            'user': {
+                'first_name': client.user.first_name,
+                'last_name': client.user.last_name,
+            },
+            'dni': client.dni,
+            'telefono1': client.telefono1,
+            'telefono2': client.telefono2,
+            'empresa': client.empresa.nombre,
+        })
+    
+    return JsonResponse(results, safe=False)
+
+
+@csrf_exempt
+def updateFilterEnterprises(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        option = data.get('option')
+        search = data.get('search')
+
+    enterprises = Empresa.objects.all()
+    
+    if option == 'nombre':
+        enterprises = enterprises.filter(nombre__icontains=search)
+    elif option == 'cif_nif':
+        enterprises = enterprises.filter(cif_nif__icontains=search)
+    elif option == 'direccion':
+        enterprises = enterprises.filter(direccion__icontains=search)
+    elif option == 'email':
+        enterprises = enterprises.filter(email__icontains=search)
+    elif option == 'telefono1':
+        enterprises = enterprises.filter(telefono1__icontains=search)
+    elif option == 'telefono2':
+        enterprises = enterprises.filter(telefono2__icontains=search)
+
+    results = []
+    for enterprise in enterprises:
+        results.append({
+            'id': enterprise.id,
+            'nombre': enterprise.nombre,
+            'cif': enterprise.cif_nif,
+            'direccion': enterprise.direccion,
+            'email': enterprise.email,
+            'telefono1': enterprise.telefono1,
+            'telefono2': enterprise.telefono2,
+        })
+    
+    return JsonResponse(results, safe=False)
