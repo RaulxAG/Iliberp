@@ -1,0 +1,53 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<div class="containerInicio d-flex w-100">
+    <div class="portadaForms m-auto row justify-content-between position-relative">
+        <div class="portadaRegistro col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Crear cuenta</h3>
+            <div class="">
+                <i class="fa-solid fa-user" style="color: #f8f8f8;"></i>
+            </div>
+            <p>¿Aún no tienes cuenta? Regístrate</p>
+            <button onclick="FORMULARIO('left')">Regístrate</button>
+        </div>
+        <div class="portadaLogin col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Iniciar Sesión</h3>
+            <div>
+                <i class="fa-solid fa-user" style="color: #f8f8f8;"></i>
+            </div>
+            <button onclick="FORMULARIO('right')">Iniciar Sesión</button>
+        </div>
+
+        <div class="formularios position-absolute" id="formularios">
+            <div class="formIniciarSesion d-flex flex-column" id="formIniciarSesion">
+                <h3 class="text-uppercase">Iniciar Sesión</h3>
+                <form action="" class="d-flex flex-column gap-4 mt-4">
+                    <input type="text" placeholder="Usuario"/>
+                    <input type="password" placeholder="Contraseña"/>
+                </form>
+                <p class="mt-4">¿Has olvidado tu contraseña?</p>
+                <a href="{% url 'clientsView' %}">
+                   <button>Iniciar Sesión</button> 
+                </a>
+                
+            </div>
+            <div class="formRegistrarse d-flex flex-column d-none" id="formRegistrarse">
+                <h3 class="text-uppercase">Crear cuenta</h3>
+                <form action="" class="d-flex flex-column gap-4">
+                    <input type="text" placeholder="Usuario"/>
+                    <input type="password" placeholder="Contraseña"/>
+                    <input type="text" placeholder="Nombre completo"/>
+                    <input type="tel" placeholder="Teléfono"/>
+                    <input type="email" placeholder="Email"/>
+                </form>
+                <button>Registrarme</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/formInicio.js' %}"></script>
+{% endblock content %}

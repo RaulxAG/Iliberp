@@ -40,7 +40,7 @@ export default function Producto({producto, carrito, setCarrito}){
                 <img src={laptopImg} alt="laptop" />
                 <h4 className='mt-2 pb-2 border-bottom'> {producto.nombre} </h4>
             </div>
-            <p className='producto__descripcion text-center'> {producto.descripcion} </p>
+            <p className='producto__descripcion text-center m-0'> {producto.descripcion} </p>
             <div className="producto__precio">
                 <p>{producto.precio_descuento}€</p>
                 <div onClick={addCarrito}>

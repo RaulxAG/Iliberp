@@ -30,7 +30,7 @@ window.onload=()=> {
     //Crear el boton de aceptar
     let buttonAceptar = document.createElement('button');
     buttonAceptar.textContent = "Aceptar";
-    buttonAceptar.className = "btnAceptar button";
+    buttonAceptar.className = "btnAceptar button mt-2";
     buttonAceptar.id = "btnAceptar";
     //Añadirlo pero lo ocultamos para luego mostrarlo en 'Nuevo empleado'
     formularioCrud.appendChild(buttonAceptar)  

@@ -37,7 +37,9 @@ export default function FormInicio() {
                                 <input type="text" placeholder="Contraseña"/>
                             </form>
                             <p className='mt-4'>¿Has olvidado tu contraseña?</p>
-                            <button>Iniciar Sesión</button>
+                            <a href="/tienda">
+                                <button>Iniciar Sesión</button>
+                            </a>
                         </div>
                     :
                         <div className="formRegistrarse">

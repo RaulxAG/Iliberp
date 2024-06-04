@@ -181,7 +181,7 @@ def saveClient(request):
         dni = data.get('dni')
         telefono1 = data.get('telefono1')
         telefono2 = data.get('telefono2')
-        empresa_id = data.get('empresa')
+        empresa_id = 1
         accion = data.get('action')
         
         empresa_id = int(empresa_id)

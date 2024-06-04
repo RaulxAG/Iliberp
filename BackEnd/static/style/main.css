@@ -93,6 +93,132 @@ body {
   transform: scale(1.06);
 }
 
+.containerInicio {
+  background-color: #5b5b5b;
+}
+.containerInicio .portadaForms {
+  background-color: #F8F8F8;
+  border-radius: 1vh;
+  text-align: center;
+  width: 50%;
+}
+.containerInicio .portadaForms .portadaRegistro,
+.containerInicio .portadaForms .portadaLogin {
+  padding: 50px 0px;
+}
+.containerInicio .portadaForms .portadaRegistro p,
+.containerInicio .portadaForms .portadaLogin p {
+  padding: 0px 10px;
+}
+.containerInicio .portadaForms .portadaRegistro div,
+.containerInicio .portadaForms .portadaLogin div {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  border-radius: 100px;
+  margin: 20px 0px 40px 0px;
+}
+.containerInicio .portadaForms .portadaRegistro button,
+.containerInicio .portadaForms .portadaLogin button {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  color: #F8F8F8;
+  padding: 5px 40px;
+  border: none;
+  border-radius: 3vh;
+  text-transform: uppercase;
+}
+.containerInicio .formularios {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  border-radius: 1vh;
+  text-align: center;
+  padding: 50px 15px;
+  transition: left 0.3s linear;
+}
+.containerInicio .formularios .formRegistrarse form {
+  padding: 10px 0px;
+  gap: 12px !important;
+}
+.containerInicio .formularios .formRegistrarse form input {
+  padding: 3px 10px;
+}
+.containerInicio .formularios h3 {
+  color: #F8F8F8;
+}
+.containerInicio .formularios form input {
+  background-color: rgba(255, 255, 255, 0.399);
+  border: 1px solid #F8F8F8;
+  border-radius: 1vh;
+  padding: 3px 10px;
+  margin: 0px 20px;
+}
+.containerInicio .formularios form input::placeholder {
+  color: #F8F8F8;
+}
+.containerInicio .formularios button {
+  background-color: #1E2225;
+  color: #F8F8F8;
+  padding: 5px 25px;
+  border: none;
+  border-radius: 3vh;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* pantallas pequeñas */
+@media only screen and (max-width: 767px) {
+  .containerInicio .portadaForms {
+    width: 95%;
+  }
+  .containerInicio h3 {
+    font-size: 19px;
+  }
+  .containerInicio p,
+  .containerInicio input,
+  .containerInicio button {
+    font-size: 12px;
+    margin: 0 !important;
+  }
+  .containerInicio p {
+    margin-top: 15px !important;
+  }
+  .containerInicio button {
+    margin-top: 10px !important;
+  }
+}
+/* Pantallas medianas*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .containerInicio .portadaForms {
+    width: 75%;
+  }
+  .containerInicio h3 {
+    font-size: 22px;
+  }
+  .containerInicio p,
+  .containerInicio input,
+  .containerInicio button {
+    font-size: 14px;
+  }
+}
+/* Pantallas grandes*/
+@media only screen and (min-width: 992px) {
+  .containerInicio .portadaForms {
+    width: 50%;
+  }
+  .containerInicio h3 {
+    font-size: 24px;
+  }
+  .containerInicio p, .containerInicio input, .containerInicio button {
+    font-size: 14px;
+  }
+}
 .tabla thead th:last-child {
   border-radius: 0px 10px 0px 0px;
 }

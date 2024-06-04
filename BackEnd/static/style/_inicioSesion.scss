@@ -1,0 +1,153 @@
+.containerInicio {
+    background-color: $colorGray2;
+
+    .portadaForms {
+        background-color: $colorWhite;
+        border-radius: 1vh;
+        text-align: center;
+        width: 50%;
+
+        .portadaRegistro,
+        .portadaLogin {
+            padding: 50px 0px;
+
+            p {
+                padding: 0px 10px;
+            }
+
+            div {
+                background-image: $gradient;
+                width: 100px;
+                height: 100px;
+                @include flex-centered;
+                font-size: 60px;
+                border-radius: 100px;
+                margin: 20px 0px 40px 0px;
+            }
+
+            button {
+                background-image: $gradient;
+                color: $colorWhite; 
+                padding: 5px 40px;
+                border: none;
+                border-radius: 3vh;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .formularios {
+        top: 0;
+        left: 50%;
+        //left: 0;
+        height: 100%;
+        width: 50%;
+        background-image: $gradient;
+        border-radius: 1vh;
+        text-align: center;
+        padding: 50px 15px;
+        transition: left 0.3s linear;
+
+        .formRegistrarse form{
+            padding: 10px 0px;
+            gap: 12px!important;
+            input{
+              padding: 3px 10px;  
+            }
+            
+        }
+        h3 {
+            color: $colorWhite;
+        }
+
+        form {
+            input {
+                background-color: rgba(255, 255, 255, 0.399);
+                border: 1px solid $colorWhite;
+                border-radius: 1vh;
+                padding: 3px 10px;
+                margin: 0px 20px;
+
+                &::placeholder {
+                    color: $colorWhite;
+                }
+            }
+
+        }
+
+        button {
+            background-color: $colorBlack;
+            color: $colorWhite;
+            padding: 5px 25px;
+            border: none;
+            border-radius: 3vh;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+    }
+}
+
+// -------------MEDIA QUERY---------------
+/* pantallas pequeñas */
+@media only screen and (max-width: 767px) {
+    .containerInicio {
+        .portadaForms {
+            width: 95%;
+        }
+
+        h3 {
+            font-size: 19px;
+        }
+
+        p,
+        input,
+        button {
+            font-size: 12px;
+            margin: 0 !important;
+
+        }
+        p{
+            margin-top: 15px!important;
+        }
+        button {
+            margin-top: 10px !important;
+        }
+    }
+}
+
+/* Pantallas medianas*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .containerInicio {
+        .portadaForms {
+            width: 75%;
+        }
+
+        h3 {
+            font-size: 22px;
+        }
+
+        p,
+        input,
+        button {
+            font-size: 14px;
+        }
+    }
+}
+
+/* Pantallas grandes*/
+@media only screen and (min-width: 992px) {
+    .containerInicio {
+        .portadaForms {
+            width: 50%;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p,input,button {
+            font-size: 14px;
+        }
+
+    }
+}

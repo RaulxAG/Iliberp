@@ -3,12 +3,12 @@
 <section class="menuLateral box">
     <div class="d-flex flex-column align-items-center justify-content-between h-100">
         <section class="menuLateral__profile border-bottom">
-            <img src="{% static 'assets/img/logoChatBlanco.png' %}" class="profile__photo" alt="Foto de perfil" />
+            <img src="{% static 'assets/img/usuario.png' %}" class="profile__photo" alt="Foto de perfil" />
         </section>
         <section class="menuLateral__enlaces h-100 w-100">
             <ul>
               <li class="">
-                  <a href="/" class="position-relative">
+                  <a href="{% url 'chatView' %}" class="position-relative">
                       <img src="{% static 'assets/img/logoChat.png' %}" alt=""  class=""/>
                       <div class="position-absolute">
                           <img src="{% static 'assets/img/logoChatBlanco.png' %}" alt="" />
@@ -17,7 +17,7 @@
                   </a>
               </li>
               <li class="">
-                  <a href="/" class="position-relative">
+                  <a href="{% url 'incidentsView' %}" class="position-relative">
                       <img src="{% static 'assets/img/logoIncident.png' %}" alt="" />
                       <div class="position-absolute">
                           <img src="{% static 'assets/img/logoIncidentBlanco.png' %}" alt="" />
