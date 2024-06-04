@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'iliberp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mi_tienda',
-        'USER': 'root',
-        'PASSWORD': 'toor',
-        'HOST': 'localhost', 
+        'NAME': 'iliberp',
+        'USER': 'admin',
+        'PASSWORD': 'toor.123',
+        'HOST': 'database-iliberp.cnagmic4a231.us-east-1.rds.amazonaws.com', 
         'PORT': '3306', 
     }
 }
