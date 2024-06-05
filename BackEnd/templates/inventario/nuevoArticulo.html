@@ -1,0 +1,86 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencia{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5"> 
+        <h2 class='tittleDetalle'>Añadiendo Nuevo Producto</h2>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            <a href="javascript:history.back()" class="buttonReverse buttonVolver">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                Volver
+            </a>
+        </div>
+        
+        <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
+            <form action="{% url 'guardarArticulo' %}" method="post">
+                {% csrf_token %}
+                <div class="row gy-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold">Descripción</h6>
+                        <textarea class="form-control bg-dark barScroll text-light" rows="7" id="descripcion" name="descripcion">{{product.descripcion}}</textarea>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold">Especificaciones</h6>
+                        <ul id="especificaciones-list" class="list-group bg-dark barScroll text-light h-75 overflow-y-scroll">
+                            <li class=" bg-dark text-light d-flex justify-content-between m-0 p-0 gap-1">
+                                <input type="text" placeholder="Botones" id="nombre-especificacion" class="form-control bg-secondary text-light" placeholder="Nombre">
+                                <input type="text" placeholder="8" id="valor-especificacion" class="form-control bg-secondary text-light" placeholder="Valor">
+                                <button id="btn-agregar-especificacion" class="btn btn-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                    </svg>
+                                </button>
+                            </li>
+                            {% for key, value in especificaciones.items %}
+                                <li class="list-group-item bg-dark text-light d-flex justify-content-between">
+                                    <strong>{{ key }}:</strong> {{ value }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold">Nombre</h6>
+                        <input type="text" class="form-control bg-dark barScroll text-light" id="nombre" name="nombre">
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold">Tipo</h6>
+                        <select class="form-select bg-dark barScroll text-light" id="tipo" name="tipo">
+                            {% for tipo_value, tipo_text in tipos %}
+                                <option class="bg-secondary" value="{{tipo_value}}" selected>{{tipo_text}}</option>
+                            {% endfor %}
+                        }</select>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold">Precio</h6>
+                        <input type="text" class="form-control bg-dark barScroll text-light" id="precio" name="precio">
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold">Precio descuento</h6>
+                        <input type="text" class="form-control bg-dark barScroll text-light" id="descuento" name="descuento" value="{{product.precio_descuento}}">
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold">Destacado</h6>
+                        <input type="checkbox" class="input form-check-input bg-dark barScroll text-light" id="destacado" name="destacado">
+                    </div>
+                    <div class="formulario__buttons d-flex justify-content-end">
+                        <button type="submit" class="btn button--bg d-flex justify-content-between align-items-center">
+                            <i class="fa-solid fa-plus"></i>
+                            <p class="p-0 m-0">Añadir</p>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'js/newArticle.js' %}"></script>
+{% endblock %}

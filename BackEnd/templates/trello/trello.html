@@ -71,7 +71,7 @@
         
         <div class="w-100 d-flex align-items-center justify-content-between flex-column flex-xxl-row containerFiltros">
             <div class="filtros mb-xxl-0 mb-2 d-flex flex-wrap flex-lg-row align-items-center justify-content-center flex-column">
-                <select name="employee_asigned" id="employee_asigned" class="rounded me-1 mb-1 bg-dark text-ligth">
+                <select name="employee_asigned" id="employee_asigned_filter" class="rounded me-1 mb-1 bg-dark text-ligth">
                     <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Asignado a</option>
                     {% for employee in employees %}
                         <option class="bg-secondary text-light" value="{{employee.id}}">
@@ -79,24 +79,24 @@
                         </option>
                     {% endfor %}
                 </select>
-                <select name="date" id="date" class="rounded me-1 mb-1 bg-dark text-ligth">
+                <select name="date" id="date_filter" class="rounded me-1 mb-1 bg-dark text-ligth">
                     <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Fecha</option>
                     <option class="bg-secondary text-light" value="recientes">Más recientes</option>
                     <option class="bg-secondary text-light" value="antiguas">Más antiguas</option>
                 </select>
-                <select name="priority" id="priority" class="rounded me-1 mb-1 bg-dark text-ligth">
+                <select name="priority" id="priority_filter" class="rounded me-1 mb-1 bg-dark text-ligth">
                     <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Prioridad</option>
                     {% for priority_value, priority_text in priorities %}
                         <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
                     {% endfor %}
                 </select>
-                <select name="enterprise" id="enterprise" class="rounded me-1 mb-1 bg-dark text-ligth">  
+                <select name="enterprise" id="enterprise_filter" class="rounded me-1 mb-1 bg-dark text-ligth">  
                     <option class="bg-secondary text-light" value=""  disabled selected style="display:none;">Empresa</option>
                     {% for enterprise in enterprises %}
                         <option class="bg-secondary text-light" value="{{enterprise.id}}">{{enterprise.nombre}}</option>
                     {% endfor %}
                 </select>
-                <select name="client" id="client" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>
+                <select name="client" id="client_filter" class="rounded me-1 mb-1 bg-dark text-ligth" disabled>
                     <option class="bg-secondary text-light" value="" disabled selected style="display:none;">Cliente</option>
                     {% if clients %}
                         {% for client in clients %}
@@ -119,18 +119,15 @@
                         {% for task in tasks %}
                             {% if task.estado == 'pendiente' %}
                                 {% csrf_token %}
-
                                 <div id="{{ task.id }}" class="{{ task.prioridad }} incidentCard cardTarea bg-primary d-flex flex-column align-items-center justify-content-between py-3 w-100 h-25 bg-transparent mb-3 rounded">
-                                    <p class="px-3  text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
-
+                                    <p class="px-3 text-start">(INC-{{ task.id }}) {{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span> | {{ task.cliente.telefono1 }}</p>
                                     <div class="px-3 d-flex align-items-center justify-content-between w-100 bg-transparent">
                                         <p class="m-0">{{ task.fecha_inicio|date:"m/d/Y H:m" }}</p>
-                                        <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">            
+                                        <button type="button" class="btn btnModal" data-bs-toggle="modal" data-bs-target="#detail-{{ task.id }}">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
                                     </div>
                                 </div>
-                                    
                                 <!-- Modal -->
                                 <div class="modal fade bg-transparent" id="detail-{{ task.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -140,32 +137,74 @@
                                                     <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                     <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                     <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
-                                                    <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                                    <h2 class="modal-title fs-5 text-start">({{ task.estado }})</h2>
                                                 </div>
-
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body text-start">
                                                 <div>
                                                     <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
-                                                    <p class="bg-secondary p-3 rounded">
+                                                    <p class="bg-secondary p-3 rounded" id="descripcion-{{ task.id }}">
                                                         {{ task.descripcion }}
                                                     </p>
+                                                    <textarea name="descripcion" class="form-control d-none bg-dark text-light" value="{{ task.descripcion }}" id="input-descripcion-{{ task.id }}">{{ task.descripcion }}</textarea>
                                                 </div>
                                                 {% if task.observaciones %}
                                                     <div>
                                                         <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
-                                                        <p class="bg-secondary p-3 rounded">
+                                                        <p class="bg-secondary p-3 rounded" id="observaciones-{{ task.id }}">
                                                             {{ task.observaciones }}
                                                         </p>
+                                                        <textarea name="observaciones" class="form-control d-none bg-dark text-light" value="{{ task.observaciones }}" id="input-observaciones-{{ task.id }}">{{ task.observaciones }}</textarea>
                                                     </div>
                                                 {% endif %}
                                                 <div class="row">
-                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
-                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
-                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
-                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
-                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                        Prioridad: </span><span id="prioridad-{{ task.id }}">{{ task.prioridad }}</span>
+                                                        <select name="priority" id="input-prioridad-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                            <option class="bg-secondary text-light" value="{{ task.prioridad }}" disabled selected style="display:none;">{{ task.prioridad }}</option>
+                                                            {% for priority_value, priority_text in priorities %}
+                                                                <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </p>
+                                                    
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                        Empleado asignado: </span><span id="empleado-{{ task.id }}">{{ task.empleado.user.username }}</span>
+                                                        <select name="employee_asigned" id="input-empleado-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                            <option class="bg-secondary text-light" value="{{ task.empleado.user.id }}" disabled selected style="display:none;">{{ task.empleado.user.username }}</option>
+                                                            {% for employee in employees %}
+                                                                <option class="bg-secondary text-light" value="{{employee.id}}">
+                                                                    {{employee.user.username}}
+                                                                </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </p>
+                                                    
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                        Categoría: </span><span id="categoria-{{ task.id }}">{{ task.categoria }}</span>
+
+                                                        <select name="category" id="input-categoria-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                            <option class="bg-secondary text-light" value="{{ task.categoria }}" disabled selected style="display:none;">{{ task.categoria }}</option>
+                                                            {% for category_value, category_text in categories %}
+                                                                <option class="bg-secondary text-light" value="{{ category_value }}">{{ category_text }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </p>
+                                                    
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                        Fecha límite: </span><span id="fecha_fin-{{ task.id }}">{{ task.fecha_fin }}</span>
+                                                        <input type="date" class="form-control d-none bg-dark text-light" id="input-fecha_fin-{{ task.id }}" {% if task.fecha_fin %} value="{{ task.fecha_fin }}" {% endif %}>
+                                                    </p>
+                                                    
+                                                    <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                        Fecha: </span><span id="fecha_inicio-{{ task.id }}">{{ task.fecha_inicio|date:"d/m/y H:m" }}</span>
+                                                        <input type="datetime-local" class="form-control d-none bg-dark text-light" id="input-fecha_inicio-{{ task.id }}" {% if task.fecha_inicio %} value="{{ task.fecha_inicio|date:"Y-m-d\TH:i" }}" {% endif %}>
+                                                    </p>
+                                                </div>
+                                                <div class="row gap-2 justify-content-end pe-2">
+                                                    <button class="w-25 btn btn-outline-secondary text-light" id="edit-btn-{{ task.id }}" onclick="toggleEdit({{ task.id }})">Editar</button>
+                                                    <button class="w-25 btn btn-outline-success d-none" id="save-btn-{{ task.id }}" onclick="saveChanges({{ task.id }})">Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +212,7 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                    </div>
+                    </div>                    
                 </div>
                 
             </div>
@@ -205,32 +244,74 @@
                                                 <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
-                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                                <h2 class="modal-title fs-5 text-start">({{ task.estado }})</h2>
                                             </div>
-
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
                                             <div>
                                                 <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
-                                                <p class="bg-secondary p-3 rounded">
+                                                <p class="bg-secondary p-3 rounded" id="descripcion-{{ task.id }}">
                                                     {{ task.descripcion }}
                                                 </p>
+                                                <textarea name="descripcion" class="form-control d-none bg-dark text-light" value="{{ task.descripcion }}" id="input-descripcion-{{ task.id }}">{{ task.descripcion }}</textarea>
                                             </div>
                                             {% if task.observaciones %}
                                                 <div>
                                                     <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
-                                                    <p class="bg-secondary p-3 rounded">
+                                                    <p class="bg-secondary p-3 rounded" id="observaciones-{{ task.id }}">
                                                         {{ task.observaciones }}
                                                     </p>
+                                                    <textarea name="observaciones" class="form-control d-none bg-dark text-light" value="{{ task.observaciones }}" id="input-observaciones-{{ task.id }}">{{ task.observaciones }}</textarea>
                                                 </div>
                                             {% endif %}
                                             <div class="row">
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Prioridad: </span><span id="prioridad-{{ task.id }}">{{ task.prioridad }}</span>
+                                                    <select name="priority" id="input-prioridad-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.prioridad }}" disabled selected style="display:none;">{{ task.prioridad }}</option>
+                                                        {% for priority_value, priority_text in priorities %}
+                                                            <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Empleado asignado: </span><span id="empleado-{{ task.id }}">{{ task.empleado.user.username }}</span>
+                                                    <select name="employee_asigned" id="input-empleado-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.empleado.user.id }}" disabled selected style="display:none;">{{ task.empleado.user.username }}</option>
+                                                        {% for employee in employees %}
+                                                            <option class="bg-secondary text-light" value="{{employee.id}}">
+                                                                {{employee.user.username}}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Categoría: </span><span id="categoria-{{ task.id }}">{{ task.categoria }}</span>
+
+                                                    <select name="category" id="input-categoria-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.categoria }}" disabled selected style="display:none;">{{ task.categoria }}</option>
+                                                        {% for category_value, category_text in categories %}
+                                                            <option class="bg-secondary text-light" value="{{ category_value }}">{{ category_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha límite: </span><span id="fecha_fin-{{ task.id }}">{{ task.fecha_fin }}</span>
+                                                    <input type="date" class="form-control d-none bg-dark text-light" id="input-fecha_fin-{{ task.id }}" {% if task.fecha_fin %} value="{{ task.fecha_fin }}" {% endif %}>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha: </span><span id="fecha_inicio-{{ task.id }}">{{ task.fecha_inicio|date:"d/m/y H:m" }}</span>
+                                                    <input type="datetime-local" class="form-control d-none bg-dark text-light" id="input-fecha_inicio-{{ task.id }}" {% if task.fecha_inicio %} value="{{ task.fecha_inicio|date:"Y-m-d\TH:i" }}" {% endif %}>
+                                                </p>
+                                            </div>
+                                            <div class="row gap-2 justify-content-end pe-2">
+                                                <button class="w-25 btn btn-outline-secondary text-light" id="edit-btn-{{ task.id }}" onclick="toggleEdit({{ task.id }})">Editar</button>
+                                                <button class="w-25 btn btn-outline-success d-none" id="save-btn-{{ task.id }}" onclick="saveChanges({{ task.id }})">Guardar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -270,32 +351,74 @@
                                                 <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
-                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                                <h2 class="modal-title fs-5 text-start">({{ task.estado }})</h2>
                                             </div>
-
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
                                             <div>
                                                 <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
-                                                <p class="bg-secondary p-3 rounded">
+                                                <p class="bg-secondary p-3 rounded" id="descripcion-{{ task.id }}">
                                                     {{ task.descripcion }}
                                                 </p>
+                                                <textarea name="descripcion" class="form-control d-none bg-dark text-light" value="{{ task.descripcion }}" id="input-descripcion-{{ task.id }}">{{ task.descripcion }}</textarea>
                                             </div>
                                             {% if task.observaciones %}
                                                 <div>
                                                     <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
-                                                    <p class="bg-secondary p-3 rounded">
+                                                    <p class="bg-secondary p-3 rounded" id="observaciones-{{ task.id }}">
                                                         {{ task.observaciones }}
                                                     </p>
+                                                    <textarea name="observaciones" class="form-control d-none bg-dark text-light" value="{{ task.observaciones }}" id="input-observaciones-{{ task.id }}">{{ task.observaciones }}</textarea>
                                                 </div>
                                             {% endif %}
                                             <div class="row">
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Prioridad: </span><span id="prioridad-{{ task.id }}">{{ task.prioridad }}</span>
+                                                    <select name="priority" id="input-prioridad-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.prioridad }}" disabled selected style="display:none;">{{ task.prioridad }}</option>
+                                                        {% for priority_value, priority_text in priorities %}
+                                                            <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Empleado asignado: </span><span id="empleado-{{ task.id }}">{{ task.empleado.user.username }}</span>
+                                                    <select name="employee_asigned" id="input-empleado-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.empleado.user.id }}" disabled selected style="display:none;">{{ task.empleado.user.username }}</option>
+                                                        {% for employee in employees %}
+                                                            <option class="bg-secondary text-light" value="{{employee.id}}">
+                                                                {{employee.user.username}}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Categoría: </span><span id="categoria-{{ task.id }}">{{ task.categoria }}</span>
+
+                                                    <select name="category" id="input-categoria-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.categoria }}" disabled selected style="display:none;">{{ task.categoria }}</option>
+                                                        {% for category_value, category_text in categories %}
+                                                            <option class="bg-secondary text-light" value="{{ category_value }}">{{ category_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha límite: </span><span id="fecha_fin-{{ task.id }}">{{ task.fecha_fin }}</span>
+                                                    <input type="date" class="form-control d-none bg-dark text-light" id="input-fecha_fin-{{ task.id }}" {% if task.fecha_fin %} value="{{ task.fecha_fin }}" {% endif %}>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha: </span><span id="fecha_inicio-{{ task.id }}">{{ task.fecha_inicio|date:"d/m/y H:m" }}</span>
+                                                    <input type="datetime-local" class="form-control d-none bg-dark text-light" id="input-fecha_inicio-{{ task.id }}" {% if task.fecha_inicio %} value="{{ task.fecha_inicio|date:"Y-m-d\TH:i" }}" {% endif %}>
+                                                </p>
+                                            </div>
+                                            <div class="row gap-2 justify-content-end pe-2">
+                                                <button class="w-25 btn btn-outline-secondary text-light" id="edit-btn-{{ task.id }}" onclick="toggleEdit({{ task.id }})">Editar</button>
+                                                <button class="w-25 btn btn-outline-success d-none" id="save-btn-{{ task.id }}" onclick="saveChanges({{ task.id }})">Guardar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -334,32 +457,74 @@
                                                 <h2 class="modal-title fs-5 text-start">Incidencia: {{ task.id }}</h2>
                                                 <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">{{ task.cliente.empresa.nombre }} | <span>({{ task.cliente.user.username }})</span></h1>
                                                 <h1 class="modal-title fs-5 text-start">{{ task.cliente.telefono1 }}</h1>
-                                                <h2 class="modal-title fs-5 text-start" >({{ task.estado }})</h2 >
+                                                <h2 class="modal-title fs-5 text-start">({{ task.estado }})</h2>
                                             </div>
-
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
                                             <div>
                                                 <h5 class="fw-bold fs-5 mb-0">Descripcion:</h5>
-                                                <p class="bg-secondary p-3 rounded">
+                                                <p class="bg-secondary p-3 rounded" id="descripcion-{{ task.id }}">
                                                     {{ task.descripcion }}
                                                 </p>
+                                                <textarea name="descripcion" class="form-control d-none bg-dark text-light" value="{{ task.descripcion }}" id="input-descripcion-{{ task.id }}">{{ task.descripcion }}</textarea>
                                             </div>
                                             {% if task.observaciones %}
                                                 <div>
                                                     <h5 class="fw-bold fs-5 mb-0">Observaciones:</h5>
-                                                    <p class="bg-secondary p-3 rounded">
+                                                    <p class="bg-secondary p-3 rounded" id="observaciones-{{ task.id }}">
                                                         {{ task.observaciones }}
                                                     </p>
+                                                    <textarea name="observaciones" class="form-control d-none bg-dark text-light" value="{{ task.observaciones }}" id="input-observaciones-{{ task.id }}">{{ task.observaciones }}</textarea>
                                                 </div>
                                             {% endif %}
                                             <div class="row">
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Prioridad: </span>{{ task.prioridad }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Empleado asignado: </span>{{ task.empleado.user.username }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Categoría: </span>{{ task.categoria }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha límite: </span>{{ task.fecha_fin }}</p>
-                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">Fecha: </span>{{ task.fecha_inicio|date:"d/m/y H:m" }}</p>
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Prioridad: </span><span id="prioridad-{{ task.id }}">{{ task.prioridad }}</span>
+                                                    <select name="priority" id="input-prioridad-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.prioridad }}" disabled selected style="display:none;">{{ task.prioridad }}</option>
+                                                        {% for priority_value, priority_text in priorities %}
+                                                            <option class="bg-secondary text-light" value="{{ priority_value }}">{{ priority_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Empleado asignado: </span><span id="empleado-{{ task.id }}">{{ task.empleado.user.username }}</span>
+                                                    <select name="employee_asigned" id="input-empleado-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.empleado.user.id }}" disabled selected style="display:none;">{{ task.empleado.user.username }}</option>
+                                                        {% for employee in employees %}
+                                                            <option class="bg-secondary text-light" value="{{employee.id}}">
+                                                                {{employee.user.username}}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Categoría: </span><span id="categoria-{{ task.id }}">{{ task.categoria }}</span>
+
+                                                    <select name="category" id="input-categoria-{{ task.id }}" class="form-control d-none bg-dark text-light" >
+                                                        <option class="bg-secondary text-light" value="{{ task.categoria }}" disabled selected style="display:none;">{{ task.categoria }}</option>
+                                                        {% for category_value, category_text in categories %}
+                                                            <option class="bg-secondary text-light" value="{{ category_value }}">{{ category_text }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha límite: </span><span id="fecha_fin-{{ task.id }}">{{ task.fecha_fin }}</span>
+                                                    <input type="date" class="form-control d-none bg-dark text-light" id="input-fecha_fin-{{ task.id }}" {% if task.fecha_fin %} value="{{ task.fecha_fin }}" {% endif %}>
+                                                </p>
+                                                
+                                                <p class="col-6 d-flex flex-column"><span class="fw-bold">
+                                                    Fecha: </span><span id="fecha_inicio-{{ task.id }}">{{ task.fecha_inicio|date:"d/m/y H:m" }}</span>
+                                                    <input type="datetime-local" class="form-control d-none bg-dark text-light" id="input-fecha_inicio-{{ task.id }}" {% if task.fecha_inicio %} value="{{ task.fecha_inicio|date:"Y-m-d\TH:i" }}" {% endif %}>
+                                                </p>
+                                            </div>
+                                            <div class="row gap-2 justify-content-end pe-2">
+                                                <button class="w-25 btn btn-outline-secondary text-light" id="edit-btn-{{ task.id }}" onclick="toggleEdit({{ task.id }})">Editar</button>
+                                                <button class="w-25 btn btn-outline-success d-none" id="save-btn-{{ task.id }}" onclick="saveChanges({{ task.id }})">Guardar</button>
                                             </div>
                                         </div>
                                     </div>

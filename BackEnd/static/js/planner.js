@@ -47,8 +47,8 @@ const opcionesLista = {
 
 // Función para borrar filtros
 function clearFilters() {
-    // Redirigir a la vista plannerView/ sin filtros aplicados
-    window.location.href = "/plannerView/";
+    // Redirigir a la vista trello/ sin filtros aplicados
+    window.location.href = "/trello/";
 }
 
 // Inicializar la lista Sortable para cada contenedor
@@ -63,66 +63,59 @@ let filtroFecha="";
 let filtroPrioridad="";
 let filtroEmpresa="";
 let filtroCliente="";
-let filtroHeadquarter="";
 let filtroSearch="";
 urlActual=""
 
-document.getElementById("employee_asigned").addEventListener('change',function (e) {
+document.getElementById("employee_asigned_filter").addEventListener('change',function (e) {
     filtroEmpleado = this.value;
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
-document.getElementById("date").addEventListener('change',function () {
+document.getElementById("date_filter").addEventListener('change',function () {
     filtroFecha = this.value;
     console.log("Fecha seleccionado:", filtroFecha);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
-document.getElementById("priority").addEventListener('change',function () {
+document.getElementById("priority_filter").addEventListener('change',function () {
     filtroPrioridad = this.value;
     console.log("Filtro seleccionado:", filtroPrioridad);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
-document.getElementById("enterprise").addEventListener('change',function () {
+document.getElementById("enterprise_filter").addEventListener('change',function () {
     filtroEmpresa = this.value;
     console.log("Filtro seleccionado:", filtroEmpresa);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
-document.getElementById("client").addEventListener('change',function () {
+document.getElementById("client_filter").addEventListener('change',function () {
     filtroCliente = this.value;
     console.log("Filtro seleccionado:", filtroCliente);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
-})
-
-document.getElementById("headquarter").addEventListener('change',function () {
-    filtroHeadquarter = this.value;
-    console.log("Filtro seleccionado:", filtroHeadquarter);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 document.getElementById("searchInput").addEventListener('keyup',function () {
     filtroSearch = this.value;
     console.log("Filtro seleccionado:", filtroSearch);
-    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}&?search=${filtroSearch}`);
+    history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 //CODIGO PARA CUANDO SE CAMBIA LA URL, HAGA UNA PETICION AYAX CON LOS LOS FILTROS
 //fUNCION 
 // Obtener todos los elementos select por su ID 
-let selects = document.querySelectorAll('#employee_asigned, #date, #priority, #enterprise ,#headquarter,#client,#optionCategory_plannerView-Administracion,#optionCategory_plannerView-Ciberseguridad,#optionCategory_plannerView-Programacion,#optionCategory_plannerView-Telefonia,#optionCategory_plannerView-Sistemas,#optionCategory_plannerView-Taller,#optionCategory_plannerView-Web,#searchInput');
+let selects = document.querySelectorAll('#employee_asigned_filter, #date_filter, #priority_filter, #enterprise_filter, #client_filter, #optionCategory_trello-Administración, #optionCategory_trello-Ciberseguridad, #optionCategory_trello-Programación, #optionCategory_trello-Telefonía, #optionCategory_trello-Sistemas, #optionCategory_trello-Taller, #optionCategory_trello-Web, #searchInput');
 
 //Obtener los select de empresa y cliente para cambiar los desplegables (si eliges un cliente, que salga a la empresa a la que pertenece y viceversa)
-let selectEnterp = document.querySelectorAll('#enterprise, #client, #headquarter');
+let selectEnterp = document.querySelectorAll('#enterprise_filter, #client_filter');
 
 
 //Si cambia el filtro de la empresa y hay un filtro cliente, borramos el filtro del cliente, IGUAL CON SEDE";
-document.getElementById("enterprise").addEventListener("change",function () {
-    if (filtroCliente != "" || filtroHeadquarter != "" ){
+document.getElementById("enterprise_filter").addEventListener("change",function () {
+    if (filtroCliente != ""){
         filtroCliente = ""
         filtroHeadquarter = ""
-        history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?headquarter=${filtroHeadquarter}`);
+        history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}`);
     }
 })
 
@@ -130,7 +123,7 @@ document.getElementById("enterprise").addEventListener("change",function () {
 selects.forEach(function(select) {
     select.addEventListener('change', function() {
         let url= window.location.href
-        console.log(url)
+
         // Hacer una solicitud AJAX a la vista de Django
         fetch('/updateFilter/', {
            method: 'POST',
@@ -143,7 +136,6 @@ selects.forEach(function(select) {
                 date: filtroFecha,
                 employee: filtroEmpleado,
                 priority: filtroPrioridad,
-                headquarter: filtroHeadquarter,
                 client: filtroCliente,
                 enterprise: filtroEmpresa,
                 search: filtroSearch,
@@ -152,8 +144,7 @@ selects.forEach(function(select) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Tareas" + "-" +filtroCliente+ " - " + filtroEmpresa)
-            console.log(data.urlActual)
+            console.log(data)
             // Manejar los datos recibidos y actualizar la lista de incidencias en la página
             const listaTareas = document.getElementById('listaTareas');
             const tareasPendientes = document.getElementById('Pendiente');
@@ -179,7 +170,7 @@ selects.forEach(function(select) {
                 // Crea un párrafo para los detalles de la incidencia
                 const detalles = document.createElement('p');
                 detalles.classList.add('px-3', 'text-start');
-                detalles.innerHTML = `${task.id.includes("inc") ? "(INC)" : "(SOL)"} ${task.client.headquarter.enterprise} ${task.client.headquarter.locality} | <span>(${task.client.full_name})</span> | ${task.client.phone}`;
+                detalles.innerHTML = `(INC-${task.id}) ${task.client.headquarter.enterprise} | <span>(${task.client.full_name})</span> | ${task.client.phone}`;
                 nuevaIncidencia.appendChild(detalles);
 
                 // Crea un div para la fecha de la incidencia
@@ -197,7 +188,7 @@ selects.forEach(function(select) {
                 modalBoton.setAttribute('type', 'button');
                 modalBoton.classList.add('btn', 'btnModal');
                 modalBoton.setAttribute('data-bs-toggle', 'modal');
-                modalBoton.setAttribute('data-bs-target', `#detailINC-${task.id}`);
+                modalBoton.setAttribute('data-bs-target', `#detail-${task.id}`);
                 modalBoton.innerHTML = '<i class="fa-solid fa-eye"></i>';
 
                 fechaDiv.appendChild(modalBoton);
@@ -205,10 +196,10 @@ selects.forEach(function(select) {
 
                 // Crea el contenido del modal
                 const modalContent = `
-                    <div class="modal fade bg-transparent" id="detailINC-${task.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade bg-transparent" id="detail-${task.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header ${task.priority} fw-bold ${(task.priority == "Urgente" || task.priority == "Importante") ? 'text-light' : ''}">
+                                <div class="modal-header ${task.priority} fw-bold">
                                     <div>
                                         <h1 class="modal-title fs-5 text-start" id="exampleModalLabel">${task.client.headquarter.enterprise} | <span>(${task.client.full_name})</span> | ${task.client.phone}</h1>
                                         <h2 class="modal-title fs-5 text-start" >(${task.state})</h2 >
@@ -245,16 +236,17 @@ selects.forEach(function(select) {
 
                 // Determina en qué categoría debe ir la incidencia y agrega el elemento correspondiente
                 switch (task.state) {
-                    case "Pendiente":
+                    
+                    case "pendiente":
                         tareasPendientes.appendChild(nuevaIncidencia);
                         break;
-                    case "Proceso":
+                    case "proceso":
                         tareasProceso.appendChild(nuevaIncidencia);
                         break;
-                    case "Pausa":
+                    case "pausa":
                         tareasPausadas.appendChild(nuevaIncidencia);
                         break;
-                    case "Terminada":
+                    case "terminada":
                         tareasTerminadas.appendChild(nuevaIncidencia);
                         break;
                     default:
@@ -284,7 +276,6 @@ selectEnterp.forEach(function(select) {
             body: JSON.stringify({
                 enterprise: filtroEmpresa,
                 client: filtroCliente,
-                headquarter: filtroHeadquarter
             })
         })
         .then(response => response.json())
@@ -292,25 +283,17 @@ selectEnterp.forEach(function(select) {
             // console.log("clientes")
             // console.log(data)
 
-            let selectClient = document.getElementById('client');
-            let selectHeadquarter = document.getElementById('headquarter');
+            let selectClient = document.getElementById('client_filter');
             let defaultOptionClient = document.createElement("option");
-            let defaultOptionHeadquarter = document.createElement("option");
 
-            //Cambiar opacidad al select cliente y sede
+            //Cambiar opacidad al select cliente
             selectClient.style.opacity="1"
             selectClient.removeAttribute("disabled")
 
-            selectHeadquarter.style.opacity="1"
-            selectHeadquarter.removeAttribute("disabled")
-
-
             let selectedClient = selectClient.value;
-            let selectedHeadquarter = selectHeadquarter.value;
 
-            //Limpiar el select de clientes y sedes
+            //Limpiar el select de clientes
             selectClient.innerHTML = '';
-            selectHeadquarter.innerHTML = '';
 
             //Añadir atributos al select por defecto
             defaultOptionClient.text="Cliente"
@@ -319,32 +302,17 @@ selectEnterp.forEach(function(select) {
             defaultOptionClient.style.display="none"
             selectClient.appendChild(defaultOptionClient)
 
-            defaultOptionHeadquarter.text="Sede"
-            defaultOptionHeadquarter.disabled= true;
-            defaultOptionHeadquarter.selected= true;
-            defaultOptionHeadquarter.style.display="none"
-            selectHeadquarter.appendChild(defaultOptionHeadquarter)
-
-            console.log("sede seleccionada")
             // Iterar sobre el primer array de clientes
-            data[0].forEach(cliente => {
+            
+            data.forEach(cliente => {
                 let optionClient = document.createElement("option");
                 optionClient.value = cliente.client.id;
                 optionClient.text = cliente.client.full_name;
+                optionClient.classList.add("bg-dark");
                 selectClient.appendChild(optionClient);
             });
 
-            // Iterar sobre el segundo array de sedes
-            data[1].forEach(sede => {
-                let optionHeadquarter = document.createElement("option");
-                optionHeadquarter.value = sede.headquarter.id;
-                optionHeadquarter.text = sede.headquarter.locality;
-                selectHeadquarter.appendChild(optionHeadquarter);
-            });
-
             selectedClient ? selectClient.value = selectedClient : '';
-
-            selectedHeadquarter ? selectHeadquarter.value = selectedHeadquarter : '';
         })
         .catch(error => {
             console.error('Error:', error);
@@ -353,3 +321,113 @@ selectEnterp.forEach(function(select) {
 });
 
 //Si cambia el filtro de la empresa y hay un ciltro cliente: let filtroCliente="";
+
+
+// Funciones para editar y guardar cambios en las Tareas
+function toggleEdit(taskId) {
+    // Elementos a alternar
+    const descripcionElem = document.getElementById(`descripcion-${taskId}`);
+    const inputDescripcion = document.getElementById(`input-descripcion-${taskId}`);
+    const observacionesElem = document.getElementById(`observaciones-${taskId}`);
+    const inputObservaciones = document.getElementById(`input-observaciones-${taskId}`);
+    const prioridadElem = document.getElementById(`prioridad-${taskId}`);
+    const inputPrioridad = document.getElementById(`input-prioridad-${taskId}`);
+    const empleadoElem = document.getElementById(`empleado-${taskId}`);
+    const inputEmpleado = document.getElementById(`input-empleado-${taskId}`);
+    const categoriaElem = document.getElementById(`categoria-${taskId}`);
+    const inputCategoria = document.getElementById(`input-categoria-${taskId}`);
+    const fechaFinElem = document.getElementById(`fecha_fin-${taskId}`);
+    const inputFechaFin = document.getElementById(`input-fecha_fin-${taskId}`);
+    const fechaInicioElem = document.getElementById(`fecha_inicio-${taskId}`);
+    const inputFechaInicio = document.getElementById(`input-fecha_inicio-${taskId}`);
+    const saveBtn = document.getElementById(`save-btn-${taskId}`);
+    const editBtn = document.getElementById(`edit-btn-${taskId}`);
+
+    // Alternar visibilidad
+    descripcionElem.classList.toggle('d-none');
+    inputDescripcion.classList.toggle('d-none');
+    if (observacionesElem && inputObservaciones) {
+        observacionesElem.classList.toggle('d-none');
+        inputObservaciones.classList.toggle('d-none');
+    }
+    prioridadElem.classList.toggle('d-none');
+    inputPrioridad.classList.toggle('d-none');
+    empleadoElem.classList.toggle('d-none');
+    inputEmpleado.classList.toggle('d-none');
+    categoriaElem.classList.toggle('d-none');
+    inputCategoria.classList.toggle('d-none');
+    fechaFinElem.classList.toggle('d-none');
+    inputFechaFin.classList.toggle('d-none');
+    fechaInicioElem.classList.toggle('d-none');
+    inputFechaInicio.classList.toggle('d-none');
+    saveBtn.classList.toggle('d-none');
+    editBtn.classList.toggle('d-none');
+}
+
+function saveChanges(taskId) {
+    // Obtener valores de los inputs
+    const descripcion = document.getElementById(`input-descripcion-${taskId}`).value;
+    const observacionesElement = document.getElementById(`input-observaciones-${taskId}`);
+    const observaciones = observacionesElement ? observacionesElement.value : null;
+    const prioridad = document.getElementById(`input-prioridad-${taskId}`).value;
+    const empleado = document.getElementById(`input-empleado-${taskId}`).value;
+    const categoria = document.getElementById(`input-categoria-${taskId}`).value;
+    const fechaFinElement = document.getElementById(`input-fecha_fin-${taskId}`);
+    const fechaFin = fechaFinElement.value ? new Date(fechaFinElement.value).toISOString() : null;
+    const fechaInicioElement = document.getElementById(`input-fecha_inicio-${taskId}`);
+    const fechaInicio = fechaInicioElement.value ? new Date(fechaInicioElement.value).toISOString() : null;
+
+    // Crear un objeto con los datos
+    const data = {
+        'descripcion': descripcion,
+        'observaciones': observaciones,
+        'prioridad': prioridad,
+        'empleado': empleado,
+        'categoria': categoria,
+        'fecha_fin': fechaFin,
+        'fecha_inicio': fechaInicio
+    };
+
+    // Enviar los datos a través de fetch API o XMLHttpRequest
+    fetch(`/update_task/${taskId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        // Manejar la respuesta del servidor
+        if (result.success) {
+            // Actualizar la interfaz de usuario
+            document.getElementById(`descripcion-${taskId}`).innerText = descripcion;
+            
+            const observacionesElement = document.getElementById(`observaciones-${taskId}`);
+            if (observacionesElement) {
+                observacionesElement.innerText = observaciones !== null ? observaciones : '';
+            }
+
+            document.getElementById(`prioridad-${taskId}`).innerText = prioridad;
+            document.getElementById(`empleado-${taskId}`).innerText = result.empleado_username;
+            document.getElementById(`categoria-${taskId}`).innerText = categoria;
+            document.getElementById(`fecha_fin-${taskId}`).innerText = fechaFin !== null ? fechaFin : '';
+            document.getElementById(`fecha_inicio-${taskId}`).innerText = fechaInicio !== null ? fechaInicio : '';
+
+            // Alternar visibilidad
+            toggleEdit(taskId);
+
+            setTimeout(function() {
+                location.reload();
+            }, 500);
+        } else {
+            // Mostrar error
+            alert('Error al guardar los cambios');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al guardar los cambios');
+    });
+}

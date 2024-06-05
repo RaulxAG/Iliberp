@@ -1,0 +1,115 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Incidencia{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5"> 
+        <h2 class='tittleDetalle'>Pedido ( {{ order.id }} ): {{ order.cliente.user.username }}</h2>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            <a href="javascript:history.back()" class="buttonReverse buttonVolver">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                Volver
+            </a>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button>
+            <button class="button" id="buttonDelete" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                <i class="fa-solid fa-trash-can" style="color: #f8f8f8;"></i>
+                Eliminar
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Desea borrar el pedido de: <b>"{{ order.cliente.user.username }}"</b> de la empresa <b>"{{ order.cliente.empresa.nombre }}"</b> con el ID <b>"{{ order.id }}"</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/eliminarPedido-{{ order.id }}'">Si, Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="box formularioCrud px-4 pt-4 pb-5 d-flex flex-column" id="formularioCrud">
+            <form action="{% url 'guardarPedido' %}" method="post">
+                {% csrf_token %}
+
+                <input type="number" class="d-none" name="order_id" id="order_id" value="{{order.id}}">
+
+                <div class="row gy-4">
+                    <div class="col-3">
+                        <h6 class="fw-bold">Fecha</h6>
+                        <input type="date" class="input form-control bg-dark barScroll text-light fs-5" id="fecha" name="fecha" value="{{ order.fecha|date:'Y-m-d' }}" disabled>
+
+                        <h6 class="fw-bold mt-5">Cliente</h6>
+                        <select class="input form-select bg-dark barScroll text-light fs-5" name="cliente" id="cliente" disabled>
+                            <option value="{{order.cliente.id}}" selected>{{order.cliente.user.username}} - Seleccionado</option>
+                            
+                            {% for cliente in clientes %}
+                                {% if cliente.id != order.cliente.id %}
+                                    <option value="{{cliente.id}}">{{cliente.user.username}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+
+                        <h6 class="fw-bold mt-5">Direccion</h6>
+                        <input type="text" class="input form-control bg-dark barScroll text-light fs-5" id="direccion" name="direccion" value="{{ order.direccion}}" disabled>
+
+                        <h6 class="fw-bold mt-5">Estado</h6>
+                        <select class="input form-select bg-dark barScroll text-light fs-5" name="estado" id="estado" disabled>
+                            <option value="{{order.estado}}" selected>{{order.get_estado_display}} - Seleccionado</option>
+                            
+                            {% for estado_value, estado_text in estados %}
+                                {% if estado_value != order.estado %}
+                                    <option value="{{estado_value}}">{{estado_text}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-9">
+                        <h6 class="fw-bold">Productos</h6>
+                        <div class="h-50 overflow-y-scroll">
+                            {% for line in lines %}
+                                <div class="d-flex align-items-center justify-content-between bg-dark text-light border-bottom border-1 border-danger">
+                                    <p class="w-75 py-2 px-4 fs-4">{{line.articulo.nombre}} ({{line.unidades}} Uds.)</p>
+                                    <p class="w-25 text-end py-2 px-4 fs-4">{{line.articulo.precio}} €</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex flex-column align-items-center justify-content-between text-light">
+                            <p class="w-100 py-2 px-4 fs-4 text-end">Subtotal: {{order.subtotal}} €</p>
+                            <p class="w-100 py-2 px-4 fs-4 text-end">IVA: {{order.IVA}} €</p>
+                            <p class="w-100 py-2 px-4 fs-4 text-end">Total: {{order.total}} €</p>
+                        </div>
+                    </div>
+                    <div class="formulario__buttons d-flex justify-content-end d-none">
+                        <button type="submit" class="btn button--bg d-flex justify-content-between align-items-center">
+                            <i class="fa-solid fa-save"></i>
+                            <p class="p-0 m-0">Guardar</p>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'js/detailArticle.js' %}"></script>
+{% endblock %}
