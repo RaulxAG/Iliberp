@@ -36,12 +36,14 @@ body {
 
     .menuLateral{
         max-width: 70px;
+        min-width: 10%;
     }
 
     .contenedor{
         display: flex;
         flex-direction: column;
         width: 100%;
+        min-width: 90%;
     }
     
 }
@@ -65,8 +67,9 @@ body {
         content: ""; 
         position: absolute; 
         bottom: -1vh; 
-        left: 0;  
-        width: 100%; 
+        left: 50%; 
+        transform: translateX(-50%);
+        width: 70%; 
         height: 2px;  
         background-image: $gradient;
     }

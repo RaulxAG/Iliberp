@@ -74,12 +74,9 @@
 
         .filtros{
             animation: aparecerDesdeIzquierda 1s ease forwards;
-
-            min-width: 150px;
             padding: 2vh;
             background-color: $colorGray;
             max-height: 100%;
-            margin-right: 1vh;
             
             //ESTILOS TITULO ACORDEON
             .accordion-button{
@@ -114,8 +111,6 @@
         }
         .productos{
             animation:  1s ease forwards;
-
-            width: 85%;
             padding: 2vh;
             background-color: $colorGray;
             display: flex;
@@ -126,26 +121,26 @@
             overflow-y:auto;
     
             &__producto{
-                width: 42vh;
                 margin-top: 1vh;
                 padding: 2vh;
-                height: 350px;
                 
                 .abrirModalDetalle{
                     cursor: pointer;
                     img{
                         margin: auto;
-                        width: 70%;
+                        width: 100%;
                         animation: aparecerDesdeDerecha 1s ease forwards;
                         animation-delay: 0.2s;
     
                     }
                     h4{
-                        font-size: 20px;
+                        font-size: 100%;
                         text-align: center;
                         animation: aparecerDesdeIzquierda 1s ease forwards;
                         animation-delay: 0.2s;
-    
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
                 }
     
@@ -155,7 +150,6 @@
                     font-weight: 500;
                     animation: aparecerDesdeDerecha 1s ease forwards;
                     animation-delay: 0.2s;
-
                 }
                 .producto__precio{
                     font-weight: bold;
@@ -174,8 +168,8 @@
 
                     }
     
-                    div{
-                        width: 9vh;
+                    &>div{
+                        width: 25%;
                         height: 5vh;
                         display: flex;
                         align-items: center;
@@ -238,5 +232,10 @@
             background-color: $colorWhite;
         }
     }
-    
+    .btnFilter{
+        background-image: $gradient;
+        border-radius: 10%;
+    }
 }
+
+

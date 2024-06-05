@@ -32,14 +32,27 @@ export default function Producto({producto, carrito, setCarrito}){
         // Actualizar el estado del carrito
         setCarrito(nuevoCarrito);
     }
-    
+    const truncateDescrip = (text) => {
+        console.log(text.length)
+        if (text.length > 50) {
+            return text.slice(0,50) + '...';
+        }
+        return text;
+    };
+    const truncateTit = (text) => {
+        console.log(text.length)
+        if (text.length > 20) {
+            return text.slice(0,20) + '...';
+        }
+        return text;
+    };
     return(
-        <div className="productos__producto box">
+        <div className="productos__producto m-3 box col-12 col-sm-6 col-md-4">
             <div data-bs-toggle="modal" data-bs-target="#modalDetalle" className='d-flex flex-column abrirModalDetalle'>
                 <img src={laptopImg} alt="laptop" />
                 <h4 className='mt-2 pb-2 border-bottom'> {producto.nombre} </h4>
             </div>
-            <p className='producto__descripcion text-center m-0'> {producto.descripcion} </p>
+            <p className='producto__descripcion text-center m-0'> {truncateDescrip(producto.descripcion)} </p>
             <div className="producto__precio">
                 <p>{producto.precio}€</p>
                 <div onClick={addCarrito}>

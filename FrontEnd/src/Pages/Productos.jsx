@@ -104,10 +104,12 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     return (
         <>
+            <div className='row justify-content-center'>
+                {productosOrdenados.map(producto => (
+                    <Producto key={producto.id} producto={producto} carrito={carrito} setCarrito={setCarrito}></Producto>
+                ))}
+            </div>
             
-            {productosOrdenados.map(producto => (
-                <Producto key={producto.id} producto={producto} carrito={carrito} setCarrito={setCarrito}></Producto>
-            ))}
             {cargarSpinner &&
                 <div className='w-100 d-flex'>
                     <div className="spinner-border mx-auto" role="status">
@@ -116,8 +118,8 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
                 </div>
                 
             }
-            <div className='w-100 d-flex'>
-                <button className='btn btn-dark mx-auto' onClick={cargarMasProductos}>Ver mas</button>
+            <div className='w-100 d-flex pt-3'>
+                <button className='btn btn-dark mx-auto' onClick={cargarMasProductos}>Ver más</button>
             </div>
             
         </>
