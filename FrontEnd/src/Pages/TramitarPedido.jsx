@@ -149,12 +149,12 @@ export default function TramitarPedido() {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <div className='p-4 px-5 mx-5'>
+                                <div className='py-4 mx-5 containerFormPedido'>
                                     {activeStep === 0 && (
                                         <Box>
                                             {/* Información de envío */}
                                             <form className='row' onSubmit={handleSubmit(onSubmit)}>
-                                                <div className="mb-3 col-9">
+                                                <div className="mb-3 col-md-9 col-12">
                                                     <TextField 
                                                             id="outlined-basic" 
                                                             label="Calle" 
@@ -163,7 +163,7 @@ export default function TramitarPedido() {
                                                     />
                                                     {errors.calle && <span className="text-warning">Debes indicar la calle</span>}
                                                 </div>
-                                                <div className="mb-3 col-3">
+                                                <div className="mb-3 col-md-3 col-12">
                                                     <TextField 
                                                             id="outlined-basic" 
                                                             label="Número, piso, portal..." 
@@ -178,7 +178,7 @@ export default function TramitarPedido() {
                                                     />
                                                     {errors.numero && <span className="text-warning">{errors.numero.message}</span>}
                                                 </div>
-                                                <div className="mb-3 col-4">
+                                                <div className="mb-3 col-md-4 col-12">
                                                     <TextField 
                                                         id="outlined-basic" 
                                                         label="Provincia" 
@@ -187,7 +187,7 @@ export default function TramitarPedido() {
                                                     />
                                                     {errors.provincia && <span className="text-warning">Debes indicar la provincia</span>}
                                                 </div>
-                                                <div className="mb-3 col-4">
+                                                <div className="mb-3 col-md-4 col-12">
                                                     <TextField 
                                                         id="outlined-basic" 
                                                         label="Localidad" 
@@ -196,7 +196,7 @@ export default function TramitarPedido() {
                                                         />
                                                         {errors.localidad && <span className="text-warning">Debes indicar la localidad</span>}
                                                 </div>
-                                                <div className="mb-3 col-4">
+                                                <div className="mb-3 col-md-4 col-12">
                                                     <TextField 
                                                         id="outlined-basic" 
                                                         label="Código postal" 
@@ -217,13 +217,13 @@ export default function TramitarPedido() {
                                     {activeStep === 1 && (
                                         <Box>
                                             {/* Información de pago */}
-                                            <div className='containerTarjetaCredito row d-flex justify-content-around my-3'>
-                                                <div className="tarjetaCredito col-5">
-                                                    <p className='h2'>123 456 789 012</p>
-                                                    <p className='h2'>09/23</p>
-                                                    <p>JUDITH MANJON FERNANDEZ</p>
+                                            <div className='containerTarjetaCredito my-3 w-75 m-auto d-flex flex-column '>
+                                                <div className="tarjetaCredito mb-3 p-3 m-auto d-md-block d-none">
+                                                    <p className='h2'>{watch('numeroTarjeta') ? watch('numeroTarjeta') : '0000 0000 0000 000'}</p>
+                                                    <p className='h2'>{watch('mm') && watch('yy') ? `${watch('mm')}/${watch('yy')}` : 'MM/YY'}</p>
+                                                    <p>{watch('nombreTitular') ? watch('nombreTitular') : 'Nombre Titular Predeterminado'}</p>
                                                 </div>
-                                                <form action="" className='row justify-content-between col-6'>
+                                                <form action="" className='row justify-content-between'>
                                                     <div className="mb-3 col-12">
                                                     <TextField
                                                         id="numeroTarjeta"
@@ -248,8 +248,8 @@ export default function TramitarPedido() {
                                                         />
                                                         {errors.nombreTitular && <span className="text-warning">{errors.nombreTitular.message}</span>}
                                                     </div>
-                                                    <div className='col-8 row'>
-                                                        <div className="mb-3 col-4">
+                                                    <div className='col-md-8 col-12 row '>
+                                                        <div className="mb-3 col-md-4 col-12">
                                                         <TextField
                                                             id="mm"
                                                             label="MM"
@@ -264,8 +264,8 @@ export default function TramitarPedido() {
                                                         />
                                                         {errors.mm && <span className="text-warning">{errors.mm.message}</span>}
                                                         </div>
-                                                        <p className='col-1 h2 text-center'>/</p>
-                                                        <div className="mb-3 col-4">
+                                                        <p className='col-1 h2 text-center d-md-block d-none'>/</p>
+                                                        <div className="mb-3 col-md-4 col-12">
                                                         <TextField
                                                             id="yy"
                                                             label="YY"
@@ -282,7 +282,7 @@ export default function TramitarPedido() {
                                                         </div>
                                                     </div>
                                                     
-                                                    <div className="mb-3 col-4">
+                                                    <div className="mb-3 col-md-4 col-12">
                                                     <TextField
                                                         id="cvv"
                                                         label="CVV"

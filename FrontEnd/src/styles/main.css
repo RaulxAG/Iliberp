@@ -161,7 +161,7 @@ body {
   right: 0;
   margin: 2%;
   height: 77vh;
-  width: 75vh;
+  width: 80%;
   z-index: 3;
   border-radius: 1vh;
   overflow-y: scroll;
@@ -473,9 +473,21 @@ body {
   background-image: url(../../public/assets/img/tarjetaCredito.PNG);
   border-radius: 1vh;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  width: 100%;
 }
 
+@media (max-width: 770px) {
+  .MuiStepper-root.MuiStepper-horizontal.css-m5vj9m-MuiStepper-root {
+    display: none !important;
+  }
+  .containerTramite {
+    width: 100% !important;
+  }
+  .containerFormPedido {
+    margin: 0 !important;
+  }
+}
 .menuLateral.box {
   padding: 0;
   margin: 0;

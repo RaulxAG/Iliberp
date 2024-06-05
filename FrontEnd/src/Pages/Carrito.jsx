@@ -31,7 +31,7 @@ export default function Carrito({carrito,setCarritoVisible, setCarrito}) {
             <button onClick={()=>setCarritoVisible(false)}>X</button>
             <div className="contenedorCarrito__productos box">
                 {carrito.map((producto)=>(
-                    <div className="card mb-3 p-3 contenedorCarrito__productos__producto" key={producto.nombre}>
+                    <div className="card w-100 mb-3 p-3 contenedorCarrito__productos__producto" key={producto.nombre}>
                         <div className="row g-0">
                             <div className="col-md-4 d-flex justify-content-center align-items-center">
                                 <img src={laptopImg} className="img-fluid rounded-start m-2" alt="..." />

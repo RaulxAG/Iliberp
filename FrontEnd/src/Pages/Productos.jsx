@@ -104,7 +104,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     return (
         <>
-            <div className='row justify-content-center'>
+            <div className='row justify-content-center w-100'>
                 {productosOrdenados.map(producto => (
                     <Producto key={producto.id} producto={producto} carrito={carrito} setCarrito={setCarrito}></Producto>
                 ))}
