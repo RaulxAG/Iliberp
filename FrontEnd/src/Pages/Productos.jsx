@@ -7,7 +7,8 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     const [productosFiltradosCategoria, setProductosFiltradosCategoria] = useState([]);
     const [productosFiltradosBusqueda, setProductosFiltradosBusqueda] = useState([]);
     const [productosFiltradosPrecio, setProductosFiltradosPrecio] = useState([]);
-   
+    const [pagina, setPagina] = useState(1);
+    const [cargarSpinner,setCargarSpinner] = useState(true)
 
     // Cuando cambia la URL, actualizamos el valor de búsqueda
     useEffect(() => {
@@ -18,16 +19,23 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     
     // Llamada para obtener todos los productos
     useEffect(() => {
-        fetch('http://localhost:8000/getProductsJSON/')
+        setCargarSpinner(true);
+        fetch(`http://localhost:8000/getProductsJSON/?page=${pagina}`)
             .then(response => response.json())
             .then(data => {
-                setProductos(data.products);
+                setCargarSpinner(false);
+                if (pagina!=1) {
+                    setProductos(prevProductos => [...prevProductos, ...data.products]);
+                }else{
+                    setProductos(data.products)
+                }
+                
                 setProductosFiltradosCategoria(data.products); // Inicializar con todos los productos
                 setProductosFiltradosBusqueda(data.products); // Inicializar con todos los productos
                 setProductosFiltradosPrecio(data.products); // Inicializar con todos los productos
             })
             .catch(error => console.error('Error al obtener productos:', error));
-    }, [setProductos]);
+    }, [pagina]);
 
     // Llamada para obtener productos por categoría
     useEffect(() => {
@@ -90,11 +98,28 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
             break;
     }
 
+    const cargarMasProductos = () => {
+        setPagina(prevPagina => prevPagina + 1);
+    };
+
     return (
         <>
+            
             {productosOrdenados.map(producto => (
                 <Producto key={producto.id} producto={producto} carrito={carrito} setCarrito={setCarrito}></Producto>
             ))}
+            {cargarSpinner &&
+                <div className='w-100 d-flex'>
+                    <div className="spinner-border mx-auto" role="status">
+                        <span className="visually-hidden mx-auto">Loading...</span>
+                    </div>
+                </div>
+                
+            }
+            <div className='w-100 d-flex'>
+                <button className='btn btn-dark mx-auto' onClick={cargarMasProductos}>Ver mas</button>
+            </div>
+            
         </>
     );
 }

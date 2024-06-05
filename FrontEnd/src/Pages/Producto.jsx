@@ -32,7 +32,6 @@ export default function Producto({producto, carrito, setCarrito}){
         // Actualizar el estado del carrito
         setCarrito(nuevoCarrito);
     }
-    console.log(carrito)
     
     return(
         <div className="productos__producto box">
@@ -42,7 +41,7 @@ export default function Producto({producto, carrito, setCarrito}){
             </div>
             <p className='producto__descripcion text-center m-0'> {producto.descripcion} </p>
             <div className="producto__precio">
-                <p>{producto.precio_descuento}€</p>
+                <p>{producto.precio}€</p>
                 <div onClick={addCarrito}>
                     { comprado 
                         ? 
