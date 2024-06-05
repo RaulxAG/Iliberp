@@ -65,6 +65,12 @@
 }
 
 /* Estilos para la lista de tareas */
+/* .listaTareas {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+} */
+
 .listaTareas > div {
     background-color: var(--light-blue);
     border-radius: 10px;

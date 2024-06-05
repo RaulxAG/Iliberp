@@ -6,7 +6,7 @@
 {% block content %}
     {% include 'global/submenu.html' %}
 
-    <section class="box d-flex flex-column contenedor">
+    <section class="sectionPedidos box d-flex flex-column contenedor">
         {% if messages %}
             <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
                 <symbol id="check-circle-fill" viewBox="0 0 16 16">
@@ -38,7 +38,7 @@
 
         <h2 class='tittle' id="titulo">Pedidos</h2>
 
-        <div class="mx-auto overflow-hidden w-75 px-2">
+        <div class="pedidos__contenido mx-auto overflow-hidden w-75 px-2">
             <div class="d-flex justify-content-end">
                 
                 <a href="/nuevoPedido/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
@@ -53,8 +53,8 @@
                         <tr>
                             <th class="p-3">ID</th>
                             <th class="p-3">Fecha</th>
-                            <th class="p-3">Direccion</th>
-                            <th class="p-3">Cliente</th>
+                            <th class="p-3 d-none d-sm-table-cell">Direccion</th>
+                            <th class="p-3 d-none d-sm-table-cell">Cliente</th>
                             <th class="p-3">Estado</th>
                         </tr>
                     </thead>
@@ -62,9 +62,9 @@
                         {% for order in orders %}
                             <tr class="tabla__linea" onclick="window.location.href = '/detallePedido-{{ order.id }}';">
                                 <td>{{order.id}}</td>
-                                <td>{{order.fecha}}</td>
-                                <td>{{order.direccion}}</td>
-                                <td>{{order.cliente.user.username}}</td>
+                                <td>{{order.fecha|date:"d/m/Y"}}</td>
+                                <td class="d-none d-sm-table-cell">{{order.direccion}}</td>
+                                <td class="d-none d-sm-table-cell">{{order.cliente.user.username}}</td>
                                 <td>{{order.get_estado_display}}</td>
                             </tr>
                         {% endfor %} 

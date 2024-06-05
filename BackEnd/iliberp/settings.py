@@ -97,6 +97,14 @@ DATABASES = {
         'PASSWORD': 'root',
         'PORT': ''
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'iliberp',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'jxTgO5052vqVqKW1XXMh',
+    #     'HOST': 'database-iliberp.cnnczsc7ytbi.us-east-1.rds.amazonaws.com',
+    #     'PORT': '3306'
+    # }
 }
 
 

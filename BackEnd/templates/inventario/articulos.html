@@ -6,7 +6,7 @@
 {% block content %}
     {% include 'global/submenu.html' %}
 
-    <section class="box d-flex flex-column contenedor">
+    <section class="sectionArticulos box d-flex flex-column contenedor">
         
         {% if messages %}
             <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -39,7 +39,7 @@
 
         <h2 class='tittle' id="titulo">Articulos</h2>
 
-        <div class="mx-auto overflow-hidden w-75 px-2">
+        <div class="articulos__contenido mx-auto overflow-hidden w-75 px-2">
             <div class="d-flex justify-content-end">
                 
                 <a href="/nuevoArticulo/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
@@ -54,9 +54,9 @@
                         <tr>
                             <th class="p-3">ID</th>
                             <th class="p-3">Nombre</th>
-                            <th class="p-3">Tipo</th>
+                            <th class="p-3 d-none d-sm-table-cell">Tipo</th>
                             <th class="p-3 text-center">Destacado</th>
-                            <th class="p-3 text-end">Precio</th>
+                            <th class="p-3 d-none d-md-table-cell text-end">Precio</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,9 +64,9 @@
                             <tr class="tabla__linea" onclick="window.location.href = '/detalleArticulo-{{ product.id }}';">
                                 <td>{{product.id}}</td>
                                 <td>{{product.nombre}}</td>
-                                <td>{{product.tipo}}</td>
+                                <td class="d-none d-sm-table-cell">{{product.tipo}}</td>
                                 <td class="text-center">{% if product.destacado == True %} <i class="fa-solid fa-circle-check" style="color: #63E6BE;"></i> {% else %} <i class="fa-solid fa-circle-xmark" style="color: #e66565;"></i> {% endif %}</td>
-                                <td class="text-end">{{product.precio}} €</td>
+                                <td class="d-none d-md-table-cell text-end">{{product.precio}} €</td>
                             </tr>
                         {% endfor %} 
                     </tbody>

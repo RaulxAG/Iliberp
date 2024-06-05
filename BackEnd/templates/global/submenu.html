@@ -2,14 +2,14 @@
 
 <section class="menuLateral box d-flex flex-column align-items-center justify-content-between">
     <div>
-        <section class="menuLateral__profile">
+        <a class="link menuLateral__profile" href="/" >
             <img src="{% static 'assets/img/usuario.png' %}" class="profile__photo" alt="Foto de perfil" />
-            <a class="link" href="/"><p>Usuario</p></a>
-        </section>
+            <p class="m-0 d-none d-sm-inline">Usuario</p>
+        </a>
 
 
         <section class="menuLateral__enlaces">
-            <ul>
+            <ul class="enlaces__lista">
                 <li>
                     <a href="/inicio" id="option_inicio">
                         <i class="fa-solid fa-house"></i>
@@ -42,10 +42,9 @@
                 </li>
             </ul>
         </section>
-    </div>
 
-    <section class="menuLateral__logo d-flex align-items-center justify-content-center py-2">
-        <img src="{% static 'assets/img/logo.png' %}" alt="logo" />
-    </section>
-    
+        <section class="menuLateral__logo d-flex d-none d-sm-block align-items-center justify-content-center py-2">
+            <img src="{% static 'assets/img/logo.png' %}" alt="logo" />
+        </section>
+    </div>
 </section> 

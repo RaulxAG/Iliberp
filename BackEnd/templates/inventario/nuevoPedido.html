@@ -6,10 +6,10 @@
 {% block content %}
 <!-- Menu lateral -->
 {% include 'global/submenu.html' %} 
-<section class="main box d-flex contenedor">
+<section class="sectionPedidoNuevo main box d-flex contenedor">
     <div id="alertas"></div>
-    <div class="mx-auto w-75 my-5"> 
-        <h2 class='tittleDetalle'>Pedido ( {{ order.id }} ): {{ order.cliente.user.username }}</h2>
+    <div class="mx-auto w-75 my-5 h-50"> 
+        <h2 class='tittleDetalle'>Añadiendo Nuevo Pedido</h2>
         <div class="d-flex justify-content-end mt-3 gap-2">
             <a href="javascript:history.back()" class="buttonReverse buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
@@ -17,12 +17,12 @@
             </a>
         </div>
         
-        <div class="box formularioCrud px-4 pt-4 pb-5 d-flex flex-column" id="formularioCrud">
+        <div class="box formularioCrud px-4 pt-4 pb-2 d-flex flex-column" id="formularioCrud">
             <form action="{% url 'guardarPedido' %}" method="post">
                 {% csrf_token %}
 
                 <div class="row gy-4">
-                    <div class="col-3">
+                    <div class="col-12 col-lg-3">
                         <h6 class="fw-bold">Fecha</h6>
                         <input type="date" class="input form-control bg-dark barScroll text-light fs-5" id="fecha" name="fecha">
 
@@ -48,8 +48,8 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-9">
-                        <h6 class="fw-bold">Productos</h6>
+                    <div class="col-12 col-lg-9">
+                        <h6 class="formularioCrud__productos col-12 col-lg-9 fw-bold">Productos</h6>
                         <div class="d-flex mb-2">
                             <select class="input form-select bg-dark barScroll text-light fs-5" name="producto" id="producto">
                                 <option value="-" selected style="display: none;"> - Seleccionar -</option>
@@ -75,7 +75,7 @@
                             <p class="w-100 py-2 px-4 fs-4 text-end">Total: {{order.total}} €</p>
                         </div>
                     </div>
-                    <div class="formulario__buttons d-flex justify-content-end d-none">
+                    <div class="formulario__buttons mt-3 d-flex justify-content-end d-none">
                         <button type="submit" class="btn button--bg d-flex justify-content-between align-items-center">
                             <i class="fa-solid fa-save"></i>
                             <p class="p-0 m-0">Guardar</p>

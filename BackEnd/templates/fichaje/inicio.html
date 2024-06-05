@@ -6,7 +6,21 @@
 {% block content %}
     {% include 'global/submenu.html' %}
 
-    <section class="box d-flex flex-column contenedor">
+    <section class="sectionInicio box d-flex flex-column contenedor">
         <h2 class='tittle' id="titulo">Bienvenido Admin</h2>
+
+        <div class="inicio__buttons m-auto mt-3 d-flex align-items-center justify-content-center w-50 gap-5">
+            <a href="/pedidos" type="button" class="btn button--bg w-50" >
+                <p class="m-0 fs-5">Mis Jornadas</p>
+            </a>
+            <a href="/articulos" type="button" class="btn button--bg w-50">
+                <p class="m-0 fs-5">Todas las jornadas</p>
+            </a>
+
+        </div>
+
+        <div class="inicio__comenzar h-75 w-50 m-auto d-flex align-items-center justify-content-center">
+            <button type="button" class="w-100 btn button--bg">Empezar Jornada</button>
+        </div>
     </section>
 {% endblock %}
