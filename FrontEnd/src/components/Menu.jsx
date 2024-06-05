@@ -7,14 +7,14 @@ export default function Menu({ selected }) {
     return (
       <section className="menuLateral box d-flex flex-column align-items-center justify-content-between">
             <div>
-                <section className="menuLateral__profile">
+                <Link className="link" to={"/login"} className="menuLateral__profile">
                     <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
-                    <Link className="link" to={"/login"}><p>Usuario</p></Link>
-                </section>
+                    <p className="d-none d-sm-inline">Usuario</p>
+                </Link>
 
 
                 <section className="menuLateral__enlaces">
-                    <ul>
+                    <ul className="enlaces__lista">
                         <li>
                             <a href="/" className={selected === "inicio" ? "selected" : ""}>
                                 <i className="fa-solid fa-house"></i>
@@ -44,7 +44,7 @@ export default function Menu({ selected }) {
                 </section>
             </div>
 
-            <section className="menuLateral__logo d-flex align-items-center justify-content-center py-2">
+            <section className="menuLateral__logo d-flex align-items-center justify-content-center py-2  d-none d-sm-block">
                 <img src="/assets/img/logo.png" alt="logo" />
             </section>
             

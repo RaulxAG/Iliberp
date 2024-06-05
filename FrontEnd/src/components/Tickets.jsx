@@ -85,7 +85,7 @@ export default function Tickets() {
     }
 
     return (
-        <div className="tickets__botones mt-3 h-75 d-flex align-items-center justify-content-center flex-wrap gap-3 overflow-y-scroll">
+        <div className="tickets__botones mt-3 h-75 d-flex align-items-center justify-content-center flex-wrap gap-3 pt-5 pt-sm-0 overflow-y-scroll">
             {loading && (
                 <div className="spinner-border" role="status">
                     <span className="visually-hidden">Loading...</span>

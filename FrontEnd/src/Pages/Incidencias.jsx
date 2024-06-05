@@ -83,7 +83,7 @@ export default function Incidencias() {
                         </div>
                         <div className="formulario__input">
                             <label htmlFor="observaciones">Descripción de tu incidencia:</label>
-                            <textarea name="observaciones" id="observaciones" cols="30" rows="10" {...register("observaciones")}></textarea>
+                            <textarea name="observaciones" id="observaciones" cols="30" rows="5" {...register("observaciones")}></textarea>
                         </div>
                     </div>
                 </section>
@@ -97,7 +97,7 @@ export default function Incidencias() {
                         </article>
                     </figure>
 
-                    <div>
+                    <div className="acciones__botones">
                         <input type="submit" value="Enviar" id="submit" />
                         <input type="reset" value="Vaciar" id="reset" />
                     </div>

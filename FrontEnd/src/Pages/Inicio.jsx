@@ -1,5 +1,4 @@
 import Menu from "../components/Menu";
-import CardMensaje from "../components/CardMensaje";
 import ProductosDestacados from "../components/ProductosDestacados";
 import ReportarIncidencia from "../components/ReportarIncidencia";
 import Tiempo from "../components/Tiempo";

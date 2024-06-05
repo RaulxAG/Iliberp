@@ -11,32 +11,28 @@ export default function ProductosDestacados() {
             </div>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly py-2">
+                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly">
                         <CardProductoDestacado></CardProductoDestacado>
+                        <CardProductoDestacado></CardProductoDestacado>
+                        <CardProductoDestacado></CardProductoDestacado> 
+                    </section>
+                </div>
+                <div className="carousel-item">
+                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly">
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>
                     </section>
                 </div>
                 <div className="carousel-item">
-                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly py-2">
-                        <CardProductoDestacado></CardProductoDestacado>
-                        <CardProductoDestacado></CardProductoDestacado>
-                        <CardProductoDestacado></CardProductoDestacado>
-                        <CardProductoDestacado></CardProductoDestacado>
-                    </section>
-                </div>
-                <div className="carousel-item">
-                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly py-2">
-                        <CardProductoDestacado></CardProductoDestacado>
+                    <section className="carrusel__seccion d-flex align-items-center justify-content-evenly">
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>
                     </section>
                 </div>
                 <div className="carousel-item">
-                    <section className="carrusel__seccion d-flex align-items-center justify-content-between py-2">
-                        <CardProductoDestacado></CardProductoDestacado>
+                    <section className="carrusel__seccion d-flex align-items-center justify-content-between">
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>
                         <CardProductoDestacado></CardProductoDestacado>

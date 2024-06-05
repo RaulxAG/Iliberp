@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [form, setForm] = useState(true);
-    const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {

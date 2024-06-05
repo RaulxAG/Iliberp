@@ -21,8 +21,8 @@ export default function Tiempo() {
     const fetchWeatherData = async () => {
       try {
         const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYXVsYXJyb3lvODk2QGdtYWlsLmNvbSIsImp0aSI6Ijc2NTJmYzU5LTI4MDYtNDEyZS1hZGU3LWI5MDI0YzE4MzZjNiIsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzE0MzMwMTg3LCJ1c2VySWQiOiI3NjUyZmM1OS0yODA2LTQxMmUtYWRlNy1iOTAyNGMxODM2YzYiLCJyb2xlIjoiIn0.GWuYHUqQw0OQq2fzp8mG0Eygl9MmWMf_Ex34CkwFulE';
-        const response = await axios.get(
-          `https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/18003?api_key=${apiKey}` // 18022 atarfe
+        const response = await axios.get (
+          `https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/18022?api_key=${apiKey}` // 18022 atarfe, 18003
         );
 
         const { datos } = response.data;
