@@ -4,6 +4,7 @@ import TramitarPedido  from './Pages/TramitarPedido'
 import Tienda  from './Pages/Tienda'
 import { Route, Routes,BrowserRouter } from 'react-router-dom'
 import FormInicio from './Pages/FormsInicio'
+import CompraExito from './Pages/CompraExito'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path='/' element={<FormInicio />} ></Route>
           <Route path='/tienda' element={<Tienda />} ></Route>
           <Route path='/tramitar-pedido' element={<TramitarPedido />}></Route>
+          <Route path='/compraExito' element={<CompraExito />}></Route>
         </Routes>
       </BrowserRouter>
     </>
