@@ -11,8 +11,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { useLocation } from 'react-router-dom';
 import PayPalComponent from "../Components/Paypal";
-
-
+import { Link } from 'react-router-dom';
 
 const steps = ['Información de envío', 'Resumen pedido', 'Pago'];
 
@@ -118,6 +117,14 @@ export default function TramitarPedido() {
     };
 
 
+    const [address, setAddress] = useState('');
+
+    const handlePlaceChanged = () => {
+        const place = props.autocomplete.getPlace();
+        setAddress(place.formatted_address);
+    };
+
+
     return (
         <div className='containerPrincipal'>
             <Menu selected="incidencias"></Menu>
@@ -125,7 +132,7 @@ export default function TramitarPedido() {
             <div className="contenedor box">
                 <h2 className='tittle mb-5'>Tramitar pedido</h2>
                 <div className='containerTramite box w-75 mx-auto barScroll'>
-                    
+                
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
@@ -243,6 +250,12 @@ export default function TramitarPedido() {
                                                 <Typography variant="h6" className='fw-bold text-end'>Precio total del pedido: {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
                                             </Box>
                                         </div>
+                                        <Link to="/descargarInfoPedido" state= {{carrito:carrito,direccion:direccion}}>
+                                            <button className='carrito rounded-circle border-0' title='Ver carrito'>
+                                                <i className="fa-regular fa-file-pdf" style={{ color: "#f8f8f8" }}></i>
+                                            </button>
+                                        </Link>
+                                        
                                     </Box>
                                     )}
                                     {activeStep === 2 && (
@@ -352,6 +365,7 @@ export default function TramitarPedido() {
                         )}
                     </Box>
                 </div>
+                
             </div>
         </div>
     );

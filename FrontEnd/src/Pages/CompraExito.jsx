@@ -40,6 +40,7 @@ export default function CompraExito() {
                 </div>
             </div>
         </div>
+
         
     );
 }
