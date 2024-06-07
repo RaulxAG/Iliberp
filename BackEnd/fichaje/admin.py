@@ -4,4 +4,4 @@ from .models import Registro
 # Register your models here.
 @admin.register(Registro)
 class Registro(admin.ModelAdmin):
-    list_display = ('empleado', 'fecha', 'hora_inicio', 'hora_fin', 'horas_trabajadas')
+    list_display = ('empleado', 'fecha', 'inicio', 'fin')

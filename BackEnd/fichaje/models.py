@@ -5,14 +5,8 @@ from django.contrib.auth.models import User
 class Registro(models.Model):
     empleado = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora_inicio = models.TimeField()
-    hora_fin = models.TimeField()
-    horas_trabajadas = models.TimeField()
-
-    def calHorasTrabajadas(self):
-        diferencia = self.hora_fin - self.hora_inicio
-        self.horas_trabajadas = diferencia.total_seconds() / 3600 # convertir a horas
-        self.save()
+    inicio = models.DateTimeField()
+    fin = models.DateTimeField(null=True)
 
     def __str__(self):
         return "registro-" + str(self.id) + "-" + str(self.fecha) # formatear con el empleado mas adelante

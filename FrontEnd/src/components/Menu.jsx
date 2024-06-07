@@ -7,7 +7,7 @@ export default function Menu({ selected }) {
     return (
       <section className="menuLateral box d-flex flex-column align-items-center justify-content-between">
             <div>
-                <Link className="link" to={"/login"} className="menuLateral__profile">
+                <Link className="link menuLateral__profile" to={"/login"}>
                     <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
                     <p className="d-none d-sm-inline">Usuario</p>
                 </Link>

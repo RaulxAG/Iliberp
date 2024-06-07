@@ -88,7 +88,7 @@
             }
         }
 
-        .sectionPedidos, .sectionArticulos, .sectionPedidosDetalle, .sectionArticulosDetalle, .sectionArticuloNuevo, .sectionPedidoNuevo {
+        .sectionPedidos, .sectionArticulos, .sectionPedidosDetalle, .sectionArticulosDetalle, .sectionArticuloNuevo, .sectionPedidoNuevo, .sectionRegistros {
             height: 85vh;
         }
 
@@ -121,7 +121,7 @@
         }
     }
     
-    .sectionPedidos .pedidos__contenido, .sectionArticulos .articulos__contenido {
+    .sectionPedidos .pedidos__contenido, .sectionArticulos .articulos__contenido, .sectionRegistros .registros__contenido {
         width: 100% !important;
     }
 
