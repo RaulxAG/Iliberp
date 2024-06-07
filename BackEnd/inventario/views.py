@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+import requests
 import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Producto, Pedido, Linea
@@ -279,3 +280,18 @@ def cancelOrderJSON(request):
         # Si la solicitud no es POST, devolver un error
         response_data = {'error': 'Se esperaba una solicitud POST'}
         return JsonResponse(response_data, status=400)
+    
+def getProvincias(request):
+    url = "http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias"
+    response = requests.get(url)
+    data = response.json()
+    return JsonResponse(data)
+
+def getLocalidades(request,provincia):
+    url = f"http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia={provincia}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return JsonResponse(data)
+    else:
+        return JsonResponse({'error': 'No se pudieron obtener las localidades'}, status=response.status_code)
