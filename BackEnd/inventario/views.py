@@ -285,7 +285,10 @@ def getProvincias(request):
     url = "http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias"
     response = requests.get(url)
     data = response.json()
-    return JsonResponse(data)
+    # Devolver solo la info de las provincias 
+    provincias=data.get('consulta_provincieroResult', {}).get('provinciero', {})
+    
+    return JsonResponse(provincias)
 
 def getLocalidades(request,provincia):
     url = f"http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia={provincia}"
