@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Producto, Pedido, Linea
 from administracion.models import Cliente
 from django.shortcuts import render, redirect
+from datetime import datetime, timedelta, time
 from django.contrib import messages
 from django.utils import timezone
 from decimal import Decimal
@@ -104,7 +105,7 @@ def eliminarArticulo(request, product_id=None):
     return redirect("/articulos")
 
 def pedidos(request):
-    orders = Pedido.objects.all()
+    orders = Pedido.objects.all().order_by('fecha').reverse()
 
     return render(request, "inventario/pedidos.html", {'orders': orders})
 
@@ -172,6 +173,94 @@ def guardarPedido(request):
             messages.error(request, 'Error al añadir el producto.' + str(e))
 
         return redirect("/pedidos")
+
+def updateFilterOrder(request):
+    if request.method == 'POST':  # Si existe una solicitud POST
+        data = json.loads(request.body)  # Decodificar los datos JSON del cuerpo de la solicitud
+
+        # Obtener los filtros de la solicitud
+        date_filter = data.get('date')
+        state_filter = data.get('state')
+
+        orders = Pedido.objects.all()  # Obtener todas las incidencias
+
+        # Aplicar los filtros de manera lógica
+        if state_filter:
+            orders = orders.filter(estado=int(state_filter))
+
+        # Ordenar por fecha si se especifica el filtro
+        if date_filter:
+            if date_filter == 'recientes':
+                orders = orders.order_by('-fecha')
+            elif date_filter == 'antiguos':
+                orders = orders.order_by('fecha')
+
+        # Formatear la respuesta con las tareas filtradas y ordenadas
+        data = [{
+            'id': order.id,
+            'fecha': order.fecha.strftime('%Y-%m-%d'),  # Asegúrate de formatear la fecha como una cadena
+            'direccion': order.direccion,
+            'cliente': {'nombre': order.cliente.user.username},
+            'estado': order.get_estado_display(),
+        } for order in orders]
+
+        return JsonResponse(data, safe=False)  # Devolver aquí la respuesta
+    else:
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
+
+def updateFilterArticle(request):
+    if request.method == 'POST':  # Si existe una solicitud POST
+        data = json.loads(request.body)  # Decodificar los datos JSON del cuerpo de la solicitud
+
+        # Obtener los filtros de la solicitud
+        type_filter = data.get('type')
+        featured_filter = data.get('featured')
+        price_filter = data.get('price')
+
+        if featured_filter:
+            if featured_filter == 'true':
+                featured_filter = True
+            elif featured_filter == 'false':
+                featured_filter = False
+    
+            featured_filter = bool(featured_filter)  # Convierte el valor a un booleano
+        else:
+            featured_filter = None
+
+        # Ordenar por precio si se especifica el filtro
+        if price_filter:
+            if price_filter == 'ascendente':
+                articles = Producto.objects.order_by('precio')
+            elif price_filter == 'descendente':
+                articles = Producto.objects.order_by('-precio')
+        else:
+            articles = Producto.objects.all()  # Obtener todos los productos
+
+        arrayArticles = []
+
+        for article in articles:
+                arrayArticles.append(article)
+
+        # Aplicar los filtros de manera lógica usando una comprensión de lista ( si existe el filtro se aplica )
+        filtered_articles = [article for article in arrayArticles if 
+            (not type_filter or article.tipo == type_filter) and
+            (featured_filter is None or article.destacado == featured_filter)
+        ]
+
+        # Formatear la respuesta con los artículos filtrados y ordenados
+        data = [{
+            'id': article.id,
+            'nombre': article.nombre,
+            'tipo': article.tipo,
+            'destacado': article.destacado,
+            'precio': float(article.precio),
+        } for article in filtered_articles]
+
+        return JsonResponse(data, safe=False)  # Devolver aquí la respuesta
+    else:
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
 
 @csrf_exempt
 def getProductsJSON(request):

@@ -49,17 +49,66 @@
             </div>            
             
             <div class="overflow-y-auto barScroll h-75">
+                {% csrf_token %}
+
                 <table class="table table-dark table-striped tabla">
                     <thead class="fs-5 text-uppercase sticky-top">
                         <tr>
                             <th class="p-3">ID</th>
                             <th class="p-3">Nombre</th>
-                            <th class="p-3 d-none d-sm-table-cell">Tipo</th>
-                            <th class="p-3 text-center">Destacado</th>
-                            <th class="p-3 d-none d-md-table-cell text-end">Precio</th>
+                            <th class="p-3 d-none d-sm-table-cell" scope="col" data-filter-type="tipo">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="p-0 m-0">Tipo</p>
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-danger dropdown-toggle p-1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-filter"></i>
+                                        </button>
+        
+                                        <ul class="dropdown-menu">
+                                            <li><button class="dropdown-item" value="portatil">Portátil</button></li>
+                                            <li><button class="dropdown-item" value="placa">Placa</button></li>
+                                            <li><button class="dropdown-item" value="raton">Ratón</button></li>
+                                            <li><button class="dropdown-item" value="tablet">Tablet</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="p-3 text-center" scope="col" data-filter-type="destacado">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="p-0 m-0">Destacado</p>
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-danger dropdown-toggle p-1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-filter"></i>
+                                        </button>
+        
+                                        <ul class="dropdown-menu">
+                                            <li><button class="dropdown-item" value=true>Si</button></li>
+                                            <li><button class="dropdown-item" value=false>no</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="p-3 d-none d-md-table-cell" scope="col" data-filter-type="precio">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="p-0 m-0">Precio</p>
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-danger dropdown-toggle p-1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-filter"></i>
+                                        </button>
+        
+                                        <ul class="dropdown-menu">
+                                            <li><button class="dropdown-item" value="ascendente">Ascendente</button></li>
+                                            <li><button class="dropdown-item" value="descendente">Descendente</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="cuerpo-registros">
                         {% for product in products %}
                             <tr class="tabla__linea" onclick="window.location.href = '/detalleArticulo-{{ product.id }}';">
                                 <td>{{product.id}}</td>
@@ -74,4 +123,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'js/filterArticles.js' %}"></script>
 {% endblock %}
