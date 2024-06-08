@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os 
 from pathlib import Path
 
+WKHTMLTOPDF_CMD = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,6 +23,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MENSAJERIA_MEDIA_URL = '/media/mensajeria/'
 MENSAJERIA_MEDIA_ROOT = os.path.join(MEDIA_ROOT, 'mensajeria')
+
+INVENTARIO_MEDIA_URL = '/media/inventario/'
+INVENTARIO_MEDIA_URL = os.path.join(MEDIA_ROOT, 'inventario')
 
 
 

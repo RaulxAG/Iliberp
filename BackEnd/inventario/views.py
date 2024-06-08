@@ -33,7 +33,7 @@ def guardarArticulo(request):
         tipo = request.POST.get('tipo')
         precio = request.POST.get('precio')
         precio_descuento = request.POST.get('descuento')
-        #imagen
+        imagen = request.FILES.get('imagen')
         destacado = request.POST.get('destacado')
 
         if destacado == "on":
@@ -59,7 +59,7 @@ def guardarArticulo(request):
                 existingProduct.tipo = tipo
                 existingProduct.precio = precio
                 existingProduct.precio_descuento = precio_descuento if precio_descuento else None
-                #imagen
+                existingProduct.foto = imagen if imagen else None
                 existingProduct.destacado = destacado
 
                 existingProduct.save()
@@ -73,7 +73,7 @@ def guardarArticulo(request):
                     tipo = tipo,
                     precio = precio,
                     precio_descuento = precio_descuento if precio_descuento else None,
-                    #imagen
+                    foto = imagen if imagen else None,
                     destacado = destacado,
                 )
 

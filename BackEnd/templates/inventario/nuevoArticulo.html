@@ -1,7 +1,7 @@
 {% extends '../global/cdns.html' %}
 {% load static %}
 
-{% block title %}Incidencia{% endblock %}
+{% block title %}Trabajadores - ILIBERP Solutions{% endblock %}
 
 {% block content %}
 <!-- Menu lateral -->
@@ -18,7 +18,7 @@
         </div>
         
         <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
-            <form action="{% url 'guardarArticulo' %}" method="post">
+            <form action="{% url 'guardarArticulo' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row gy-4">
                     <div class="col-12 col-sm-6">
@@ -67,6 +67,10 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <h6 class="fw-bold">Destacado</h6>
                         <input type="checkbox" class="input form-check-input bg-dark barScroll text-light" id="destacado" name="destacado">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Imagen</h6>
+                        <input type="file" class="input form-file-input bg-dark barScroll text-light" id="imagen" name="imagen">
                     </div>
                     <div class="formulario__buttons d-flex justify-content-end">
                         <button type="submit" class="btn button--bg d-flex justify-content-between align-items-center">

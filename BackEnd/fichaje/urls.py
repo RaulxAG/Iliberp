@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('jornadas/', views.jornadas, name='jornadas'),
     path('jornadas-<int:id_employee>/', views.jornadas, name='jornadas'),
+
+    path('generar_pdf/', views.generar_pdf, name='generar_pdf'),
+    path('generar_pdf-<int:id_employee>/', views.generar_pdf, name='generar_pdf'),
 ]
