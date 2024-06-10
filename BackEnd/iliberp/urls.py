@@ -5,6 +5,8 @@ from iliberp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('loginApi/',views.loginApi,name='loginApi'),
+    path('registerApi/',views.registerApi,name='registerApi'),
     path('',views.inicioView,name='inicioView'),
     path('', include("administracion.urls")),
     path('', include("fichaje.urls")),

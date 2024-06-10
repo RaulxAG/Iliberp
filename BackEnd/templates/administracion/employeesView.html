@@ -9,7 +9,7 @@
     {% include 'global/submenu.html' %} 
     <section class="box d-flex flex-column contenedor px-3">
         <h2 class='tittle'>Empleados</h2>
-        <div class="mx-auto overflow-hidden">
+        <div class="mx-auto">
             <div class="d-flex justify-content-end">
                 <a href="{% url 'detailsEmployee' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
@@ -34,7 +34,8 @@
                 </div>
             </form>
             
-            <div class="box px-3 overflow-y-auto barScroll h-75">
+            <div class="h-50 overflow-auto barScroll tablaResponsiva">
+                <table class="table table-dark table-striped tabla  overflow-y-auto  h-25">
                     <thead class="fs-5 text-uppercase sticky-top">
                         <tr class="">
                             <th class="p-3">Nombre</th>
@@ -47,16 +48,17 @@
                     <tbody id="tablaEmpleados">
                         {% for employee in employees %}
                             <tr onclick="window.location.href = '/detailsEmployee-{{ employee.id }}';">
-                                <td>{{employee.user.first_name}}</td>
-                                <td>{{employee.user.last_name}}</td>
-                                <td>{{employee.dni}}</td>
-                                <td>{{employee.telefono}}</td>
-                                <td>{{employee.departamento}}</td>
+                                <td data-label="Nombre">{{employee.user.first_name}}</td>
+                                <td data-label="Apellido">{{employee.user.last_name}}</td>
+                                <td data-label="Dni">{{employee.dni}}</td>
+                                <td data-label="Telefono">{{employee.telefono}}</td>
+                                <td data-label="Departamento">{{employee.departamento}}</td>
                             </tr>
                         {% endfor %} 
                     </tbody>
                 </table>
             </div>
+            
         </div>
     </section>
 <script src="{% static 'js/filterEmployee.js' %}"></script>
