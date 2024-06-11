@@ -3,13 +3,15 @@ import ReactDOM from "react-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate } from "react-router-dom";
 
-export default function PayPalComponent({monto}) {
+
+export default function PayPalComponent({monto,direccion,carrito}) {
     const navigate = useNavigate();
 
     const finalizarPedido = () => {
+        const cliente_id = localStorage.getItem('user_id');
         const pedido = {
-            cliente_id: 1,  // Cambiar por el id cuando se loguee
-            direccion: direccion,  // Crear el string de la calle
+            cliente_id: cliente_id,  
+            direccion: direccion,  
             lineas: carrito.map(producto => ({
                 articulo_id: producto.id,
                 unidades: producto.cantidad
@@ -37,7 +39,7 @@ export default function PayPalComponent({monto}) {
     };
 
     return(
-        <PayPalScriptProvider options={{ "client-id": "test" }}>
+        <PayPalScriptProvider options={{ "client-id": "Adb73Hu6eG_mRCdzrty9qTgR9_ZSj_sAfgO_N-xhORqhANvO1lPOAP8kAVZRC4jgX8Yq8Jhc1ZKhkz_c" }}>
             <PayPalButtons
                 style={{
                     layout: 'vertical',  
@@ -51,6 +53,7 @@ export default function PayPalComponent({monto}) {
                         purchase_units: [
                             {
                                 amount: {
+                                    currency_code: "EUR",
                                     value:  monto.toString(), 
                                 },
                             },

@@ -48,7 +48,8 @@ export default function FormInicio() {
         .then(data => {
             if (data.token) {
                 window.location.href = '/tienda';
-                localStorage.setItem('token', data.token); 
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user_id', data.user_id);
             } else {
                 setMensaje(data.error || 'Error desconocido al iniciar sesión');
             }

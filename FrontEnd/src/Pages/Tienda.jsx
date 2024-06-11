@@ -1,51 +1,43 @@
 import Menu from '../Components/Menu'
-import Productos from './Productos';
+import Productos from '../Components/Productos';
+import Carrito from '../Components/Carrito';
 
-import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import laptopImg from '/assets/img/laptop.png';
-import Carrito from './Carrito';
-
-import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 
 export default function Tienda() {
+    let navegate = useNavigate();
+
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
     const [categoria, setCategoria] = useState("");
     const [orden,setOrden] = useState("nombreAsc")
     const [carritoVisible, setCarritoVisible] = useState(false);
     const [search, setSearch] = useState("")
-    const [value, setValue] = useState([0, 1500]);
     const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
-    const totalCantidad = carrito.reduce((total, producto) => total + producto.cantidad, 0); //Vamos acumulando la cantidad para mostrarla en el icono del carrito
-
-    let navegate = useNavigate();
-
+    const [value, setValue] = useState([0, 1500]);
     let precioMin=value[0]
     let  precioMax = value[1]
-    
-    function valuetext(value) {
-        return `$${value[0]} - $${value[1]}`;
-    }    
 
-    const handleChange = (event, newValue) => {
+    const totalCantidad = carrito.reduce((total, producto) => total + producto.cantidad, 0); //Vamos acumulando la cantidad para mostrarla en el icono del carrito
+  
+    //Función para que vaya actualizando el valor cuando se cambia el slider
+    const handleChange = (newValue) => {
         setValue(newValue);
     };
 
-
+    //Función que se activa cuando hacemos click en el acrodeón de las categorias y hace que se abra o se cierre
     const toggleAcordeon = () => {
         setAcordeonAbierto(!acordeonAbierto);
     };
 
     const changeSearch = (e) => {
-        const newValue = e.target.value;
-        setSearch(newValue);
-        navegate("/tienda?search=" + newValue);
+        setSearch(e.target.value);
+        navegate("/tienda?search=" + e.target.value);
     }
-
 
     return (
         <div className='containerPrincipal'>
@@ -62,13 +54,10 @@ export default function Tienda() {
                                     <p className='text-center h3 border-bottom pb-1'>Filtrar por</p>
                                     <p className='m-0 me-4 pt-2 fw-bold'>Precio</p>
                                     <Slider
-                                            getAriaLabel={() => 'Temperature range'}
-                                            value={value}
-                                            onChange={handleChange}
-                                            valueLabelDisplay="auto"
-                                            getAriaValueText={valuetext}
-                                            max={1500}
-                                        />
+                                        value={value}
+                                        onChange={handleChange}
+                                        max={1500}
+                                    />
                                     <div className="d-flex justify-content-between">
                                         <div>
                                             <p className='m-0'>min.</p> 
@@ -143,6 +132,8 @@ export default function Tienda() {
                     </div>
                 </div>
                 {/* --------------FINzyMODAL FILTROS ------------*/}
+                
+                {/* Botón de los filtros cuando la pantalla se hace pequeña */}
                 <div className='gap-1 m-auto px-4 pt-5 row  justify-content-center align-items-center'>
                     <button className='btnFilter border-0 col-4 d-flex p-2 gap-2 text-white align-items-center justify-content-between d-flex d-xl-none' title='Filtrar' data-bs-toggle="modal" data-bs-target="#modalFiltros">
                         <p className='m-0'>Filtrar</p>
@@ -150,17 +141,15 @@ export default function Tienda() {
                     </button>
                     <input className="form-control search col-4 mb-4" type="search" placeholder="Search" aria-label="Search" value={search} onChange={changeSearch} />
                 </div>
+
                 <div className='row containerTienda m-2 justify-content-evenly barScroll'>
                     <section className='box filtros col-2 d-none d-xl-block'>
                         <section id='filtros__precio'>
                             <p className='text-center h3 border-bottom pb-1'>Filtrar por</p>
                             <p className='m-0 me-4 pt-2 fw-bold'>Precio</p>
                             <Slider
-                                    getAriaLabel={() => 'Temperature range'}
                                     value={value}
                                     onChange={handleChange}
-                                    valueLabelDisplay="auto"
-                                    getAriaValueText={valuetext}
                                     max={1500}
                                 />
                             <div className="d-flex justify-content-between">

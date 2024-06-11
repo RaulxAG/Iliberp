@@ -38,8 +38,6 @@ const styles = StyleSheet.create({
 export default function Pdfpedido(){
     const location = useLocation();
     const { direccion, carrito } = location.state || {};
-    console.log(direccion)
-    console.log(carrito)
     
     return (
         <PDFViewer style={{ width: '100%', height: '100vh' }}>
@@ -50,7 +48,8 @@ export default function Pdfpedido(){
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Datos dirección de envío</Text>
                 <Text style={styles.item}>Calle: {direccion?.calle}</Text>
-                <Text style={styles.item}>Ciudad: {direccion?.ciudad}</Text>
+                <Text style={styles.item}>Provincia: {direccion?.provincia}</Text>
+                <Text style={styles.item}>Localidad: {direccion?.localidad}</Text>
                 <Text style={styles.item}>Código Postal: {direccion?.codigoPostal}</Text>
               </View>
     

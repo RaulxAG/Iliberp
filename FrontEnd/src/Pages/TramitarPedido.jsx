@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Select,MenuItem } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
 import { useLocation } from 'react-router-dom';
 import PayPalComponent from "../Components/Paypal";
 import { Link } from 'react-router-dom';
@@ -23,10 +22,7 @@ export default function TramitarPedido() {
     //------------Código usado por MATERIAL para el componente STEPPER------//
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set());
-
-    const isStepOptional = (step) => {
-        return step === 1;
-    };
+    const [refreshKey,setRefreshKey] =  useState(0);
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -45,14 +41,10 @@ export default function TramitarPedido() {
 
     const handleNextStep = () => {
         // Verificar si el formulario es válido solo en los pasos 0 y 1
-        if (activeStep === 0 || activeStep === 1) {
+        if (activeStep === 0 ) {
           // Hacer la validación del formulario y luego llamar onSubmit si es válido
           handleSubmit(onSubmit)();
-        } else if (activeStep === steps.length - 1) {
-          // Si es el último paso, finalizar el pedido
-        //   finalizarPedido();
         } else {
-          // Si no está en los pasos 0, 1 o el último, avanzar al siguiente paso
           handleNext();
         }
     };
@@ -61,23 +53,17 @@ export default function TramitarPedido() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleSkip = () => {
-        if (!isStepOptional(activeStep)) {
-            throw new Error("You can't skip a step that isn't optional.");
+    useEffect(() => {
+        if (activeStep === 2) {
+            setRefreshKey(prevKey => prevKey + 1);
         }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped((prevSkipped) => {
-            const newSkipped = new Set(prevSkipped.values());
-            newSkipped.add(activeStep);
-            return newSkipped;
-        });
-    };
+    }, [activeStep]);
 
     const handleReset = () => {
         setActiveStep(0);
     };
 
-     //------------FIN Código usado por material para ael componente------//
+    //------------FIN Código usado por material para ael componente------//
     
     //Recoger del location el carrito, que lo hemos pasado en el componente 'Carrito' mediante el link
     let location = useLocation();
@@ -89,48 +75,83 @@ export default function TramitarPedido() {
         //Avanzar al siguiente formulario
         handleNext();
     };
-
-    //Guardar direccion para mostrarla en el detalle y para mandarla cuando se genere pdf
-    const direccion= {
-            calle:watch('calle'),
-            numero:watch('numero'),
-            provincia:watch('provincia'),
-            localidad:watch('localidad'),
-            codigoPostal:watch('codigoPostal')
-    }
     
-
-
     //VARIABLES PARA LAS PROVINCIAS Y LAS LOCALIDADES
-    const [provincias,setProvincias]= useState(['Granada', 'Almería', 'Málaga'])
+    const [provincias,setProvincias]= useState([])
     const [localidades,setLocalidades]= useState([])
     const [selectedProvincia, setSelectedProvincia] = useState('');//Guardar la provincia para luego el desplegable de la localidad
+    const [selectedLocalidad, setSelectedLocalidad] = useState('');
+
+    //Guardar direccion para mostrarla en el detalle y para mandarla cuando se genere pdf
+    const objDireccion= {
+        calle:watch('calle'),
+        numero:watch('numero'),
+        provincia:selectedProvincia,
+        localidad:selectedLocalidad,
+        codigoPostal:watch('codigoPostal')
+    }
+    let direccion = `${watch('calle')}, ${watch('numero')}, ${selectedLocalidad}, ${selectedProvincia}, ${watch('codigoPostal')}`;
 
     //FUNCIÓN PARA OBTENER LAS PROVINCIAS
-    // useEffect(() => {
-    //     fetch('http://127.0.0.1:8000/getProvincias/', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setProvincias(data.prov.map(provincia => provincia.np))
-                // setSelectedProvincia(data.prov[0].np); //Seleccionar la priemra opcion para q sea la de por defector en el desplegable
-            
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // }, [])
-    console.log(provincias)
-    //FUNCIÓN PARA OBTENER LOS MUNICIPIOS (No se lanza hasta que no haya una provincia seleccionada)
-
-    //Para hacer pruebas
     useEffect(() => {
-        setSelectedProvincia(provincias[0])
+        fetch('http://127.0.0.1:8000/getProvincias/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            setProvincias(data.prov.map(provincia => provincia.np))
+            setSelectedProvincia(data.prov[0].np)
+            console.log(data.prov[0].np)
+            //Inicializar localidades con la primera provincia 
+            fetch(`http://127.0.0.1:8000/getLocalidades/?provincia=${data.prov[0].np}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                setLocalidades(data.consulta_municipieroResult.municipiero.muni.map(municipio => municipio.nm));
+                setSelectedLocalidad(data.consulta_municipieroResult.municipiero.muni[0].nm)
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        
+
     }, [])
+
+    // Agrega una función para manejar el cambio de provincia
+    const handleProvinciaChange = (event) => {
+        const selectedProvincia = event.target.value;
+        setSelectedProvincia(selectedProvincia);
+        fetch(`http://127.0.0.1:8000/getLocalidades/?provincia=${selectedProvincia}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Extraer los nombres de las localidades del arreglo de municipios
+            setLocalidades(data.consulta_municipieroResult.municipiero.muni.map(municipio => municipio.nm))
+            setSelectedLocalidad(localidades[0]);
+            console.log(data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
     
     return (
         <div className='containerPrincipal'>
@@ -139,7 +160,6 @@ export default function TramitarPedido() {
             <div className="contenedor box">
                 <h2 className='tittle mb-5'>Tramitar pedido</h2>
                 <div className='containerTramite box w-75 mx-auto barScroll'>
-                
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
@@ -197,20 +217,14 @@ export default function TramitarPedido() {
                                                     {errors.numero && <span className="text-warning">{errors.numero.message}</span>}
                                                 </div>
                                                 <div className="mb-3 col-md-4 col-12">
-                                                    {/* <TextField 
-                                                        id="outlined-basic" 
-                                                        label="Provincia" 
-                                                        className='w-100'
-                                                        {...register('provincia', { required: true })}
-
-                                                    /> */}
                                                     <Select
                                                         labelId="provincia-label"
                                                         id="provincia-select"
                                                         value={selectedProvincia}
-                                                        // onChange={handleChange}
+                                                        onChange={handleProvinciaChange }
                                                         label="Provincia"
                                                         className='w-100'
+                                                        sx={{ color: 'white' }}
                                                     >
                                                         {provincias.map((provincia, index) => (
                                                             <MenuItem key={index} value={provincia}>{provincia}</MenuItem>
@@ -220,13 +234,20 @@ export default function TramitarPedido() {
                                                     {errors.provincia && <span className="text-warning">Debes indicar la provincia</span>}
                                                 </div>
                                                 <div className="mb-3 col-md-4 col-12">
-                                                    <TextField 
-                                                        id="outlined-basic" 
-                                                        label="Localidad" 
-                                                        className='w-100'
-                                                        {...register('localidad', { required: true })}
-                                                        />
-                                                        {errors.localidad && <span className="text-warning">Debes indicar la localidad</span>}
+                                                <Select
+                                                    labelId="localidad-label"
+                                                    id="localidad-select"
+                                                    value={selectedLocalidad}
+                                                    onChange={(e) => setSelectedLocalidad(e.target.value)}
+                                                    label="Localidad"
+                                                    className='w-100'
+                                                    sx={{ color: 'white' }}
+                                                >
+                                                    {localidades && localidades.map((localidad, index) => (
+                                                        <MenuItem key={index} value={localidad}>{localidad}</MenuItem>
+                                                    ))}
+
+                                                </Select>
                                                 </div>
                                                 <div className="mb-3 col-md-4 col-12">
                                                     <TextField 
@@ -255,8 +276,8 @@ export default function TramitarPedido() {
                                                 <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Información de envío</Typography>
                                                 <Typography>Calle: {watch('calle')}</Typography>
                                                 <Typography>Número, piso, portal: {watch('numero')}</Typography>
-                                                <Typography>Provincia: {watch('provincia')}</Typography>
-                                                <Typography>Localidad: {watch('localidad')}</Typography>
+                                                <Typography>Provincia: {selectedProvincia}</Typography>
+                                                <Typography>Localidad: {selectedLocalidad}</Typography>
                                                 <Typography>Código postal: {watch('codigoPostal')}</Typography>
                                             </Box>
                                             <Box my={2}>
@@ -271,7 +292,7 @@ export default function TramitarPedido() {
                                                 <Typography variant="h6" className='fw-bold text-end'>Precio total del pedido: {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
                                             </Box>
                                         </div>
-                                        <Link to="/descargarInfoPedido" state= {{carrito:carrito,direccion:direccion}}>
+                                        <Link to="/descargarInfoPedido" state= {{carrito:carrito, direccion:objDireccion}}>
                                             <button className='carrito rounded-circle border-0' title='Ver carrito'>
                                                 <i className="fa-regular fa-file-pdf" style={{ color: "#f8f8f8" }}></i>
                                             </button>
@@ -279,11 +300,18 @@ export default function TramitarPedido() {
                                         
                                     </Box>
                                     )}
+                                    
                                     {activeStep === 2 && (
                                         <Box>
-                                            <PayPalComponent  monto={carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}/>
+                                            <PayPalComponent 
+                                                key={refreshKey}
+                                                monto={carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)} 
+                                                direccion={direccion} 
+                                                carrito={carrito} 
+                                            />
                                         </Box>
                                     )}
+
                                 </div>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
@@ -295,9 +323,11 @@ export default function TramitarPedido() {
                                         Anterior
                                     </Button>
                                     <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleNextStep}>
-                                        {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                    </Button>
+                                    
+                                    {activeStep !== 2 &&  
+                                        <Button onClick={handleNextStep}>Siguiente</Button>
+                                    }
+                                    
                                 </Box>
                             </React.Fragment>
                         )}
