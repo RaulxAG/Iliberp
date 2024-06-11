@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardMensaje from "./CardMensaje";
 
-export default function UltimosMensajes({ page, selected, query }) {
+export default function UltimosMensajes({ page, selected, query, t }) {
     const [ mensajes, setMensajes ] = useState();
     const [ loading, setLoading ] = useState(true);
 
@@ -48,7 +48,7 @@ export default function UltimosMensajes({ page, selected, query }) {
             ))}
 
             {!loading && mensajes.length === 0 && (
-                <h5>No tienes conversaciones pendientes</h5>
+                <h5>{t('noMensajes')}</h5>
             )}
         </>
     );

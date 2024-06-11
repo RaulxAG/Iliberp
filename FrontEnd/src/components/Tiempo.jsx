@@ -6,7 +6,7 @@ export default function Tiempo() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const fecha = new Date();
-  const opcionesDeFecha = { day: '2-digit', month: 'long', year: 'numeric' };
+  const opcionesDeFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const fechaFormateada = fecha.toLocaleDateString('es-ES', opcionesDeFecha);
 
   useEffect(() => {

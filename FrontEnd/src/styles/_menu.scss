@@ -24,10 +24,13 @@
         }
     }
 
-    .menuLateral__logo img {
-        object-fit: contain;
-        width: 40%;
-        margin-top: .5rem;
+    .menuLateral__logo {
+
+        img {
+            object-fit: contain;
+            width: 100%;
+            margin-top: .5rem;
+        }
     }
 
     .menuLateral__enlaces ul {
@@ -39,7 +42,7 @@
             padding: 30% 0;
         }
 
-        a {
+        a,button {
             font-size: larger;
             border-radius: 100%;
             padding: 1rem;
@@ -48,7 +51,7 @@
             transition: background .2s linear;
         }
 
-        a:hover {
+        a:hover, button:hover {
             background-color: $colorBlack
         }
 

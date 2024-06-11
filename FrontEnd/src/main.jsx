@@ -8,10 +8,12 @@ import WeatherComponent from './components/Tiempo';
 import Login from './Pages/Login';
 import NotFound from './Pages/404';
 // import App from './App.jsx'
+import '../utils/i18n';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <App /> */}
+    
     <Router>
       <Routes>
         <Route path="*" element={<NotFound />} />

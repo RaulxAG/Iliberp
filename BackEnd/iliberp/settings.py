@@ -98,18 +98,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'iliberp',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'PORT': ''
-    }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'iliberp',
-    #     'USER': 'admin',
-    #     'PASSWORD': 'jxTgO5052vqVqKW1XXMh',
-    #     'HOST': 'database-iliberp.cnnczsc7ytbi.us-east-1.rds.amazonaws.com',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
+        'PORT': '3306',
+        'USER': 'admin',
+        'PASSWORD': 'jxTgO5052vqVqKW1XXMh',
+        'HOST': 'iliberp.cnnczsc7ytbi.us-east-1.rds.amazonaws.com',
     #     'PORT': '3306'
-    # }
+    }
 }
 
 

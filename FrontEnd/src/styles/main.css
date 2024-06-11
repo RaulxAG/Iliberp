@@ -599,7 +599,7 @@ body {
 }
 .menuLateral .menuLateral__logo img {
   object-fit: contain;
-  width: 40%;
+  width: 100%;
   margin-top: 0.5rem;
 }
 .menuLateral .menuLateral__enlaces ul {
@@ -610,7 +610,7 @@ body {
   text-align: center;
   padding: 30% 0;
 }
-.menuLateral .menuLateral__enlaces ul a {
+.menuLateral .menuLateral__enlaces ul a, .menuLateral .menuLateral__enlaces ul button {
   font-size: larger;
   border-radius: 100%;
   padding: 1rem;
@@ -618,7 +618,7 @@ body {
   color: #e65522;
   transition: background 0.2s linear;
 }
-.menuLateral .menuLateral__enlaces ul a:hover {
+.menuLateral .menuLateral__enlaces ul a:hover, .menuLateral .menuLateral__enlaces ul button:hover {
   background-color: #1E2225;
 }
 .menuLateral .menuLateral__enlaces ul .selected {

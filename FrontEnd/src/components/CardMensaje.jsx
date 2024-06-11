@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CardMensaje({ mensaje, page, selected, query }) {
@@ -14,7 +13,7 @@ export default function CardMensaje({ mensaje, page, selected, query }) {
             navigate(`/mensajeria/${chat_seleccionado}`);
         } else if (page == "inicio") {
             navigate(`/mensajeria/${mensaje.chat_id}`);
-        };
+        }
     };
 
     if (query && !mensaje.usuarios[0].nombre.toLowerCase().includes(query.toLowerCase())) {
