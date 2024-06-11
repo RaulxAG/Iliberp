@@ -106,6 +106,7 @@ body {
 .containerInicio .portadaForms .portadaRegistro,
 .containerInicio .portadaForms .portadaLogin {
   padding: 50px 0px;
+  color: #1E2225;
 }
 .containerInicio .portadaForms .portadaRegistro p,
 .containerInicio .portadaForms .portadaLogin p {

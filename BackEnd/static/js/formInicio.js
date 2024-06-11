@@ -1,10 +1,10 @@
 
 const formularios = document.getElementById('formularios');
 const formIniciarSesion = document.getElementById("formIniciarSesion");
-    const formRegistrarse = document.getElementById("formRegistrarse");
+const formRegistrarse = document.getElementById("formRegistrarse");
 let form = true;
 
-window.FORMULARIO = function (direccion) {
+function movieForm (direccion) {
     formularios.style.left = direccion === "left" ? "0" : "50%";
     form = !form;
     if (direccion === "left") {

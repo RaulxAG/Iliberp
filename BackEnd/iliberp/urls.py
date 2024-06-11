@@ -7,6 +7,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('loginApi/',views.loginApi,name='loginApi'),
     path('registerApi/',views.registerApi,name='registerApi'),
+    path('login/',views.loginDjango,name='loginDjango'),
+    path('register/',views.registerDjango,name='registerDjango'),
     path('',views.inicioView,name='inicioView'),
     path('', include("administracion.urls")),
     path('', include("fichaje.urls")),

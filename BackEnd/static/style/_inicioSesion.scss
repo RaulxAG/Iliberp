@@ -6,13 +6,15 @@
         border-radius: 1vh;
         text-align: center;
         width: 50%;
+        
 
         .portadaRegistro,
         .portadaLogin {
             padding: 50px 0px;
-
+            color: $colorBlack;
             p {
                 padding: 0px 10px;
+                
             }
 
             div {
