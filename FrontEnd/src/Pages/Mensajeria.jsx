@@ -12,7 +12,7 @@ export default function Mensajeria() {
     const { chat_id } = useParams();
     const [contactos, setContactos] = useState();
     const navigate = useNavigate();
-    const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const query=useQuery();
     const sBusqueda=query.get("search");
     const [search, setSearch] = useState("");

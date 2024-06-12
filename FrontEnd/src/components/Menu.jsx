@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 export default function Menu({ selected, username }) {
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
     const [currentLang, setCurrentLang] = useState(i18n.language);
 
     const changeLanguage = () => {

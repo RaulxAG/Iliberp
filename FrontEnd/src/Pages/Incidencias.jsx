@@ -29,7 +29,7 @@ export default function Incidencias() {
         fetchUserData();
     }, []);
 
-    const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
             categoria: initialCategoria
         }
