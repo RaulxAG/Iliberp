@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+def fotoDefault():
+    return "media/administracion/usuario.jpg"
+
 class Empresa(models.Model):
     """
     Modelo que representa los datos de las empresas clientes
@@ -41,7 +45,7 @@ class Cliente(models.Model):
     dni = models.CharField(max_length=20)
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
-    foto_perfil = models.BinaryField(blank=True, null=True) 
+    foto_perfil = models.FileField(upload_to='media/administracion', blank=True, null=True,default=fotoDefault)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,blank=True, null=True)  # Relación con el modelo Empresa
     
 
@@ -73,4 +77,4 @@ class Empleado(models.Model):
     dni = models.CharField(max_length=20)
     telefono = models.CharField(max_length=20)
     departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
-    foto_perfil = models.BinaryField(blank=True, null=True)
+    foto_perfil = models.FileField(upload_to='media/administracion', blank=True, null=True,default=fotoDefault)

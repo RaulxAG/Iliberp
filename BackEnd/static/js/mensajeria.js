@@ -1,4 +1,4 @@
-let containers = document.querySelectorAll(".containerPersona")
+
 let nombreUsuario = document.querySelector("#nombreUsuario")
 let usuarioLogueado = 4
 let containerCreateMensaje = document.querySelector('.containerCreateMensaje')
@@ -8,48 +8,11 @@ let chatId
 let containerMensajes = document.getElementById("containerMensajes");
 let scrollMensajes = document.querySelector('.containerMensajes');
 let leerMas = false; //Para evitar que cuando se hace solo click, se incremente la pág
-let receptor
+let emisor =document.querySelector('#idUserLog').value;
 let selectTipoPersona = document.querySelector("#tipoPersona")
 let labelPersona  = document.querySelector("#labelPersona")
 let selectPersona  = document.querySelector("#selectPersona")
 let btnCrearChat = document.querySelector('#btnCrearChat')
-
-containers.forEach(container => {
-    // Agregar un evento de clic a cada elemento
-    container.addEventListener("click", function() {
-        containerCreateMensaje.classList.remove("d-none");
-        containerCreateMensaje.classList.add("d-flex");
-        // Limpiar el contenedor de mensajes
-        containerMensajes.innerHTML = '';
-
-        // Obtener el chat_id del elemento actual
-        chatId = this.querySelector("#idChat").value;
-
-        //Resetear la página 
-        pagActual = 1
-
-        //Reiniciar a false cada vez que se hace click
-        leerMas = false;
-
-        cargarMensajes(chatId,pagActual,true)
-
-        // Enviar nuevo mensaje
-        let btnEnviar = document.querySelector('#btnEnviar');
-        let inputNewMesagge = document.querySelector('#inputNewMesagge');
-        btnEnviar.addEventListener('click', function() {
-            console.log("hi")
-            let messageText = inputNewMesagge.value;
-            if (messageText) {
-                
-                // Crear un nuevo mensaje en el servidor
-                createNewMessage( receptor, chatId, messageText);
-                // Limpiar el campo de entrada
-                inputNewMesagge.value = '';
-            }
-        });
-    });
-    
-});
 
 function cargarMensajes(chatId,page, habilitarLeerMas = false) {
     fetch(`/getMessagesJSON/${chatId}?page=${page}`)
@@ -82,7 +45,7 @@ function cargarMensajes(chatId,page, habilitarLeerMas = false) {
             divMensaje.appendChild(pMensaje)
             divMensaje.appendChild(pHora)
 
-            receptor=data.participants[0].id
+            emisor=data.participants[0].id
             //Añdirlos al principio
             containerMensajes.prepend(divMensaje);
         });
@@ -102,19 +65,7 @@ function cargarMensajes(chatId,page, habilitarLeerMas = false) {
     .catch(error => console.error('Error fetching messages:', error));
 }
 
-
-// Función para cargar más mensajes al llegar al inicio del contenedor
-scrollMensajes.addEventListener('scroll', function() {
-    if (leerMas && scrollMensajes.scrollTop <= 10 && pagActual!=ultPag) {
-        pagActual++; // Incrementar la página actual
-        cargarMensajes(chatId, pagActual); //Si solo es scroll, habilitar leer mas es false
-        console.log("hi")
-    }
-});
-
-
 function createNewMessage(userId, chatId, texto) {
-    console.log("userId:", userId);  // Verifica el valor de userId
     fetch('/setMessageJSON/', {
         method: 'POST',
         headers: {
@@ -133,6 +84,91 @@ function createNewMessage(userId, chatId, texto) {
     })
     .catch(error => console.error('Error creating message:', error));
 }
+
+function getChats() {
+    fetch(`/getChats/${emisor}`) 
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        // Actualizar la lista de chats 
+        const chatsContainer = document.querySelector('.chats');
+        chatsContainer.innerHTML = ''; // Limpiar el contenedor de chats
+
+        // Imprimir los chats en la interfaz
+        data.chats.forEach(chat => {
+            chatsContainer.innerHTML +=
+            `
+                <div class="containerPersona d-flex row overflow-hidden align-items-end bg-dark p-1">
+                    <figure class="col-3">
+                        <img src="${chat.static_url}" alt="" class="rounded-circle bg-dark "/>
+                    </figure>
+                    <p class="col-9 ultMensaje">${chat.remitente} : ${chat.texto}</p>
+                    <p class="col-12 text-end small">${chat.fecha_hora}</p>
+                    <input type="hidden" name="idChat" value="${chat.chat_id}" id="idChat">
+                </div>
+            `
+        });
+        onclickContainer()
+    })
+    .catch(error => console.error('Error fetching chats:', error));
+}
+
+//Sacarlo en una funcion para leugo asignarlo cuando lo imprimamso de nuevo cuando se envia un mensaje
+function onclickContainer() {
+    let containers = document.querySelectorAll(".containerPersona")
+    containers.forEach(container => {
+        // Agregar un evento de clic a cada elemento
+        container.addEventListener("click", function() {
+            containerCreateMensaje.classList.remove("d-none");
+            containerCreateMensaje.classList.add("d-flex");
+            // Limpiar el contenedor de mensajes
+            containerMensajes.innerHTML = '';
+    
+            // Obtener el chat_id del elemento actual
+            chatId = this.querySelector("#idChat").value;
+    
+            //Resetear la página 
+            pagActual = 1
+    
+            //Reiniciar a false cada vez que se hace click
+            leerMas = false;
+    
+            cargarMensajes(chatId,pagActual,true)
+    
+            // Enviar nuevo mensaje
+            let btnEnviar = document.querySelector('#btnEnviar');
+            let inputNewMesagge = document.querySelector('#inputNewMesagge');
+            btnEnviar.addEventListener('click', function() {
+                let messageText = inputNewMesagge.value;
+                if (messageText) {
+                    // Crear un nuevo mensaje en el servidor
+                    createNewMessage(emisor, chatId, messageText);
+    
+                    //Volvemos a cargar los chats para q se vea el mensaje que acabamos de mandar
+                    getChats()
+    
+                    // Limpiar el campo de entrada
+                    inputNewMesagge.value = '';
+                }
+            });
+        });
+        
+    });
+}
+
+onclickContainer()
+
+// Función para cargar más mensajes al llegar al inicio del contenedor
+scrollMensajes.addEventListener('scroll', function() {
+    if (leerMas && scrollMensajes.scrollTop <= 10 && pagActual!=ultPag) {
+        pagActual++; // Incrementar la página actual
+        cargarMensajes(chatId, pagActual); //Si solo es scroll, habilitar leer mas es false
+        console.log("hi")
+    }
+});
+
+
+
 
 
 selectTipoPersona.addEventListener('change', function() {
@@ -155,9 +191,7 @@ selectTipoPersona.addEventListener('change', function() {
 })
 
 btnCrearChat.addEventListener('click', function () {
-    let user1 = 4; // ID del usuario logueado
     let user2 = selectPersona.value; // ID del otro usuario seleccionado
-
     containerMensajes.innerHTML = ''; //Limpiar el contenedor de mensajes si es un nuevo chat
     containerCreateMensaje.classList.remove("d-none");
     containerCreateMensaje.classList.add("d-flex");
@@ -167,11 +201,10 @@ btnCrearChat.addEventListener('click', function () {
     let btnEnviar = document.querySelector('#btnEnviar');
     let inputNewMesagge = document.querySelector('#inputNewMesagge');
     btnEnviar.addEventListener('click', function() {
-        console.log("hi")
         let messageText = inputNewMesagge.value;
         if (messageText) {
             // Crear un nuevo mensaje en el servidor
-            createNewMessage(receptor, chatId, messageText);
+            createNewMessage(emisor, chatId, messageText);
             // Limpiar el campo de entrada
             inputNewMesagge.value = '';
         }
@@ -185,7 +218,7 @@ btnCrearChat.addEventListener('click', function () {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            user1: user1,
+            user1: emisor,
             user2: user2
         })
     })
@@ -196,7 +229,7 @@ btnCrearChat.addEventListener('click', function () {
             chatId = data.chat_id; // Guardar el ID del chat
             cargarMensajes(chatId, 1); // Cargar mensajes del chat
         } else {
-            receptor=data.participants[0].id
+            emisor=data.participants[0].id
             chatId = data.chat_id
             cargarMensajes(chatId, 1);
         }

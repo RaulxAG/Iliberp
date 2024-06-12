@@ -8,12 +8,12 @@
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
     <div id="alertas"></div>
-    <div class="mx-auto w-75 my-5">
-        <h2 class='tittleDetalle' id="titulo">{{enterprise.nombre}}</h2>
+    <div class="mx-auto w-75 my-5 overflow-hidden">
+        <h2 class='tittle p-0' id="titulo" >{% if enterprise.nombre %} {{enterprise.nombre}}{% else %} Nueva empresa {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
             <button class="buttonReverse me-2 buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
-                <a href="">Volver</a>
+                <a href="/enterprises">Volver</a>
             </button>  
             <button class="button" id="buttonEdit">
                 <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
@@ -21,39 +21,57 @@
             </button> 
         </div>
         
-        <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
-            
-            <div class="row gy-4">
-                <div class="col-4">
-                    <h6 class="fw-bold">Nombre</h6>
-                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.nombre}}">
+        <div class="box formularioCrud p-5 d-flex flex-column overflow-y-auto barScroll" style="height: 90%;" id="formularioCrud">
+            <form class="row gy-4">
+                {% csrf_token %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Nombre</h6> 
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
+                    </div>
+                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.nombre}}">
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">CIF</h6>
-                    <input type="text" id="cif_nif" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.cif_nif}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">CIF</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
+                    </div>
+                    <input type="text" id="cif_nif" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.cif_nif}}" pattern="[A-Za-z0-9]{9}" title="El CIF/NIF debe tener 9 caracteres alfanuméricos" required>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Dirección</h6>
-                    <input type="text" id="direccion" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.direccion}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <div class="d-flex">
+                            <h6 class="fw-bold">Dirección</h6>
+                            <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
+                        </div>
+                    </div>
+                    <input type="text" id="direccion" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.direccion}}" required>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Correo</h6>
-                    <input type="text" id="email" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.email}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Email</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
+                    </div>
+                    <input type="text" id="email" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.email}}" required>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Teléfono 1</h6>
-                    <input type="text" id="telefono1" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono1}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Teléfono 1</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
+                    </div>
+                    <input type="text" id="telefono1" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.telefono1}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos" required>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <h6 class="fw-bold">Teléfono 2</h6>
-                    <input type="text" id="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono2}}">
+                    <input type="text" id="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono2}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos">
                 </div>
                 <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.id}}">
-            </div>
-        </div>
+            </form>
+            
+            
         <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
         {% if enterprise %}
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-3">
                 <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Eliminar
                     <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
@@ -85,5 +103,5 @@
     </div>
     
 </section>
-<script src="{% static 'js/employee.js' %}"></script>
+<script src="{% static 'js/administracion.js' %}"></script>
 {% endblock content %}

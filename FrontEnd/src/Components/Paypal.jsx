@@ -53,7 +53,6 @@ export default function PayPalComponent({monto,direccion,carrito}) {
                         purchase_units: [
                             {
                                 amount: {
-                                    currency_code: "EUR",
                                     value:  monto.toString(), 
                                 },
                             },

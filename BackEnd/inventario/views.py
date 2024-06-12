@@ -290,7 +290,8 @@ def getProvincias(request):
     
     return JsonResponse(provincias)
 
-def getLocalidades(request,provincia):
+def getLocalidades(request):
+    provincia = request.GET.get('provincia')
     url = f"http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia={provincia}"
     response = requests.get(url)
     if response.status_code == 200:

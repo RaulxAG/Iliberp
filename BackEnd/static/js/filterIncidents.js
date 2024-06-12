@@ -5,6 +5,26 @@ let filterState = ""
 let filterEmploy = ""
 let filterPriority = ""
 let filterDate= ""
+const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+//Button de borrar filtros
+document.getElementById('clearFilters').addEventListener('click', function() {
+    // Limpia los valores de los filtros
+    filterCat = "";
+    filterClient = "";
+    filterState = "";
+    filterEmploy = "";
+    filterPriority = "";
+    filterDate = "";
+    
+    // Resetear los demás filtros
+    selects.forEach(select => {
+        select.value = "";
+    });
+    
+    // Llama a la función para aplicar los filtros actualizados
+    filterIncidents();
+});
 
 selects.forEach(function(select) {
     select.addEventListener('change', function() {
@@ -42,6 +62,7 @@ function filterIncidents() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
         },
         body: JSON.stringify({
             category: filterCat,
@@ -76,8 +97,8 @@ function updateTable(incidents) {
         row.innerHTML = `
             <td>${incident.category}</td>
             <td>${incident.state}</td>
-            <td>${incident.client.username}</td>
-            <td>${incident.employee_asigned}</td>
+            <td>${incident.client ? incident.client.username : ''}</td>
+            <td>${incident.empleado ? incident.employee_asigned : ''}</td>
             <td>${incident.priority}</td>
             <td>${incident.date}</td>
         `;

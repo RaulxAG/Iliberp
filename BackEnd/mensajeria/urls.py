@@ -7,6 +7,7 @@ urlpatterns = [
     path('setMessageJSON/',views.setMessageJSON,name='setMessageJSON'),
     path('setChatJSON/',views.setChatJSON,name='setChatJSON'),
 
+    path('getChats/<int:user_id>/',views.getChats,name='getChats'),
     path('chat/',views.chatView,name='chatView'),
     path('allClients/',views.allClients,name='allClients'),
     path('allEmployees/',views.allEmployees,name='allEmployees'),

@@ -13,9 +13,16 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+
+                          
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+ADMINISTRACION_MEDIA_URL = 'media/administracion'
+ADMINISTRACION_MEDIA_ROOT = os.path.join(MEDIA_ROOT, 'administracion')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -28,6 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [] #Poner nombre d emi dominio
 
+LOGIN_URL = '/login/'
 
 # Application definition
 

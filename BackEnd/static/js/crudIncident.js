@@ -1,8 +1,8 @@
 window.onload=()=> {
-    // COMO ESTE CÓDIGO ES IGUAL PARA TODOS LOS CRUD Y SOLO CAMBIA EL fetch, HACEMOS ESTE IF Y CAMBIAMOS EL fetch
-    
-    let rutaLlamaAjax="saveIncident"
-    let location="incidents"
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    let rutaLlamaAjax="/saveIncident/"
+    let location="/incidents"
 
     let buttonEdit = document.querySelector("#buttonEdit");
     const btnAceptarExiste = document.querySelector("#btnAceptar")
@@ -48,7 +48,8 @@ window.onload=()=> {
         fetch(`${rutaLlamaAjax}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrfToken
             },
             body: JSON.stringify(data)
         })
@@ -92,9 +93,7 @@ window.onload=()=> {
             //Ponerlos editables los inputs         
             inputs.forEach(input => {
                 let tiempo_empleado =document.querySelector('#tiempo_empleado')
-                let fecha_fin =document.querySelector('#fecha_fin')
                 tiempo_empleado.disabled = true;
-                fecha_fin.disabled = true;
                 input.disabled = false; 
             
             });
@@ -118,8 +117,6 @@ window.onload=()=> {
     if (window.location.href.includes("new")) {
         inputs.forEach(input => {
             input.disabled = false;
-            let fecha_fin =document.querySelector('#fecha_fin')
-            fecha_fin.disabled = true;
         });
         textareas.forEach(textarea => {
             textarea.disabled = false;

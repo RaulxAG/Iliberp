@@ -6,9 +6,11 @@ from datetime import datetime
 from .models import Mensaje, Chat,UsuarioChat
 from django.core.paginator import Paginator,EmptyPage
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render,redirect
 from administracion.models import Cliente, Empleado
+from django.templatetags.static import static
 
 def getChatsJSON(request,user_id):
     #Obtener el usuario
@@ -42,7 +44,6 @@ def getChatsJSON(request,user_id):
 
     # Devolver los chats en JSON
     return JsonResponse({'chats': chats_info})
-
 
 @csrf_exempt
 def getMessagesJSON(request,chat_id):
@@ -182,11 +183,16 @@ def setChatJSON(request):
 
 
 
+@login_required
 def chatView(request):
-    user = User.objects.get(pk=4)  # Usar el usuario con ID 4 para esta prueba
+    #Obtener usuario logueado
+    user = request.user
+    
+    userLog = User.objects.get(pk=user.id) 
+
     employees = Empleado.objects.all()
-    chats_usuario = UsuarioChat.objects.filter(usuario=user).values_list('chat_id', flat=True)
-    print(chats_usuario)
+    chats_usuario = UsuarioChat.objects.filter(usuario=userLog).values_list('chat_id', flat=True)
+
     chats_user = []
 
     for chat_id in set(chats_usuario):
@@ -203,10 +209,10 @@ def chatView(request):
             texto = mensaje.texto
 
             # Determinar quién escribió el último mensaje
-            remitente = 'tú' if mensaje.usuario == user else mensaje.usuario.username
+            remitente = 'tú' if mensaje.usuario == userLog else mensaje.usuario.username
 
             # Obtener el receptor del chat
-            receptor = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=user).first().usuario
+            receptor = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=userLog).first().usuario
 
             # Crear un diccionario con la información del chat
             chat_info = {
@@ -218,12 +224,11 @@ def chatView(request):
             }
 
             chats_user.append(chat_info)
-            print("----------")
-            print(chat_info)
+
             # Ordenar los chats por la fecha y hora del último mensaje en orden descendente
             chats_user.sort(key=lambda x: x['fecha_hora'], reverse=True)
 
-    return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chats_user': chats_user})
+    return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chats_user': chats_user, 'userLog': userLog})
 
 def allClients(request):
     clients = Cliente.objects.all()
@@ -247,4 +252,46 @@ def allEmployees(request):
     ] 
     return JsonResponse(employees_data, safe=False)
 
+def getChats(request,user_id):
+    #Imagen por defecto de mensajeria
+    static_url = static('assets/img/usuarioLogo.png')
+
+    # Obtener el usuario logueado
+    user = User.objects.get(pk=user_id)
+
+    # Obtener todos los chats relacionados con el usuario
+    chats_usuario = UsuarioChat.objects.filter(usuario=user).values_list('chat_id', flat=True)
+
+    # Inicializar un array de objetos para almacenar la información de los chats
+    chats_info = []
+
+    for chat_id in set(chats_usuario):
+        # Obtener el último mensaje del chat
+        mensaje = Mensaje.objects.filter(chat_id=chat_id).order_by('-fecha', '-hora').first()
+
+        # Verificar si hay un mensaje en este chat
+        if mensaje:
+            # Obtener la fecha o hora del mensaje
+            if mensaje.fecha == timezone.now().date():
+                fecha_hora = mensaje.hora.strftime('%H:%M')
+            else:
+                fecha_hora = mensaje.fecha.strftime('%Y-%m-%d')
+
+            texto = mensaje.texto
+
+            # Determinar quién escribió el último mensaje
+            remitente = 'tú' if mensaje.usuario == user else mensaje.usuario.username
+
+            # Agregar la información del último mensaje al diccionario
+            chat_info = {
+                'texto': texto,
+                'fecha_hora': fecha_hora,
+                'remitente': remitente,
+                'chat_id': chat_id,
+                'static_url':static_url
+            }
+            chats_info.append(chat_info)
+
+    # Devolver los chats en JSON
+    return JsonResponse({'chats': chats_info})
 

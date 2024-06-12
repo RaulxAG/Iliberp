@@ -6,10 +6,10 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
-from datetime import datetime
-
+from datetime import datetime,timedelta
 from .models import Incidencia,Line
 from administracion.models import Empleado,Cliente,Empresa
+from django.contrib.auth.decorators import login_required
 
 def getIncidentsJSON(request,client_id):
     if request.method == 'POST':
@@ -123,7 +123,6 @@ def editIncidentJSON(request,incident_id):
 
 
 
-
 def incidentsView(request):
     departaments = Empleado.DEPARTAMENTOS
     states = Incidencia.ESTADOS
@@ -154,14 +153,26 @@ def detailsIncident(request,incident_id=None):
     if incident_id :
         incident= Incidencia.objects.get(pk=incident_id)
         lines = incident.lines.all()
+        total_time = timedelta()
+        for line in lines:
+            if line.tiempo:
+                total_time += timedelta(hours=line.tiempo.hour, minutes=line.tiempo.minute)
         
+        # Convertir a horas y minutos
+        total_seconds = int(total_time.total_seconds()) # Convertir el tiempo total a segundos
+        hours, remainder = divmod(total_seconds, 3600) # Obtener las horas y el restante en segundos
+        minutes, seconds = divmod(remainder, 60) # Obtener los minutos y los segundos restantes
+        timePattern = f"{hours}h {minutes}min"
+
+        print(timePattern)
         return render(request, 'incidencias/detailsIncident.html', {'incident': incident,
                                                                     'clients':clients,
                                                                     'departaments':departaments,
                                                                     'priorities':priorities,
                                                                     'enterprises':enterprises,
                                                                     'states':states,
-                                                                    'lines':lines})
+                                                                    'lines':lines,
+                                                                    'total_time':timePattern})
     #Si no hay es la vista de crear uno nuevo
     else:
         return render(request, 'incidencias/detailsIncident.html', {'clients':clients,
@@ -172,27 +183,37 @@ def detailsIncident(request,incident_id=None):
 
 
 
-@csrf_exempt
+
 def saveIncident(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        incident_id = data.get('id')
+        incident_id = data.get('idIncident')
         categoria = data.get('categoria')
         descripcion = data.get('descripcion')
         estado = data.get('estado')
         prioridad = data.get('prioridad')
         observaciones = data.get('observaciones')
         cliente_id = data.get('cliente')
-        # empleado_id = data.get('empleado')
         fecha_inicio = data.get('fecha_inicio')
         fecha_fin = data.get('fecha_fin')
         accion = data.get('action')
 
         cliente_id = int(cliente_id)
-        # Obtener objetos Cliente y Empleado
+        # Obtener objetos Cliente
         cliente = Cliente.objects.get(pk=cliente_id) if cliente_id else None
-        # empleado = Empleado.objects.get(id=empleado_id) if empleado_id else None
+        
+        fecha_fin = fecha_fin if fecha_fin else None
+        
+        #Obtener usuario logueado
+        user = request.user
+        #Obtener empleado
+        empleado = Empleado.objects.get(user=user)
 
+        # Verificar que el usuario esté autenticado
+        if not user.is_authenticated:
+            response_data = {'error': 'No estas logueado'}
+            return JsonResponse(response_data)
+        print(user)
         if accion == "edit":
             incident_id = int(incident_id)
             incident = Incidencia.objects.get(pk=incident_id)
@@ -203,9 +224,9 @@ def saveIncident(request):
             incident.prioridad = prioridad
             incident.observaciones = observaciones
             incident.cliente = cliente
-            # incident.empleado = empleado
+            incident.empleado = empleado
             incident.fecha_inicio = fecha_inicio
-            # incident.fecha_fin = fecha_fin
+            incident.fecha_fin = fecha_fin
             incident.save()
 
             response_data = {'success': True, 'message': 'Incidencia guardada exitosamente'}
@@ -218,9 +239,9 @@ def saveIncident(request):
                 prioridad=prioridad,
                 observaciones=observaciones,
                 cliente=cliente,
-                # empleado=empleado,
+                empleado=empleado,
                 fecha_inicio=fecha_inicio,
-                # fecha_fin=fecha_fin
+                fecha_fin=fecha_fin
             )
             
             response_data = {'success': True, 'message': 'Incidencia creada exitosamente'}
@@ -288,11 +309,10 @@ def detailsLine(request, line_id):
     }
     return JsonResponse(line_data)
 
-@csrf_exempt
+
 def updateFilterIncident(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        
         # Obtener los filtros de la solicitud POST
         date_filter = data.get('date')
         employee_filter = data.get('employee')

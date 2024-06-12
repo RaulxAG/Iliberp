@@ -72,10 +72,10 @@ def loginDjango(request):
 
         if user is not None:
             login(request, user)
-            return redirect('clientsView')
+            return redirect('chatView')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
-            return redirect('loginDjango')
+            return render(request,"global/inicioSesion.html",{'departments': Empleado.DEPARTAMENTOS})
     else:
         return render(request, "global/inicioSesion.html")
     

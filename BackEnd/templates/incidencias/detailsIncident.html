@@ -8,12 +8,12 @@
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
     <div id="alertas"></div>
-    <div class="mx-auto w-75 my-5"> 
-        <h2 class='tittleDetalle'>Empresa | Contacto</h2>
+    <div class="mx-auto w-75 my-5 overflow-hidden"> 
+        <h2 class='tittle p-0' id="titulo" >{% if incident %}  {{incident.cliente.empresa.nombre}} | {{incident.cliente.user.first_name}}{% else %} Nueva incidencia {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
-            <button class="buttonReverse me-2 buttonVolver" onclick="window.location.href='empleados.html'">
+            <button class="buttonReverse me-2 buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
-                <a href="javascript:history.back()">Volver</a>
+                <a href="/incidents">Volver</a>
             </button>  
             <button class="button" id="buttonEdit">
                 <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
@@ -21,31 +21,42 @@
             </button> 
         </div>
         
-        <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
-            <div class="row gy-4">
-                <div class="col-6">
-                    <h6 class="fw-bold">Descripción</h6>
-                    <textarea class="form-control bg-transparent barScroll" id="descripcion" disabled>{{incident.descripcion}}</textarea>
+        <div class="box formularioCrud px-4 pt-4 pb-5 d-flex flex-column overflow-y-auto barScroll" style="height: 90%;" id="formularioCrud">
+            <form class="row gy-4 pb-5 d-flex">
+                {% csrf_token %}
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Descripción</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <textarea class="form-control bg-transparent barScroll"  id="descripcion" disabled style="height: 70px;" required>{{incident.descripcion}} </textarea>
                 </div>
-                <div class="col-6">
-                    <h6 class="fw-bold">Observaciones</h6>
-                    <textarea class="form-control  bg-transparent barScroll" id="observaciones" disabled>{{incident.observaciones}}</textarea>
+                <div class="col-12 col-lg-6">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Observaciones</h6>
+                    </div>
+                    <textarea class="form-control  bg-transparent barScroll"  id="observaciones" disabled style="height: 70px;">{{incident.observaciones}}</textarea>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Cliente</h6>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Cliente</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
                     <select class="form-select" name="cliente" id="cliente" disabled>
                         {% for client in clients %}
                             <option value="{{ client.id }}" class="custom" {% if incident.cliente.id == client.id %}selected style="font-weight: bold;"{% endif %}>
                                 {{ client.user.first_name }}
-                                {{incident.cliente.id}} 
                             </option>
-                        {% endfor %}
-                       
-                    </select>
-                    
+                        {% endfor %}   
+                    </select>                    
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Categoría</h6>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Categoría</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
                     <select class="form-select" name="categoria" id="categoria" disabled>
                         {% for departament in departaments %}
                             <option value="{{ departament.0 }}" class="custom" {% if incident.departamento == departament.0 %}selected style="font-weight: bold;"{% endif %}>
@@ -54,51 +65,13 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Prioridad</h6>
-                    <select class="form-select" name="prioridad" id="prioridad" disabled>
-                        {% for priority in priorities %}
-                            <option value="{{ priority.0 }}" class="custom" {% if incident.prioridad == priority.0 %}selected style="font-weight: bold;"{% endif %}>
-                                {{ priority.1 }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Empresa</h6>
-                    <select class="form-select" name="Empresa" id="Empresa" disabled>
-                        {% for enterprise in enterprises %}
-                            <option value="{{ enterprise.id }}" class="custom" {% if incident.cliente.empresa.id == enterprise.id %}selected style="font-weight: bold;"{% endif %}>
-                                {{ enterprise.nombre }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Tiempo empleado</h6>
-                    <input type="text" class="border-bottom bg-transparent w-100" disabled value="2h 13min" id="tiempo_empleado">
-                </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Estado</h6>
-                    <select class="form-select" name="estado" id="estado" disabled>
-                        {% for state in states %}
-                            <option value="{{ state.0 }}" class="custom" {% if incident.estado == state.0 %}selected style="font-weight: bold;"{% endif %}>
-                                {{ state.1 }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Fecha inicio</h6>
-                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_inicio|date:'Y-m-d' }}" id="fecha_inicio">
-                </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Fecha fin</h6>
-                    <input type="text" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_fin}}" id="fecha_fin">
-                </div>                
+            
                 {% if incident %}
-                <div class="col-4">
-                    <h6 class="fw-bold">Empleado asignado</h6>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Empleado asignado</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
                     <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado flex-wrap">
                         {% for line in lines %} 
                             <div class="circleEmpleado position-relative" >
@@ -107,21 +80,102 @@
                                     <p class="text-center">{{line.empleado.user.first_name}}</p>
                                     <div class="d-flex gap-1">
                                         <!-- Botón de Editar que abre el modal y carga los datos -->
-                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'edit', {{incident.id}})">Editar</button>
-                                        <button class="btn" onclick="cargarObservacion({{line.id}}, 'details', {{incident.id}})">Ver detalles</button>
+                                        <button class="btn verDetallesBtn" >Ver detalles</button>
+                                        <button class="btn editarBtn">Editar</button>
+                                        <input type="hidden" value="{{ line.id }}" class="idLine">
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
-
                         <div class="circleEmpleado" id="addLine" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                             <p class="p-0 m-0">+</p>
                         </div>
                     </div>
                 </div>
                 {% endif %}
-                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Prioridad</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <select class="form-select" name="prioridad" id="prioridad" disabled>
+                        {% for priority in priorities %}
+                            <option value="{{ priority.0 }}" class="custom" {% if incident.prioridad == priority.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ priority.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12" id="divTiempoEmpleado">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Tiempo empleado</h6>
+                    </div>
+                    <input type="text" class="border-bottom bg-transparent w-100" disabled value={{total_time}} id="tiempo_empleado">
+                </div>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Estado</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <select class="form-select" name="estado" id="estado" disabled>
+                        {% for state in states %}
+                            <option value="{{ state.0 }}" class="custom" {% if incident.estado == state.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ state.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Fecha inicio</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_inicio|date:'Y-m-d' }}" required id="fecha_inicio">
+                </div>
+            
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Fecha fin</h6>
+                    </div>
+                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_fin|date:'Y-m-d'}}" id="fecha_fin">
+                </div>
+            
+                <input type="hidden" id="idIncident" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
+            </form>
+            
+            <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+            {% if incident %}
+            <div class="d-flex justify-content-end  mt-3">
+                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Eliminar
+                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
+                </button>
             </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Seguro que desea eliminar la incidencia'?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'deleteIncident' incident.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                            Aceptar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <!-- MODAL DE COLABORAR -->
@@ -165,7 +219,7 @@
                             <input type="date" name="dateLine" id="dateLine">
                         </div>
                         
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column" >
                             <label for="timeLine">Tiempo empleado</label>
                             <input type="text" name="timeLine" id="timeLine" readonly>
                             <div>
@@ -183,42 +237,12 @@
             </div>
         </form>
         {% endif %}
-        <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
-        {% if incident %}
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Eliminar
-                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
-                </button>
-            </div>
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Seguro que desea eliminar la incidencia'?
-                        </div>
-                        <div class="modal-footer">
-                            <a href="{% url 'deleteIncident' incident.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
-                            Aceptar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        
         
     </div>
     
 </section>
 <!-- <script src="{% static 'js/employee.js' %}"></script> -->
-<script src="{% static 'js/crudIncident.js' %}"></script>
+<script src="{% static 'js/administracion.js' %}"></script>
 <script src="{% static 'js/incident.js' %}"></script>
 <script src="{% static 'js/linesIncident.js' %}"></script>
 {% endblock content %}

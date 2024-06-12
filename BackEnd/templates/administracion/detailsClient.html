@@ -8,12 +8,12 @@
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
     <div id="alertas"></div>
-    <div class="mx-auto w-75 my-5">
-        <h2 class='tittleDetalle'>{{client.user.first_name}} {{client.user.last_name}}</h2>
+    <div class="mx-auto w-75 my-5 overflow-hidden">
+        <h2 class='tittle p-0'>{% if client %}{{client.user.first_name}} {{client.user.last_name}}{% else %} Nuevo cliente {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
             <button class="buttonReverse me-2 buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
-                <a href="javascript:history.back()">Volver</a>
+                <a href="/clients">Volver</a>
             </button>  
             <button class="button" id="buttonEdit">
                 <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
@@ -21,47 +21,65 @@
             </button> 
         </div>
         
-        <div class="box formularioCrud p-5 d-flex flex-column" id="formularioCrud">
-            <div class="position-relative">
-              <img src="#" alt="" class="rounded-circle mb-4 border border-light p-1">
-              <label for="fileInput">
-                <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
-                <input type="file" id="fileInput" class="d-none">
-              </label>
-            </div>
+        <div class="box formularioCrud p-5 d-flex flex-column  overflow-y-auto barScroll h-75" id="formularioCrud">
+            <form class="row gy-4" method="post">
+                {% csrf_token %}
+                <div class="position-relative">
+                    <img src="{% if client and client.foto_perfil %}{{ client.foto_perfil.url }}{% else %}{% static 'assets/img/usuarioLogo.png' %} {% endif %}" alt="" id="profileImage" class="rounded-circle mb-4 border border-light p-1">
+                    <label for="foto_perfil">
+                        <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
+                        <input type="file" id="foto_perfil" name="foto_perfil" class="d-none" onchange="addImg(event)">
+                    </label>
+                </div>
             
-            <div class="row gy-4">
-                <div class="col-4">
-                    <h6 class="fw-bold">Nombre</h6>
-                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100" disabled value="{{client.user.first_name}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Nombre</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="nombre" name="nombre" class="border-bottom bg-transparent w-100 required" disabled value="{{client.user.first_name}}" required>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Apellidos</h6>
-                    <input type="text" id="apellidos" class="border-bottom bg-transparent w-100" disabled value="{{client.user.last_name}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Apellidos</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="apellidos" name="apellidos" class="border-bottom bg-transparent w-100 required" required disabled value="{{client.user.last_name}}">
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">DNI</h6>
-                    <input type="text" id="dni" class="border-bottom bg-transparent w-100" disabled value="{{client.dni}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">DNI</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="dni" name="dni" class="border-bottom bg-transparent w-100 required" pattern="[A-Za-z0-9]{9}" title="El CIF/NIF debe tener 9 caracteres alfanuméricos" disabled value="{{client.dni}}" required>
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Teléfono 1</h6>
-                    <input type="text" id="telefono1" class="border-bottom bg-transparent w-100" disabled value="{{client.telefono1}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Teléfono 1</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="telefono1" name="telefono1" class="border-bottom bg-transparent w-100 required" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos" disabled value="{{client.telefono1}}" required>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <h6 class="fw-bold">Teléfono 2</h6>
-                    <input type="text" id="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{client.telefono2}}">
+                    <input type="text" id="telefono2" name="telefono2" class="border-bottom bg-transparent w-100 required" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos" disabled value="{{client.telefono2}}">
                 </div>
-                <div class="col-4">
-                    <h6 class="fw-bold">Empresa</h6>
-                    <!-- <input type="hidden" id="empresa"  value="{{client.empresa.id}}"> -->
-                    <input type="text" id="empresa" class="border-bottom bg-transparent w-100" disabled value="{{client.empresa.nombre}}">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Empresas</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <select id="departamento" name="empresa" class="border-bottom bg-transparent w-100 required text-white" disabled>
+                        {% for enterprise in enterprises %}
+                            <option value="{{ enterprise.id }}" class="text-black" {% if client and client.empresa.id == enterprise.id %} selected {% endif %}>{{ enterprise.nombre }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{client.id}}">
-            </div>
-        </div>
-        <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
-        {% if client %}
-            <div class="d-flex justify-content-end">
+                <input type="hidden" id="id" name="id" class="border-bottom bg-transparent w-100" disabled value="{{client.id}}">
+            </form>
+             <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+            {% if client %}
+            <div class="d-flex justify-content-end mt-3">
                 <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Eliminar
                     <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
@@ -87,11 +105,12 @@
                     </div>
                 </div>
             </div>
-        {% endif %}
-        
-        
+            {% endif %}
+        </div>
+       
     </div>
     
 </section>
-<script src="{% static 'js/employee.js' %}"></script>
+<script src="{% static 'js/administracion.js' %}"></script>
+<script src="{% static 'js/addFotoPerfil.js' %}"></script>
 {% endblock content %}

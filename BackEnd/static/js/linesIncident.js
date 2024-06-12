@@ -1,25 +1,47 @@
 // Obtener todos los elementos con la clase circleEmpleado
-var circleEmpleados = document.querySelectorAll('.circleEmpleado');
+let circleEmpleados = document.querySelectorAll('.circleEmpleado');
+let addLine = document.getElementById('addLine')
 
-// Añadir event listener al botón de agregar
-document.getElementById('addLine').addEventListener('click', function() {
-    // Limpiar campos del formulario
-    document.getElementById('commentsLine').value = '';
-    document.getElementById('start').value = '';
-    document.getElementById('end').value = '';
-    document.getElementById('dateLine').value = '';
-    document.getElementById('timeLine').value = '';
-    document.getElementById('addTime').checked = false;
-    document.getElementById('idLine').value = '-';
+if (addLine) {
+    let verDetallesBtns = document.querySelectorAll('.verDetallesBtn');
+    let editarBtns = document.querySelectorAll('.editarBtn');
+    let idIncident=document.querySelector('#idIncident').value
+    
+    verDetallesBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            let lineId = btn.parentElement.querySelector('.idLine').value;
+            cargarObservacion(lineId,'details', idIncident);
+        });
+    });
 
-});
+    editarBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            let lineId = btn.parentElement.querySelector('.idLine').value;
+            cargarObservacion(lineId,'edit',idIncident );
+        });
+    });
+    
+    // Añadir event listener al botón de agregar
+    addLine.addEventListener('click', function() {
+        // Limpiar campos del formulario
+        document.getElementById('commentsLine').value = '';
+        document.getElementById('start').value = '';
+        document.getElementById('end').value = '';
+        document.getElementById('dateLine').value = '';
+        document.getElementById('timeLine').value = '';
+        document.getElementById('addTime').checked = false;
+        document.getElementById('idLine').value = '-';
+    
+    });
+}
 
 // Definir la función cargarObservacion
-function cargarObservacion(id,action,incidentId) {
+function cargarObservacion(idLine,action,idIncident) {
     //Cambiar el btn editar a 'ver incidencia
     let buttonEdit = document.querySelector("#buttonEdit");
     buttonEdit.innerHTML = 'Ver incidencia';
-
 
     // Verificar si el botón de aceptar existe en el documento
     if (document.querySelector("#btnAceptar")) {
@@ -44,7 +66,7 @@ function cargarObservacion(id,action,incidentId) {
         });
     }
 
-    fetch('/detailsLine/'+id)
+    fetch('/detailsLine/'+idLine)
         .then(response => response.json())
         .then(data => {
             console.log(action)
@@ -60,7 +82,7 @@ function cargarObservacion(id,action,incidentId) {
                 tiempoEmpleadoField.value = timePattern[0]+"h "+timePattern[1]+"min"; 
                 
                 // Cambiar la URL para luego tenerla en cuenta cuando vayamos a editar
-                history.pushState({}, '', `/detailsIncident-${incidentId}/detailsLine-${id}`);
+                history.pushState({}, '', `/detailsIncident-${idIncident}/detailsLine-${idLine}`);
 
             } else if (action === "edit") {
                     // Cargar datos en el modal
@@ -71,7 +93,7 @@ function cargarObservacion(id,action,incidentId) {
                     document.getElementById('timeLine').value = data.tiempo || '';
                     document.getElementById('addTime').checked = data.addTime || false;
                     document.getElementById('idLine').value = data.id || false;
-                    console.log(data.id)
+                   
                     // Habilitar el botón Guardar
                     document.getElementById('saveLine').disabled = false;
 

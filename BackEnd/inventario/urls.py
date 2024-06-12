@@ -15,5 +15,5 @@ urlpatterns = [
 
 
     path("getProvincias/", views.getProvincias),
-    path("getLocalidades/<str:provincia>/", views.getLocalidades),
+    path("getLocalidades/", views.getLocalidades),
 ]

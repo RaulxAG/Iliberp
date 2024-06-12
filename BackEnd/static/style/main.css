@@ -296,6 +296,49 @@ body {
   background-color: #1E2225 !important;
 }
 
+.table {
+  cursor: pointer !important;
+}
+.table tr:hover {
+  transform: scale(1.01);
+}
+
+@media screen and (max-width: 1220px) {
+  .table {
+    border: 0px;
+  }
+  .table caption {
+    font-size: 22px;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tr {
+    margin-bottom: 8px;
+    border-bottom: 4px solid #ddd;
+    display: block;
+  }
+  .table th, .table td {
+    font-size: 12px;
+  }
+  .table td {
+    display: block;
+    border-bottom: 1px solid #ddd;
+    text-align: right;
+  }
+  .table td:last-child {
+    border-bottom: 0px;
+  }
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    float: left;
+    margin-right: 3rem;
+    margin-bottom: 1rem;
+    padding-left: 5px;
+  }
+}
 .containerPersona {
   margin: 1% !important;
   border-radius: 5px;
@@ -431,6 +474,7 @@ body {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  margin-bottom: 20px;
 }
 .circleEmpleado:hover .position-absolute {
   display: block;

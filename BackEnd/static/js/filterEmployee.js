@@ -4,7 +4,7 @@ let searchInput = document.querySelector('#searchInput');
 optionSelect.addEventListener('change', function() {
     setTimeout(() => {
         filterEmployes(this.value, searchInput.value);
-    }, 500)
+    }, 300)
 });
 
 searchInput.addEventListener('input', function() {
@@ -41,9 +41,8 @@ function updateTable(data) {
             <td>${employee.user.first_name}</td>
             <td>${employee.user.last_name}</td>
             <td>${employee.dni}</td>
-            <td>${employee.telefono1}</td>
-            <td>${employee.telefono2}</td>
-            <td>${employee.empresa}</td>
+            <td>${employee.telefono}</td>
+            <td>${employee.departamento}</td>
         `;
         tableBody.appendChild(row);
     });

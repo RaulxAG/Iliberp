@@ -10,9 +10,8 @@
     <section class="box contenedor flex-row gap-2">
         <section class="w-25 box">
             <figure class="border-bottom pb-2 d-flex justify-content-between align-items-end">
-                <img src="{% static 'assets/img/logoIncident.png' %}" alt="" class="rounded-circle bg-dark "/>
-                <div>
-                    <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <div class="w-100 d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-light btn-sm mt-3 " data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                         + Nuevo chat
                     </button>
                     <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -44,14 +43,13 @@
                 
             </figure>
             <form class="d-flex mb-4" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search" id="search" aria-label="Search">
             </form>
             <div class="chats pt-2">
-                
                 {% for chat in chats_user %}
                 <div class="containerPersona d-flex row overflow-hidden align-items-end bg-dark p-1">
                     <figure class="col-3">
-                        <img src="{% static 'assets/img/logoIncident.png' %}" alt="" class="rounded-circle bg-dark "/>
+                        <img src="{% static 'assets/img/usuarioLogo.png' %}" alt="" class="rounded-circle bg-dark "/>
                     </figure>
                     <p class="col-9 ultMensaje">{{chat.remitente}}: {{ chat.texto }}</p>
                     <p class="col-12 text-end small">{{ chat.fecha_hora }}</p>
@@ -78,9 +76,9 @@
                 <i class="fa-solid fa-paper-plane col-1 p-0 m-0 h4" id="btnEnviar" style="color: #e65522;"></i>
             </div>
         </section>
+
+        <input type="hidden" id="idUserLog" value="{{userLog.id}}">
     </section>
 
     <script src="{% static 'js/mensajeria.js' %}"></script>
-    <script src="{% static 'js/newMensaje.js' %}"></script>
-    <script src="{% static 'js/newChat.js' %}"></script>
 {% endblock content %}

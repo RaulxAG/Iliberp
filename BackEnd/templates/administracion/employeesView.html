@@ -9,7 +9,7 @@
     {% include 'global/submenu.html' %} 
     <section class="box d-flex flex-column contenedor px-3">
         <h2 class='tittle'>Empleados</h2>
-        <div class="mx-auto">
+        <div class="mx-auto overflow-hidden">
             <div class="d-flex justify-content-end">
                 <a href="{% url 'detailsEmployee' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
@@ -34,8 +34,8 @@
                 </div>
             </form>
             
-            <div class="h-50 overflow-auto barScroll tablaResponsiva">
-                <table class="table table-dark table-striped tabla  overflow-y-auto  h-25">
+            <div class="h-75 overflow-auto barScroll pb-5">
+                <table class="table table-dark table-striped">
                     <thead class="fs-5 text-uppercase sticky-top">
                         <tr class="">
                             <th class="p-3">Nombre</th>
@@ -51,7 +51,7 @@
                                 <td data-label="Nombre">{{employee.user.first_name}}</td>
                                 <td data-label="Apellido">{{employee.user.last_name}}</td>
                                 <td data-label="Dni">{{employee.dni}}</td>
-                                <td data-label="Telefono">{{employee.telefono}}</td>
+                                <td data-label="Teléfono">{{employee.telefono}}</td>
                                 <td data-label="Departamento">{{employee.departamento}}</td>
                             </tr>
                         {% endfor %} 
