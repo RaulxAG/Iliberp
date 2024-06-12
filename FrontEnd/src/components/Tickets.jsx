@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { eliminarIncidencia } from "../librerias/libTickets";
 
-export default function Tickets({ t }) {
-    const [client_id, setClient_id] = useState(2);
+export default function Tickets({ t, user_logued_id }) {
+    const [client_id, setClient_id] = useState(user_logued_id);
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editingTicketId, setEditingTicketId] = useState(null); // Estado para almacenar el ID del ticket que se está editando

@@ -15,7 +15,7 @@ def getIncidentsJSON(request,client_id):
     if request.method == 'GET':
 
         #Obtener el usuario
-        client=Cliente.objects.get(pk=client_id)
+        client=Cliente.objects.get(user__id=client_id)
 
         #Obtener las incidencias reportadas por ese cliente
         incidents= Incidencia.objects.filter(cliente=client)
@@ -31,7 +31,7 @@ def getIncidentsJSON(request,client_id):
                 'empleado': incident.empleado.user.username if incident.empleado else None,
                 'cliente': {
                     'nombre': incident.cliente.user.username,
-                    'empresa': incident.cliente.empresa.nombre,
+                    'empresa': incident.cliente.empresa.nombre if incident.cliente.empresa else None,
                     'telefono': incident.cliente.telefono1,
                 },
                 'prioridad': incident.prioridad,
@@ -53,7 +53,7 @@ def setIncidentJSON(request):
         descripcion = data['descripcion']
         observaciones = data['observaciones']
 
-    client=Cliente.objects.get(pk=client_id)
+    client=Cliente.objects.get(user__id=client_id)
     fecha_inicio = timezone.now().date()
 
     #Asignar el empleado aleatoriamente, teniendo en cuenta que el departamento tiene que ser igual a la categoria que ha indicado

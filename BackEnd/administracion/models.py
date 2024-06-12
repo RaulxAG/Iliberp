@@ -42,7 +42,7 @@ class Cliente(models.Model):
     telefono1 = models.CharField(max_length=20)
     telefono2 = models.CharField(max_length=20, blank=True, null=True) 
     foto_perfil = models.BinaryField(blank=True, null=True) 
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)  # Relación con el modelo Empresa
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE,blank=True, null=True)  # Relación con el modelo Empresa
 
 class Empleado(models.Model):
     """

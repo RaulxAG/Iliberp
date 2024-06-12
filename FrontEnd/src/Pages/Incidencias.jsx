@@ -1,14 +1,33 @@
 import Menu from "../components/Menu";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from "react-router";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 // contenedor mainIncidencias 
 // contenedor
 export default function Incidencias() {
+    const { t } = useTranslation();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const initialCategoria = searchParams.get('categoria') || '';
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const username = await localStorage.getItem('username');
+            const userId = await localStorage.getItem('user_id');
+            const token = await localStorage.getItem('token');
+
+            if (username && userId && token) {
+                setUser({ username, userId, token });
+            } else {
+                console.error("Error: No se pudieron recuperar los datos del usuario del localStorage.");
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
@@ -17,7 +36,6 @@ export default function Incidencias() {
     });
 
     const onSubmit = data => {
-        console.log(data);
     
         fetch('http://127.0.0.1:8000/setIncidentJSON/', {
             method: 'POST',
@@ -38,7 +56,6 @@ export default function Incidencias() {
             return response.json();
         })
         .then(responseData => {
-            console.log('Success:', responseData);
             alert('Se ha registrado tu incidencia de manera exitosa');
             window.location.href = '/inicio';
         })
@@ -52,37 +69,41 @@ export default function Incidencias() {
         setValue('categoria', newCategoria);
     }, [location, setValue, searchParams]);
 
+    if (!user) {
+        return <div>Cargando...</div>; // O cualquier otro indicador de carga
+    }
+
     return (
         <main className="containerPrincipal mainIncidencias">
-            <Menu selected="incidencias"></Menu>
+            <Menu selected="incidencias" username={user ? user.username : "Invitado"} />
             <form onSubmit={handleSubmit(onSubmit)} method="post" className="mainIncidencias__formulario contenedor flex-row">
                 <section className="box col-9">
-                    <h4 className="tittle fs-3 mb-5">Reportar una incidencia</h4>
+                    <h4 className="tittle fs-3 mb-5">{t('reportarInc')}</h4>
 
-                    <input type="text" name="cliente" value={2} hidden id="cliente" {...register("client_id", { required: true })}/>
+                    <input type="text" name="cliente" value={user.userId} hidden id="cliente" {...register("client_id", { required: true })}/>
 
                     <div className="px-5"> 
                         <div className="formulario__input">
-                            <label htmlFor="descripcion">Motivo de tu incidencia</label>
+                            <label htmlFor="descripcion">{t('motivo')}</label>
                             <input type="text" name="descripcion" id="descripcion" {...register("descripcion", { required: true })}/>
-                            {errors.descripcion && <span className="text-warning">Debes indicar el motivo</span>}
+                            {errors.descripcion && <span className="text-warning">{t('errorMotivo')}</span>}
                         </div>
                         <div className="formulario__inputGroup">
                             <div className="formulario__input">
-                                <label htmlFor="categoria">Categoría</label>
+                                <label htmlFor="categoria">{t('categoria')}</label>
                                 <select name="categoria" id="categoria" {...register("categoria", { required: true })}>
-                                    <option value="Ciberseguridad">Ciberseguridad</option>
-                                    <option value="Programacion">Programación</option>
-                                    <option value="Telefonía">Telefonía</option>
-                                    <option value="Sistemas">Sistemas</option>
-                                    <option value="Taller">Taller</option>
-                                    <option value="Web">Web</option>
+                                    <option value="Ciberseguridad">{t('ciberseguridad')}</option>
+                                    <option value="Programacion">{t('programacion')}</option>
+                                    <option value="Telefonía">{t('telefonia')}</option>
+                                    <option value="Sistemas">{t('sistemas')}</option>
+                                    <option value="Taller">{t('taller')}</option>
+                                    <option value="Web">{t('web')}</option>
                                 </select>
-                                {errors.categoria && <span className="text-warning">Selecciona una categoría</span>}
+                                {errors.categoria && <span className="text-warning">{t('errorCategoria')}</span>}
                             </div>
                         </div>
                         <div className="formulario__input">
-                            <label htmlFor="observaciones">Descripción de tu incidencia:</label>
+                            <label htmlFor="observaciones">{t('descripcionInc')}</label>
                             <textarea name="observaciones" id="observaciones" cols="30" rows="5" {...register("observaciones")}></textarea>
                         </div>
                     </div>
@@ -98,8 +119,8 @@ export default function Incidencias() {
                     </figure>
 
                     <div className="acciones__botones">
-                        <input type="submit" value="Enviar" id="submit" />
-                        <input type="reset" value="Vaciar" id="reset" />
+                        <input type="submit" value={t('textoEnviar')} id="submit" />
+                        <input type="reset" value={t('textoVaciar')} id="reset" />
                     </div>
                 </section>
             </form>

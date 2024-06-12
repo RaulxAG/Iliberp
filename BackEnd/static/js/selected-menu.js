@@ -4,7 +4,5 @@ let url_category = queryString[queryString.length - 2]; // recoger el nombre de 
 
 url_category = decodeURIComponent(url_category);
 
-console.log(url_category)
-
 let selected = document.getElementById("option_"+url_category); // seleccionar el elemento HTML con el ID 'option_' seguido del nombre coincidente en la URL.
 selected.style.backgroundColor = "#1e2225"; // cambiar el color al elemento seleccionado.

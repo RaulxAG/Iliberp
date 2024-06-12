@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import CardMensaje from "./CardMensaje";
 
-export default function UltimosMensajes({ page, selected, query, t }) {
+export default function UltimosMensajes({ page, selected, query, t, user_logued_id }) {
     const [ mensajes, setMensajes ] = useState();
     const [ loading, setLoading ] = useState(true);
 
-    const obtenerChats = async (user_id) => {
+    const obtenerChats = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getChatsJSON/${user_id}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/getChatsJSON/${user_logued_id}/`, {
                 method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -29,8 +29,7 @@ export default function UltimosMensajes({ page, selected, query, t }) {
     };
 
     useEffect(() => {
-        obtenerChats(2);
-        // console.log(mensajes);
+        obtenerChats();
     }, []);
 
     return (

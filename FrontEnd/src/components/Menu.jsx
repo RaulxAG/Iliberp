@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 
 
-export default function Menu({ selected }) {
+export default function Menu({ selected, username }) {
     const { t, i18n } = useTranslation();
     const [currentLang, setCurrentLang] = useState(i18n.language);
 
@@ -19,7 +19,7 @@ export default function Menu({ selected }) {
             <div>
                 <Link className="link menuLateral__profile" to={"/login"}>
                     <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
-                    <p className="d-none d-sm-inline">Usuario</p>
+                    <p className="d-none d-sm-inline">{username}</p>
                 </Link>
 
 

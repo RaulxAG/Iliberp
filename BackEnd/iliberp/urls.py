@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from iliberp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("administracion.urls")),
+    path('loginApi/',views.loginApi,name='loginApi'),
+    path('registerApi/',views.registerApi,name='registerApi'),
     path('', include("fichaje.urls")),
     path('', include("incidencias.urls")),
     path('', include("inventario.urls")),

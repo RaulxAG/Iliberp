@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "../../utils/utilidades";
+import { useTranslation } from "react-i18next";
 
 export default function Mensajeria() {
+    const { t } = useTranslation();
     const { chat_id } = useParams();
     const [contactos, setContactos] = useState();
     const navigate = useNavigate();
@@ -14,6 +16,23 @@ export default function Mensajeria() {
     const query=useQuery();
     const sBusqueda=query.get("search");
     const [search, setSearch] = useState("");
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const username = await localStorage.getItem('username');
+            const userId = await localStorage.getItem('user_id');
+            const token = await localStorage.getItem('token');
+
+            if (username && userId && token) {
+                setUser({ username, userId, token });
+            } else {
+                console.error("Error: No se pudieron recuperar los datos del usuario del localStorage.");
+            }
+        };
+
+        fetchUserData();
+    }, []);
     
     useEffect( () => {
         setSearch(sBusqueda || '' )
@@ -45,8 +64,6 @@ export default function Mensajeria() {
             return response.json();
         })
         .then(responseData => {
-            console.log('Success:', responseData);
-            
             navigate(`/mensajeria/${responseData.chat_id}`);
         })
         .catch(error => {
@@ -80,6 +97,10 @@ export default function Mensajeria() {
         obtenerContactos();
     }, []);
 
+    if (!user) {
+        return <div>Cargando...</div>; // O cualquier otro indicador de carga
+    }
+
     return (
         <main className="containerPrincipal mainMensajeria">
             {/* Modal */}
@@ -88,11 +109,11 @@ export default function Mensajeria() {
                     <div className="modal-content bg-dark">
                     <form onSubmit={handleSubmit(onSubmit)} method="post">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Iniciar chat</h1>
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">{t('iniciar')}</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                            <input type="number" name="user1_id" id="user1_id" className="d-none" hidden value={2} {...register("user1_id",  { required: true })}/>
+                            <input type="number" name="user1_id" id="user1_id" className="d-none" hidden value={user.userId} {...register("user1_id",  { required: true })}/>
                             
                             <select name="user2_id" id="user2_id" className="form-select bg-dark text-white fs-4" aria-label="Selecciona un contacto" {...register("user2_id",  { required: true })}>
                                 {contactos && contactos.map((contacto) => (
@@ -101,17 +122,17 @@ export default function Mensajeria() {
                                     </option>
                                 ))}
                             </select>
-                            {errors.user2_id && <span className="text-warning">Seleccione un contacto</span>}
+                            {errors.user2_id && <span className="text-warning">{t('contacto')}</span>}
                     </div>
                     <div className="modal-footer">
-                        <input type="submit" className="btn btn-outline-danger text-white" value="Seleccionar" />
+                        <input type="submit" className="btn btn-outline-danger text-white" value={t('seleccionar')} />
                     </div>
                     </form>
                     </div>
             </div>
             </div>
 
-            <Menu selected="mensajeria"></Menu>
+            <Menu selected="mensajeria" username={user.username} />
             <section className="contenedor flex-row box">
 
                 <section className="mainMensajeria__contactos col-4 overflow-hidden">
@@ -128,33 +149,33 @@ export default function Mensajeria() {
                                     <ul className="dropdown-menu text-danger">
                                         <button className="dropdown-item fs-5">A-Z</button>
                                         <button className="dropdown-item fs-5">Z-A</button>
-                                        <button className="dropdown-item fs-5">Recientes</button>
-                                        <button className="dropdown-item fs-5">Antiguos</button>
+                                        <button className="dropdown-item fs-5">{t('filtroRecientes')}</button>
+                                        <button className="dropdown-item fs-5">{t('filtroAntiguos')}</button>
                                     </ul>
                                 {/* </div> */}
                             </section>
                         </div>
 
-                        <input type="search" name="busqueda" id="busqueda" autoComplete="off" placeholder="Buscar . . ." className="w-100 py-1 px-3 mt-3 box p-0 shadow" value={search} onChange={handleChange} />
+                        <input type="search" name="busqueda" id="busqueda" autoComplete="off" placeholder={t('buscar')} className="w-100 py-1 px-3 mt-3 box p-0 shadow" value={search} onChange={handleChange} />
                     </form>
 
                     <div className="contactos__chats w-100 mt-3 px-2 overflow-scroll">
                         {chat_id && (
-                            <UltimosMensajes page={"mensajeria"} selected={chat_id} query={search}/>
+                            <UltimosMensajes page={"mensajeria"} selected={chat_id} query={search} t={t} user_logued_id={user.userId} />
                         )}
 
                         {!chat_id && (
-                            <UltimosMensajes page={"mensajeria"} selected={false} query={search}/>
+                            <UltimosMensajes page={"mensajeria"} selected={false} query={search} t={t} user_logued_id={user.userId} />
                         )}
                         
                     </div>
                 </section>
                 
                 {chat_id && (
-                    <Chat chat={chat_id}/>
+                    <Chat chat={chat_id} t={t} user_logued_id={user.userId} />
                 )}
                 {!chat_id && (
-                    <Chat chat={null}/>
+                    <Chat chat={null} t={t} user_logued_id={user.userId} />
                 )}
             </section>
         </main>

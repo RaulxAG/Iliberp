@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-export default function Chat({ chat }) {
+export default function Chat({ chat, t, user_logued_id }) {
     const { register, handleSubmit } = useForm();
     const chatCuerpoRef = useRef(null);
     const navigate = useNavigate();
@@ -70,14 +70,14 @@ export default function Chat({ chat }) {
 
     useEffect(() => {
         if (chat) {
-            obtenerPaginasTotales(chat, 2);
+            obtenerPaginasTotales(chat, user_logued_id);
         }
     }, [chat]);
 
     const cargarPaginaAnterior = async () => {
         if (page > 0) {
             const previousPage = page - 1;
-            await obtenerMensajes(chat, 2, previousPage);
+            await obtenerMensajes(chat, user_logued_id, previousPage);
         }
     };
 
@@ -112,8 +112,6 @@ export default function Chat({ chat }) {
         if (chatCuerpoRef.current && page === totalPages) {
             chatCuerpoRef.current.scrollTop = chatCuerpoRef.current.scrollHeight;
         }
-
-        console.log(participants)
     }, [mensajes, page]);
 
     // Función para formatear la fecha y la hora
@@ -143,15 +141,15 @@ export default function Chat({ chat }) {
             </header>
             <section ref={chatCuerpoRef} className="chat__cuerpo w-100 h-100 overflow-y-scroll overflow-x-hidden">
                 {mensajes.length === 0 && (
-                    <h5 className="d-flex h-100 align-items-center justify-content-center">Selecciona un Chat para ver los mensajes o inicia uno nuevo.</h5>
+                    <h5 className="d-flex h-100 align-items-center justify-content-center">{t('info')}</h5>
                 )}
 
                 {mensajes.length > 0 && page > 1 && (
-                    <button onClick={cargarPaginaAnterior} className="btn btn-primary mb-3">Cargar página anterior</button>
+                    <button onClick={cargarPaginaAnterior} className="btn btn-primary mb-3">{t('anterior')}</button>
                 )}
 
                 {mensajes.map((mensaje, index) => (
-                    <article key={index} className={`shadow-sm w-50 py-3 px-3 my-3 mx-2 ${mensaje.usuario === 2 ? 'enviado' : 'recibido'}`}>
+                    <article key={index} className={`shadow-sm w-50 py-3 px-3 my-3 mx-2 ${mensaje.usuario == user_logued_id ? 'enviado' : 'recibido'}`}>
                         {mensaje.fichero && (
                             mensaje.fichero.match(/\.(jpeg|jpg|gif|png)$/) ? (
                                 <img src={`http://127.0.0.1:8000${mensaje.fichero}`} alt="fichero" className='w-100 mb-3' />
@@ -176,9 +174,9 @@ export default function Chat({ chat }) {
                             <input type="file" name="fichero" id="fichero" className="d-none" {...register('fichero')}/>
                         </label>
 
-                        <input type="text" name="mensaje" id="mensaje" placeholder="Escribe un mensaje" autoComplete='off' className="box py-3 px-3" {...register('mensaje', { required: true, autoComplete: 'off' })} />
+                        <input type="text" name="mensaje" id="mensaje" placeholder={t('escribeMensaje')} autoComplete='off' className="box py-3 px-3" {...register('mensaje', { required: true, autoComplete: 'off' })} />
                         <input type="number" name="chat_id" id="chat_id" className="d-none" value={mensajes.length > 0 ? mensajes[0].chat : ''} {...register('chat_id', { required: true })} />
-                        <input type="number" name="user_id" id="user_id" className="d-none" value={2} {...register('user_id', { required: true })} />
+                        <input type="number" name="user_id" id="user_id" className="d-none" value={user_logued_id} {...register('user_id', { required: true })} />
 
                         <button type="submit" className="btn fs-3"><i className="fa-solid fa-paper-plane"></i></button>
                     </form>

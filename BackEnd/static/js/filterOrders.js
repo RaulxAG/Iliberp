@@ -18,13 +18,11 @@ function updateFilter(type, value) {
         break;
     }
     filters = {stateFilter, dateFilter };
-    console.log(filters);
     filter(filters);
 }
 
 // Función para agregar manejadores de eventos a los botones de los dropdowns
 function addEventListeners() {
-    console.log("hola")
     document.querySelectorAll('.dropdown-item').forEach(item => {
     item.addEventListener('click', event => {
         let filterType = event.target.closest('th').getAttribute('data-filter-type');

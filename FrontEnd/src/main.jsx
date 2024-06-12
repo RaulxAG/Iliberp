@@ -5,7 +5,7 @@ import Inicio from './Pages/Inicio';
 import Incidencias from './Pages/Incidencias';
 import Mensajeria from './Pages/Mensajeria';
 import WeatherComponent from './components/Tiempo';
-import Login from './Pages/Login';
+import FormInicio from './Pages/Login';
 import NotFound from './Pages/404';
 // import App from './App.jsx'
 import '../utils/i18n';
@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/home" element={<Inicio />} />
         <Route path="/inicio" element={<Inicio />} />
 
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<FormInicio />} />
 
         <Route path="/incidencias" element={<Incidencias />} />
 

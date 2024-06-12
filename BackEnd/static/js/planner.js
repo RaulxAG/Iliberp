@@ -73,31 +73,26 @@ document.getElementById("employee_asigned_filter").addEventListener('change',fun
 
 document.getElementById("date_filter").addEventListener('change',function () {
     filtroFecha = this.value;
-    console.log("Fecha seleccionado:", filtroFecha);
     history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 document.getElementById("priority_filter").addEventListener('change',function () {
     filtroPrioridad = this.value;
-    console.log("Filtro seleccionado:", filtroPrioridad);
     history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 document.getElementById("enterprise_filter").addEventListener('change',function () {
     filtroEmpresa = this.value;
-    console.log("Filtro seleccionado:", filtroEmpresa);
     history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 document.getElementById("client_filter").addEventListener('change',function () {
     filtroCliente = this.value;
-    console.log("Filtro seleccionado:", filtroCliente);
     history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
 document.getElementById("searchInput").addEventListener('keyup',function () {
     filtroSearch = this.value;
-    console.log("Filtro seleccionado:", filtroSearch);
     history.pushState(null, null, urlActual+`?fecha=${filtroFecha}&?empleado=${filtroEmpleado}&?prioridad=${filtroPrioridad}&?enterprise=${filtroEmpresa}&?client=${filtroCliente}&?search=${filtroSearch}`);
 })
 
@@ -144,7 +139,7 @@ selects.forEach(function(select) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+    
             // Manejar los datos recibidos y actualizar la lista de incidencias en la página
             const listaTareas = document.getElementById('listaTareas');
             const tareasPendientes = document.getElementById('Pendiente');
@@ -159,8 +154,6 @@ selects.forEach(function(select) {
             tareasTerminadas.innerHTML = '';
 
             data.forEach(task => {
-
-                console.log(task)
 
                 // Crea un nuevo elemento div para la incidencia
                 const nuevaIncidencia = document.createElement('div');
