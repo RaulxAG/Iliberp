@@ -1,0 +1,50 @@
+{% load static %}
+
+<section class="menuLateral box d-flex flex-column align-items-center justify-content-between">
+    <div>
+        <a class="link menuLateral__profile" href="/" >
+            <img src="{% static 'assets/img/usuario.png' %}" class="profile__photo" alt="Foto de perfil" />
+            <p class="m-0 d-none d-sm-inline">Usuario</p>
+        </a>
+
+
+        <section class="menuLateral__enlaces">
+            <ul class="enlaces__lista">
+                <li>
+                    <a href="/inicio" id="option_inicio">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="option_incidencias">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="option_chat">
+                        <i class="fa-solid fa-comments"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/trello" id="option_trello">
+                        <i class="fa-brands fa-trello"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/inventario" id="option_inventario">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-language"></i>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="menuLateral__logo d-flex d-none d-sm-block align-items-center justify-content-center py-2">
+            <img src="{% static 'assets/img/logo.png' %}" alt="logo" />
+        </section>
+    </div>
+</section> 

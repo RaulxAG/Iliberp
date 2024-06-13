@@ -1,0 +1,103 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Trabajadores - ILIBERP Solutions{% endblock %}
+
+{% block content %}
+    {% include 'global/submenu.html' %}
+
+    <section class="sectionInicio box d-flex flex-column contenedor">
+        <h2 class='tittle' id="titulo">Bienvenido Admin</h2>
+
+        <div class="inicio__buttons m-auto mt-3 d-flex align-items-center justify-content-center w-50 gap-5">
+            <a href="{% url 'jornadas' 1 %}" type="button" class="btn button--bg w-50" >
+                <p class="m-0 fs-5">Mis Jornadas</p>
+            </a>
+            <a href="/jornadas/" type="button" class="btn button--bg w-50">
+                <p class="m-0 fs-5">Todas las jornadas</p>
+            </a>
+
+        </div>
+
+        <div class="inicio__comenzar h-75 w-50 m-auto d-flex align-items-center justify-content-center">
+            <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" id="finished" value="{{ last_register.fin }}">
+
+            <button id="startButton" type="button" class="w-100 btn button--bg">Empezar Jornada</button>
+            <button id="finishButton" type="button" class="w-100 btn button--bg-red" style="display:none;">Finalizar Jornada</button>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let csrfToken = document.getElementById('csrf_token').value;
+            let startButton = document.getElementById('startButton');
+            let finishButton = document.getElementById('finishButton');
+            let finished = document.getElementById('finished').value;
+
+            if (finished != 'None') {
+                startButton.style.display = 'block';
+                finishButton.style.display = 'none';
+            } else {
+                startButton.style.display = 'none';
+                finishButton.style.display = 'block';
+            }
+            
+            startButton.addEventListener('click', function() {
+                let employeeId = {{ request.user.id }};
+                fetch('/iniciarJornada/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({
+                        'employee_id': employeeId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.inicio) {
+                        alert("Jornada iniciada: " + data.inicio);
+                        startButton.style.display = 'none';
+                        finishButton.style.display = 'block';
+                    } else {
+                        alert("Error al iniciar la jornada.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Error al iniciar la jornada.");
+                });
+            });
+
+            finishButton.addEventListener('click', function() {
+                let employeeId = {{ request.user.id }};
+                fetch('/finalizarJornada/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({
+                        'employee_id': employeeId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fin) {
+                        alert("Jornada finalizada: " + data.fin);
+                        finishButton.style.display = 'none';
+                        startButton.style.display = 'block';
+                    } else {
+                        alert("Error al finalizar la jornada.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Error al finalizar la jornada.");
+                });
+            });
+        });
+    </script>
+{% endblock %}

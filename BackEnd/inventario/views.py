@@ -4,7 +4,263 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Producto, Pedido, Linea
 from administracion.models import Cliente
+from django.shortcuts import render, redirect
+from datetime import datetime, timedelta, time
+from django.contrib import messages
 from django.utils import timezone
+from decimal import Decimal
+
+
+def inventario(request):
+    return render(request, "inventario/inventario.html")
+
+def articulos(request):
+    products = Producto.objects.all()
+
+    return render(request, "inventario/articulos.html", {'products': products})
+
+def nuevoArticulo(request):
+    tipos = Producto.TIPO
+
+    return render(request, "inventario/nuevoArticulo.html", {'tipos': tipos})
+
+def guardarArticulo(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        descripcion = request.POST.get('descripcion')
+        #especificaciones
+        nombre = request.POST.get('nombre')
+        tipo = request.POST.get('tipo')
+        precio = request.POST.get('precio')
+        precio_descuento = request.POST.get('descuento')
+        imagen = request.FILES.get('imagen')
+        destacado = request.POST.get('destacado')
+
+        if destacado == "on":
+            destacado = True
+        elif destacado == "off":
+            destacado = False
+        
+        try:
+            # Convertir comas a puntos y luego convertir a Decimal
+            if precio:
+                precio = Decimal(precio.replace(',', '.'))
+            if precio_descuento:
+                precio_descuento = Decimal(precio_descuento.replace(',', '.'))
+            else:
+                precio_descuento = None
+
+            if product_id:
+                existingProduct = Producto.objects.get(pk=product_id)
+
+                existingProduct.descripcion = descripcion
+                #especificaciones
+                existingProduct.nombre = nombre
+                existingProduct.tipo = tipo
+                existingProduct.precio = precio
+                existingProduct.precio_descuento = precio_descuento if precio_descuento else None
+                existingProduct.foto = imagen if imagen else None
+                existingProduct.destacado = destacado
+
+                existingProduct.save()
+
+                messages.success(request, 'Producto modificado correctamente.')
+            else:
+                newProduct = Producto.objects.create(
+                    descripcion = descripcion,
+                    #especificaciones
+                    nombre = nombre,
+                    tipo = tipo,
+                    precio = precio,
+                    precio_descuento = precio_descuento if precio_descuento else None,
+                    foto = imagen if imagen else None,
+                    destacado = destacado,
+                )
+
+                messages.success(request, 'Producto añadido correctamente.')
+        except Exception as e:
+            messages.error(request, 'Error al añadir el producto.' + str(e))
+
+        return redirect("/articulos")
+        
+
+def detalleArticulo(request, product_id=None):
+    product = Producto.objects.get(pk=product_id)
+    especificaciones = product.especificaciones
+    tipos = Producto.TIPO
+
+    return render(request, "inventario/detalleArticulo.html", {'product': product, 'especificaciones': especificaciones, 'tipos': tipos})
+
+def eliminarArticulo(request, product_id=None):
+    products = Producto.objects.all()
+
+    try:
+
+        product = Producto.objects.get(pk=product_id)
+        product.delete()
+        messages.success(request, 'Producto eliminado correctamente.')
+    except Exception as e:
+        messages.error(request, 'Error al eliminar el producto.')
+
+    return redirect("/articulos")
+
+def pedidos(request):
+    orders = Pedido.objects.all().order_by('fecha').reverse()
+
+    return render(request, "inventario/pedidos.html", {'orders': orders})
+
+def nuevoPedido(request):
+    clientes = Cliente.objects.all()
+    estados = Pedido.ESTADOS
+    articulos = Producto.objects.all()
+
+    return render(request, "inventario/nuevoPedido.html", {'clientes': clientes, 'estados': estados, 'articulos': articulos})
+
+def detallePedido(request, order_id=None):
+    order = Pedido.objects.get(pk=order_id)
+    lines = Linea.objects.filter(pedido_id=order_id)
+    clientes = Cliente.objects.all()
+    estados = Pedido.ESTADOS
+
+    return render(request, "inventario/detallePedido.html", {'order': order, 'lines': lines, 'estados': estados, 'clientes': clientes})
+
+def eliminarPedido(request, order_id=None):
+    orders = Pedido.objects.all()
+
+    try:
+        order = Pedido.objects.get(pk=order_id)
+        order.delete()
+
+        messages.success(request, 'Pedido eliminado correctamente.')
+    except Exception as e:
+        messages.error(request, 'Error al eliminar el Pedido.')
+
+    return redirect("/pedidos")
+
+def guardarPedido(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        fecha = request.POST.get('fecha')
+        cliente = request.POST.get('cliente')
+        direccion = request.POST.get('direccion')
+        estado = request.POST.get('estado')
+        
+        try:
+            if cliente:
+                cliente = Cliente.objects.get(pk=cliente)
+
+            if order_id:
+                existingOrder = Pedido.objects.get(pk=order_id)
+
+                existingOrder.fecha = fecha
+                existingOrder.cliente = cliente
+                existingOrder.direccion = direccion
+                existingOrder.estado = estado
+
+                existingOrder.save()
+
+                messages.success(request, 'Pedido modificado correctamente.')
+            else:
+                newOrder = Pedido.objects.create(
+                    fecha = fecha,
+                    cliente = cliente,
+                    direccion = direccion,
+                    estado = estado
+                )
+
+                messages.success(request, 'Pedido añadido correctamente.')
+        except Exception as e:
+            messages.error(request, 'Error al añadir el producto.' + str(e))
+
+        return redirect("/pedidos")
+
+def updateFilterOrder(request):
+    if request.method == 'POST':  # Si existe una solicitud POST
+        data = json.loads(request.body)  # Decodificar los datos JSON del cuerpo de la solicitud
+
+        # Obtener los filtros de la solicitud
+        date_filter = data.get('date')
+        state_filter = data.get('state')
+
+        orders = Pedido.objects.all()  # Obtener todas las incidencias
+
+        # Aplicar los filtros de manera lógica
+        if state_filter:
+            orders = orders.filter(estado=int(state_filter))
+
+        # Ordenar por fecha si se especifica el filtro
+        if date_filter:
+            if date_filter == 'recientes':
+                orders = orders.order_by('-fecha')
+            elif date_filter == 'antiguos':
+                orders = orders.order_by('fecha')
+
+        # Formatear la respuesta con las tareas filtradas y ordenadas
+        data = [{
+            'id': order.id,
+            'fecha': order.fecha.strftime('%Y-%m-%d'),  # Asegúrate de formatear la fecha como una cadena
+            'direccion': order.direccion,
+            'cliente': {'nombre': order.cliente.user.username},
+            'estado': order.get_estado_display(),
+        } for order in orders]
+
+        return JsonResponse(data, safe=False)  # Devolver aquí la respuesta
+    else:
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
+
+def updateFilterArticle(request):
+    if request.method == 'POST':  # Si existe una solicitud POST
+        data = json.loads(request.body)  # Decodificar los datos JSON del cuerpo de la solicitud
+
+        # Obtener los filtros de la solicitud
+        type_filter = data.get('type')
+        featured_filter = data.get('featured')
+        price_filter = data.get('price')
+
+        if featured_filter:
+            if featured_filter == 'true':
+                featured_filter = True
+            elif featured_filter == 'false':
+                featured_filter = False
+    
+            featured_filter = bool(featured_filter)  # Convierte el valor a un booleano
+        else:
+            featured_filter = None
+
+        # Ordenar por precio si se especifica el filtro
+        if price_filter:
+            if price_filter == 'ascendente':
+                articles = Producto.objects.order_by('precio')
+            elif price_filter == 'descendente':
+                articles = Producto.objects.order_by('-precio')
+        else:
+            articles = Producto.objects.all()  # Obtener todos los productos
+
+        arrayArticles = []
+
+        for article in articles:
+                arrayArticles.append(article)
+
+        # Aplicar los filtros de manera lógica usando una comprensión de lista ( si existe el filtro se aplica )
+        filtered_articles = [article for article in arrayArticles if 
+            (not type_filter or article.tipo == type_filter) and
+            (featured_filter is None or article.destacado == featured_filter)
+        ]
+
+        # Formatear la respuesta con los artículos filtrados y ordenados
+        data = [{
+            'id': article.id,
+            'nombre': article.nombre,
+            'tipo': article.tipo,
+            'destacado': article.destacado,
+            'precio': float(article.precio),
+        } for article in filtered_articles]
+
+        return JsonResponse(data, safe=False)  # Devolver aquí la respuesta
+    else:
+        response_data = {'error': 'Se esperaba una solicitud POST'}
+        return JsonResponse(response_data, status=400)
 
 @csrf_exempt
 def getProductsJSON(request):

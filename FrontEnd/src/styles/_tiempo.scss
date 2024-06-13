@@ -1,0 +1,16 @@
+.modulos__tiempo {
+
+    .tiempo__logo {
+        filter: drop-shadow(
+            0 0 5px rgba(0, 0, 0, 0.8)
+        );
+
+        article {
+            line-height: normal;
+        }
+    }
+
+    .spinner-border {
+        color: $colorOrange;
+    }
+}

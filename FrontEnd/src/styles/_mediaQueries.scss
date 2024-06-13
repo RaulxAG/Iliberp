@@ -1,0 +1,378 @@
+@media screen and (max-width: 1400px) {
+    .error404 {
+        img {
+            width: 300px;
+        }
+
+        .text {
+            top: 20px !important;
+            left: 20px !important;
+        }
+
+        .code {
+            bottom: 0 !important;
+            left: 25rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .error404 {
+        .text {
+            font-size: 7rem !important;
+        }
+
+        .code {
+            left: 15rem !important;
+        }
+    }
+
+    .menuLateral {
+        width: 100% !important;
+        flex-direction: row !important;
+
+        > div {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menuLateral__profile {
+            width: 10% !important;
+        }
+
+        .menuLateral__enlaces {
+            width: 100%;
+            
+            .enlaces__lista {
+                margin: 0;
+                width: 100%;
+                display: flex !important;
+                align-items: center;
+                justify-content: space-between;
+                padding-inline: 50px;
+
+                li {
+                    padding-block: 25px;
+                }
+            }
+        }
+
+        .menuLateral__logo {
+            width: 10%;
+        }
+    }
+
+    .mainInicio {
+        flex-direction: column;
+
+        .mainInicio__modulos {
+            width: 100% !important;
+            margin-top: 10px;
+
+            .modulos__grid {
+                display: flex !important;
+                flex-wrap: wrap;
+                
+                .grid_mod1 {
+                    height: 50vh;
+                }
+                .grid_mod2 {
+                    height: 40vh;
+                    width: 100%;
+                }
+                .grid_mod3 {
+                    height: 40vh;
+                    width: 100%;
+                }
+                .grid_mod4 {
+                    width: 100%;
+                }
+                .grid_mod5 {
+                    width: 100%;
+                }
+            }
+        }   
+    }
+
+    .mainIncidencias {
+        flex-direction: column;
+
+        .mainIncidencias__formulario {
+            margin-top: 10px;
+            width: 100% !important;
+            height: 100%;
+        }
+    }
+
+    .mainMensajeria {
+        flex-direction: column;
+
+        .contenedor {
+            width: 100% !important;
+            height: 82% !important;
+        }
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .error404 {
+        .text {
+            font-size: 6rem !important;
+        }
+
+        .code {
+            top: 30% !important;
+            left: 12rem !important;
+        }
+    }
+
+    .mainInicio {
+        .grid_mod1 {
+            height: 50vh;
+
+            .carrusel__seccion {
+                margin: 0 10%;
+
+                .producto__imagen {
+                    width: 130% !important;
+                }   
+            }
+        }
+        
+        .grid_mod4 {
+            .tickets__botones {
+                height: 40vh !important;
+                padding-top: 300px !important;
+                flex-wrap: nowrap !important;
+                flex-direction: column;
+
+                .botones__ticket {
+                    width: 80%;
+                }
+            }
+        }
+    }
+
+    .mainMensajeria {
+        .contactos__chats {
+            height: 80%;
+
+            .chats__card {
+                font-size: small;
+
+                img {
+                    display: none;
+                }
+
+                h5 {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .mainMensajeria__chat {
+            .chat__acciones {
+                form {
+                    display: flex;
+                    justify-content: space-between;
+
+                    label {
+                        padding: 0;
+                        width: 10%;
+                    }
+
+                    .box {
+                        padding: 10px !important;
+                        width: 70% !important;
+                    }
+
+                    button {
+                        padding: 0;
+                        width: 10%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .error404 {
+        .text {
+            font-size: 4rem !important;
+        }
+
+        .code {
+            top: 10% !important;
+            left: .5rem !important;
+        }
+    }
+
+    .mainInicio {
+        .grid_mod1 {
+            overflow: hidden;
+            .carrusel__seccion {
+                width: 80%;
+
+                .seccion__producto {
+                    .producto__acciones {
+                        flex-direction: column !important;
+                    }
+                }
+            }
+
+            .carousel-control-prev {
+                position: relative;
+                top: -50%;
+                left: -5%;
+            }
+
+            .carousel-control-next {
+                position: relative;
+                top: -67%;
+                right: -90%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .error404 {
+        .text {
+            font-size: 3rem !important;
+        }
+
+        .code {
+            font-size: 10rem !important;
+            top: 20% !important;
+            left: 4rem !important;
+        }
+    }
+
+    .menuLateral {
+        width: 100% !important;
+        flex-direction: row !important;
+
+        > div {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menuLateral__profile {
+            width: 20% !important;
+
+            .profile__photo {
+                width: 50% !important;
+            }
+        }
+
+        .menuLateral__enlaces {
+            justify-content: start;
+            width: 80%;
+
+            .enlaces__lista {
+                padding-left: 5px;
+            }
+        }
+    }
+
+    .mainInicio {
+        .grid_mod1 {
+            height: 50vh;
+
+            .carrusel__seccion {
+                margin: 0 10%;
+
+                .producto__imagen {
+                    width: 190% !important;
+                }
+            }      
+        }
+    }
+
+    .mainIncidencias {
+        .mainIncidencias__formulario {
+            flex-direction: column !important;
+            
+            .box {
+                width: 100%;
+                height: 70%;
+            }
+
+            .formulario__acciones {
+                margin-top: 20px;
+                .acciones__botones {
+                    display: flex;
+                    flex-direction: row;
+                    padding-inline: 10px;
+                    gap: 10px;
+
+                    input {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+
+    .mainMensajeria {
+        height: 95vh;
+        .contactos__head {
+            h4 {
+                display: none;
+            }
+
+            .contactos__head__acciones {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        .contactos__chats {
+            height: 80%;
+
+            .chats__card {
+                padding: 0 !important;
+                padding-block: 20px !important;
+
+                > div p {
+                    display: none;
+                }
+
+                > p {
+                    display: none;
+                }
+            }
+        }
+
+        .mainMensajeria__chat {
+
+            .chat__acciones {
+                form {
+                    display: flex;
+                    justify-content: start;
+
+                    label {
+                        padding: 0;
+                        width: 10%;
+                    }
+
+                    .box {
+                        padding: 10px !important;
+                        width: 70% !important;
+                    }
+
+                    button {
+                        padding: 0;
+                        width: 10%;
+                    }
+                }
+            }
+        }
+    }
+}

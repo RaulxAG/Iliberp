@@ -1,0 +1,82 @@
+// CARGA DE LAS CARD
+@keyframes aparecerDesdeIzquierda {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes aparecerDesdeDerecha {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes aparecerCentro {
+    from {
+        clip-path: circle(0.4% at 50% 50%);
+    }
+    to {
+        clip-path: circle(150% at 50% 50%);
+    }
+}
+
+// HOVER CARD TIENDA
+.productos{
+    
+    &__producto{
+        position: relative;
+        overflow: hidden;
+        transition: all 2s linear;
+        box-shadow: $dropShadow;
+
+        &:hover{
+            box-shadow: $innerShadow;
+        }
+
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0px; 
+            right: 0px; 
+            width: 100%; 
+            height: 100%; 
+            background-image: $gradient; 
+            transition: all .2s linear; // Solo aplicar la transición a width y height
+            clip-path: circle(10% at 97% 2%);
+            z-index: 0;
+        }
+
+        &:hover::after{
+            clip-path: circle(138.1% at 97% 2%);
+        }
+
+        &:hover img{
+            filter: drop-shadow(0 0 5px rgba(46,46,46,08));
+        }
+        &:hover .producto__precio p{
+            color: $colorWhite!important;
+        }
+
+        &:hover .producto__precio div{
+            background-image: none!important;
+            background-color: $colorGray!important;
+            color: $colorOrange!important;
+            transition: all 0.1s linear;
+
+            &:hover{
+                background-color: $colorBlack!important;
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 2px rgba(46,46,46,01));
+            }
+        }
+        img,h4,.producto__descripcion,.producto__precio{
+            position: relative;
+            z-index: 2;
+        }
+    }
+}

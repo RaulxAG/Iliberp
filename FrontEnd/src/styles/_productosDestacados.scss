@@ -1,0 +1,62 @@
+.destacados__carrusel {
+
+    .carousel-indicators {
+        button {
+            height: 8px !important;
+            width: 60px !important;
+            margin: 0 10px;
+            background-image: $whiteGradient;
+            border-radius: 10px !important;
+            border: 1px solid transparent;
+        }
+
+        .active {
+            background-image: $gradient;
+        }
+    }
+
+    .carrusel__seccion {
+        height: 30vh;
+        gap: 1rem;
+        width: 70%;
+        margin: auto;
+
+        .seccion__producto {
+            border-radius: 10px;
+            height: 90%;
+            width: 40%;
+            background-color: $colorBlack;
+
+            .producto__imagen {
+                width: 90%;
+                object-fit: contain;
+                filter: drop-shadow(
+                    0 0 5px rgba(46, 46, 46, 0.8)
+                );
+                transition: all .3s ease-out;
+            }
+
+            .producto__acciones {
+                font-size: smaller;
+            }
+
+            .producto__acciones button {
+                background-image: $whiteGradient;
+            }
+
+            .producto__acciones button:hover {
+                background-image: $gradient;
+            }
+        }
+
+        .seccion__producto:hover .producto__imagen {
+            transform: scale(1.05);
+            filter: drop-shadow(
+                    0 0 5px rgba(150, 149, 149, 0.8)
+                );
+        }
+    }
+    .carrusel__control:hover {
+        color: $colorOrange;
+    }
+}

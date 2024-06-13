@@ -1,0 +1,80 @@
+.alert svg.bi {
+    width: 20px;
+    height: 20px;
+}
+
+.formulario__buttons {
+    button {
+        width: 7rem;
+        padding: .5rem 1rem;
+        border: 2px solid $colorOrange;
+        font-weight: bold;
+        color: $colorWhite;
+        z-index: 1;
+        position: relative;
+    }
+
+    .button--bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: $gradient;
+        clip-path: circle(0 at bottom left);
+        transition: clip-path 0.5s;
+    }
+
+    .button--bg:hover::before {
+        clip-path: circle(150% at bottom left);
+        z-index: -1;
+    }
+
+    .button--bg:hover {
+        border: 2px solid $colorWhite;
+        z-index: 1;
+    }
+}
+
+.inventario__buttons {
+    a {
+        padding: 5rem 10rem;
+        border: 5px solid $colorOrange;
+        font-weight: bold;
+        font-size: 3rem;
+        color: $colorWhite;
+        z-index: 1;
+        position: relative;
+    }
+
+    .button--bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: $gradient;
+        clip-path: circle(0 at bottom left);
+        transition: clip-path 0.5s;
+    }
+
+    .button--bg:nth-child(even):before {
+        clip-path: circle(0 at bottom right);
+    }
+    
+    .button--bg:hover::before {
+        clip-path: circle(150% at bottom left);
+        z-index: -1;
+    }
+
+    .button--bg:nth-child(even):hover::before {
+        clip-path: circle(150% at bottom right);
+    }
+    
+    .button--bg:hover {
+        border: 5px solid $colorWhite;
+        z-index: 1;
+    }
+}

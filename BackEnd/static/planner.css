@@ -1,0 +1,234 @@
+/* Estilos para la lista de categorías */
+.listaTareas > div {
+    width: 300px;
+}
+
+.listaTareas .btnModal {
+    background-color: #e6e6e66b;
+    border: 2px solid transparent;
+}
+
+.listaTareas .btnModal:hover {
+    border: 2px solid #797979;
+    background-color: #e6e6e696;
+}
+
+.listaTareas .btnModal:active {
+    border: 2px solid #797979;
+    background-color: #b9b9b996;
+}
+
+.listaCategorias ul {
+    width: 80px;
+    background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+
+.listaCategorias ul li {
+    border: none;
+}
+
+.listaCategorias ul li a {
+    font-size: .6rem;
+}
+
+.listaCategorias .btnCategoria {
+    background: none;
+    color: white;
+}
+
+.listaCategorias ul li a.btnCategoria svg {
+    width: 20px;
+    border: 2px solid transparent;
+    animation: all .5s linear;
+}
+
+.listaCategorias ul li a.btnCategoria:hover svg {
+    border: 2px solid white;
+}
+
+.list-group-item {
+    width: 100%;
+}
+
+/* Estilos para los filtros select */
+.filtros select ,#clearFiltersBtn{
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 4px 12px;
+    border: none;
+}
+
+.filtros select option {
+    background-color: white;
+    color: var(--dark-blue);
+    border: 5px solid var(--dark-blue) !important;
+}
+
+/* Estilos para la lista de tareas */
+/* .listaTareas {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+} */
+
+.listaTareas > div {
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    /* width: 20%; */
+}
+
+.listaTareas > div .tareas {
+    height: 67.25vh;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    background-color: rgb(68, 68, 68);
+}
+
+.listaTareas div .tareas .cardTarea {
+    cursor: pointer;
+}
+
+.listaTareas .columna {
+    background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+}
+
+.listaTareas .tareas .baja {
+    background-color: #a09f9f !important;
+}
+
+.listaTareas .tareas .media {
+    background-color: #84d16a !important;
+}
+
+.listaTareas .tareas .importante {
+    background-color: #cab048 !important;
+}
+
+.listaTareas .tareas .urgente {
+    background-color: #ae4646 !important;
+}
+
+/* Estilos para la barra de desplazamiento */
+.tareas {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.tareas::-webkit-scrollbar {
+    width: 5px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Animación */
+@keyframes desplegar {
+    0% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.cardTarea {
+    font-weight: 600;
+    animation: desplegar .4s ease-in-out initial;
+}
+
+.incidentCard, .requestCard {
+    position: relative;
+    z-index: 0;
+}
+
+.incidentCard::after, .requestCard::after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-20deg);
+    filter: opacity(.3);
+    z-index: -5;
+}
+
+.incidentCard::after {
+    content: "INCIDENCIA";
+}
+
+.requestCard::after {
+    content: "SOLICITUD";
+}
+
+.searchContainer {
+    position: relative;
+}
+
+#searchInput {
+    border-radius: 10px;
+    border: 2px solid var(--dark-blue);
+    position: relative;
+    z-index: 0;
+}
+
+#searchInput:focus + .searchContainer::before {
+    content: "holaaa";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    right: 0;
+    background-color: #7a9abc;
+    z-index: 1;
+}
+#clearFiltersBtn{
+    border-radius: 10px;
+}
+.containerFiltros > .filtros > #client_filter {
+    opacity: 0.5;
+}
+
+.btnInfo {
+    color: var(--dark-blue);
+    cursor: help;
+    z-index: 2;
+}
+
+.priorityLegend {
+    border: 2px solid lightgray;
+    opacity: 0;
+    z-index: 1;
+    transition: all .3s linear;
+    pointer-events: none;
+}
+
+.btnInfo:hover + .priorityLegend {
+    opacity: 1;
+}
+
+.prioridadUrg {background-color: #ae4646;}
+.prioridadImp {background-color: #cab048;}
+.prioridadMed {background-color: #84d16a;}
+.prioridadLow {background-color: #a09f9f;}
+
+
+/* .btnInfo:hover {
+
+} */
+
+@media (max-width: 768px) {
+    .listaCategorias {
+        width: 100%;
+    }
+
+    .filtros select {
+        width: 100%;
+    }
+
+    .list-group-item {
+        width: 25%;
+    }
+}

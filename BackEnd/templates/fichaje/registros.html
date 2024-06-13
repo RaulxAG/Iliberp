@@ -1,0 +1,49 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Trabajadores - ILIBERP Solutions{% endblock %}
+
+{% block content %}
+    {% include 'global/submenu.html' %}
+
+    <section class="sectionRegistros box d-flex flex-column contenedor">
+
+        <h2 class='tittle' id="titulo">Jornadas Laborales</h2>
+
+        <div class="registros__contenido mx-auto overflow-hidden h-75 w-75 px-2 mt-5">
+            <div class="d-flex justify-content-end">
+                
+                {% if id_employee %}
+                    <a href="/generar_pdf-{{id_employee}}/" class="button d-flex align-items-center gap-2 text-decoration-none">
+                        <i class="fa-solid fa-file-pdf fs-3" style="color: #f8f8f8;"></i>
+                    </a>
+                {% endif %}
+            </div>
+            
+            <div class="overflow-y-auto barScroll h-100">
+                <table class="table table-dark table-striped tabla">
+                    <thead class="fs-5 text-uppercase sticky-top">
+                        <tr>
+                            <th class="p-3 d-none d-sm-table-cell">ID</th>
+                            <th class="text-center p-3">Empleado</th>
+                            <th class="text-center p-3">Fecha</th>
+                            <th class="text-center p-3 d-none d-sm-table-cell">Inicio</th>
+                            <th class="text-center p-3 d-none d-sm-table-cell">Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for register in registers %}
+                            <tr class="tabla__linea fs-5">
+                                <td class="px-3 d-none d-sm-table-cell">{{register.id}}</td>
+                                <td class="text-center px-3">{{register.empleado.username}}</td>
+                                <td class="text-center px-3">{{register.fecha|date:'d/m/Y'}}</td>
+                                <td class="text-center px-3 d-none d-sm-table-cell">{{register.inicio|date:'H:m'}}</td>
+                                <td class="text-center px-3 d-none d-sm-table-cell">{% if register.fin %} {{register.fin|date:'H:m'}} {% else %} <i class="fa-solid fa-circle-xmark" style="color: #e66565;"></i> {% endif %}</td>
+                            </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

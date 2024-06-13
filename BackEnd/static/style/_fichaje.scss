@@ -1,0 +1,101 @@
+.sectionInicio {
+    .inicio__buttons {
+        a {
+            padding: 1rem;
+            border: 5px solid $colorOrange;
+            font-weight: bold;
+            color: $colorWhite;
+            z-index: 1;
+            position: relative;
+        }
+    
+        .button--bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: $gradient;
+            clip-path: circle(0 at bottom left);
+            transition: clip-path 0.5s;
+        }
+    
+        .button--bg:nth-child(even):before {
+            clip-path: circle(0 at bottom right);
+        }
+        
+        .button--bg:hover::before {
+            clip-path: circle(150% at bottom left);
+            z-index: -1;
+        }
+    
+        .button--bg:nth-child(even):hover::before {
+            clip-path: circle(150% at bottom right);
+        }
+        
+        .button--bg:hover {
+            border: 5px solid $colorWhite;
+            z-index: 1;
+        }
+    }
+
+    .inicio__comenzar {
+        button {
+            padding: 1rem;
+            border: 5px solid $btnGreen;
+            font-weight: bold;
+            color: $colorWhite;
+            z-index: 1;
+            position: relative;
+        }
+
+        .button--bg-red {
+            border: 5px solid $btnRed;
+        }
+
+        .button--bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $btnGreen;
+            clip-path: circle(0 at center);
+            transition: clip-path 1s;
+        }
+
+        .button--bg-red::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $btnRed;
+            clip-path: circle(0 at center);
+            transition: clip-path 1s;
+        }
+        
+        .button--bg:hover::before {
+            clip-path: circle(150% at center);
+            z-index: -1;
+        }
+
+        .button--bg-red:hover::before {
+            clip-path: circle(150% at center);
+            z-index: -1;
+        }
+        
+        .button--bg:hover {
+            border: 5px solid $colorWhite;
+            z-index: 1;
+        }
+
+        .button--bg-red:hover {
+            border: 5px solid $colorWhite;
+            z-index: 1;
+        }
+    }
+}

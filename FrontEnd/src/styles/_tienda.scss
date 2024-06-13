@@ -1,0 +1,241 @@
+.contenedor{
+    .search{
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $colorRed;
+        border-radius: 0;
+        color: $colorWhite;
+        animation: aparecerCentro 2.5s ease forwards;
+        &::placeholder{
+            color: rgba(255, 255, 255, 0.76);
+        }
+
+        
+    }
+    .css-188mx6n-MuiSlider-root{
+        color: $colorOrange;
+    }
+    .css-1as9v07-MuiSlider-thumb:hover{
+        box-shadow: 0px 0px 0px 8px rgba(210, 124, 25, 0.16);
+    }
+    .form-control:focus {
+            box-shadow: none;
+        }
+    .categorias{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 13vh;
+        
+        .categoria{
+            color: $colorWhite;
+            position: relative;
+
+            &__texto{
+                background-color: $colorGray;
+                padding: 12px 30px;
+                border-radius: 10px;
+                margin-top: 10vh;
+
+                h3{
+                    font-size: 21px;
+                    padding-top: 1vh;
+                }
+            }
+
+            &__icono{
+                cursor: pointer;
+                width: 9vh;
+                height: 7vh;
+                
+                border-radius: 1vh;
+                background-image: $gradient;
+                text-align: center;
+                font-size: 4vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+
+                i{
+                    font-size: 4vh;
+                    line-height: 7vh;
+                }
+            }
+        }
+    }
+    .containerTienda{
+        overflow-y:auto; 
+
+        .filtros{
+            animation: aparecerDesdeIzquierda 1s ease forwards;
+            padding: 2vh;
+            background-color: $colorGray;
+            max-height: 100%;
+            
+            //ESTILOS TITULO ACORDEON
+            .accordion-button{
+                padding: 0;
+            }
+            .accordion-button:focus{
+                box-shadow: none;
+            }
+            .accordion-button:not(.collapsed),.accordion-button,.accordion-item{
+                background-color: transparent;
+                border: none;
+                color: $colorWhite;
+            }
+            .accordion-button::after{
+                background-color: $colorWhite;
+            }
+
+            .accordion-body {
+                font-size: 14px;
+            }
+            input{
+                appearance: none;
+                cursor: pointer;
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
+                
+                &:checked {
+                    background:$colorOrange;
+                }
+            }
+        }
+        .productos{
+            animation:  1s ease forwards;
+            padding: 2vh;
+            background-color: $colorGray;
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            flex-wrap: wrap;
+            max-height: 100%;
+            overflow-y:auto;
+    
+            &__producto{
+                margin-top: 1vh;
+                padding: 2vh;
+                
+                .abrirModalDetalle{
+                    cursor: pointer;
+                    img{
+                        margin: auto;
+                        width: 100%;
+                        animation: aparecerDesdeDerecha 1s ease forwards;
+                        animation-delay: 0.2s;
+    
+                    }
+                    h4{
+                        font-size: 100%;
+                        text-align: center;
+                        animation: aparecerDesdeIzquierda 1s ease forwards;
+                        animation-delay: 0.2s;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+    
+                
+                .producto__descripcion{
+                    font-size: 15px;
+                    font-weight: 500;
+                    animation: aparecerDesdeDerecha 1s ease forwards;
+                    animation-delay: 0.2s;
+                }
+                .producto__precio{
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    align-content: center;
+                    justify-content: space-between;
+                    
+                    p{
+                        color: $colorOrange;
+                        border-radius: 1vh;
+                        font-size: 21px;
+                        margin: 0!important;
+                        animation: aparecerDesdeIzquierda 1s ease forwards;
+                        animation-delay: 0.2s;
+
+                    }
+    
+                    &>div{
+                        width: 25%;
+                        height: 5vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 1vh;
+                        background-image: $gradient;
+                        text-align: center;
+                        font-size: 26px;
+                        cursor: pointer;
+                        animation-delay: 0.2s;
+
+                    }
+                }
+                .modalDetalle{
+                    img{
+                        width: 100%;
+                    }
+                    
+                    .modal-content{
+                        z-index: 100;
+                        background-color: $colorGray2;
+                    
+                        .btn-close{
+                            color: $colorWhite;
+                            background-color: $colorOrange;
+                        }
+                        .modal-footer,.modal-header{
+                            border: none;
+                        }
+                    }
+                } 
+            }
+        }
+    }
+    
+
+    .carrito{
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: $gradient;
+        text-align: center;
+        font-size: 26px;
+        cursor: pointer;
+        z-index: 20;
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+
+        &__cant{
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+
+            color: $colorBlack;
+            background-color: $colorWhite;
+        }
+    }
+    .btnFilter{
+        background-image: $gradient;
+        border-radius: 10%;
+    }
+}
+
+

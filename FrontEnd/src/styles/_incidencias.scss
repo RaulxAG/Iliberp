@@ -1,0 +1,85 @@
+.mainIncidencias {
+
+    .mainIncidencias__formulario {
+
+        .formulario__input {
+            padding-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+
+            input, textarea, select {
+                border-radius: 15px;
+                border: 0px;
+                padding: .5rem;
+                color: $colorWhite;
+                background-color: $colorBlack;
+            }
+        }
+
+        .formulario__inputGroup {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .formulario__acciones {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        figure {
+            img {
+                width: 15%;
+            }
+
+            p {
+                height: fit-content;
+                margin: 0;
+                padding: 0;
+                line-height: normal;
+                font-size: 130%;
+            }
+        }
+        
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            input {
+                margin-top: 1.2rem;
+                padding: .5rem;
+                font-size: x-large;
+                font-weight: bold;
+                color: $colorWhite;
+                border: 0px;
+                border-radius: 15px;
+                width: 80%;
+            }
+
+            #submit {
+                background-color: $btnGreen !important;
+                animation: appear .3s linear;
+            }
+
+            #reset {
+                background-color: $btnRed !important;
+                animation: appear .3s linear;
+            }
+        }
+    }
+}
+
+@keyframes appear {
+    0% {
+        transform: scale(-0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

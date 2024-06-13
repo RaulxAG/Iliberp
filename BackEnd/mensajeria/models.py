@@ -32,6 +32,7 @@ class Mensaje(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, db_column='chat_id')
     texto = models.CharField(max_length=255)
+    fichero = models.FileField(upload_to='mensajeria/', null=True, blank=True)
     fecha = models.DateField()
     hora = models.TimeField()
 

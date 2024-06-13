@@ -10,45 +10,50 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from datetime import datetime
 
+@csrf_exempt
 def getIncidentsJSON(request,client_id):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        client_id =data['client_id']
+    if request.method == 'GET':
 
-    #Obtener el usuario
-    client=Cliente.objects.get(pk=client_id)
+        #Obtener el usuario
+        client=Cliente.objects.get(user__id=client_id)
 
-    #Obtener las incidencias reportadas por ese cliente
-    incidents= Incidencia.objects.filter(cliente=client)
+        #Obtener las incidencias reportadas por ese cliente
+        incidents= Incidencia.objects.filter(cliente=client)
 
-    #Creamos el json con la info de las incidencias
-    incidentJson =[]
-    for incident in incidents:
-        incident_info = {
-            'categoria': incident.categoria,
-            'descripcion': incident.descripcion,
-            'estado': incident.estado,
-            'empleado': incident.empleado.username if incident.empleado else None,
-            'prioridad': incident.prioridad,
-            'observaciones': incident.observaciones,
-            'fecha_inicio': incident.fecha_inicio.strftime('%Y-%m-%d'),
-            'fecha_fin': incident.fecha_fin.strftime('%Y-%m-%d') if incident.fecha_fin else None,
-        }
-        incidentJson.append(incident_info)
+        #Creamos el json con la info de las incidencias
+        incidentJson =[]
+        for incident in incidents:
+            incident_info = {
+                'id': incident.id,
+                'categoria': incident.categoria,
+                'descripcion': incident.descripcion,
+                'estado': incident.estado,
+                'empleado': incident.empleado.user.username if incident.empleado else None,
+                'cliente': {
+                    'nombre': incident.cliente.user.username,
+                    'empresa': incident.cliente.empresa.nombre if incident.cliente.empresa else None,
+                    'telefono': incident.cliente.telefono1,
+                },
+                'prioridad': incident.prioridad,
+                'observaciones': incident.observaciones,
+                'fecha_inicio': incident.fecha_inicio.strftime('%Y-%m-%d'),
+                'fecha_fin': incident.fecha_fin.strftime('%Y-%m-%d') if incident.fecha_fin else None,
+            }
+            incidentJson.append(incident_info)
 
-    return JsonResponse(incidentJson, safe=False)
+        return JsonResponse(incidentJson, safe=False)
 
 @csrf_exempt
 def setIncidentJSON(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
-        client_id =data['client_id']
-        categoria =data['categoria']
+        client_id = data['client_id']
+        categoria = data['categoria']
         descripcion = data['descripcion']
         observaciones = data['observaciones']
 
-    client=Cliente.objects.get(pk=client_id)
+    client=Cliente.objects.get(user__id=client_id)
     fecha_inicio = timezone.now().date()
 
     #Asignar el empleado aleatoriamente, teniendo en cuenta que el departamento tiene que ser igual a la categoria que ha indicado
@@ -68,7 +73,8 @@ def setIncidentJSON(request):
         descripcion=descripcion,
         observaciones=observaciones,
         fecha_inicio=fecha_inicio.strftime('%Y-%m-%d'),
-        empleado=empleado_asignado
+        empleado=empleado_asignado,
+        prioridad='baja',
     )
 
     incident = {
@@ -77,11 +83,13 @@ def setIncidentJSON(request):
         'descripcion': new_incident.descripcion,
         'observaciones': new_incident.observaciones,
         'fecha_inicio': new_incident.fecha_inicio,
-        'empleado': new_incident.empleado,
+        'empleado': new_incident.empleado.user.username if new_incident.empleado else None,
+        'prioridad': new_incident.prioridad,
     }
    
     return JsonResponse(incident, safe=False)
-    
+
+@csrf_exempt    
 def deleteIncidentJSON(request,incident_id):
     incidencia = Incidencia.objects.get(pk=incident_id)
     
@@ -90,14 +98,14 @@ def deleteIncidentJSON(request,incident_id):
 
 @csrf_exempt
 def editIncidentJSON(request,incident_id):
-    #Obtener la incidencia
-    incidencia = Incidencia.objects.get(pk=incident_id)
-
-    #Obtener los datos que se quieren editar por el body
     if request.method == 'POST':
+        #Obtener la incidencia
+        incidencia = Incidencia.objects.get(pk=incident_id)
+
+        #Obtener los datos que se quieren editar por el body
         data = json.loads(request.body)
 
-        categoria =data['categoria']
+        categoria = data['categoria']
         descripcion = data['descripcion']
         observaciones = data['observaciones']
 
@@ -106,15 +114,18 @@ def editIncidentJSON(request,incident_id):
         incidencia.descripcion = descripcion
         incidencia.observaciones = observaciones
 
-    #Crear un array con toda la información de la incidencia que se ha actualizado
-    updated_incident = {
-        'id': incidencia.id,
-        'categoria': incidencia.categoria,
-        'descripcion': incidencia.descripcion,
-        'observaciones': incidencia.observaciones,
-        'estado': incidencia.estado,
-        'prioridad': incidencia.prioridad,
-        'fecha_inicio': incidencia.fecha_inicio.strftime('%Y-%m-%d'),
-        'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
-    }
-    return JsonResponse(updated_incident, safe=False)
+        incidencia.save()
+
+        #Crear un array con toda la información de la incidencia que se ha actualizado
+        updated_incident = {
+            'id': incidencia.id,
+            'categoria': incidencia.categoria,
+            'descripcion': incidencia.descripcion,
+            'observaciones': incidencia.observaciones,
+            'estado': incidencia.estado,
+            'prioridad': incidencia.prioridad,
+            'fecha_inicio': incidencia.fecha_inicio.strftime('%Y-%m-%d'),
+            'fecha_fin': incidencia.fecha_fin.strftime('%Y-%m-%d') if incidencia.fecha_fin else None,
+        }
+
+        return JsonResponse(updated_incident, safe=False)

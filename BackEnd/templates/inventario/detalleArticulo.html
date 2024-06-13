@@ -1,0 +1,115 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Trabajadores - ILIBERP Solutions{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="sectionArticulosDetalle main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5 h-75"> 
+        <h2 class='tittleDetalle'>Producto ( {{ product.id }} ): {{ product.nombre }}</h2>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            <a href="javascript:history.back()" class="buttonReverse buttonVolver">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                Volver
+            </a>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button>
+            <button class="button" id="buttonDelete" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                <i class="fa-solid fa-trash-can" style="color: #f8f8f8;"></i>
+                Eliminar
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Desea borrar el producto: <b>"{{ product.nombre }}"</b> con el ID <b>"{{ product.id }}"</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/eliminarArticulo-{{ product.id }}'">Si, Eliminar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="box formularioCrud px-4 pt-4 pb-3 d-flex flex-column" id="formularioCrud">
+            <form action="{% url 'guardarArticulo' %}" method="post">
+                {% csrf_token %}
+
+                <input type="number" class="d-none" name="product_id" id="product_id" value="{{product.id}}">
+
+                <div class="row gy-4">
+                    <div class="col-12 col-sm-6">
+                        <h6 class="fw-bold">Descripción</h6>
+                        <textarea class="input form-control bg-dark barScroll text-light" rows="7" id="descripcion" name="descripcion" disabled>{{product.descripcion}}</textarea>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <h6 class="fw-bold">Especificaciones</h6>
+                        <ul class="list-group bg-dark barScroll text-light text-light h-75 overflow-y-scroll">
+                            {% for key, value in especificaciones.items %}
+                                <li class="list-group-item bg-dark text-light d-flex justify-content-between">
+                                    <strong>{{ key }}:</strong> {{ value }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Nombre</h6>
+                        <input type="text" class="input form-control bg-dark barScroll text-light" id="nombre" name="nombre" value="{{product.nombre}}" disabled>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Tipo</h6>
+                        <select class="input form-select bg-dark barScroll text-light text-light" id="tipo" name="tipo" disabled>
+                            <option value="{{product.tipo}}" selected>{{product.get_tipo_display}} - Seleccionado</option>
+                            
+                            {% for tipo_value, tipo_text in tipos %}
+                                {% if tipo_value != product.tipo %}
+                                    <option value="{{tipo_value}}">{{tipo_text}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Precio</h6>
+                        <input type="text" class="input form-control bg-dark barScroll text-light" id="precio" name="precio" value="{{product.precio}}" disabled>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Precio descuento</h6>
+                        <input type="text" class="input form-control bg-dark barScroll text-light" id="descuento" name="descuento" value="{% if product.precio_descuento %}{{product.precio_descuento}}{% endif %}" disabled>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Destacado</h6>
+                        <input type="checkbox" class="input form-check-input bg-dark barScroll text-light" id="destacado" name="destacado" {% if product.destacado %} checked {%endif%} disabled>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <h6 class="fw-bold">Imagen</h6>
+                        <img src="http://localhost:8000/media/{{product.foto}}" width="250">
+                    </div>
+                    <div class="formulario__buttons d-flex justify-content-end d-none">
+                        <button type="submit" class="btn button--bg d-flex justify-content-between align-items-center">
+                            <i class="fa-solid fa-save"></i>
+                            <p class="p-0 m-0">Guardar</p>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'js/detailArticle.js' %}"></script>
+{% endblock %}

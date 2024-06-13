@@ -1,14 +1,92 @@
-.mainInicio {
-    background-color: $colorBlack;
-    height: 100vh;
-    color: white;
-    font-weight: bold;
+.mainInicio__modulos {
+    text-align: center;
+    display: grid;
+
+    .modulos__grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-column-gap: 1%;
+        grid-row-gap: 2%;
+
+        .grid_mod1 {
+            grid-area: 1 / 1 / 4 / 5;
+        }
+        .grid_mod2 {
+            grid-area: 1 / 5 / 5 / 7;
+        }
+        .grid_mod3 {
+            grid-area: 4 / 1 / 7 / 3;
+        }
+        .grid_mod4 {
+            grid-area: 4 / 3 / 7 / 5;
+        }
+        .grid_mod5 {
+            grid-area: 5 / 5 / 7 / 7;
+        }
+
+        .botones__boton {
+            width: 23.3%;
+            height: 33.3%;
+            background-color: $colorBlack;
+            font-weight: 600;
+            font-size: small;
+            color: $colorWhite;
+
+            svg {
+                font-size: xx-large;
+            }
+        }
+
+        .botones__boton:hover {
+            color: $colorOrange;
+        }
+
+        .modulos__chats {
+            overflow: hidden;
+            .chats__mensajes {
+                height: 90%;
+                overflow-x: hidden;
+                
+                .chats__card {
+                    animation: dropRigth .7s linear;
+                }
+            }
+        }
+
+        .modulos__incidencias {
+            .botones__boton {
+                animation: growUp .7s linear;
+            }
+        }
+
+        
+    }
 }
 
-.mainInicio__barraLateral {
-    text-align: center;
-    background-color: $colorGray;
-    width: 10vh;
-    height: 99vh;
-    border-radius: 10px;
+@keyframes dropRigth {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(0);
+    }
+    70% {
+        transform: translateX(5%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes growUp {
+    0% {
+        transform: scale(.4);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
