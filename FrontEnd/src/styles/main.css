@@ -892,5 +892,409 @@ body {
     transform: translateY(400%);
   }
 }
+@keyframes aparecerDesdeIzquierda {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes aparecerDesdeDerecha {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes aparecerCentro {
+  from {
+    clip-path: circle(0.4% at 50% 50%);
+  }
+  to {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+.productos__producto {
+  position: relative;
+  overflow: hidden;
+  transition: all 2s linear;
+  box-shadow: -15px -15px 20px rgba(255, 255, 255, 0.8), 15px 15px 20px rgba(57, 65, 124, 0.08);
+}
+.productos__producto:hover {
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.9), 2px 2px 4px rgba(57, 65, 124, 0.2);
+}
+.productos__producto::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  transition: all 0.2s linear;
+  clip-path: circle(10% at 97% 2%);
+  z-index: 0;
+}
+.productos__producto:hover::after {
+  clip-path: circle(138.1% at 97% 2%);
+}
+.productos__producto:hover img {
+  filter: drop-shadow(0 0 5px rgb(46, 46, 46));
+}
+.productos__producto:hover .producto__precio p {
+  color: #F8F8F8 !important;
+}
+.productos__producto:hover .producto__precio div {
+  background-image: none !important;
+  background-color: rgba(85, 89, 91, 0.4) !important;
+  color: #e65522 !important;
+  transition: all 0.1s linear;
+}
+.productos__producto:hover .producto__precio div:hover {
+  background-color: #1E2225 !important;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 2px rgb(46, 46, 46));
+}
+.productos__producto img, .productos__producto h4, .productos__producto .producto__descripcion, .productos__producto .producto__precio {
+  position: relative;
+  z-index: 2;
+}
+
+.contenedorCarrito {
+  background-color: #5b5b5b;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 2%;
+  height: 77vh;
+  width: 70%;
+  z-index: 3;
+  border-radius: 1vh;
+  overflow-y: scroll;
+  animation-name: modal;
+  animation-duration: 0.3s;
+  /* Animación de entrada */
+}
+@keyframes modal {
+  from {
+    transform: translateX(120%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+.contenedorCarrito > button {
+  float: right;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 1vh;
+  margin: 2%;
+  background-color: #e65522;
+  border: none;
+  color: #F8F8F8;
+  font-weight: bold;
+}
+.contenedorCarrito__productos {
+  margin: 15% 2%;
+}
+.contenedorCarrito__productos__producto {
+  background-color: #F8F8F8;
+}
+.contenedorCarrito__productos__producto .card-text > button {
+  border: none;
+  color: #F8F8F8;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 1px;
+  border-radius: 1vh;
+  width: 25px;
+  height: 25px;
+  background-color: #e65522;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contenedorCarrito__productos__producto .card-text > p:first-of-type {
+  margin: 0px 15px;
+  font-size: 40px;
+}
+.contenedorCarrito .tramitarPedido {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  width: 100%;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  padding: 8px;
+  font-size: 20px;
+}
+
+.contenedor .search {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ee3040;
+  border-radius: 0;
+  color: #F8F8F8;
+  animation: aparecerCentro 2.5s ease forwards;
+}
+.contenedor .search::placeholder {
+  color: rgba(255, 255, 255, 0.76);
+}
+.contenedor .css-188mx6n-MuiSlider-root {
+  color: #e65522;
+}
+.contenedor .css-1as9v07-MuiSlider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px rgba(210, 124, 25, 0.16);
+}
+.contenedor .form-control:focus {
+  box-shadow: none;
+}
+.contenedor .categorias {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13vh;
+}
+.contenedor .categorias .categoria {
+  color: #F8F8F8;
+  position: relative;
+}
+.contenedor .categorias .categoria__texto {
+  background-color: rgba(85, 89, 91, 0.4);
+  padding: 12px 30px;
+  border-radius: 10px;
+  margin-top: 10vh;
+}
+.contenedor .categorias .categoria__texto h3 {
+  font-size: 21px;
+  padding-top: 1vh;
+}
+.contenedor .categorias .categoria__icono {
+  cursor: pointer;
+  width: 9vh;
+  height: 7vh;
+  border-radius: 1vh;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  text-align: center;
+  font-size: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.contenedor .categorias .categoria__icono i {
+  font-size: 4vh;
+  line-height: 7vh;
+}
+.contenedor .containerTienda {
+  overflow-y: auto;
+}
+.contenedor .containerTienda .filtros {
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  padding: 2vh;
+  background-color: rgba(85, 89, 91, 0.4);
+  max-height: 100%;
+}
+.contenedor .containerTienda .filtros .accordion-button {
+  padding: 0;
+}
+.contenedor .containerTienda .filtros .accordion-button:focus {
+  box-shadow: none;
+}
+.contenedor .containerTienda .filtros .accordion-button:not(.collapsed), .contenedor .containerTienda .filtros .accordion-button, .contenedor .containerTienda .filtros .accordion-item {
+  background-color: transparent;
+  border: none;
+  color: #F8F8F8;
+}
+.contenedor .containerTienda .filtros .accordion-button::after {
+  background-color: #F8F8F8;
+}
+.contenedor .containerTienda .filtros .accordion-body {
+  font-size: 14px;
+}
+.contenedor .containerTienda .filtros input {
+  appearance: none;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+}
+.contenedor .containerTienda .filtros input:checked {
+  background: #e65522;
+}
+.contenedor .containerTienda .productos {
+  animation: 1s ease forwards;
+  padding: 2vh;
+  background-color: rgba(85, 89, 91, 0.4);
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  flex-wrap: wrap;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.contenedor .containerTienda .productos__producto {
+  margin-top: 1vh;
+  padding: 2vh;
+}
+.contenedor .containerTienda .productos__producto .abrirModalDetalle {
+  cursor: pointer;
+}
+.contenedor .containerTienda .productos__producto .abrirModalDetalle img {
+  margin: auto;
+  width: 100%;
+  animation: aparecerDesdeDerecha 1s ease forwards;
+  animation-delay: 0.2s;
+}
+.contenedor .containerTienda .productos__producto .abrirModalDetalle h4 {
+  font-size: 100%;
+  text-align: center;
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  animation-delay: 0.2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contenedor .containerTienda .productos__producto .producto__descripcion {
+  font-size: 15px;
+  font-weight: 500;
+  animation: aparecerDesdeDerecha 1s ease forwards;
+  animation-delay: 0.2s;
+}
+.contenedor .containerTienda .productos__producto .producto__precio {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+.contenedor .containerTienda .productos__producto .producto__precio p {
+  color: #e65522;
+  border-radius: 1vh;
+  font-size: 21px;
+  margin: 0 !important;
+  animation: aparecerDesdeIzquierda 1s ease forwards;
+  animation-delay: 0.2s;
+}
+.contenedor .containerTienda .productos__producto .producto__precio > div {
+  width: 25%;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1vh;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+  animation-delay: 0.2s;
+}
+.contenedor .containerTienda .productos__producto .modalDetalle img {
+  width: 100%;
+}
+.contenedor .containerTienda .productos__producto .modalDetalle .modal-content {
+  z-index: 100;
+  background-color: #5b5b5b;
+}
+.contenedor .containerTienda .productos__producto .modalDetalle .modal-content .btn-close {
+  color: #F8F8F8;
+  background-color: #e65522;
+}
+.contenedor .containerTienda .productos__producto .modalDetalle .modal-content .modal-footer, .contenedor .containerTienda .productos__producto .modalDetalle .modal-content .modal-header {
+  border: none;
+}
+.contenedor .carrito {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 20;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+.contenedor .carrito__cant {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  color: #1E2225;
+  background-color: #F8F8F8;
+}
+.contenedor .btnFilter {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  border-radius: 10%;
+}
+
+.containerTramite {
+  background-color: rgba(85, 89, 91, 0.4);
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+.containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active, .containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+  color: #e65522;
+}
+.containerTramite .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+  color: #5b5b5b;
+}
+.containerTramite .css-1hv8oq8-MuiStepLabel-label.Mui-active, .containerTramite .css-1hv8oq8-MuiStepLabel-label.Mui-completed, .containerTramite .css-1vyamtt-MuiStepLabel-labelContainer {
+  color: #F8F8F8;
+}
+.containerTramite .css-1vyamtt-MuiStepLabel-labelContainer span {
+  font-size: 20px;
+}
+.containerTramite .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  color: #F8F8F8;
+}
+.containerTramite .css-a1sg1c-MuiButtonBase-root-MuiButton-root {
+  background-color: #F8F8F8;
+  border: 1px solid #e65522;
+  color: #e65522;
+}
+.containerTramite .css-1d3z3hw-MuiOutlinedInput-notchedOutline, .containerTramite .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #F8F8F8;
+  background-color: rgba(255, 255, 255, 0.432);
+}
+.containerTramite .css-yjsfm1 span, .containerTramite .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #F8F8F8;
+}
+.containerTramite .MuiFormControl-root label {
+  color: #F8F8F8;
+}
+.containerTramite .tarjetaCredito {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(../../public/assets/img/tarjetaCredito.PNG);
+  border-radius: 1vh;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+}
+
+@media (max-width: 770px) {
+  .MuiStepper-root.MuiStepper-horizontal.css-m5vj9m-MuiStepper-root {
+    display: none !important;
+  }
+  .containerTramite {
+    width: 100% !important;
+  }
+  .containerFormPedido {
+    margin: 0 !important;
+  }
+}
 
 /*# sourceMappingURL=main.css.map */

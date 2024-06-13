@@ -17,7 +17,7 @@ export default function Menu({ selected, username }) {
     return (
       <section className="menuLateral box d-flex flex-column align-items-center justify-content-between">
             <div>
-                <Link className="link menuLateral__profile" to={"/login"}>
+                <Link className="link menuLateral__profile" to={"/"}>
                     <img src="/assets/img/usuario.png" className="profile__photo" alt="Foto de perfil" />
                     <p className="d-none d-sm-inline">{username}</p>
                 </Link>
@@ -26,7 +26,7 @@ export default function Menu({ selected, username }) {
                 <section className="menuLateral__enlaces">
                     <ul className="enlaces__lista">
                         <li>
-                            <a href="/" className={selected === "inicio" ? "selected" : ""}>
+                            <a href="/inicio" className={selected === "inicio" ? "selected" : ""}>
                                 <i className="fa-solid fa-house"></i>
                             </a>
                         </li>
@@ -40,8 +40,8 @@ export default function Menu({ selected, username }) {
                                 <i className="fa-solid fa-comments"></i>
                             </a>
                         </li>
-                        <li className={selected === "tienda" ? "selected" : ""} >
-                            <a href="#">
+                        <li>
+                            <a href="/tienda" className={selected === "tienda" ? "selected" : ""} >
                                 <i className="fa-solid fa-shop"></i>
                             </a>
                         </li>
