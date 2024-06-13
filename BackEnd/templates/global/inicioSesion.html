@@ -1,0 +1,89 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}ILIBERP Solutions{% endblock %}
+
+{% block content %}
+<div class="containerInicio d-flex w-100">
+    <div class="portadaForms m-auto row justify-content-between position-relative">
+        <div class="portadaRegistro col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Crear cuenta</h3>
+            <div class="">
+                <i class="fa-solid fa-user" style="color: #f8f8f8;"></i>
+            </div>
+            <p >¿Aún no tienes cuenta? Regístrate</p>
+            <button onclick="movieForm('left')">Regístrate</button>
+        </div>
+        <div class="portadaLogin col d-flex flex-column align-items-center">
+            <h3 class="text-uppercase">Iniciar Sesión</h3>
+            <div>
+                <i class="fa-solid fa-user" style="color: #f8f8f8;"></i>
+            </div>
+            <button onclick="movieForm('right')">Iniciar Sesión</button>
+        </div>
+
+        <div class="formularios position-absolute" id="formularios">
+            <div class="formIniciarSesion d-flex flex-column" id="formIniciarSesion">
+                <h3 class="text-uppercase">Iniciar Sesión</h3>
+                <form action="{% url 'loginDjango' %}" method="POST" class="d-flex flex-column gap-4 mt-4">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Usuario" name="username"/>
+                    <input type="password" placeholder="Contraseña" name="password"/>
+                    
+                    <a class='mt-2 text-black'>¿Has olvidado tu contraseña?</a>
+                    <div class="d-flex flex-column align-items-center">
+                        <button type="submit " class='w-75 '>Iniciar Sesión</button> 
+                    </div>
+                </form>
+                
+                
+            </div>
+            <div class="formRegistrarse d-flex flex-column d-none" id="formRegistrarse">
+                <h3 class="text-uppercase">Crear cuenta</h3>
+                <form action="{% url 'registerDjango' %}" method="POST" class="d-flex flex-column gx-4">
+                    {% csrf_token %}
+                    <div class='row w-100 gap-2 m-auto'>
+                        <input type="text" placeholder="Usuario" name='username' class='col m-0'/>
+                        <input type="password" placeholder="Contraseña" name='password'  class='col m-0'/>
+                    </div>
+                    <div class='row w-100 gap-2 m-auto'>
+                        <input type="text" placeholder="Nombre" name='first_name' class='col m-0'/>
+                        <input type="text" placeholder="Apellido" name='last_name' class='col m-0'/>
+                    </div>
+                    <div class='row w-100 gap-2 m-auto'>
+                        <input type="text" placeholder="Teléfono" name='telefono'  class='col m-0'/>
+                        <input type="text" placeholder="Email" name='email'  class='col m-0'/>
+                    </div>
+                    <input type="text" placeholder="Dni" name='dni'  class='m-0'/>
+                    <select name="departamento" id="departamento" class="form-select py-0">
+                        <option value="">Seleccione un departamento</option>
+                        {% for value, name in departments %}
+                            <option value="{{ value }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Registrarme</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+    <div class="position-fixed w-100 d-flex justify-content-center">
+        <div class="w-75 mt-5">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <p class="text-center alert alert-danger">{{ message }}</p>
+                {% elif message.tags == 'success' %}
+                    <p class="text-center alert alert-success">{{ message }}</p>
+                {% else %}
+                    <p class="text-center alert alert-info">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<script src="{% static 'js/formInicio.js' %}"></script>
+{% endblock content %}

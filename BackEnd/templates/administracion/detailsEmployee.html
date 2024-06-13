@@ -1,0 +1,120 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Empleado{% endblock %}
+
+{% block content %}
+<!-- Menu lateral -->
+{% include 'global/submenu.html' %} 
+<section class="main box d-flex contenedor">
+    <div id="alertas"></div>
+    <div class="mx-auto w-75 my-5 overflow-hidden">
+        <h2 class='tittle p-0' id="titulo" >{% if employee %} {{employee.user.first_name}} {{employee.user.last_name}}{% else %} Nuevo empleado {% endif %}</h2>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="buttonReverse me-2 buttonVolver">
+                <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
+                <a href="/employees">Volver</a>
+            </button>  
+            <button class="button" id="buttonEdit">
+                <i class="fa-regular fa-pen-to-square" style="color: #f8f8f8;"></i>
+                Editar
+            </button> 
+        </div>
+        
+        <div class="box formularioCrud p-5 d-flex flex-column overflow-y-auto barScroll" style="height: 90%;" id="formularioCrud">
+            
+            <form class="row gy-4" method="post">
+                {% csrf_token %}
+                <div class="position-relative m-0">
+                    <img src="{% if employee and employee.foto_perfil %}{{ employee.foto_perfil.url }}{% else %}{% static 'assets/img/usuarioLogo.png' %} {% endif %}" alt="" id="profileImage" class="rounded-circle mb-4 border border-light p-1">
+                    <label for="foto_perfil">
+                        <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
+                        <input type="file" id="foto_perfil" name="foto_perfil" class="d-none" onchange="addImg(event)">
+                    </label>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Nombre</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="nombre" name="nombre" class="border-bottom bg-transparent w-100 required"  value="{{employee.user.first_name}}" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Apellidos</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="apellidos" name="apellidos" class="border-bottom bg-transparent w-100 required" required  value="{{employee.user.last_name}}">
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">DNI</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="dni" name="dni"  class="border-bottom bg-transparent w-100 required" pattern="[A-Za-z0-9]{9}" title="El CIF/NIF debe tener 9 caracteres alfanuméricos"  value="{{employee.dni}}" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Correo</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="email" id="email" name="email" class="border-bottom bg-transparent w-100 required"  value="{{employee.user.email}}" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Teléfono</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <input type="text" id="telefono" name="telefono" class="border-bottom bg-transparent w-100 required" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos"  value="{{employee.telefono}}" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                    <div class="d-flex">
+                        <h6 class="fw-bold">Departamento</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <select id="departamento" name="departamento" class="border-bottom bg-transparent w-100 required text-white" >
+                        {% for key, value in departments %}
+                            <option value="{{ key }}" class="text-black" {% if employee and employee.departamento == key %} selected {% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" id="id" name="id" class="border-bottom bg-transparent w-100"  value="{{employee.id}}">
+                </div>
+            </form>
+            <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+            {% if employee %}
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Eliminar
+                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar empleado</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Seguro que desea eliminar al empleado '{{employee.user.first_name}}'?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'deleteEmployee' employee.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                            Aceptar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+    </div>
+    
+</section>
+<script src="{% static 'js/administracion.js' %}"></script>
+<script src="{% static 'js/addFotoPerfil.js' %}"></script>
+{% endblock content %}
