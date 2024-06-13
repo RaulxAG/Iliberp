@@ -1,0 +1,65 @@
+{% extends '../global/cdns.html' %}
+{% load static %}
+
+{% block title %}Empleados{% endblock %}
+
+{% block content %}
+    
+    <!-- Menu lateral -->
+    {% include 'global/submenu.html' %} 
+    <section class="box d-flex flex-column contenedor px-3">
+        <h2 class='tittle'>Empleados</h2>
+        <div class="mx-auto overflow-hidden">
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'detailsEmployee' %}" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                    <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
+                    <p class="m-0">Nuevo empleado</p>
+                </a>
+            </div>            
+            <form action="">
+                <div class="row mb-5 mt-3 justify-content-between gy-4 align-items-center">
+                    <div class="d-flex  align-items-center col-md-6 col-12">
+                        <label for="category" class="form-label m-0 h5 me-3" style="white-space: nowrap;">Buscar por:</label>
+                        <select name="optionSelect" id="optionSelect" class="form-select">
+                            <option value="first_name">Nombre</option>
+                            <option value="last_name">Apellidos</option>
+                            <option value="dni">Dni</option>
+                            <option value="telefono">Teléfono</option>
+                            <option value="departamento">Departamento</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 col-12">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    </div>
+                </div>
+            </form>
+            
+            <div class="h-75 overflow-auto barScroll pb-5">
+                <table class="table table-dark table-striped">
+                    <thead class="fs-5 text-uppercase sticky-top">
+                        <tr class="">
+                            <th class="p-3">Nombre</th>
+                            <th class="p-3">Apellidos</th>
+                            <th class="p-3">Dni</th>
+                            <th class="p-3">Teléfono</th>
+                            <th class="p-3">Departamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEmpleados">
+                        {% for employee in employees %}
+                            <tr onclick="window.location.href = '/detailsEmployee-{{ employee.id }}';">
+                                <td data-label="Nombre">{{employee.user.first_name}}</td>
+                                <td data-label="Apellido">{{employee.user.last_name}}</td>
+                                <td data-label="Dni">{{employee.dni}}</td>
+                                <td data-label="Teléfono">{{employee.telefono}}</td>
+                                <td data-label="Departamento">{{employee.departamento}}</td>
+                            </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </section>
+<script src="{% static 'js/filterEmployee.js' %}"></script>
+{% endblock content %}

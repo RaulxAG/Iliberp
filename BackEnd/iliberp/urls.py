@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include("administracion.urls")),
     path('loginApi/',views.loginApi,name='loginApi'),
     path('registerApi/',views.registerApi,name='registerApi'),
+    path('', views.loginDjango, name='loginDjango'),
+    path('register/',views.registerDjango,name='registerDjango'),
     path('', include("fichaje.urls")),
     path('', include("incidencias.urls")),
     path('', include("inventario.urls")),

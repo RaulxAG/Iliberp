@@ -563,4 +563,98 @@ body, html {
   z-index: 1;
 }
 
+.containerPersona {
+  margin: 1% !important;
+  border-radius: 5px;
+}
+.containerPersona figure {
+  margin-bottom: 0;
+  padding: 0;
+}
+.containerPersona figure img {
+  width: 80%;
+  margin: 0;
+  padding: 0;
+}
+.containerPersona figure div {
+  width: 200px !important;
+}
+.containerPersona figure div i {
+  width: 100%;
+}
+.containerPersona p {
+  margin: 0;
+  padding: 0;
+}
+.containerPersona .ultMensaje {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.containerPersona:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+#containerChat {
+  display: grid;
+  grid-template-rows: 2fr 8fr 2fr;
+}
+#containerChat #nombreUsuario {
+  grid-row: 1/2;
+}
+#containerChat .containerMensajes {
+  grid-row: 2/3;
+  overflow-y: auto;
+}
+#containerChat .containerCreateMensaje {
+  grid-row: 3/4;
+}
+#containerChat #containerMensajes .divFecha {
+  background-color: rebeccapurple;
+}
+#containerChat #containerMensajes .divFecha p {
+  margin: 0;
+}
+#containerChat #containerMensajes .mensajeEnviado {
+  background-color: #e65522;
+  clip-path: polygon(0 0, 7% 33%, 7% 100%, 100% 100%, 100% 0);
+}
+#containerChat #containerMensajes .mensajeEnviado p {
+  padding-left: 7%;
+}
+#containerChat #containerMensajes .mensajeRecibido {
+  background-color: #1E2225;
+  align-self: end;
+  clip-path: polygon(100% 0%, 93% 33%, 93% 100%, 0 100%, 0 0);
+}
+#containerChat #containerMensajes .mensajeRecibido p {
+  padding-right: 7%;
+}
+#containerChat #containerMensajes .mensajeEnviado, #containerChat #containerMensajes .mensajeRecibido {
+  width: 75%;
+  border-radius: 5px;
+  padding: 10px 15px;
+  animation: opacity 0.3s ease-in-out;
+}
+#containerChat #containerMensajes .mensajeEnviado p, #containerChat #containerMensajes .mensajeRecibido p {
+  margin: 0;
+}
+#containerChat #containerMensajes .mensajeEnviado p.text-end, #containerChat #containerMensajes .mensajeRecibido p.text-end {
+  font-size: 13px;
+}
+#containerChat .containerCreateMensaje {
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */

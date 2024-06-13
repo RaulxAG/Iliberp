@@ -1,0 +1,99 @@
+.containerPersona{
+    margin: 1%!important;
+    border-radius: 5px;
+    figure{
+        margin-bottom: 0;
+        padding: 0;
+        img{
+            width: 80%;
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 200px!important;
+           i{
+                width: 100%;
+            } 
+        } 
+    } 
+    p{
+        margin: 0;
+        padding: 0;
+    }
+    .ultMensaje{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.01);
+    }
+}
+#containerChat{
+    display: grid;
+    grid-template-rows: 2fr 8fr 2fr;
+
+    #nombreUsuario{
+        grid-row: 1 / 2;
+    }
+    .containerMensajes{
+        grid-row: 2 / 3;
+        overflow-y: auto;
+    }
+
+    .containerCreateMensaje{
+        grid-row: 3 / 4;
+    }
+
+    #containerMensajes{
+        .divFecha{
+            background-color: rebeccapurple;
+            p{
+                margin: 0;
+            }
+        }
+        .mensajeEnviado{
+            background-color: $colorOrange;
+            clip-path: polygon(0 0, 7% 33%, 7% 100%, 100% 100%, 100% 0);
+            p{
+                padding-left: 7%; 
+            }
+        }
+        .mensajeRecibido{
+            background-color: $colorBlack;
+            align-self: end;
+            clip-path: polygon(100% 0%, 93% 33%, 93% 100%, 0 100%, 0 0);
+            p{
+                padding-right: 7%; 
+            }
+            
+        }
+        .mensajeEnviado , .mensajeRecibido{
+            width: 75%;
+            border-radius: 5px;
+            padding: 10px 15px;
+            animation: opacity 0.3s ease-in-out;
+            p{
+                margin: 0;
+            }
+            p.text-end{
+                font-size: 13px;
+            }
+        }
+    }
+    
+    .containerCreateMensaje{
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
