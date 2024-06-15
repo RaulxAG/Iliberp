@@ -74,6 +74,98 @@ i18n
             // Raul's traductions
             "noEncontrado": "PAGE NOT FOUND",
 
+          // FormInicio
+            // Judith's translations
+            "crearCuenta": "Create Account",
+            "iniciarSesion": "Log In",
+            "noCuenta": "Don't have an account? Sign up",
+            "registrarse": "Sign Up",
+            "usuario": "Username",
+            "contrasena": "Password",
+            "olvidarContrasena": "Forgot your password?",
+            "nombreComun": "First Name",
+            "apellido": "Last Name",
+            "telefono": "Phone",
+            "email": "Email",
+            "dni": "ID",
+            "registrarme": "Register",
+        
+        // Tienda
+            // Judith's translations
+            "tienda": "Store",
+            "filtrarPor": "Filter by:",
+            "precio": "Price",
+            "min": "Min",
+            "max": "Max",
+            "categoria": "Category",
+            "portatiles": "Laptops",
+            "teclados": "Keyboards",
+            "ratones": "Mice",
+            "monitores": "Monitors",
+            "todos": "All",
+            "ordenarPor": "Sort by:",
+            "nombreAZ": "Name (A-Z)",
+            "nombreZA": "Name (Z-A)",
+            "precioAsc": "Price Ascending",
+            "precioDesc": "Price Descending",
+
+          //Carrito
+              // Judith's translations
+              "total": "Total",
+              "tramitar": "Process order",
+
+          //Tramitar pedido
+              // Judith's translations
+              "calleError": "You must provide the street",
+              "numberError": "You must provide the number, floor, or door",
+              "numberErrorPattern": "Invalid format, only numbers and letters",
+              "pronvinciaError": "You must provide the province",
+              "provincia": "Province",
+              "localidad": "City",
+              "codigoPostal": "Postal Code",
+              "codigoPostalError": "You must provide the postal code",
+              "resumenPedido": "Order Summary",
+              "numero": "Number, floor, door...",
+              "calle": "Street",
+              "nombre": "Name",
+              "pedidoInfo": "Shipping Information",
+              "cantidad":"Quantity",
+              "precioTotal":"Price",
+              "precioTotalPedido":"Total order price:",
+              "siguiente": "Next",
+              "anterior": "Back",
+              "codigoPostalErrorPattern": "The postal code must be 5 digits",
+              "verCarrito": "View Cart",
+
+          //Pdf pedido
+              // Judith's translations
+              "productos":"Products",
+              "datosEnvio": "Shipping address details",
+              "pedido":"Order",
+              // Las demas palabras como cantidad, precio... ya esta declaradas arriba
+
+          //Producto
+              // Judith's translations
+              "especificaciones":"Specifications",
+          
+          //Productos
+              // Judith's translations
+              "verMas":"See more",
+
+          //Compra con éxito
+              // Judith's translations
+              "susPedidos":"Your Orders",
+              "pedidoDel":"Order from  ",
+              "customer": "Client",
+              "fecha": "Date",
+              "estado": "Status",
+              "subtotal": "Subtotal",
+              "iva": "Tax",
+              "detallePedido": "Order Details",
+              "articulo": "Item",
+              "unidades": "Units",
+              "direccion": "Address"
+          
         }
       },
       es: {
@@ -133,6 +225,99 @@ i18n
           // 404
             // Traducciones Raul
             "noEncontrado": "PÁGINA NO ENCONTRADA",
+
+          // FormInicio
+            // Traducciones Judith
+            "crearCuenta": "Crear cuenta",
+            "iniciarSesion": "Iniciar Sesión",
+            "noCuenta": "¿Aún no tienes cuenta? Regístrate",
+            "registrarse": "Regístrate",
+            "usuario": "Usuario",
+            "contrasena": "Contraseña",
+            "olvidarContrasena": "¿Has olvidado tu contraseña?",
+            "nombreComun": "Nombre",
+            "apellido": "Apellido",
+            "telefono": "Teléfono",
+            "email": "Email",
+            "dni": "DNI",
+            "registrarme": "Registrarme",
+
+          //Tienda
+              // Traducciones Judith
+              "tienda": "Tienda",
+              "filtrarPor": "Filtrar por:",
+              "precio": "Precio",
+              "min": "Min",
+              "max": "Max",
+              "categoria": "Categoría",
+              "portatiles": "Portátiles",
+              "teclados": "Teclados",
+              "ratones": "Ratones",
+              "monitores": "Monitores",
+              "todos": "Todos",
+              "ordenarPor": "Ordenar por:",
+              "nombreAZ": "Nombre (A-Z)",
+              "nombreZA": "Nombre (Z-A)",
+              "precioAsc": "Precio Ascendente",
+              "precioDesc": "Precio Descendente",
+
+          //Carrito
+              // Traducciones Judith
+              "total": "Total",
+              "tramitar": "Tramitar pedido",
+          
+          //Tramitar pedido
+              // Traducciones Judith
+              "calleError": "Debes indicar la calle",
+              "numeroError": "Debes indicar el número, piso o portal",
+              "numeroErrorPattern": "Formato inválido, solo números y letras",
+              "provinciaError": "Debes indicar la provincia",
+              "provincia": "Provincia",
+              "localidad": "Localidad",
+              "codigoPostal": "Código Postal",
+              "codigoPostalError": "Debes indicar el código postal",
+              "resumenPedido": "Resumen del Pedido",
+              "numero": "Número, piso, portal...",
+              "calle": "Calle",
+              "nombre": "Nombre",
+              "pedidoInfo": "Información de Envío",
+              "cantidad": "Cantidad",
+              "precioTotal": "Precio",
+              "precioTotalPedido": "Precio total del pedido:",
+              "siguiente": "Siguiente",
+              "anterior": "Anterior",
+              "codigoPostalErrorPattern": "El código postal debe tener 5 dígitos",
+              "verCarrito": "Ver Carrito",
+
+          //Pdf pedido
+              // Traducciones Judith
+              "productos":"Productos",
+              "datosEnvio":"Datos dirección de envío",
+              "pedido":"Pedido",
+              // Las demas palabras como cantidad, precio... ya esta declaradas arriba
+
+          //Producto
+              // Traducciones Judith
+              "especificaciones":"Especificaciones",
+          
+          //Productos
+              // Traducciones Judith
+              "verMas":"Ver más",
+
+          //Compra con éxito
+              // Traducciones Judith
+              "susPedidos":"Sus pedidos",
+              "pedidoDel":"Pedido del ",
+              "cliente": "Cliente",
+              "fecha": "Fecha",
+              "estado": "Estado",
+              "subtotal": "Subtotal",
+              "iva": "IVA",
+              "detallePedido": "Detalle del Pedido",
+              "articulo": "Artículo",
+              "unidades": "Unidades",
+              "direccion": "Dirección"
+
         }
       }
     }

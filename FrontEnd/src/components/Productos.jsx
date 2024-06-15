@@ -9,7 +9,8 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     const [productosFiltradosPrecio, setProductosFiltradosPrecio] = useState([]);
     const [pagina, setPagina] = useState(1);
     const [cargarSpinner,setCargarSpinner] = useState(true)
-
+    const [numPaginas, setNumPaginas] = useState(0);
+    
     // Cuando cambia la URL, actualizamos el valor de búsqueda
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -24,8 +25,10 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
             .then(response => response.json())
             .then(data => {
                 setCargarSpinner(false);
+                console.log(data)
                 if (pagina!=1) {
                     setProductos(prevProductos => [...prevProductos, ...data.products]);
+                    
                 }else{
                     setProductos(data.products)
                 }
@@ -33,10 +36,11 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
                 setProductosFiltradosCategoria(data.products); // Inicializar con todos los productos
                 setProductosFiltradosBusqueda(data.products); // Inicializar con todos los productos
                 setProductosFiltradosPrecio(data.products); // Inicializar con todos los productos
+                setNumPaginas(data.num_pages);
             })
             .catch(error => console.error('Error al obtener productos:', error));
     }, [pagina]);
-
+    
     // Llamada para obtener productos por categoría
     useEffect(() => {
         if (categoria) {
@@ -65,10 +69,11 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     // Filtrar productos por precio
     useEffect(() => {
-        const filtered = productos.filter(producto =>
+        const filtered = productos.filter(producto => 
             producto.precio >= precioMin && (precioMax === 1500 || producto.precio <= precioMax) //Controlar el valor max que tenemos puesto en el slider (1500)
         );
         setProductosFiltradosPrecio(filtered);
+        
     }, [productos, precioMin, precioMax]);
 
     const productosFiltrados = productosFiltradosCategoria
@@ -81,6 +86,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
 
     // Ordenar los productos filtrados
     const productosOrdenados = [...productosFiltrados];
+    
     switch (orden) {
         case 'precioAsc':
             productosOrdenados.sort((a, b) => parseFloat(a.precio) - parseFloat(b.precio));
@@ -118,9 +124,11 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
                 </div>
                 
             }
-            <div className='w-100 d-flex pt-3'>
-                <button className='btn btn-dark mx-auto' onClick={cargarMasProductos}>Ver más</button>
-            </div>
+            {pagina < numPaginas && (
+                <div className='w-100 d-flex pt-3'>
+                    <button className='btn btn-dark mx-auto' onClick={cargarMasProductos}>Ver más</button>
+                </div>
+            )}
             
         </>
     );

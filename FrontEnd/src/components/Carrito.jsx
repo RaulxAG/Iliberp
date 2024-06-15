@@ -1,8 +1,11 @@
 // import laptopImg from '/assets/img/laptop.png';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
-export default function Carrito({carrito,setCarritoVisible, setCarrito}) {
+export default function Carrito({carrito,setCarritoVisible, setCarrito, user}) {
+    const { t } = useTranslation();
     const totalCompra = carrito.reduce((total, producto) => total + (producto.precio * producto.cantidad), 0);
+    
 
     const changeCant=(e,id)=>{
         //Buscamos el producto
@@ -30,8 +33,11 @@ export default function Carrito({carrito,setCarritoVisible, setCarrito}) {
         <div className="contenedorCarrito barScroll">
             <button onClick={()=>setCarritoVisible(false)}>X</button>
             <div className="contenedorCarrito__productos box">
+                {carrito.length == 0 &&
+                    <p className='h2 text-center'>Sin productos en el carrito</p>
+                }
                 {carrito.map((producto)=>(
-                    <div className="card w-100 mb-3 p-3 contenedorCarrito__productos__producto" key={producto.nombre}>
+                    <div className="card w-100 mb-3 p-3 contenedorCarrito__productos__producto" key={producto.id}>
                         <div className="row g-0">
                             <div className="col-md-4 d-flex justify-content-center align-items-center">
                                 <img src="" className="img-fluid rounded-start m-2" alt="..." />
@@ -55,13 +61,13 @@ export default function Carrito({carrito,setCarritoVisible, setCarrito}) {
                     </div>
                 ))}
                 <div className='d-flex justify-content-end align-items-center gap-5 my-4 me-4'>
-                    <p className='text-end h3 m-0'>Total </p>
+                    <p className='text-end h3 m-0'>{t('total')} </p>
                     <p className='m-0 h5'>{totalCompra}€</p>
                 </div>
                 
                 {carrito.length > 0 && (
-                    <Link to="/tramitar-pedido" state={{carrito: carrito}}>
-                        <button className='tramitarPedido'>Tramitar pedido</button>
+                    <Link to="/tramitar-pedido" state={{carrito: carrito,user:user}}>
+                        <button className='tramitarPedido'>{t('tramitar')}</button>
                     </Link>
                 )}
                 

@@ -4,13 +4,13 @@ import { useState } from 'react';
 export default function Producto({producto, carrito, setCarrito}){
     const [comprado, setComprado] = useState(false);
     const especificaciones = Object.entries(producto.especificaciones); //Para uqe nos devuelva un array de clave-valor
-
+    
     const addCarrito = () => {
         // Actualizar el estado de comprado antes de agregar el producto al carrito
         setComprado(true);
 
         // Crear una copia del carrito
-        const nuevoCarrito = [...carrito];
+        const nuevoCarrito = [...carrito]; 
 
         // Buscar si el producto ya está en el carrito
         const index = nuevoCarrito.findIndex(item => item.id === producto.id);
@@ -33,14 +33,14 @@ export default function Producto({producto, carrito, setCarrito}){
         setCarrito(nuevoCarrito);
     }
     const truncateDescrip = (text) => {
-        console.log(text.length)
+        
         if (text.length > 50) {
             return text.slice(0,50) + '...';
         }
         return text;
     };
     const truncateTit = (text) => {
-        console.log(text.length)
+        
         if (text.length > 20) {
             return text.slice(0,20) + '...';
         }

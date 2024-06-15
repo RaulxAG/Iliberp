@@ -3,18 +3,37 @@ import Menu from '../components/Menu'
 
 export default function CompraExito() {
     const [pedidos, setPedidos] = useState([]);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/getOrdersJSON/?cliente=1')
-            .then(response => response.json())
-            .then(data => setPedidos(data))
-            .catch(error => console.error('Error al coger pedidos', error));
+        // Obtener datos del localStorage
+        const username = localStorage.getItem('username');
+        const userId = localStorage.getItem('user_id');
+        const token = localStorage.getItem('token');
+
+        // Verificar que todos los datos necesarios estén presentes
+        if (username && userId && token) {
+            setUser({ username, userId, token });
+        } else {
+            console.error("Error: No se pudieron recuperar los datos del usuario del localStorage.");
+            navegate('/');
+        }
     }, []);
 
+    useEffect(() => {
+        // Verificar que user esté definido
+        user &&
+            fetch(`http://localhost:8000/getOrdersJSON/?cliente=${user.userId}`)
+                .then(response => response.json())
+                .then(data => setPedidos(data))
+                .catch(error => console.error('Error al coger pedidos', error));
+        
+    }, [user]);
+
     return (
-        <div className='containerPrincipal'>
-            <Menu selected="tienda"></Menu>
-            <div className="contenedor box overflow-hidden">
+        <section className='containerPrincipal mainMensajeria'>
+            <Menu selected="tienda" username={user ? user.username : "Invitado"}></Menu>
+            <section className="contenedor box overflow-hidden">
                 <h2 className='tittle'>Pedidos de Judith</h2>
                 <div className='barScroll box mt-5 overflow-y-auto d-flex flex-column gap-4 ' >
                     {pedidos.map(pedido => (
@@ -38,8 +57,8 @@ export default function CompraExito() {
                         </div>
                     ))}
                 </div>
-            </div>
-        </div>
+            </section>
+        </section>
 
         
     );

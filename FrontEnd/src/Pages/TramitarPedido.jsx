@@ -15,6 +15,8 @@ import PayPalComponent from "../components/Paypal";
 import { Link } from 'react-router-dom';
 
 import { useEffect } from 'react';
+import { useTranslation } from "react-i18next";
+
 
 const steps = ['Información de envío', 'Resumen pedido', 'Pago'];
 
@@ -24,6 +26,7 @@ export default function TramitarPedido() {
     const [skipped, setSkipped] = useState(new Set());
     const [refreshKey,setRefreshKey] =  useState(0);
 
+    
     const isStepSkipped = (step) => {
         return skipped.has(step);
     };
@@ -64,11 +67,12 @@ export default function TramitarPedido() {
     };
 
     //------------FIN Código usado por material para ael componente------//
-    
-    //Recoger del location el carrito, que lo hemos pasado en el componente 'Carrito' mediante el link
+    const { t } = useTranslation();
+    //Recoger del location el carrito y el usuario, que lo hemos pasado en el componente 'Carrito' mediante el link
     let location = useLocation();
     let carrito = location.state.carrito;
-
+    let user= location.state.user
+    console.log(location)
     const { register, handleSubmit, watch,formState: { errors } } = useForm();
 
     const onSubmit = () => {
@@ -154,11 +158,10 @@ export default function TramitarPedido() {
 
     
     return (
-        <div className='containerPrincipal'>
-            <Menu selected="incidencias"></Menu>
-            
-            <div className="contenedor box">
-                <h2 className='tittle mb-5'>Tramitar pedido</h2>
+        <section className='containerPrincipal mainMensajeria'>
+            <Menu selected="tienda" username={user ? user.username : "Invitado"}></Menu>
+            <section className="contenedor box">
+                <h2 className='tittle mb-5'>{t('tramitar')}</h2>
                 <div className='containerTramite box w-75 mx-auto barScroll'>
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={activeStep}>
@@ -195,22 +198,22 @@ export default function TramitarPedido() {
                                                 <div className="mb-3 col-md-9 col-12">
                                                     <TextField 
                                                             id="outlined-basic" 
-                                                            label="Calle" 
+                                                            label={t('calle')}
                                                             className='w-100'
                                                             {...register('calle', { required: true })}
                                                     />
-                                                    {errors.calle && <span className="text-warning">Debes indicar la calle</span>}
+                                                    {errors.calle && <span className="text-warning">{t('calleError')}</span>}
                                                 </div>
                                                 <div className="mb-3 col-md-3 col-12">
                                                     <TextField 
                                                             id="outlined-basic" 
-                                                            label="Número, piso, portal..." 
+                                                            label={t('numero')} 
                                                             className='w-100'
                                                             {...register('numero', {
-                                                                required: 'Debes indicar el número, piso o portal',
+                                                                required: t('numberError'),
                                                                 pattern: {
                                                                     value: /^[0-9a-zA-Z\s]*$/,
-                                                                    message: 'Formato inválido, solo números y letras',
+                                                                    message: t('numberErrorPattern'),
                                                                 },
                                                             })}
                                                     />
@@ -222,7 +225,7 @@ export default function TramitarPedido() {
                                                         id="provincia-select"
                                                         value={selectedProvincia}
                                                         onChange={handleProvinciaChange }
-                                                        label="Provincia"
+                                                        label={t('pronvincia')}
                                                         className='w-100'
                                                         sx={{ color: 'white' }}
                                                     >
@@ -231,7 +234,7 @@ export default function TramitarPedido() {
                                                         ))}
                                                     </Select>
                                                     
-                                                    {errors.provincia && <span className="text-warning">Debes indicar la provincia</span>}
+                                                    {errors.provincia && <span className="text-warning">{t('pronvinciaError')}</span>}
                                                 </div>
                                                 <div className="mb-3 col-md-4 col-12">
                                                 <Select
@@ -239,7 +242,7 @@ export default function TramitarPedido() {
                                                     id="localidad-select"
                                                     value={selectedLocalidad}
                                                     onChange={(e) => setSelectedLocalidad(e.target.value)}
-                                                    label="Localidad"
+                                                    label={t('localidad')}
                                                     className='w-100'
                                                     sx={{ color: 'white' }}
                                                 >
@@ -252,13 +255,13 @@ export default function TramitarPedido() {
                                                 <div className="mb-3 col-md-4 col-12">
                                                     <TextField 
                                                         id="outlined-basic" 
-                                                        label="Código postal" 
+                                                        label={t('codigoPostal')} 
                                                         className='w-100'
                                                         {...register('codigoPostal', {
-                                                            required: 'Debes indicar el código postal',
+                                                            required: t('codigoPostalError'),
                                                             pattern: {
                                                                 value: /^[0-9]{5}$/,
-                                                                message: 'El código postal debe tener 5 dígitos',
+                                                                message: t('codigoPostalErrorPattern'),
                                                             },
                                                         })}
                                                     />
@@ -270,26 +273,26 @@ export default function TramitarPedido() {
                                     {activeStep === 1 && (
                                         <Box>
                                         {/* Resumen */}
-                                        <Typography variant="h6" className='text-center fs-3'>Resumen del pedido</Typography>
+                                        <Typography variant="h6" className='text-center fs-3'>{t('resumenPedido')}</Typography>
                                         <div className=' '>
                                             <Box my={2}>
-                                                <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Información de envío</Typography>
-                                                <Typography>Calle: {watch('calle')}</Typography>
-                                                <Typography>Número, piso, portal: {watch('numero')}</Typography>
-                                                <Typography>Provincia: {selectedProvincia}</Typography>
-                                                <Typography>Localidad: {selectedLocalidad}</Typography>
-                                                <Typography>Código postal: {watch('codigoPostal')}</Typography>
+                                                <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>{t('pedidoInfo')}</Typography>
+                                                <Typography>{t('calle')} {watch('calle')}</Typography>
+                                                <Typography>{t('numero')}: {watch('numero')}</Typography>
+                                                <Typography>{t('provincia')}: {selectedProvincia}</Typography>
+                                                <Typography>{t('localidad')}: {selectedLocalidad}</Typography>
+                                                <Typography>{t('codigoPostal')}: {watch('codigoPostal')}</Typography>
                                             </Box>
                                             <Box my={2}>
-                                                <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>Resumen pedido</Typography>
+                                                <Typography variant="subtitle1" className='border-bottom fw-bold text-end'>{t('resumenPedido')}</Typography>
                                                 {carrito.map(producto => (
                                                     <Box key={producto.id} my={1}>
-                                                        <Typography>Nombre: {producto.nombre}</Typography>
-                                                        <Typography>Cantidad: {producto.cantidad}</Typography>
-                                                        <Typography>Precio total: {producto.precio * producto.cantidad}€</Typography>
+                                                        <Typography>{t('nombre')}: {producto.nombre}</Typography>
+                                                        <Typography>{t('cantidad')}: {producto.cantidad}</Typography>
+                                                        <Typography>{t('precioTotal')}: {producto.precio * producto.cantidad}€</Typography>
                                                     </Box>
                                                 ))}
-                                                <Typography variant="h6" className='fw-bold text-end'>Precio total del pedido: {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
+                                                <Typography variant="h6" className='fw-bold text-end'>{t('precioTotalPedido')} {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
                                             </Box>
                                         </div>
                                         <Link to="/descargarInfoPedido" state= {{carrito:carrito, direccion:objDireccion}}>
@@ -320,12 +323,12 @@ export default function TramitarPedido() {
                                         onClick={handleBack}
                                         sx={{ mr: 1 }}
                                     >
-                                        Anterior
+                                        {t('anterior')}
                                     </Button>
                                     <Box sx={{ flex: '1 1 auto' }} />
                                     
                                     {activeStep !== 2 &&  
-                                        <Button onClick={handleNextStep}>Siguiente</Button>
+                                        <Button onClick={handleNextStep}>{t('siguiente')}</Button>
                                     }
                                     
                                 </Box>
@@ -334,7 +337,7 @@ export default function TramitarPedido() {
                     </Box>
                 </div>
                 
-            </div>
-        </div>
+            </section>
+        </section>
     );
 }

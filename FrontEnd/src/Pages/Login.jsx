@@ -11,7 +11,7 @@ export default function FormInicio() {
     }
 
     const handleSubmitRegister = (event) => {
-        event.preventDefault(); // Evita el comportamiento de envío de formulario predeterminado
+        event.preventDefault(); 
 
         const formData = new FormData(event.target);
         fetch(`http://127.0.0.1:8000/registerApi/`, {
@@ -39,6 +39,7 @@ export default function FormInicio() {
         event.preventDefault(); 
 
         const formData = new FormData(event.target);
+        
         fetch(`http://127.0.0.1:8000/loginApi/`, {
             method: 'POST',
             body: formData
@@ -104,19 +105,29 @@ export default function FormInicio() {
                             <h3 className="text-uppercase">Crear cuenta</h3>
                             <form onSubmit={handleSubmitRegister} className="d-flex flex-column gx-4">
                                 <div className='row w-100 gap-2 m-auto'>
-                                    <input type="text" placeholder="Usuario" name='username' className='col m-0'/>
-                                    <input type="text" placeholder="Contraseña" name='password'  className='col m-0'/>
+                                    <input type="text" placeholder="Usuario" name='username' className='col m-0' 
+                                        required pattern="^[a-zA-Z0-9_]{3,20}$" title="El usuario debe tener entre 3 y 20 caracteres, y puede contener letras, números y guiones bajos."/>
+                                    <input type="password" placeholder="Contraseña" name='password' className='col m-0' 
+                                        required pattern=".{6,}" title="La contraseña debe tener al menos 6 caracteres."/>
                                 </div>
                                 
                                 <div className='row w-100 gap-2 m-auto'>
-                                    <input type="text" placeholder="Nombre" name='first_name' className='col m-0'/>
-                                    <input type="text" placeholder="Apellido" name='last_name' className='col m-0'/>
+                                    <input type="text" placeholder="Nombre" name='first_name' className='col m-0' 
+                                        required pattern="^[a-zA-Z\s]{1,50}$" title="El nombre debe contener solo letras y espacios, y debe tener hasta 50 caracteres."/>
+                                    <input type="text" placeholder="Apellido" name='last_name' className='col m-0' 
+                                        required pattern="^[a-zA-Z\s]{1,50}$" title="El apellido debe contener solo letras y espacios, y debe tener hasta 50 caracteres."/>
                                 </div>
-                                <input type="text" placeholder="Teléfono" name='telefono1'  className='m-0'/>
-                                <input type="text" placeholder="Email" name='email'  className='m-0'/>
-                                <input type="text" placeholder="Dni" name='dni'  className='m-0'/>
+                                
+                                <input type="tel" placeholder="Teléfono" name='telefono1' className='m-0' 
+                                    required pattern="^\d{9}$" title="El teléfono debe tener 9 dígitos."/>
+                                <input type="email" placeholder="Email" name='email' className='m-0' 
+                                    required title="Introduce una dirección de correo electrónico válida."/>
+                                <input type="text" placeholder="DNI" name='dni' className='m-0' 
+                                    required pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra."/>
+                                
                                 <button type="submit">Registrarme</button>
                             </form>
+
                             
                         </div>
                     } 
