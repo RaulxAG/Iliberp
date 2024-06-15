@@ -27,7 +27,10 @@ MENSAJERIA_MEDIA_ROOT = os.path.join(MEDIA_ROOT, 'mensajeria')
 INVENTARIO_MEDIA_URL = '/media/inventario/'
 INVENTARIO_MEDIA_URL = os.path.join(MEDIA_ROOT, 'inventario')
 
+ADMINISTRACION_MEDIA_URL = '/media/administracion'
+ADMINISTRACION_MEDIA_ROOT = os.path.join(MEDIA_ROOT, 'administracion')
 
+LOGIN_URL = '/login/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -107,16 +110,23 @@ WSGI_APPLICATION = 'iliberp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'iliberp',
+#         # 'USER': 'root',
+#         # 'PASSWORD': 'root',
+#         'USER': 'admin',
+#         'PASSWORD': 'jxTgO5052vqVqKW1XXMh',
+#         'HOST': 'iliberp.cnnczsc7ytbi.us-east-1.rds.amazonaws.com',
+#         'PORT': '3306'
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'iliberp',
-        # 'USER': 'root',
-        # 'PASSWORD': 'root',
-        'USER': 'admin',
-        'PASSWORD': 'jxTgO5052vqVqKW1XXMh',
-        'HOST': 'iliberp.cnnczsc7ytbi.us-east-1.rds.amazonaws.com',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

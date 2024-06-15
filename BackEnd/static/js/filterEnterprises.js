@@ -1,5 +1,6 @@
 let optionSelect = document.querySelector('#optionSelect')
 let searchInput = document.querySelector('#searchInput');
+const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
 optionSelect.addEventListener('change', function() {
     setTimeout(() => {
@@ -18,6 +19,7 @@ function filterEnterprises(option, search) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
         },
         body: JSON.stringify({ 
             option: option, search: search 
@@ -38,12 +40,11 @@ function updateTable(data) {
         let row = document.createElement('tr');
         row.onclick = () => window.location.href = `/detailsEnterprise-${enterprise.id}`;
         row.innerHTML = `
-            <td>${enterprise.nombre}</td>
-            <td>${enterprise.cif}</td>
-            <td>${enterprise.direccion}</td>
-            <td>${enterprise.email}</td>
-            <td>${enterprise.telefono1}</td>
-            <td>${enterprise.telefono2}</td>
+            <td data-label="Nombre">${enterprise.nombre}</td>
+            <td data-label="Dni">${enterprise.cif}</td>
+            <td data-label="Dirección">${enterprise.direccion}</td>
+            <td data-label="Email">${enterprise.email}</td>
+            <td data-label="Teléfono 1">${enterprise.telefono1}</td>
         `;
         tableBody.appendChild(row);
     });

@@ -4,8 +4,8 @@
 {% block title %}ILIBERP Solutions{% endblock %}
 
 {% block content %}
-<div class="containerInicio d-flex w-100">
-    <div class="portadaForms m-auto row justify-content-between position-relative">
+<section class="containerInicio d-flex w-100">
+    <section class="portadaForms m-auto row justify-content-between position-relative">
         <div class="portadaRegistro col d-flex flex-column align-items-center">
             <h3 class="text-uppercase">Crear cuenta</h3>
             <div class="">
@@ -43,18 +43,18 @@
                 <form action="{% url 'registerDjango' %}" method="POST" class="d-flex flex-column gx-4">
                     {% csrf_token %}
                     <div class='row w-100 gap-2 m-auto'>
-                        <input type="text" placeholder="Usuario" name='username' class='col m-0'/>
-                        <input type="password" placeholder="Contraseña" name='password'  class='col m-0'/>
+                        <input type="text" placeholder="Usuario" name='username' class='col m-0' required pattern="^[a-zA-Z0-9_]{3,20}$" title="El usuario debe tener entre 3 y 20 caracteres, y puede contener letras, números y guiones bajos."/>
+                        <input type="password" placeholder="Contraseña" name='password'  class='col m-0' required pattern=".{6,}" title="La contraseña debe tener al menos 6 caracteres."/>
                     </div>
                     <div class='row w-100 gap-2 m-auto'>
-                        <input type="text" placeholder="Nombre" name='first_name' class='col m-0'/>
-                        <input type="text" placeholder="Apellido" name='last_name' class='col m-0'/>
+                        <input type="text" placeholder="Nombre" name='first_name' class='col m-0' required pattern="^[a-zA-Z\s]{1,50}$" title="El nombre debe contener solo letras y espacios, y debe tener hasta 50 caracteres."/>
+                        <input type="text" placeholder="Apellido" name='last_name' class='col m-0' required pattern="^[a-zA-Z\s]{1,50}$" title="El apellido debe contener solo letras y espacios, y debe tener hasta 50 caracteres."/>
                     </div>
                     <div class='row w-100 gap-2 m-auto'>
-                        <input type="text" placeholder="Teléfono" name='telefono'  class='col m-0'/>
-                        <input type="text" placeholder="Email" name='email'  class='col m-0'/>
+                        <input type="text" placeholder="Teléfono" name='telefono'  class='col m-0' required pattern="^\d{9}$" title="El teléfono debe tener 9 dígitos."/>
+                        <input type="text" placeholder="Email" name='email'  class='col m-0' required title="Introduce una dirección de correo electrónico válida."/>
                     </div>
-                    <input type="text" placeholder="Dni" name='dni'  class='m-0'/>
+                    <input type="text" placeholder="Dni" name='dni'  class='m-0' required pattern="^\d{8}[A-Za-z]$" title="El DNI debe tener 8 dígitos seguidos de una letra."/>
                     <select name="departamento" id="departamento" class="form-select py-0">
                         <option value="">Seleccione un departamento</option>
                         {% for value, name in departments %}
@@ -65,11 +65,11 @@
                 </form>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Mostrar mensajes -->
     {% if messages %}
-    <div class="position-fixed w-100 d-flex justify-content-center">
+    <section class="position-fixed w-100 d-flex justify-content-center">
         <div class="w-75 mt-5">
             {% for message in messages %}
                 {% if message.tags == 'error' %}
@@ -81,9 +81,9 @@
                 {% endif %}
             {% endfor %}
         </div>
-    </div>
+    </section>
     {% endif %}
 
-</div>
+</section>
 <script src="{% static 'js/formInicio.js' %}"></script>
 {% endblock content %}

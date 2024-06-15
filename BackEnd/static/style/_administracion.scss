@@ -1,0 +1,137 @@
+// ESTILOS VISTA GENERAL DE LOS CRUD (TABLA EMPLEADOS, CONTACTOS...)
+
+.tabla{
+    thead th:last-child{
+        border-radius: 0px 10px 0px 0px;
+    } 
+    thead th:first-child{
+        border-radius: 10px 0px 0px 0px;
+    }
+    tbody tr{
+        cursor: pointer;
+    }
+}
+@keyframes animacionTexto {
+    50% {
+        font-size: 18px; /* Tamaño de la fuente durante la animación */
+    }
+}
+// ESTILOS CRUD DETALLE
+.buttonReverse a{
+    text-decoration: none;
+    color: $colorOrange;
+}
+.formularioCrud {
+    .fa-camera{
+        bottom: 20px;
+        left: 90px;
+        font-size: 30px;
+        background-color:$colorWhite;
+        border-radius: 100px;
+        padding: 7px;
+        cursor: pointer;
+    }
+    img {
+        width: 17vh;
+        height: 17vh;
+    }
+    .btnAceptar{
+        align-self: flex-start;
+        margin: 0;
+    }
+    input {
+        border: none;
+        color: $colorWhite;
+        padding: 3px;
+
+        &:enabled {
+            border: none;
+            animation: animacionTexto 0.5s ease;
+            background-color: #1e22259c !important;
+            border-radius: 3px 3px 0px 0px;
+        }
+    }
+
+    select:enabled {
+        animation: animacionTexto 0.5s ease;
+    }
+
+    textarea {
+        height: 135px;
+        color: $colorWhite;
+    }
+
+    select {
+        padding: 3px;
+
+        .form-select:focus {
+            box-shadow: 0 0 0 .25rem #e65622af;
+        }
+
+        .custom {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* Agregar estilos personalizados */
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            /* Estilo cuando se pasa el mouse por encima de las opciones */
+            &:hover {
+                background-color: #1E2225 !important;
+            }
+        }
+    }
+}
+
+.table{
+    cursor: pointer!important;
+    tr:hover{
+        transform: scale(1.01);
+    }
+}
+
+@media screen and (max-width: 1220px) {
+    .table {
+        border: 0px;
+
+        caption {
+            font-size: 22px;
+        }
+
+        thead {
+            display: none;
+        }
+
+        tr {
+            margin-bottom: 8px;
+            border-bottom: 4px solid #ddd;
+            display: block;
+        }
+
+        th, td {
+            font-size: 12px;
+        }
+
+        td {
+            display: block;
+            border-bottom: 1px solid #ddd;
+            text-align: right;
+
+            &:last-child {
+                border-bottom: 0px;
+            }
+
+            &::before {
+                content: attr(data-label);
+                font-weight: bold;
+                text-transform: uppercase;
+                float: left;
+                margin-right: 3rem;
+                margin-bottom: 1rem;
+                padding-left: 5px;
+            }
+        }
+    }
+}

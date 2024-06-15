@@ -32,4 +32,8 @@ urlpatterns = [
     path("makeOrderJSON/", views.makeOrderJSON),
     path("cancelOrderJSON/", views.cancelOrderJSON),
     path("addAddressJSON/", views.addAddressJSON),
+
+    # URL PARA OBTENER PROVINCIAS Y LOCALIDADES, (creado por judith)
+    path("getProvincias/", views.getProvincias),
+    path("getLocalidades/", views.getLocalidades),
 ]

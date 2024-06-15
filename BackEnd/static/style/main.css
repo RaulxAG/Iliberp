@@ -297,6 +297,7 @@ body, html {
 .containerInicio .portadaForms .portadaRegistro,
 .containerInicio .portadaForms .portadaLogin {
   padding: 50px 0px;
+  color: #1E2225;
 }
 .containerInicio .portadaForms .portadaRegistro p,
 .containerInicio .portadaForms .portadaLogin p {
@@ -409,6 +410,124 @@ body, html {
   }
   .containerInicio p, .containerInicio input, .containerInicio button {
     font-size: 14px;
+  }
+}
+.tabla thead th:last-child {
+  border-radius: 0px 10px 0px 0px;
+}
+.tabla thead th:first-child {
+  border-radius: 10px 0px 0px 0px;
+}
+.tabla tbody tr {
+  cursor: pointer;
+}
+
+@keyframes animacionTexto {
+  50% {
+    font-size: 18px; /* Tamaño de la fuente durante la animación */
+  }
+}
+.buttonReverse a {
+  text-decoration: none;
+  color: #e65522;
+}
+
+.formularioCrud .fa-camera {
+  bottom: 20px;
+  left: 90px;
+  font-size: 30px;
+  background-color: #F8F8F8;
+  border-radius: 100px;
+  padding: 7px;
+  cursor: pointer;
+}
+.formularioCrud img {
+  width: 17vh;
+  height: 17vh;
+}
+.formularioCrud .btnAceptar {
+  align-self: flex-start;
+  margin: 0;
+}
+.formularioCrud input {
+  border: none;
+  color: #F8F8F8;
+  padding: 3px;
+}
+.formularioCrud input:enabled {
+  border: none;
+  animation: animacionTexto 0.5s ease;
+  background-color: rgba(30, 34, 37, 0.6117647059) !important;
+  border-radius: 3px 3px 0px 0px;
+}
+.formularioCrud select:enabled {
+  animation: animacionTexto 0.5s ease;
+}
+.formularioCrud textarea {
+  height: 135px;
+  color: #F8F8F8;
+}
+.formularioCrud select {
+  padding: 3px;
+}
+.formularioCrud select .form-select:focus {
+  box-shadow: 0 0 0 0.25rem rgba(230, 86, 34, 0.6862745098);
+}
+.formularioCrud select .custom {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Agregar estilos personalizados */
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  /* Estilo cuando se pasa el mouse por encima de las opciones */
+}
+.formularioCrud select .custom:hover {
+  background-color: #1E2225 !important;
+}
+
+.table {
+  cursor: pointer !important;
+}
+.table tr:hover {
+  transform: scale(1.01);
+}
+
+@media screen and (max-width: 1220px) {
+  .table {
+    border: 0px;
+  }
+  .table caption {
+    font-size: 22px;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tr {
+    margin-bottom: 8px;
+    border-bottom: 4px solid #ddd;
+    display: block;
+  }
+  .table th, .table td {
+    font-size: 12px;
+  }
+  .table td {
+    display: block;
+    border-bottom: 1px solid #ddd;
+    text-align: right;
+  }
+  .table td:last-child {
+    border-bottom: 0px;
+  }
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    float: left;
+    margin-right: 3rem;
+    margin-bottom: 1rem;
+    padding-left: 5px;
   }
 }
 .sectionInicio .inicio__buttons a {
@@ -655,6 +774,64 @@ body, html {
   to {
     opacity: 1;
   }
+}
+.circleEmpleado {
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background-image: linear-gradient(51deg, #ee3040 50%, #e4212e 65%, #e65522 100%);
+  cursor: pointer;
+}
+.circleEmpleado:hover {
+  background-color: #F8F8F8;
+  background-image: none;
+  border: 1px solid #e65522;
+  color: #e65522;
+}
+
+.fa-asterisk {
+  font-size: 10px;
+  transform: translateY(-8px);
+}
+
+#offcanvasWithBothOptions textarea, #offcanvasWithBothOptions input {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+/* Estilos para los botones y la información adicional */
+.circleEmpleado .position-absolute {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+.circleEmpleado:hover .position-absolute {
+  display: block;
+  opacity: 1;
+}
+.circleEmpleado button {
+  border: 1px solid #e65522;
+  text-wrap: nowrap;
+}
+
+#formFiltros option:hover {
+  appearance: none !important;
+  cursor: pointer;
+  background-color: #ccc !important;
 }
 
 /*# sourceMappingURL=main.css.map */

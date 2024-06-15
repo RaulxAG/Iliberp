@@ -79,7 +79,7 @@ window.onload = () => {
                     let alert = document.createElement('div');
                     alert.className = 'alert';
                     alert.setAttribute('role', 'alert');
-
+                    console.log(data)
                     if (data.error) {
                         // Si hay un error de autenticación, redirigir al usuario al inicio de sesión
                         window.location.href = '/login/';
@@ -97,6 +97,7 @@ window.onload = () => {
                         setTimeout(() => {
                             alert.remove();  // Eliminar la alerta 
                         }, 3000);
+                        
                         data.success ? window.location.href = `${location}` : ""
                     }
                 })

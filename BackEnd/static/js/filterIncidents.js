@@ -95,12 +95,12 @@ function updateTable(incidents) {
         };
 
         row.innerHTML = `
-            <td>${incident.category}</td>
-            <td>${incident.state}</td>
-            <td>${incident.client ? incident.client.username : ''}</td>
-            <td>${incident.empleado ? incident.employee_asigned : ''}</td>
-            <td>${incident.priority}</td>
-            <td>${incident.date}</td>
+            <td  data-label="Categoría">${incident.category}</td>
+            <td  data-label="Estado">${incident.state}</td>
+            <td  data-label="Usuario">${incident.client ? incident.client.username : ''}</td>
+            <td  data-label="Empleado">${incident.employee_asigned ? incident.employee_asigned : ''}</td>
+            <td  data-label="Prioridad">${incident.priority}</td>
+            <td  data-label="Fecha Inicio">${incident.date}</td>
         `;
 
         tableBody.appendChild(row);

@@ -10,14 +10,21 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 def inicioView(request):
-    return render(request, 'global/inicioSesion.html')
+    return render(request, 'global/inicioSesion.html', {'departments': Empleado.DEPARTAMENTOS})
 
 @csrf_exempt
 def loginApi(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Error, método Post'}, status=405)
+    
     #Obtenemos los datos del login
     username = request.POST.get('username')
     password = request.POST.get('password')
 
+    # Validamos que los datos de entrada estén presentes
+    if not username or not password:
+        return JsonResponse({'error': 'Usuario y contraseña requeridos'}, status=400)
+    
     user = authenticate(request,username = username, password = password)
 
     if user is not None:
@@ -71,13 +78,22 @@ def loginDjango(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            login(request, user)
-            return redirect('chatView')
+            # Verificar si el usuario es un empleado
+            try:
+                empleado = Empleado.objects.get(user=user)
+                # Si es un empleado, iniciar sesión y redirigir a 'chatView'
+                login(request, user)
+                return redirect('chatView')
+            except Empleado.DoesNotExist:
+                # Si no es un empleado, mostrar un mensaje de error
+                messages.error(request, 'Solo los empleados pueden iniciar sesión')
         else:
+            # Si la autenticación falla, mostrar un mensaje de error
             messages.error(request, 'Usuario o contraseña incorrectos')
-            return render(request,"global/inicioSesion.html",{'departments': Empleado.DEPARTAMENTOS})
+        
+        return render(request, "global/inicioSesion.html", {'departments': Empleado.DEPARTAMENTOS})
     else:
-        return render(request, "global/inicioSesion.html")
+        return render(request, "global/inicioSesion.html", {'departments': Empleado.DEPARTAMENTOS})
     
 def registerDjango(request):
     if request.method == 'POST':
@@ -99,7 +115,7 @@ def registerDjango(request):
         # Crea un nuevo usuario
         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
 
-        # Guarda los datos adicionales del cliente
+        # Guardar los datos del empleado
         empleado = Empleado(user=user, dni=dni, telefono=telefono,departamento=departamento)
         empleado.save()
         

@@ -22,11 +22,12 @@ from iliberp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("administracion.urls")),
+    path('login/',views.loginDjango,name='loginDjango'),
     path('loginApi/',views.loginApi,name='loginApi'),
     path('registerApi/',views.registerApi,name='registerApi'),
-    path('', views.loginDjango, name='loginDjango'),
     path('register/',views.registerDjango,name='registerDjango'),
+    path('',views.inicioView,name='inicioView'),
+    path('', include("administracion.urls")),
     path('', include("fichaje.urls")),
     path('', include("incidencias.urls")),
     path('', include("inventario.urls")),

@@ -11,7 +11,7 @@
         .portadaRegistro,
         .portadaLogin {
             padding: 50px 0px;
-
+            color: $colorBlack;
             p {
                 padding: 0px 10px;
             }
@@ -40,7 +40,6 @@
     .formularios {
         top: 0;
         left: 50%;
-        //left: 0;
         height: 100%;
         width: 50%;
         background-image: $gradient;

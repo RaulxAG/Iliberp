@@ -9,7 +9,7 @@
 <section class="main box d-flex contenedor">
     <div id="alertas"></div>
     <div class="mx-auto w-75 my-5 overflow-hidden"> 
-        <h2 class='tittle p-0' id="titulo" >{% if incident %}  {{incident.cliente.empresa.nombre}} | {{incident.cliente.user.first_name}}{% else %} Nueva incidencia {% endif %}</h2>
+        <h2 class='tittle p-0' id="titulo" >{% if incident %} {{incident.cliente.empresa.nombre}} | {{incident.cliente.user.first_name}}{% else %} Nueva incidencia {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
             <button class="buttonReverse me-2 buttonVolver">
                 <i class="fa-solid fa-circle-arrow-left" style="color: #e65522;"></i>
@@ -25,21 +25,21 @@
             <form class="row gy-4 pb-5 d-flex">
                 {% csrf_token %}
                 <div class="col-12 col-lg-6">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Descripción</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
-                    <textarea class="form-control bg-transparent barScroll"  id="descripcion" disabled style="height: 70px;" required>{{incident.descripcion}} </textarea>
+                    <textarea class="form-control bg-transparent barScroll" name="descripcion" id="descripcion" disabled style="height: 70px;" required>{{incident.descripcion}} </textarea>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Observaciones</h6>
                     </div>
-                    <textarea class="form-control  bg-transparent barScroll"  id="observaciones" disabled style="height: 70px;">{{incident.observaciones}}</textarea>
+                    <textarea class="form-control  bg-transparent barScroll" name="observaciones" id="observaciones" disabled style="height: 70px;">{{incident.observaciones}}</textarea>
                 </div>
             
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Cliente</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
@@ -52,27 +52,13 @@
                     </select>                    
                 </div>
             
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
-                        <h6 class="fw-bold">Categoría</h6>
-                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
-                    </div>
-                    <select class="form-select" name="categoria" id="categoria" disabled>
-                        {% for departament in departaments %}
-                            <option value="{{ departament.0 }}" class="custom" {% if incident.departamento == departament.0 %}selected style="font-weight: bold;"{% endif %}>
-                                {{ departament.1 }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-            
                 {% if incident %}
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-column align-items-center">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Empleado asignado</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
-                    <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado flex-wrap">
+                    <div class="bg-transparent w-100 d-flex gap-1 containerEmpleado flex-wrap justify-content-center">
                         {% for line in lines %} 
                             <div class="circleEmpleado position-relative" >
                                 <p class="p-0 m-0">{{ line.empleado.user.first_name|slice:":1" }}{{line.id}}</p>
@@ -93,9 +79,24 @@
                     </div>
                 </div>
                 {% endif %}
+                
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex gap-2">
+                        <h6 class="fw-bold">Categoría</h6>
+                        <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
+                    </div>
+                    <select class="form-select" name="categoria" id="categoria" disabled>
+                        {% for departament in departaments %}
+                            <option value="{{ departament.0 }}" class="custom" {% if incident.departamento == departament.0 %}selected style="font-weight: bold;"{% endif %}>
+                                {{ departament.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
             
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Prioridad</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
@@ -112,11 +113,11 @@
                     <div class="d-flex">
                         <h6 class="fw-bold">Tiempo empleado</h6>
                     </div>
-                    <input type="text" class="border-bottom bg-transparent w-100" disabled value={{total_time}} id="tiempo_empleado">
+                    <input type="text" class="border-bottom bg-transparent w-100" disabled value="{{total_time}}" id="tiempo_empleado">
                 </div>
             
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Estado</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
@@ -130,57 +131,59 @@
                 </div>
             
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
                         <h6 class="fw-bold">Fecha inicio</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i>
                     </div>
-                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_inicio|date:'Y-m-d' }}" required id="fecha_inicio">
+                    <input type="date" class="border-bottom bg-transparent w-100" name="fecha_inicio" disabled value="{{incident.fecha_inicio|date:'Y-m-d' }}" required id="fecha_inicio">
                 </div>
             
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="d-flex">
                         <h6 class="fw-bold">Fecha fin</h6>
                     </div>
-                    <input type="date" class="border-bottom bg-transparent w-100" disabled value="{{incident.fecha_fin|date:'Y-m-d'}}" id="fecha_fin">
+                    <input type="date" class="border-bottom bg-transparent w-100" name="fecha_fin" disabled value="{{incident.fecha_fin|date:'Y-m-d'}}" id="fecha_fin">
                 </div>
             
-                <input type="hidden" id="idIncident" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
+                <input type="hidden" id="idIncident" name="idIncident" class="border-bottom bg-transparent w-100" disabled value="{{incident.id}}">
             </form>
+             <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
+             {% if incident %}
+             <div class="d-flex justify-content-end  mt-3">
+                 <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     Eliminar
+                     <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
+                 </button>
+             </div>
+             
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                         </div>
+                         <div class="modal-body">
+                             ¿Seguro que desea eliminar la incidencia?
+                             {{incident.id}}
+                         </div>
+                         <div class="modal-footer">
+                             <a href="{% url 'deleteIncident' incident.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
+                             Aceptar
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             {% endif %}
             
-            <!-- SOLO SE MUESTRA EL ELIMINAR CUANDO HAY UN EMPLEADO, CUANDO EDITAMOS  -->
-            {% if incident %}
-            <div class="d-flex justify-content-end  mt-3">
-                <button class="btn btn-danger d-flex align-items-center gap-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Eliminar
-                    <i class="fa-regular fa-trash-can" style="color: #ffffff;"></i>
-                </button>
-            </div>
-            
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #1E2225;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Seguro que desea eliminar la incidencia'?
-                        </div>
-                        <div class="modal-footer">
-                            <a href="{% url 'deleteIncident' incident.id %}" class="btn btn-danger d-flex align-items-center gap-2 ">
-                            Aceptar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
         </div>
 
         <!-- MODAL DE COLABORAR -->
         {% if incident %}
         <form method="post" action="{% url 'saveLineIncident' incident.id %}">
+            {% csrf_token %}
             <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header">
                 <h5 class="offcanvas-title H3" id="offcanvasWithBothOptionsLabel">Colaborar</h5>

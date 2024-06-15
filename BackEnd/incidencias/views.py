@@ -138,7 +138,6 @@ def incidentsView(request):
     clients = Cliente.objects.all()
     empleados = Empleado.objects.all()
     priorities = Incidencia.PRIORIDADES
-    
     incidents = Incidencia.objects.all()
     return render(request, 'incidencias/incidentsView.html', {
         'incidents': incidents,
@@ -149,16 +148,18 @@ def incidentsView(request):
         'empleados': empleados
     })
 
+@login_required
 def reloadIncident(request, incident_id=None, line_id=None):
     return redirect('detailsIncident', incident_id=incident_id)
 
+@login_required
 def detailsIncident(request,incident_id=None):
     clients = Cliente.objects.all()
     departaments = Empleado.DEPARTAMENTOS
     priorities = Incidencia.PRIORIDADES
     enterprises = Empresa.objects.all()
     states = Incidencia.ESTADOS
-    
+    print(clients)
     if incident_id :
         incident= Incidencia.objects.get(pk=incident_id)
         lines = incident.lines.all()
@@ -190,36 +191,47 @@ def detailsIncident(request,incident_id=None):
                                                                     'enterprises':enterprises,
                                                                     'states':states})
 
+@login_required
 def saveIncident(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        incident_id = data.get('idIncident')
-        categoria = data.get('categoria')
-        descripcion = data.get('descripcion')
-        estado = data.get('estado')
-        prioridad = data.get('prioridad')
-        observaciones = data.get('observaciones')
-        cliente_id = data.get('cliente')
-        fecha_inicio = data.get('fecha_inicio')
-        fecha_fin = data.get('fecha_fin')
-        accion = data.get('action')
+        incident_id = request.POST.get('idIncident')
+        categoria = request.POST.get('categoria')
+        descripcion = request.POST.get('descripcion')
+        estado = request.POST.get('estado')
+        prioridad = request.POST.get('prioridad')
+        observaciones = request.POST.get('observaciones')
+        cliente_id = request.POST.get('cliente')
+        fecha_inicio = request.POST.get('fecha_inicio')
+        fecha_fin = request.POST.get('fecha_fin')
+        accion = request.POST.get('action')
 
-        cliente_id = int(cliente_id)
         # Obtener objetos Cliente
-        cliente = Cliente.objects.get(pk=cliente_id) if cliente_id else None
-        
+        cliente = None
+        if cliente_id:
+            try:
+                cliente_id = int(cliente_id)
+                cliente = Cliente.objects.get(pk=cliente_id)
+            except (ValueError, Cliente.DoesNotExist):
+                response_data = {'error': 'Cliente no existe o ID inválido.'}
+                return JsonResponse(response_data, status=400)
+            
         fecha_fin = fecha_fin if fecha_fin else None
         
         #Obtener usuario logueado
         user = request.user
-        #Obtener empleado
-        empleado = Empleado.objects.get(user=user)
 
         # Verificar que el usuario esté autenticado
         if not user.is_authenticated:
             response_data = {'error': 'No estas logueado'}
             return JsonResponse(response_data)
-        print(user)
+      
+       # Obtener empleado o manejar el error si no existe
+        try:
+            empleado = Empleado.objects.get(user=user)
+        except Empleado.DoesNotExist:
+            response_data = {'error': 'Empleado no exite.'}
+            return JsonResponse(response_data, status=400)
+        
         if accion == "edit":
             incident_id = int(incident_id)
             incident = Incidencia.objects.get(pk=incident_id)
@@ -253,12 +265,14 @@ def saveIncident(request):
             response_data = {'success': True, 'message': 'Incidencia creada exitosamente'}
             return JsonResponse(response_data)
 
+@login_required
 def deleteIncident(request,incident_id):
     incident = Incidencia.objects.get(pk=incident_id)
     incident.delete()
     return redirect('incidentsView')
 
-@csrf_exempt
+
+@login_required
 def saveLineIncident(request, incident_id):
     if request.method == 'POST':
         print(request.POST)
@@ -271,8 +285,13 @@ def saveLineIncident(request, incident_id):
         tiempo = request.POST.get('timeLine')
         idLine = request.POST.get('idLine')
 
-        empleado_id=12
-        empleado=Empleado.objects.get(pk=empleado_id)
+        #Obtener usuario logueado
+        user = request.user
+        # Obtener empleado o manejar el error si no existe
+        try:
+            empleado = Empleado.objects.get(user=user)
+        except Empleado.DoesNotExist:
+            return redirect('/login/')
 
         # Si idLine es '-', crea una nueva línea
         if idLine == '-':
@@ -302,6 +321,7 @@ def saveLineIncident(request, incident_id):
 
         return redirect('detailsIncident', incident_id=incident_id)
 
+@login_required
 def detailsLine(request, line_id):
     line = Line.objects.get(pk=line_id)
     
@@ -315,7 +335,7 @@ def detailsLine(request, line_id):
     }
     return JsonResponse(line_data)
 
-
+@login_required
 def updateFilterIncident(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -369,7 +389,8 @@ def updateFilterIncident(request):
         response_data = {'error': 'Se esperaba una solicitud POST'}
         return JsonResponse(response_data, status=400)
 
-@csrf_exempt
+
+@login_required
 def updateFilterEmployes(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -404,7 +425,7 @@ def updateFilterEmployes(request):
     
     return JsonResponse(results, safe=False)
 
-@csrf_exempt
+@login_required
 def updateFilterClients(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -437,13 +458,14 @@ def updateFilterClients(request):
             'dni': client.dni,
             'telefono1': client.telefono1,
             'telefono2': client.telefono2,
-            'empresa': client.empresa.nombre,
+            'empresa': client.empresa.nombre if client.empresa else None,
         })
     
     return JsonResponse(results, safe=False)
 
 
-@csrf_exempt
+
+@login_required
 def updateFilterEnterprises(request):
     if request.method == 'POST':
         data = json.loads(request.body)

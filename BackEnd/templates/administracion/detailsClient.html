@@ -7,7 +7,7 @@
 <!-- Menu lateral -->
 {% include 'global/submenu.html' %} 
 <section class="main box d-flex contenedor">
-    <div id="alertas"></div>
+    
     <div class="mx-auto w-75 my-5 overflow-hidden">
         <h2 class='tittle p-0'>{% if client %}{{client.user.first_name}} {{client.user.last_name}}{% else %} Nuevo cliente {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
@@ -20,12 +20,12 @@
                 Editar
             </button> 
         </div>
-        
+        <div id="alertas"></div>
         <div class="box formularioCrud p-5 d-flex flex-column  overflow-y-auto barScroll h-75" id="formularioCrud">
             <form class="row gy-4" method="post">
                 {% csrf_token %}
                 <div class="position-relative">
-                    <img src="{% if client and client.foto_perfil %}{{ client.foto_perfil.url }}{% else %}{% static 'assets/img/usuarioLogo.png' %} {% endif %}" alt="" id="profileImage" class="rounded-circle mb-4 border border-light p-1">
+                    <img src="{% if client and client.foto_perfil %}{{ client.foto_perfil.url }}{% else %}{% static 'assets/img/usuario.png' %} {% endif %}" alt="" id="profileImage" class="rounded-circle mb-4 border border-light p-1">
                     <label for="foto_perfil">
                         <i class="fa-solid fa-camera position-absolute" style="color: #1e2225"></i>
                         <input type="file" id="foto_perfil" name="foto_perfil" class="d-none" onchange="addImg(event)">

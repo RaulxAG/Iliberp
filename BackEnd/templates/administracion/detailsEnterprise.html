@@ -6,9 +6,9 @@
 {% block content %}
 <!-- Menu lateral -->
 {% include 'global/submenu.html' %} 
-<section class="main box d-flex contenedor">
+<section class="main box d-flex contenedor h-100">
     <div id="alertas"></div>
-    <div class="mx-auto w-75 my-5 overflow-hidden">
+    <div class="mx-auto w-75 my-5 overflow-hidden ">
         <h2 class='tittle p-0' id="titulo" >{% if enterprise.nombre %} {{enterprise.nombre}}{% else %} Nueva empresa {% endif %}</h2>
         <div class="d-flex justify-content-end mt-3">
             <button class="buttonReverse me-2 buttonVolver">
@@ -29,14 +29,14 @@
                         <h6 class="fw-bold">Nombre</h6> 
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
                     </div>
-                    <input type="text" id="nombre" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.nombre}}">
+                    <input type="text" id="nombre"  name="nombre" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.nombre}}">
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="d-flex">
                         <h6 class="fw-bold">CIF</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
                     </div>
-                    <input type="text" id="cif_nif" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.cif_nif}}" pattern="[A-Za-z0-9]{9}" title="El CIF/NIF debe tener 9 caracteres alfanuméricos" required>
+                    <input type="text" id="cif_nif" name="cif_nif" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.cif_nif}}" pattern="[A-Za-z0-9]{9}" title="El CIF/NIF debe tener 9 caracteres alfanuméricos" required>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="d-flex">
@@ -45,27 +45,27 @@
                             <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
                         </div>
                     </div>
-                    <input type="text" id="direccion" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.direccion}}" required>
+                    <input type="text" id="direccion" name="direccion" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.direccion}}" required>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="d-flex">
                         <h6 class="fw-bold">Email</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
                     </div>
-                    <input type="text" id="email" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.email}}" required>
+                    <input type="text" id="email" name="email" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.email}}" required>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="d-flex">
                         <h6 class="fw-bold">Teléfono 1</h6>
                         <i class="fa-solid fa-asterisk ps-1 pt-2" style="color: #ff0019;"></i> 
                     </div>
-                    <input type="text" id="telefono1" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.telefono1}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos" required>
+                    <input type="text" id="telefono1" name="telefono1" class="border-bottom bg-transparent w-100 required" disabled value="{{enterprise.telefono1}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos y 9 dígitos" required>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <h6 class="fw-bold">Teléfono 2</h6>
-                    <input type="text" id="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono2}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos">
+                    <input type="text" id="telefono2" name="telefono2" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.telefono2}}" pattern="[0-9]{9}" title="El teléfono sólo puede llevar caracteres numéricos">
                 </div>
-                <input type="hidden" id="id" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.id}}">
+                <input type="hidden" id="id" name="id" class="border-bottom bg-transparent w-100" disabled value="{{enterprise.id}}">
             </form>
             
             

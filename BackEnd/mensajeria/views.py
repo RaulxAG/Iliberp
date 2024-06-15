@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from administracion.models import Empleado, Cliente
+from django.templatetags.static import static
 
 @csrf_exempt
 def getChatsJSON(request,user_id):
@@ -168,7 +169,7 @@ def setChatJSON(request):
         #Si hay, llamamos a la funcion getMessages
         if existing_chats.exists(): 
             chat = existing_chats.first()  # Usamos .first() para obtener el primer chat
-            return getMessages(request, chat.id)
+            return getMessagesJSON(request, chat.id)
         else:
             #Si no hay, creamos el chat y asociamos a los usuarios al chat
             new_chat = Chat.objects.create()
@@ -200,9 +201,8 @@ def setChatJSON(request):
 
 @login_required
 def chatView(request):
-    #Obtener usuario logueado
+    # Obtener usuario logueado
     user = request.user
-    
     userLog = User.objects.get(pk=user.id) 
 
     employees = Empleado.objects.all()
@@ -211,7 +211,6 @@ def chatView(request):
     chats_user = []
 
     for chat_id in set(chats_usuario):
-        print(chat_id)
         # Obtener el último mensaje del chat
         mensaje = Mensaje.objects.filter(chat_id=chat_id).order_by('-fecha', '-hora').first()
 
@@ -227,21 +226,26 @@ def chatView(request):
             remitente = 'tú' if mensaje.usuario == userLog else mensaje.usuario.username
 
             # Obtener el receptor del chat
-            receptor = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=userLog).first().usuario
+            receptor = UsuarioChat.objects.filter(chat_id=chat_id).exclude(usuario=userLog).first()
+            
+            if receptor:  # Asegurarse de que receptor no sea None
+                receptor_usuario = receptor.usuario
 
-            # Crear un diccionario con la información del chat
-            chat_info = {
-                'chat_id': chat_id,
-                'receptor_nombre': receptor.username,
-                'texto': texto,
-                'fecha_hora': fecha_hora,
-                'remitente': remitente,
-            }
+                # Crear un diccionario con la información del chat
+                chat_info = {
+                    'chat_id': chat_id,
+                    'receptor_nombre': receptor_usuario.username,
+                    'texto': texto,
+                    'fecha_hora': fecha_hora,
+                    'remitente': remitente,
+                }
 
-            chats_user.append(chat_info)
+                chats_user.append(chat_info)
+            else:
+                print(f"Warning: No se encontró receptor para el chat_id {chat_id}")
 
-            # Ordenar los chats por la fecha y hora del último mensaje en orden descendente
-            chats_user.sort(key=lambda x: x['fecha_hora'], reverse=True)
+    # Ordenar los chats por la fecha y hora del último mensaje en orden descendente
+    chats_user.sort(key=lambda x: x['fecha_hora'], reverse=True)
 
     return render(request, 'mensajeria/mensajeria.html', {'employees': employees, 'chats_user': chats_user, 'userLog': userLog})
 

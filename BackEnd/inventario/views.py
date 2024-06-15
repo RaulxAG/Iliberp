@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, time
 from django.contrib import messages
 from django.utils import timezone
 from decimal import Decimal
-
+import requests
 
 def inventario(request):
     return render(request, "inventario/inventario.html")
@@ -288,6 +288,7 @@ def getProductsJSON(request):
             "id": product.id,
             "nombre": product.nombre,
             "descripcion": product.descripcion,
+            "precio": product.precio,
             "especificaciones": product.especificaciones,
             "precio_descuento": product.precio_descuento,
             "tipo": product.tipo,
@@ -345,6 +346,7 @@ def getFeaturedProductsJSON(request):
             "descripcion": product.descripcion,
             "especificaciones": product.especificaciones,
             "precio_descuento": product.precio_descuento,
+            "precio": product.precio,
             "tipo": product.tipo,
             "destacado": product.destacado,
             "foto": product.foto.url if product.foto else None
@@ -559,3 +561,23 @@ def cancelOrderJSON(request):
         # Si la solicitud no es POST, devolver un error
         response_data = {'error': 'Se esperaba una solicitud POST'}
         return JsonResponse(response_data, status=400)
+    
+
+def getProvincias(request):
+    url = "http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias"
+    response = requests.get(url)
+    data = response.json()
+    # Devolver solo la info de las provincias 
+    provincias=data.get('consulta_provincieroResult', {}).get('provinciero', {})
+    
+    return JsonResponse(provincias)
+
+def getLocalidades(request):
+    provincia = request.GET.get('provincia')
+    url = f"http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia={provincia}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return JsonResponse(data)
+    else:
+        return JsonResponse({'error': 'No se pudieron obtener las localidades'}, status=response.status_code)
