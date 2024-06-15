@@ -7,10 +7,10 @@
     {% include 'global/submenu.html' %}
 
     <section class="sectionInicio box d-flex flex-column contenedor">
-        <h2 class='tittle' id="titulo">Bienvenido Admin</h2>
+        <h2 class='tittle' id="titulo">Bienvenido {{user.username}}</h2>
 
         <div class="inicio__buttons m-auto mt-3 d-flex align-items-center justify-content-center w-50 gap-5">
-            <a href="{% url 'jornadas' 1 %}" type="button" class="btn button--bg w-50" >
+            <a href="{% url 'jornadas' user.id %}" type="button" class="btn button--bg w-50" >
                 <p class="m-0 fs-5">Mis Jornadas</p>
             </a>
             <a href="/jornadas/" type="button" class="btn button--bg w-50">

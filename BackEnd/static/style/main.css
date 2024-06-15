@@ -254,7 +254,7 @@ body, html {
 }
 .menuLateral .menuLateral__logo img {
   object-fit: contain;
-  width: 40%;
+  width: 100%;
   margin-top: 0.5rem;
 }
 .menuLateral .menuLateral__enlaces ul {
