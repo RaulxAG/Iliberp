@@ -20,28 +20,28 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     
     <Router>
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        <Route path="/clientes/*" element={<NotFound />} />
 
-        <Route path="/" element={<FormInicio />} />
-        <Route path="/home" element={<Inicio />} />
-        <Route path="/inicio" element={<Inicio />} />
+        <Route path="/clientes/" element={<FormInicio />} />
+        <Route path="/clientes/home" element={<Inicio />} />
+        <Route path="/clientes/inicio" element={<Inicio />} />
 
-        <Route path="/incidencias" element={<Incidencias />} />
+        <Route path="/clientes/incidencias" element={<Incidencias />} />
 
-        <Route path="/mensajeria" element={<Mensajeria />} />
-        <Route path="/mensajeria/:chat_id" element={<Mensajeria />} />
+        <Route path="/clientes/mensajeria" element={<Mensajeria />} />
+        <Route path="/clientes/mensajeria/:chat_id" element={<Mensajeria />} />
 
-        <Route path="/tiempo" element={<WeatherComponent />} />
+        <Route path="/clientes/tiempo" element={<WeatherComponent />} />
 
         {/* JUDITH */}
 
-        <Route path='/tienda' element={<Tienda />} ></Route>
+        <Route path='/clientes/tienda' element={<Tienda />} ></Route>
         
-        <Route path='/tramitar-pedido' element={<TramitarPedido />}></Route>
+        <Route path='/clientes/tramitar-pedido' element={<TramitarPedido />}></Route>
         
-        <Route path='/compraExito' element={<CompraExito />}></Route>
+        <Route path='/clientes/compraExito' element={<CompraExito />}></Route>
         
-        <Route path='/descargarInfoPedido' element={<Pdfpedido />}></Route>
+        <Route path='/clientes/descargarInfoPedido' element={<Pdfpedido />}></Route>
 
       </Routes>
     </Router>

@@ -66,7 +66,7 @@ export default function Carrito({carrito,setCarritoVisible, setCarrito, user}) {
                 </div>
                 
                 {carrito.length > 0 && (
-                    <Link to="/tramitar-pedido" state={{carrito: carrito,user:user}}>
+                    <Link to="clientes/tramitar-pedido" state={{carrito: carrito,user:user}}>
                         <button className='tramitarPedido'>{t('tramitar')}</button>
                     </Link>
                 )}

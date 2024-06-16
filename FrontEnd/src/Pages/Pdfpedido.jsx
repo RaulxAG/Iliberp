@@ -51,7 +51,7 @@ export default function Pdfpedido() {
             <Document>
                 <Page style={styles.page}>
                     <View style={styles.imageContainer}>
-                        <Image src="/assets/img/logo.png" style={styles.logo} />
+                        <Image src="clientes/assets/img/logo.png" style={styles.logo} />
                     </View>
 
                     <Text style={styles.title}>{t('pedido')}</Text>

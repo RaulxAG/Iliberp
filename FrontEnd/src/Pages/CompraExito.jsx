@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Menu from '../components/Menu'
+import { useNavigate } from 'react-router-dom';
 
 export default function CompraExito() {
     const [pedidos, setPedidos] = useState([]);
     const [user, setUser] = useState(null);
-
+    let navigate = useNavigate();
+    
     useEffect(() => {
         // Obtener datos del localStorage
         const username = localStorage.getItem('username');
@@ -16,7 +18,7 @@ export default function CompraExito() {
             setUser({ username, userId, token });
         } else {
             console.error("Error: No se pudieron recuperar los datos del usuario del localStorage.");
-            navegate('/');
+            navigate('/clientes/');
         }
     }, []);
 

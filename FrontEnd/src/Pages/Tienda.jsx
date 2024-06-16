@@ -1,8 +1,8 @@
-import Menu from '../components/Menu'
+import Menu from '../components/Menu';
 import Productos from '../components/Productos';
 import Carrito from '../components/Carrito';
 
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Slider from '@mui/material/Slider';
@@ -10,15 +10,18 @@ import { useTranslation } from "react-i18next";
 
 export default function Tienda() {
     const { t } = useTranslation();
-    let navegate = useNavigate();
+    let navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
     const [categoria, setCategoria] = useState("");
-    const [orden,setOrden] = useState("nombreAsc")
+    const [orden, setOrden] = useState("nombreAsc");
     const [carritoVisible, setCarritoVisible] = useState(false);
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
     const [acordeonAbierto, setAcordeonAbierto] = useState(false);
+    const [precioMin, setPrecioMin] = useState(0);
+    const [precioMax, setPrecioMax] = useState(1500);
+    const [value, setValue] = useState([precioMin, precioMax]);
 
     useEffect(() => {
         // Obtener datos del localStorage
@@ -31,34 +34,27 @@ export default function Tienda() {
             setUser({ username, userId, token });
         } else {
             console.error("Error: No se pudieron recuperar los datos del usuario del localStorage.");
-            navegate('/');
+            navigate('/clientes');
         }
     }, []);
 
-    const [precioMin, setPrecioMin] = useState(0); 
-    const [precioMax, setPrecioMax] = useState(1500); 
-    const [value, setValue] = useState([precioMin, precioMax]);
+    const totalCantidad = carrito.reduce((total, producto) => total + producto.cantidad, 0);
 
-    const totalCantidad = carrito.reduce((total, producto) => total + producto.cantidad, 0); //Vamos acumulando la cantidad para mostrarla en el icono del carrito
-  
-    //Función para que vaya actualizando el valor cuando se cambia el slider
     const handleChange = (event, newValue) => {
         setValue(newValue);
         setPrecioMin(newValue[0]);
         setPrecioMax(newValue[1]);
     };
 
-    //Función que se activa cuando hacemos click en el acrodeón de las categorias y hace que se abra o se cierre
     const toggleAcordeon = () => {
         setAcordeonAbierto(!acordeonAbierto);
     };
 
     const changeSearch = (e) => {
         setSearch(e.target.value);
-        navegate("/tienda?search=" + e.target.value);
-    }
+        navigate("/clientes/tienda?search=" + e.target.value);
+    };
 
-    
     return (
         <section className='containerPrincipal mainMensajeria'>
             {carritoVisible && <Carrito carrito={carrito} setCarritoVisible={setCarritoVisible} setCarrito={setCarrito} user={user}/>}

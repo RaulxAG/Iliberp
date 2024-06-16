@@ -295,7 +295,7 @@ export default function TramitarPedido() {
                                                 <Typography variant="h6" className='fw-bold text-end'>{t('precioTotalPedido')} {carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0)}€</Typography>
                                             </Box>
                                         </div>
-                                        <Link to="/descargarInfoPedido" state= {{carrito:carrito, direccion:objDireccion}}>
+                                        <Link to="/clientes/descargarInfoPedido" state= {{carrito:carrito, direccion:objDireccion}}>
                                             <button className='carrito rounded-circle border-0' title='Ver carrito'>
                                                 <i className="fa-regular fa-file-pdf" style={{ color: "#f8f8f8" }}></i>
                                             </button>
