@@ -7,7 +7,7 @@ export default function UltimosMensajes({ page, selected, query, t, user_logued_
 
     const obtenerChats = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getChatsJSON/${user_logued_id}/`, {
+            const response = await fetch(`https://iliberp.work.gd/empleados/getChatsJSON/${user_logued_id}/`, {
                 method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
