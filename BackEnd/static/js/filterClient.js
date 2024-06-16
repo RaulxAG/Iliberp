@@ -16,7 +16,7 @@ searchInput.addEventListener('input', function() {
 
 
 function filterClients(option, search) {
-    fetch('/updateFilterClients/', {
+    fetch('/empleados/updateFilterClients/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
