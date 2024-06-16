@@ -15,7 +15,7 @@ function handleOnAdd(evt) {
     const elementoId = elementoSoltado.getAttribute('id');
 
     // Hacer una solicitud AJAX a la vista de Django
-    fetch('/updateState/', {
+    fetch('/empleados/updateState/', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -48,7 +48,7 @@ const opcionesLista = {
 // Función para borrar filtros
 function clearFilters() {
     // Redirigir a la vista trello/ sin filtros aplicados
-    window.location.href = "/trello/";
+    window.location.href = "/empleados/trello/";
 }
 
 // Inicializar la lista Sortable para cada contenedor
@@ -120,7 +120,7 @@ selects.forEach(function(select) {
         let url= window.location.href
 
         // Hacer una solicitud AJAX a la vista de Django
-        fetch('/updateFilter/', {
+        fetch('/empleados/updateFilter/', {
            method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -259,7 +259,7 @@ selects.forEach(function(select) {
 selectEnterp.forEach(function(select) {
     select.addEventListener('change', function() {
         // Hacer una solicitud AJAX a la vista de Django
-        fetch('/updateSelectEnt/', {
+        fetch('/empleados/updateSelectEnt/', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -382,7 +382,7 @@ function saveChanges(taskId) {
     };
 
     // Enviar los datos a través de fetch API o XMLHttpRequest
-    fetch(`/update_task/${taskId}/`, {
+    fetch(`/empleados/update_task/${taskId}/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
