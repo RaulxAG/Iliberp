@@ -2,7 +2,7 @@ export async function eliminarIncidencia(incident_id, navigate) {
     const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar la incidencia numero: " + incident_id + "?");
     if (confirmacion) {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/deleteIncidentJSON/${incident_id}/`, {
+            const response = await fetch(`https://iliberp.work.gd/empleados/deleteIncidentJSON/${incident_id}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
