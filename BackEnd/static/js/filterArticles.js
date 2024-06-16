@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', addEventListeners);
 function filter(filters) {
     tableBody.innerHTML = ''; // Vaciar la tabla
 
-    fetch('/updateFilterArticle/', {
+    fetch('/empleados/updateFilterArticle/', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
