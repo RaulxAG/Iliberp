@@ -42,12 +42,12 @@ export default function Mensajeria() {
         e.preventDefault();
         const value = e.target.value;
         setSearch(value)
-        navigate("/mensajeria/?search=" + value);
+        navigate("/clientes/mensajeria/?search=" + value);
     }
 
     const onSubmit = data => {
 
-        fetch('http://127.0.0.1:8000/setChatJSON/', {
+        fetch('https://iliberp.work.gd/empleados/setChatJSON/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export default function Mensajeria() {
             return response.json();
         })
         .then(responseData => {
-            navigate(`/mensajeria/${responseData.chat_id}`);
+            navigate(`/clientes/mensajeria/${responseData.chat_id}`);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -73,7 +73,7 @@ export default function Mensajeria() {
 
     const obtenerContactos = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getEmployeesJSON/`, {
+            const response = await fetch(`https://iliberp.work.gd/empleados/getEmployeesJSON/`, {
                 method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
