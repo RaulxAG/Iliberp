@@ -21,16 +21,16 @@ from django.conf.urls.static import static
 from iliberp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/',views.loginDjango,name='loginDjango'),
-    path('loginApi/',views.loginApi,name='loginApi'),
-    path('registerApi/',views.registerApi,name='registerApi'),
-    path('register/',views.registerDjango,name='registerDjango'),
-    path('',views.inicioView,name='inicioView'),
-    path('', include("administracion.urls")),
-    path('', include("fichaje.urls")),
-    path('', include("incidencias.urls")),
-    path('', include("inventario.urls")),
-    path('', include("mensajeria.urls")),
-    path('', include("trello.urls")),
+    path('empleados/admin/', admin.site.urls),
+    path('empleados/login/',views.loginDjango,name='loginDjango'),
+    path('empleados/loginApi/',views.loginApi,name='loginApi'),
+    path('empleados/registerApi/',views.registerApi,name='registerApi'),
+    path('empleados/register/',views.registerDjango,name='registerDjango'),
+    path('empleados/',views.inicioView,name='inicioView'),
+    path('empleados/', include("administracion.urls")),
+    path('empleados/', include("fichaje.urls")),
+    path('empleados/', include("incidencias.urls")),
+    path('empleados/', include("inventario.urls")),
+    path('empleados/', include("mensajeria.urls")),
+    path('empleados/', include("trello.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
