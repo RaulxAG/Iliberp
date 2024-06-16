@@ -38,7 +38,7 @@ function filter(filters) {
 
     tableBody.innerHTML = ''; // Vaciar la tabla
 
-    fetch('/updateFilterOrder/', {
+    fetch('/empleados/updateFilterOrder/', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
