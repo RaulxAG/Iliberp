@@ -98,7 +98,7 @@ export default function TramitarPedido() {
 
     //FUNCIÓN PARA OBTENER LAS PROVINCIAS
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/getProvincias/', {
+        fetch('https://iliberp.work.gd/empleados/getProvincias/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ export default function TramitarPedido() {
             setSelectedProvincia(data.prov[0].np)
             console.log(data.prov[0].np)
             //Inicializar localidades con la primera provincia 
-            fetch(`http://127.0.0.1:8000/getLocalidades/?provincia=${data.prov[0].np}`, {
+            fetch(`https://iliberp.work.gd/empleados/getLocalidades/?provincia=${data.prov[0].np}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ export default function TramitarPedido() {
     const handleProvinciaChange = (event) => {
         const selectedProvincia = event.target.value;
         setSelectedProvincia(selectedProvincia);
-        fetch(`http://127.0.0.1:8000/getLocalidades/?provincia=${selectedProvincia}`, {
+        fetch(`https://iliberp.work.gd/empleados/getLocalidades/?provincia=${selectedProvincia}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

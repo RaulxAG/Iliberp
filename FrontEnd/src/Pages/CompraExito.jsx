@@ -25,7 +25,7 @@ export default function CompraExito() {
     useEffect(() => {
         // Verificar que user esté definido
         user &&
-            fetch(`http://localhost:8000/getOrdersJSON/?cliente=${user.userId}`)
+            fetch(`https://iliberp.work.gd/empleados/getOrdersJSON/?cliente=${user.userId}`)
                 .then(response => response.json())
                 .then(data => setPedidos(data))
                 .catch(error => console.error('Error al coger pedidos', error));

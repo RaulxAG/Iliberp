@@ -21,7 +21,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     // Llamada para obtener todos los productos
     useEffect(() => {
         setCargarSpinner(true);
-        fetch(`http://localhost:8000/getProductsJSON/?page=${pagina}`)
+        fetch(`https://iliberp.work.gd/empleados/getProductsJSON/?page=${pagina}`)
             .then(response => response.json())
             .then(data => {
                 setCargarSpinner(false);
@@ -44,7 +44,7 @@ export default function Productos({ productos, setProductos, carrito, setCarrito
     // Llamada para obtener productos por categoría
     useEffect(() => {
         if (categoria) {
-            fetch(`http://localhost:8000/getCategorizedProductsJSON/?category=${categoria}`)
+            fetch(`https://iliberp.work.gd/empleados/getCategorizedProductsJSON/?category=${categoria}`)
                 .then(response => response.json())
                 .then(data => {
                     setProductosFiltradosCategoria(data.products);

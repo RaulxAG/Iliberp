@@ -13,7 +13,7 @@ export default function Chat({ chat, t, user_logued_id }) {
 
     const obtenerPaginasTotales = async (chat, user_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?user=${user_id}&page=0`, {
+            const response = await fetch(`https://iliberp.work.gd/empleados/getMessagesJSON/${chat}/?user=${user_id}&page=0`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export default function Chat({ chat, t, user_logued_id }) {
 
     const obtenerMensajes = async (chat, user_id, pageNumber) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/getMessagesJSON/${chat}/?user=${user_id}&page=${pageNumber}`, {
+            const response = await fetch(`https://iliberp.work.gd/empleados/getMessagesJSON/${chat}/?user=${user_id}&page=${pageNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export default function Chat({ chat, t, user_logued_id }) {
                 formData.append('fichero', data.fichero[0]);
             }
 
-            const response = await fetch('http://127.0.0.1:8000/setMessageJSON/', {
+            const response = await fetch('https://iliberp.work.gd/empleados/setMessageJSON/', {
                 method: 'POST',
                 body: formData
             });

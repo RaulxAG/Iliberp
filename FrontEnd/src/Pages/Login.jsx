@@ -14,7 +14,7 @@ export default function FormInicio() {
         event.preventDefault(); 
 
         const formData = new FormData(event.target);
-        fetch(`http://127.0.0.1:8000/registerApi/`, {
+        fetch(`https://iliberp.work.gd/empleados/registerApi/`, {
             method: 'POST',
             body: formData
         })
@@ -40,7 +40,7 @@ export default function FormInicio() {
 
         const formData = new FormData(event.target);
         
-        fetch(`http://127.0.0.1:8000/loginApi/`, {
+        fetch(`https://iliberp.work.gd/empleados/loginApi/`, {
             method: 'POST',
             body: formData
         })
