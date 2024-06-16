@@ -6,17 +6,17 @@ window.onload = () => {
     let rutaLlamaAjax = "";
     let location = "";
     if (url.includes('Employee')) {
-        rutaLlamaAjax = '/saveEmployee/';
-        location = '/employees';
+        rutaLlamaAjax = '/empleados/saveEmployee/';
+        location = '/empleados/employees';
     } else if (url.includes('Enterprise')) {
-        rutaLlamaAjax = '/saveEnterprise/';
-        location = '/enterprises';
+        rutaLlamaAjax = '/empleados/saveEnterprise/';
+        location = '/empleados/enterprises';
     } else if (url.includes('Client')) {
-        rutaLlamaAjax = '/saveClient/';
-        location = '/clients';
+        rutaLlamaAjax = '/empleados/saveClient/';
+        location = '/empleados/clients';
     } else if (url.includes('Incident')) {
-        rutaLlamaAjax = '/saveIncident/';
-        location = '/incidents';
+        rutaLlamaAjax = '/empleados/saveIncident/';
+        location = '/empleados/incidents';
     }
     
     //Obtener los elementos

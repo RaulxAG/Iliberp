@@ -66,7 +66,7 @@ function cargarObservacion(idLine,action,idIncident) {
         });
     }
 
-    fetch('/detailsLine/'+idLine)
+    fetch('/empleados/detailsLine/'+idLine)
         .then(response => response.json())
         .then(data => {
             console.log(action)

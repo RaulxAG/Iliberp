@@ -15,7 +15,7 @@ searchInput.addEventListener('input', function() {
 });
 
 function filterEnterprises(option, search) {
-    fetch('/updateFilterEnterprises/', {
+    fetch('/empleados/updateFilterEnterprises/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

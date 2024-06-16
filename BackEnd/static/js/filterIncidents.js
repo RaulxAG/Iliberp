@@ -58,7 +58,7 @@ selects.forEach(function(select) {
 });
 
 function filterIncidents() {
-    fetch('/updateFilterIncident/', {
+    fetch('/empleados/updateFilterIncident/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

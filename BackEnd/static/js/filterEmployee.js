@@ -15,7 +15,7 @@ searchInput.addEventListener('input', function() {
 });
 
 function filterEmployes(option, search) {
-    fetch('/updateFilterEmployes/', {
+    fetch('/empleados/updateFilterEmployes/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

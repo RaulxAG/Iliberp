@@ -15,7 +15,7 @@ let selectPersona  = document.querySelector("#selectPersona")
 let btnCrearChat = document.querySelector('#btnCrearChat')
 
 function cargarMensajes(chatId,page, habilitarLeerMas = false) {
-    fetch(`/getMessagesJSON/${chatId}?page=${page}`)
+    fetch(`/empleados/getMessagesJSON/${chatId}?page=${page}`)
     .then(response => response.json())
     .then(data => {
         if (page === 1) {
@@ -66,7 +66,7 @@ function cargarMensajes(chatId,page, habilitarLeerMas = false) {
 }
 
 function createNewMessage(userId, chatId, texto) {
-    fetch('/setMessageJSON/', {
+    fetch('/empleados/setMessageJSON/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function createNewMessage(userId, chatId, texto) {
 }
 
 function getChats() {
-    fetch(`/getChats/${emisor}`) 
+    fetch(`/empleados/getChats/${emisor}`) 
     .then(response => response.json())
     .then(data => {
         console.log(data)
@@ -172,7 +172,7 @@ scrollMensajes.addEventListener('scroll', function() {
 
 
 selectTipoPersona.addEventListener('change', function() {
-    let url = this.value === 'empleado' ? '/allEmployees/' : '/allClients/';
+    let url = this.value === 'empleado' ? '/empleados/allEmployees/' : '/empleados/allClients/';
 
     this.value=="cliente" ? labelPersona.textContent ="Cliente" : labelPersona.textContent ="Empleado"
     
