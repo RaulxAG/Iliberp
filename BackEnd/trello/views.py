@@ -219,7 +219,7 @@ def updateFilter(request):
                 'full_name': task.cliente.user.username,
                 'headquarter': {
                     'enterprise': task.cliente.empresa.nombre,
-                },
+                } if task.cliente.user.empresa else None,
                 'phone': task.cliente.telefono1
             },
             'date': task.fecha_inicio.strftime('%d/%M/%Y %H:%m'), # Formatear Fecha

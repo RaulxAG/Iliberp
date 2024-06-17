@@ -83,7 +83,7 @@ def loginDjango(request):
                 empleado = Empleado.objects.get(user=user)
                 # Si es un empleado, iniciar sesión y redirigir a 'chatView'
                 login(request, user)
-                return redirect('chatView')
+                return redirect('inicio')
             except Empleado.DoesNotExist:
                 # Si no es un empleado, mostrar un mensaje de error
                 messages.error(request, 'Solo los empleados pueden iniciar sesión')

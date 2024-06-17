@@ -41,7 +41,7 @@
         <div class="pedidos__contenido mx-auto overflow-hidden w-75 px-2">
             <div class="d-flex justify-content-end">
                 
-                <a href="/nuevoPedido/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                <a href="/empleados/nuevoPedido/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
                     <p class="m-0">Nuevo Pedido</p>
                 </a>
@@ -95,7 +95,7 @@
                     </thead>
                     <tbody id="cuerpo-registros">
                         {% for order in orders %}
-                            <tr class="tabla__linea" onclick="window.location.href = '/detallePedido-{{ order.id }}';">
+                            <tr class="tabla__linea" onclick="window.location.href = '/empleados/detallePedido-{{ order.id }}';">
                                 <td>{{order.id}}</td>
                                 <td>{{order.fecha|date:"d/m/Y"}}</td>
                                 <td class="d-none d-sm-table-cell">{{order.direccion}}</td>

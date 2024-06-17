@@ -42,7 +42,7 @@
         <div class="articulos__contenido mx-auto overflow-hidden w-75 px-2">
             <div class="d-flex justify-content-end">
                 
-                <a href="/nuevoArticulo/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
+                <a href="/empleados/nuevoArticulo/" class="button d-flex align-items-center gap-2 mt-5 text-decoration-none">
                     <i class="fa-solid fa-circle-plus" style="color: #f8f8f8;"></i>
                     <p class="m-0">Nuevo Artículo</p>
                 </a>
@@ -110,7 +110,7 @@
                     </thead>
                     <tbody id="cuerpo-registros">
                         {% for product in products %}
-                            <tr class="tabla__linea" onclick="window.location.href = '/detalleArticulo-{{ product.id }}';">
+                            <tr class="tabla__linea" onclick="window.location.href = '/empleados/detalleArticulo-{{ product.id }}';">
                                 <td>{{product.id}}</td>
                                 <td>{{product.nombre}}</td>
                                 <td class="d-none d-sm-table-cell">{{product.tipo}}</td>

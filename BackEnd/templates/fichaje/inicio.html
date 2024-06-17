@@ -13,7 +13,7 @@
             <a href="{% url 'jornadas' user.id %}" type="button" class="btn button--bg w-50" >
                 <p class="m-0 fs-5">Mis Jornadas</p>
             </a>
-            <a href="/jornadas/" type="button" class="btn button--bg w-50">
+            <a href="/empleados/jornadas/" type="button" class="btn button--bg w-50">
                 <p class="m-0 fs-5">Todas las jornadas</p>
             </a>
 
@@ -45,7 +45,7 @@
             
             startButton.addEventListener('click', function() {
                 let employeeId = {{ request.user.id }};
-                fetch('/iniciarJornada/', {
+                fetch('https://iliberp.work.gd/empleados/iniciarJornada/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -73,7 +73,7 @@
 
             finishButton.addEventListener('click', function() {
                 let employeeId = {{ request.user.id }};
-                fetch('/finalizarJornada/', {
+                fetch('https://iliberp.work.gd/empleados/finalizarJornada/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',

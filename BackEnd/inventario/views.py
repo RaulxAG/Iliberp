@@ -81,7 +81,7 @@ def guardarArticulo(request):
         except Exception as e:
             messages.error(request, 'Error al añadir el producto.' + str(e))
 
-        return redirect("/articulos")
+        return redirect("/empleados/articulos")
         
 
 def detalleArticulo(request, product_id=None):
@@ -102,7 +102,7 @@ def eliminarArticulo(request, product_id=None):
     except Exception as e:
         messages.error(request, 'Error al eliminar el producto.')
 
-    return redirect("/articulos")
+    return redirect("/empleados/articulos")
 
 def pedidos(request):
     orders = Pedido.objects.all().order_by('fecha').reverse()
@@ -135,7 +135,7 @@ def eliminarPedido(request, order_id=None):
     except Exception as e:
         messages.error(request, 'Error al eliminar el Pedido.')
 
-    return redirect("/pedidos")
+    return redirect("/empleados/pedidos")
 
 def guardarPedido(request):
     if request.method == 'POST':
@@ -172,7 +172,7 @@ def guardarPedido(request):
         except Exception as e:
             messages.error(request, 'Error al añadir el producto.' + str(e))
 
-        return redirect("/pedidos")
+        return redirect("/empleados/pedidos")
 
 def updateFilterOrder(request):
     if request.method == 'POST':  # Si existe una solicitud POST
