@@ -57,7 +57,7 @@ export default function Incidencias() {
         })
         .then(responseData => {
             alert('Se ha registrado tu incidencia de manera exitosa');
-            window.location.href = '/inicio';
+            window.location.href = '/clientes/inicio';
         })
         .catch(error => {
             console.error('Error:', error);
@@ -111,7 +111,7 @@ export default function Incidencias() {
 
                 <section className="formulario__acciones">
                     <figure className="d-flex align-items-md-center justify-content-center">
-                        <img src="/assets/img/logo.png" alt="Logo" />
+                        <img src="/clientes/assets/img/logo.png" alt="Logo" />
                         <article className="d-none d-lg-block">
                             <p className="fs-3 fw-bold">ILIBERP</p>
                             <p>Solutions</p>

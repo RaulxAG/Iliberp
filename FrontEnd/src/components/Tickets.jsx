@@ -18,7 +18,7 @@ export default function Tickets({ t, user_logued_id }) {
         // Definir una función asíncrona dentro del hook useEffect para realizar la solicitud fetch
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/getIncidentsJSON/${client_id}/`, {
+                const response = await fetch(`https://iliberp.work.gd/empleados/getIncidentsJSON/${client_id}/`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ export default function Tickets({ t, user_logued_id }) {
     // Función para guardar los cambios de edición
     const guardarCambios = (incident_id, description, observations, category) => {
         
-        fetch(`http://127.0.0.1:8000/editIncidentJSON/${incident_id}/`, {
+        fetch(`https://iliberp.work.gd/empleados/editIncidentJSON/${incident_id}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

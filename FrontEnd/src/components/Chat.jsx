@@ -126,13 +126,13 @@ export default function Chat({ chat, t, user_logued_id }) {
             <header className="chat__cabecera w-100 py-2 px-4 d-flex align-items-center justify-content-between">
                 {mensajes.length > 0 && (
                     <figure className="d-flex align-items-center gap-3 mt-2">
-                        <img src="../assets/img/usuario.png" width={34} alt="Foto de perfil del contacto" />
+                        <img src="/clientes/assets/img/usuario.png" width={34} alt="Foto de perfil del contacto" />
                         <h5 className="p-0 m-0">{participants[0].nombre}</h5>
                     </figure>
                 )}
                 
                 <figure className="cabecera__logo m-0 d-flex align-items-md-center justify-content-center">
-                    <img src="/assets/img/logo.png" alt="Logo" />
+                    <img src="/clientes/assets/img/logo.png" alt="Logo" />
                     <article className="d-none d-lg-block">
                         <p className="fs-3 m-0 fw-bold">ILIBERP</p>
                         <p className="m-0">Solutions</p>
@@ -152,9 +152,9 @@ export default function Chat({ chat, t, user_logued_id }) {
                     <article key={index} className={`shadow-sm w-50 py-3 px-3 my-3 mx-2 ${mensaje.usuario == user_logued_id ? 'enviado' : 'recibido'}`}>
                         {mensaje.fichero && (
                             mensaje.fichero.match(/\.(jpeg|jpg|gif|png)$/) ? (
-                                <img src={`http://127.0.0.1:8000${mensaje.fichero}`} alt="fichero" className='w-100 mb-3' />
+                                <img src={`https://iliberp.work.gd/${mensaje.fichero}`} alt="fichero" className='w-100 mb-3' />
                             ) : (
-                                <a href={`http://127.0.0.1:8000${mensaje.fichero}`} className='text-white mb-3' target="_blank" rel="noopener noreferrer">
+                                <a href={`https://iliberp.work.gd/${mensaje.fichero}`} className='text-white mb-3' target="_blank" rel="noopener noreferrer">
                                     {mensaje.fichero.split('/').pop()} <i className="fa-solid fa-download"></i>
                                 </a>
                             )

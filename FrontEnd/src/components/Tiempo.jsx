@@ -63,7 +63,7 @@ export default function Tiempo() {
         <div className='d-flex flex-column justify-content-between h-100 p-3'>
           <div className='h-50'>
             <figure className="tiempo__logo d-flex">
-                <img width={50} src="/assets/img/logo.png" alt="Logo" />
+                <img width={50} src="/clientes/assets/img/logo.png" alt="Logo" />
                 <article className="d-none d-lg-block">
                     <p className="fs-3 m-0 fw-bold">ILIBERP</p>
                     <p className="m-0 text-start">Solutions</p>

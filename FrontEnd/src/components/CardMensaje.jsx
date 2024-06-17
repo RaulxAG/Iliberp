@@ -10,9 +10,9 @@ export default function CardMensaje({ mensaje, page, selected, query }) {
 
     const handleClick = (chat_seleccionado) => {
         if (page == "mensajeria") {
-            navigate(`/mensajeria/${chat_seleccionado}`);
+            navigate(`/clientes/mensajeria/${chat_seleccionado}`);
         } else if (page == "inicio") {
-            navigate(`/mensajeria/${mensaje.chat_id}`);
+            navigate(`/clientes/mensajeria/${mensaje.chat_id}`);
         }
     };
 
