@@ -48,12 +48,12 @@
                     </thead>
                     <tbody id="tablaEmpleados">
                         {% for client in clients %}
-                            <tr onclick="window.location.href = '/detailsClient-{{ client.id }}';"> 
+                            <tr onclick="window.location.href = '/empleados/detailsClient-{{ client.id }}';"> 
                                 <td data-label="Nombre">{{client.user.first_name}}</td>
                                 <td data-label="Apellido">{{client.user.last_name}}</td>
                                 <td data-label="Dni">{{client.dni}}</td>
                                 <td data-label="Teléfono">{{client.telefono1}}</td>
-                                <td data-label="Empresa">{{client.empresa.nombre}}</td>
+                                <td data-label="Empresa">{{ client.empresa.nombre or "null" }}</td>
                             </tr>
                         {% endfor %} 
                     </tbody>

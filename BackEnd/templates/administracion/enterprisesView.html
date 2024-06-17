@@ -48,7 +48,7 @@
                     </thead>
                     <tbody id="tablaEmpleados">
                         {% for enterprise in enterprises %}
-                            <tr onclick="window.location.href = '/detailsEnterprise-{{ enterprise.id }}';">
+                            <tr onclick="window.location.href = '/empleados/detailsEnterprise-{{ enterprise.id }}';">
                                 <td data-label="Nombre">{{enterprise.nombre}}</td>
                                 <td data-label="Dni">{{enterprise.cif_nif}}</td>
                                 <td data-label="Dirección">{{enterprise.direccion}}</td>

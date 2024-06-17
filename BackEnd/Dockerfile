@@ -1,22 +1,35 @@
-FROM python:3.11
+# Define la imagen base basada en Debian/Ubuntu
+FROM python:3.9-slim
 
-ENV PYTHONUNBUFFERED 1
-
-RUN mkdir /app
-
-# Directorio de trabajo
+# Configura el directorio de trabajo
 WORKDIR /app
 
-# Copiar el archivo requirements.txt al directorio de trabajo
-COPY . /app/
+# Instala las dependencias del sistema operativo
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    wkhtmltopdf \
+    xvfb \
+    fontconfig \
+    libjpeg-dev \
+    default-libmysqlclient-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instalar las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
+# Actualiza pip a la última versión
+RUN pip install --upgrade pip
 
-# Exponer el puerto que Django utilizará
+# Copia el archivo de requerimientos
+COPY requirements.txt .
+
+# Instala las dependencias del proyecto
+RUN pip install -r requirements.txt
+
+# Copia el contenido del directorio actual al directorio de trabajo en la imagen
+COPY . .
+
+# Expone el puerto 8000 (o el puerto que uses para ejecutar Django)
 EXPOSE 8000
 
-# # Establecer las variables de entorno necesarias para Django
-# ENV DJANGO_SETTINGS_MODULE=iliberp.settings
-# Ejecutar las migraciones y el servidor de desarrollo
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# Comando para ejecutar la aplicación
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

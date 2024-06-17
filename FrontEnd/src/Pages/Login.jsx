@@ -47,7 +47,7 @@ export default function FormInicio() {
         .then(response => response.json())
         .then(data => {
             if (data.token) {
-                window.location.href = '/inicio';
+                window.location.href = '/clientes/inicio';
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user_id', data.user_id);
                 localStorage.setItem('username', data.username);

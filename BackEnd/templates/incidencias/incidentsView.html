@@ -86,7 +86,7 @@
                     </thead>
                     <tbody id="tablaEmpleados">
                         {% for incident in incidents %}
-                            <tr onclick="window.location.href = '/detailsIncident-{{ incident.id }}';">
+                            <tr onclick="window.location.href = '/empleados/detailsIncident-{{ incident.id }}';">
                                 <td  data-label="Categoría">{{incident.get_categoria_display}}</td>
                                 <td  data-label="Estado">{{incident.get_estado_display}}</td>
                                 <td  data-label="Usuario">{{incident.cliente.user.username}}</td>

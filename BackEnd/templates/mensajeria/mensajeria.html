@@ -49,7 +49,7 @@
                 {% for chat in chats_user %}
                 <div class="containerPersona d-flex row overflow-hidden align-items-end bg-dark p-1">
                     <figure class="col-3">
-                        <img src="{% static 'assets/img/usuarioLogo.png' %}" alt="" class="rounded-circle bg-dark "/>
+                        <img src="{% static 'assets/img/usuario.png' %}" alt="" class="rounded-circle bg-dark "/>
                     </figure>
                     <p class="col-9 ultMensaje">{{chat.remitente}}: {{ chat.texto }}</p>
                     <p class="col-12 text-end small">{{ chat.fecha_hora }}</p>

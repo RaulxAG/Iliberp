@@ -15,7 +15,7 @@ let selectPersona  = document.querySelector("#selectPersona")
 let btnCrearChat = document.querySelector('#btnCrearChat')
 
 function cargarMensajes(chatId,page, habilitarLeerMas = false) {
-    fetch(`/empleados/getMessagesJSON/${chatId}?page=${page}`)
+    fetch(`/empleados/getMessagesJSON/${chatId}?page=${page}?user=${emisor}`)
     .then(response => response.json())
     .then(data => {
         if (page === 1) {
@@ -89,7 +89,6 @@ function getChats() {
     fetch(`/empleados/getChats/${emisor}`) 
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         // Actualizar la lista de chats 
         const chatsContainer = document.querySelector('.chats');
         chatsContainer.innerHTML = ''; // Limpiar el contenedor de chats
@@ -156,6 +155,7 @@ function onclickContainer() {
     });
 }
 
+//Inicializar los listener de los container
 onclickContainer()
 
 // Función para cargar más mensajes al llegar al inicio del contenedor
@@ -163,11 +163,8 @@ scrollMensajes.addEventListener('scroll', function() {
     if (leerMas && scrollMensajes.scrollTop <= 10 && pagActual!=ultPag) {
         pagActual++; // Incrementar la página actual
         cargarMensajes(chatId, pagActual); //Si solo es scroll, habilitar leer mas es false
-        console.log("hi")
     }
 });
-
-
 
 
 
@@ -212,7 +209,7 @@ btnCrearChat.addEventListener('click', function () {
 
     console.log(selectPersona.value);
     
-    fetch('/setChatJSON/', {
+    fetch('/empleados/setChatJSON/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

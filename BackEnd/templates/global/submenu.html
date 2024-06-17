@@ -2,7 +2,7 @@
 
 <section class="menuLateral box d-flex flex-column align-items-center justify-content-between">
     <div>
-        <a class="link menuLateral__profile" href="/" >
+        <a class="link menuLateral__profile" href="/empleados/" >
             <img src="{% static 'assets/img/usuario.png' %}" class="profile__photo" alt="Foto de perfil" />
             <p class="m-0 d-none d-sm-inline">{{user.username}}</p>
         </a>
@@ -11,50 +11,46 @@
         <section class="menuLateral__enlaces">
             <ul class="enlaces__lista">
                 <li>
-                    <a href="/inicio" id="option_inicio">
+                    <a href="empleados/inicio" id="option_inicio">
                         <i class="fa-solid fa-house"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/incidents" id="option_incidencias">
+                    <a href="/empleados/incidents" id="option_incidencias">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/chat" id="option_chat">
+                    <a href="/empleados/chat" id="option_chat">
                         <i class="fa-solid fa-comments"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/trello" id="option_trello">
+                    <a href="/empleados/trello" id="option_trello">
                         <i class="fa-brands fa-trello"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/inventario" id="option_inventario">
+                    <a href="/empleados/inventario" id="option_inventario">
                         <i class="fa-solid fa-boxes-packing"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/employees" id="option_empleado">
+                    <a href="/empleados/employees" id="option_empleado">
                         <i class="fa-solid fa-user-tie"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/clients" id="option_cliente">
+                    <a href="/empleados/clients" id="option_cliente">
                         <i class="fa-solid fa-address-book"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="/enterprises" id="option_empresas">
+                    <a href="/empleados/enterprises" id="option_empresas">
                         <i class="fa-solid fa-building"></i>
                     </a>
                 </li>
             </ul>
-        </section>
-
-        <section class="menuLateral__logo d-flex d-none d-sm-block align-items-center justify-content-center py-2">
-            <img src="{% static 'assets/img/logo.png' %}" alt="logo" />
         </section>
     </div>
 </section> 
