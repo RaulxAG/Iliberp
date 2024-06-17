@@ -251,7 +251,7 @@ def generar_pdf(request, id_employee=None):
 
     # Configuración del pdfkit y del wkhtmltopdf
 
-    path_wkthmltopdf = r'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+    path_wkthmltopdf = r'/usr/bin/wkhtmltopdf'
     config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
     opciones_pdf = {
