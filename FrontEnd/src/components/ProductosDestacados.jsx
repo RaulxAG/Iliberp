@@ -5,7 +5,7 @@ export default function ProductosDestacados() {
     const [productosDestacados, setProductosDestacados] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/getFeaturedProductsJSON/')
+        fetch('https://iliberp.work.gd/empleados/getFeaturedProductsJSON/')
             .then(response => response.json())
             .then(data => {
                 setProductosDestacados(data);
